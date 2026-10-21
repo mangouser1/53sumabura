@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>53sumabura | VER 2.6</title>
+<title>53sumabura | VER 2.7</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -109,7 +109,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
 @media (pointer:coarse),(max-width:760px){#touchControls{display:block}.battle-bottom{pointer-events:none;padding:0;background:none}.controls-note{display:none}.battle-actions{position:absolute;top:106px;left:50%;transform:translateX(-50%);gap:5px}.small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52,.78)}}
 @media(max-width:390px){.touch-dpad{width:min(42vw,150px);left:8px;bottom:max(12px,env(safe-area-inset-bottom))}.touch-skills{width:min(49vw,176px);right:8px;bottom:max(12px,env(safe-area-inset-bottom));gap:4px}.touch-skill b{font-size:17px}.touch-skill small{font-size:8px}.battle-bottom.touch-layout .battle-actions,html.has-touch .battle-actions{top:92px}}
 @media(max-height:450px){.touch-dpad{width:min(36vh,145px);left:12px;bottom:8px}.touch-skills{width:min(55vh,236px);right:12px;bottom:8px;gap:5px}.touch-skill b{font-size:18px}.touch-skill small{font-size:8px}.battle-bottom.touch-layout .battle-actions,html.has-touch .battle-actions{top:77px}}
-/* VER 2.6 mobile mode: suppress double-tap zoom but retain pinch zoom. */
+/* VER 2.7 mobile mode: suppress double-tap zoom but retain pinch zoom. */
 html.mobile-mode,html.mobile-mode body{touch-action:manipulation;overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 html.mobile-mode #app{height:100dvh;min-height:0}
 html.mobile-mode #touchControls{display:block!important}
@@ -186,7 +186,7 @@ html.mobile-mode .touch-key{touch-action:none}
 
 
 
-/* VER 2.6: responsive layout pass for small phones, tablets, desktop and landscape. */
+/* VER 2.7: responsive layout pass for small phones, tablets, desktop and landscape. */
 :root { color-scheme: dark; }
 html, body {
   min-width: 0;
@@ -400,7 +400,7 @@ img, canvas, video, svg { max-width: 100%; }
 </style>
 
 <style>
-/* VER 2.6: dedicated right-thumb jump button and touch-accessible pause/exit. */
+/* VER 2.7: dedicated right-thumb jump button and touch-accessible pause/exit. */
 .touch-jump-button {
   display: none; position: absolute; z-index: 8; pointer-events: auto; touch-action: none;
   right: max(10px, env(safe-area-inset-right));
@@ -441,7 +441,7 @@ img, canvas, video, svg { max-width: 100%; }
 }
 </style>
 <style>
-/* VER 2.6: per-device touch control layout customization. */
+/* VER 2.7: per-device touch control layout customization. */
 #touchControls { opacity: var(--touch-layout-opacity, 1); }
 #touchControls .touch-dpad {
   left: var(--touch-layout-stick-left, max(10px, env(safe-area-inset-left))) !important;
@@ -479,7 +479,7 @@ img, canvas, video, svg { max-width: 100%; }
 }
 
 
-/* VER 2.6: fix menu CSS leak and add visual touch layout editor. */
+/* VER 2.7: fix menu CSS leak and add visual touch layout editor. */
 #touchLayoutOpenBtn{width:100%;min-height:50px;margin:8px 0 2px}
 .touch-layout-launch-card{padding:12px;border:1px solid #ffffff20;border-radius:10px;background:#061425a8;margin-top:10px}
 .touch-layout-modal{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:rgba(1,6,14,.9);backdrop-filter:blur(8px)}
@@ -490,8 +490,8 @@ img, canvas, video, svg { max-width: 100%; }
 .touch-layout-dialog-head h2{margin:5px 0 4px;font-size:clamp(18px,3vw,27px);line-height:1.2}
 .touch-layout-dialog-head p{margin:0;color:#aec7dc;font-size:12px;line-height:1.6}
 .touch-layout-close{flex:0 0 auto;min-height:40px;padding:8px 10px}
-.touch-layout-preview-wrap{width:100%;display:flex;justify-content:center}
-.touch-layout-preview{position:relative;isolation:isolate;width:100%;max-height:54dvh;min-height:220px;aspect-ratio:16/9;overflow:hidden;border:1px solid #6e97b888;border-radius:10px;background:radial-gradient(ellipse at 50% 80%,#23435f 0,#10283f 35%,#071221 78%);touch-action:none;user-select:none;-webkit-user-select:none}
+.touch-layout-preview-wrap{width:100%;display:flex;justify-content:center;align-items:center;overflow:hidden;min-width:0}
+.touch-layout-preview{position:relative;isolation:isolate;flex:none;width:100%;height:auto;max-width:100%;max-height:none;min-height:0;aspect-ratio:auto;box-sizing:border-box;overflow:hidden;border:1px solid #6e97b888;border-radius:10px;background:radial-gradient(ellipse at 50% 80%,#23435f 0,#10283f 35%,#071221 78%);touch-action:none;user-select:none;-webkit-user-select:none}
 .touch-layout-fallback-scene{position:absolute;inset:0;overflow:hidden;background:radial-gradient(ellipse at 50% 100%,rgba(70,142,184,.45),transparent 55%),linear-gradient(180deg,#101e36,#1d3d56 68%,#172d43)}
 .layout-stage-grid{position:absolute;left:-20%;right:-20%;bottom:-42%;height:85%;transform:perspective(250px) rotateX(57deg);transform-origin:top center;background-image:linear-gradient(#60f0ff24 1px,transparent 1px),linear-gradient(90deg,#60f0ff24 1px,transparent 1px);background-size:7% 12%;border-top:2px solid #60f0ff55}
 .layout-stage-platform{position:absolute;left:9%;right:9%;bottom:16%;height:15%;background:linear-gradient(180deg,#34546a,#142a40);border:1px solid #8cefff55;transform:perspective(330px) rotateX(12deg);box-shadow:0 14px 35px #0008}
@@ -542,7 +542,7 @@ body.touch-layout-editor-open{overflow:hidden}
   <div class="rank-board-wrap"><table class="rank-board"><thead><tr><th>#</th><th id="rankColPlayer">プレイヤー</th><th id="rankColTier">ランク</th><th id="rankColRP">RP</th></tr></thead><tbody id="rankLeaderboardRows"><tr><td colspan="4">ランキングを読み込み中…</td></tr></tbody></table></div>
  </section>
  <div id="howText" class="footnote" style="display:none;max-width:650px">相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。ダメージが高いほど遠くへ飛びやすい！<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ攻撃　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード<br>2P：<span class="keycap">←</span><span class="keycap">→</span> 移動　<span class="keycap">↑</span> ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ ダッシュ　↓ 地面攻撃　0 ガード</div>
- <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 2.6</div>
+ <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 2.7</div>
 </section>
 <section id="aiRoomScreen" class="screen"><div class="panel ai-room-panel">
  <div class="panel-head"><div><div class="step">SPECTATOR MODE / AI VS AI</div><h2>AI BATTLE ROOM</h2><div class="ai-room-kicker">観戦専用ルーム · 2体のAIが自動で対戦</div></div><div class="ai-room-live">LOCAL AI ARENA</div></div>
@@ -606,16 +606,16 @@ body.touch-layout-editor-open{overflow:hidden}
 </section>
 <section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 2.6</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 2.7</div>
 <div id="battleSetupOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="battleSetupTitle">
- <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 2.6</div><h2 id="battleSetupTitle">対戦設定</h2>
+ <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 2.7</div><h2 id="battleSetupTitle">対戦設定</h2>
  <p class="shop-lead">通常対戦のモードとCPUの強さを選んでから、キャラクター選択へ進もう。</p>
  <div id="battleSetupControls"></div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="battleSetupCancel">戻る</button><button class="primary-btn" id="battleSetupGo">キャラクター選択へ →</button></div>
  </div>
 </div>
 <div id="shopOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
- <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 2.6</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモートを購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
+ <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 2.7</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモートを購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
  <div class="shop-rules-note">🐕 ペットは通常対戦限定。AIランク戦では使用できません。オーラとエモートは見た目だけで、ランク戦でも使用できます。エモートは V キー。</div>
  <div id="shopItemsGrid" class="shop-items-grid"></div><div id="shopStatus" class="shop-status" aria-live="polite">アイテムを選んでね。</div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="shopClose">戻る</button></div>
@@ -708,7 +708,7 @@ body.touch-layout-editor-open{overflow:hidden}
  <section class="settings-update-card" aria-label="バージョン更新">
   <div><div class="settings-update-title" id="versionUpdateTitle">🔄 バージョン更新</div><div class="settings-update-copy" id="versionUpdateCopy">公開サイトに新しいバージョンがあるか確認します。更新が見つかった場合は再読み込みできます。</div></div>
   <button class="secondary-btn" id="versionUpdateBtn" type="button">更新を確認</button>
-  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 2.6</div>
+  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 2.7</div>
  </section>
  <div class="setting-actions"><button class="secondary-btn" id="settingsCloseBtn">戻る</button><button class="primary-btn" id="settingsApplyBtn">適用</button></div>
  </div></div>
@@ -1303,7 +1303,7 @@ function applyLanguage(lang){
  uiLanguage=lang==='en'?'en':'ja';const ja=uiLanguage==='ja',t=settingsLocales[uiLanguage];document.documentElement.lang=uiLanguage;
  $('#settingsTitle').textContent=t.settingsTitle;$('#bgmLabel').textContent=ja?'BGM（背景音楽）':'Background music (BGM)';$('#bgmHelp').textContent=ja?'メニュー・対戦中に流れる音楽':'Original music in menus and battles';$('#bgmVolumeLabel').textContent=ja?'BGM音量':'BGM volume';$('#bgmVolumeHelp').textContent=ja?'背景音楽の音量を調整':'Adjust background music volume';$('.settings-box .step').textContent=ja?'システム設定':'SYSTEM / OPTIONS';document.querySelector('[data-settings-tab="graphics"]').textContent=t.graphicsTab;document.querySelector('[data-settings-tab="language"]').textContent=t.languageTab;document.querySelector('[data-settings-tab="account"]').textContent=t.accountTab;const mobileTabButton=document.querySelector('[data-settings-tab="mobile"]');if(mobileTabButton)mobileTabButton.textContent=ja?'📱 スマホ':'📱 Mobile';if($('#mobileModeSectionTitle'))$('#mobileModeSectionTitle').textContent=ja?'スマホモード':'MOBILE MODE';if($('#mobileModeLabel'))$('#mobileModeLabel').textContent=ja?'スマホモードを有効にする':'Enable mobile mode';if($('#mobileModeHelp'))$('#mobileModeHelp').textContent=ja?'ダブルタップでの拡大を抑え、タッチ向け表示を有効にします。ピンチ拡大は利用できます。':'Reduces double-tap zoom and enables touch-friendly layout. Pinch zoom remains available.';if($('#mobileModeNote'))$('#mobileModeNote').textContent=ja?'「適用」でスマホモードを保存します。全画面表示は上のボタンを押したときに開始します。ブラウザによっては全画面表示に対応していません。':'Press Apply to save mobile mode. Fullscreen starts only after pressing the button. Some browsers do not support fullscreen.';$('#settingsPlayerNameHeading').textContent=ja?'プレイヤー名':'PLAYER NAME';$('#playerNameLabel').textContent=ja?'自分のプレイヤー名':'Your player name';$('#playerNameInput').placeholder=ja?'プレイヤー名（最大24文字）':'Player name (max 24 characters)';$('#playerNameInput').setAttribute('aria-label',ja?'自分のプレイヤー名':'Your player name');$('#savePlayerNameBtn').textContent=ja?'名前を保存':'Save name';$('#settingsAccountHeading').textContent=ja?'アカウント / ログイン':'ACCOUNT / SIGN-IN';$('#settingsEmailHeading').textContent=ja?'メールリンクでログイン':'SIGN IN WITH EMAIL LINK';$('#settingsEmailLabel').textContent=ja?'登録済みアカウントのメールアドレス':'Registered account email';$('#settingsEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link';$('#settingsEmailInput').placeholder=ja?'登録済みメールアドレス':'Registered email address';$('#settingsEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#settingsEmailHelp').textContent=ja?'同じメールアドレスに届いたリンクをこの端末で開くとログインできます。メールリンク認証はFirebase Consoleで有効にする必要があります。':'Open the sign-in link sent to this same email on this device. Email-link sign-in must be enabled in Firebase Console.';$('#settingsAccountNote').textContent=ja?'アカウントを切り替える前にオンラインの部屋から退出してください。登録済みと同じメールアドレスを使ってね。':'Leave your online room before switching accounts. Use the same email address that was previously registered.';['basicGraphicsTitle','audioSettingsTitle','graphicsDetailTitle','fpsLabel','fpsHelp','qualityLabel','qualityHelp','effectsLabel','effectsHelp','soundLabel','soundHelp','volumeLabel','volumeHelp','shadowLabel','shadowHelp','detailLabel','detailHelp','renderScaleLabel','renderScaleHelp','depthLabel','depthHelp','lightingLabel','lightingHelp','atmosphereLabel','atmosphereHelp','bloomLabel','bloomHelp','reflectionLabel','reflectionHelp','motionLabel','motionHelp','gradingLabel','gradingHelp','graphicsHint','languageLabel','languageHelp','languageNote'].forEach(id=>{if($('#'+id))$('#'+id).textContent=t[id]});$('#settingsCloseBtn').textContent=t.close;$('#settingsApplyBtn').textContent=t.apply;$('#settingsBtn').textContent=t.settingsButton;$('#pauseSettingsBtn').textContent=t.settingsButton;const q=$('#qualitySelect');q.options[0].textContent=t.qualityLow;q.options[1].textContent=t.qualityMedium;q.options[2].textContent=t.qualityHigh;q.options[3].textContent=t.qualityUltra;const sh=$('#shadowSelect');sh.options[0].textContent=t.shadowOff;sh.options[1].textContent=t.shadowSoft;sh.options[2].textContent=t.shadowHigh;const de=$('#detailSelect');de.options[0].textContent=t.detailLow;de.options[1].textContent=t.detailMedium;de.options[2].textContent=t.detailHigh;de.options[3].textContent=t.detailUltra;const rs=$('#renderScaleSelect');[t.scaleAuto,t.scale75,t.scale100,t.scale125,t.scale150,t.scale175,t.scale200].forEach((label,i)=>rs.options[i].textContent=label);
  // ホーム画面
- $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、友達の部屋コードで参加しよう。':'Connects automatically at startup. Create a room or join with a friend’s room code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 部屋を作成するか、6文字の部屋コードで参加する。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Create a room or join with a 6-character code.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストが2・3・4人の対戦人数を選んで部屋を作成。友達は部屋コードで参加し、全員がキャラクターを選んで準備完了にしたら開始できます。':'Host chooses a 2-, 3-, or 4-player room. Friends join with the room code, select fighters, and ready up before the host starts.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';$('#howBtn').textContent=ja?'遊び方':'HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 2.6':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 2.6';
+ $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、友達の部屋コードで参加しよう。':'Connects automatically at startup. Create a room or join with a friend’s room code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 部屋を作成するか、6文字の部屋コードで参加する。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Create a room or join with a 6-character code.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストが2・3・4人の対戦人数を選んで部屋を作成。友達は部屋コードで参加し、全員がキャラクターを選んで準備完了にしたら開始できます。':'Host chooses a 2-, 3-, or 4-player room. Friends join with the room code, select fighters, and ready up before the host starts.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';$('#howBtn').textContent=ja?'遊び方':'HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 2.7':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 2.7';
  // AI観戦ルーム
  const roomHead=$('#aiRoomScreen .panel-head');roomHead.querySelector('.step').textContent=ja?'観戦モード / AI対AI':'SPECTATOR MODE / AI VS AI';roomHead.querySelector('h2').textContent=ja?'AI対戦ルーム':'AI BATTLE ROOM';$('#aiRoomScreen .ai-room-kicker').textContent=ja?'観戦専用ルーム · 2体のAIが自動で対戦':'Spectator room · Two AIs fight automatically';$('#aiRoomScreen .ai-room-live').textContent=ja?'ローカルAIアリーナ':'LOCAL AI ARENA';const roomCards=document.querySelectorAll('.ai-room-card h3');if(roomCards[0])roomCards[0].textContent=ja?'01 / シアンチーム':'01 / CYAN TEAM';if(roomCards[1])roomCards[1].textContent=ja?'02 / ピンクチーム':'02 / PINK TEAM';[['#aiRoomScreen label[for="watchP1Select"]','キャラクター1','FIGHTER 1'],['#aiRoomScreen label[for="watchLevel1"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchP2Select"]','キャラクター2','FIGHTER 2'],['#aiRoomScreen label[for="watchLevel2"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchStageSelect"]','ステージ','BATTLE ARENA'],['#aiRoomScreen label[for="watchMatchLength"]','対戦時間','MATCH LENGTH']].forEach(([sel,j,e])=>setText(sel,j,e));$('#aiRoomScreen .ai-room-hint').textContent=ja?'AIが自分で移動・ジャンプ・攻撃・ガード・必殺技を使って戦うよ。観戦中は操作不要。キャラや強さを変えて、何度でも対戦を見られる！':'AIs move, jump, attack, guard and use special moves automatically. No controls are needed while watching. Change fighters or levels and watch again!';$('#watchBackBtn').textContent=ja?'← ホームへ戻る':'← BACK TO HOME';$('#watchStartBtn').textContent=ja?'▶ 観戦開始':'▶ START WATCHING';
  // キャラクター・ステージ選択
@@ -1356,7 +1356,7 @@ function saveGraphicsSettings(){try{localStorage.setItem('skyboundGraphicsSettin
 function closeSettings(){ $('#settingsOverlay').classList.remove('show') }
 function applySettings(){showFPS=$('#fpsToggle').checked;graphicsQuality=$('#qualitySelect').value;particlesEnabled=$('#effectsToggle').checked;shadowQuality=$('#shadowSelect').value;environmentDetail=$('#detailSelect').value;resolutionScaleSetting=$('#renderScaleSelect').value;depthEffects=$('#depthToggle').checked;cinematicLighting=$('#lightingToggle').checked;atmosphereEnabled=$('#atmosphereToggle').checked;bloomEnabled=$('#bloomToggle').checked;reflectionEnabled=$('#reflectionToggle').checked;motionTrailsEnabled=$('#motionToggle').checked;colorGradingEnabled=$('#gradingToggle').checked;soundEnabled=$('#soundToggle').checked;soundVolume=Number($('#soundVolume').value)/100;bgmEnabled=$('#bgmToggle').checked;bgmVolume=Number($('#bgmVolume').value)/100;applyLanguage($('#languageSelect').value);setMobileMode($('#mobileModeToggle').checked,true);saveGraphicsSettings();saveAudioSettings();initAudio();if(masterGain)masterGain.gain.setTargetAtTime(soundEnabled?soundVolume:0,audioCtx.currentTime,.025);if(bgmEnabled)startBGM();else stopBGM();if(bgmGain)bgmGain.gain.setTargetAtTime(bgmEnabled?bgmVolume:0,audioCtx.currentTime,.08);$('#fpsCounter').style.display=showFPS&&$('#battleScreen').classList.contains('active')?'block':'none';resizeCanvas();closeSettings();if($('#battleScreen').classList.contains('active'))render();playSfx('ui')}
 
-// VER 2.6 admin panel. This client-side password is only a UI gate;
+// VER 2.7 admin panel. This client-side password is only a UI gate;
 // Firebase Rules must separately authorize one trusted admin UID.
 const ADMIN_MODE_PASSWORD = 'kansuke1102';
 let adminModeUnlocked = false;
@@ -1421,7 +1421,7 @@ $('#adminCopyUidBtn').addEventListener('click',async()=>{const uid=$('#adminCurr
 $('#adminLockBtn').addEventListener('click',()=>{adminModeUnlocked=false;adminModeIdentity=null;adminModeProfiles=[];$('#adminModePanel').hidden=true;$('#adminPasswordInput').value='';setAdminModeStatus('管理者モードを閉じました。');});
 document.querySelectorAll('[data-settings-tab]').forEach(b=>b.addEventListener('click',()=>openSettingsTab(b.dataset.settingsTab)));$('#mobileFullscreenBtn').addEventListener('click',toggleMobileFullscreen);$('#mobileModeToggle').addEventListener('change',()=>{const status=$('#mobileModeStatus');if(status){status.dataset.state='neutral';status.textContent=$('#mobileModeToggle').checked?(uiLanguage==='en'?'Press Apply to enable mobile mode.':'「適用」を押すとスマホモードが有効になります。'):(uiLanguage==='en'?'Press Apply to disable mobile mode.':'「適用」を押すとスマホモードがオフになります。')}});document.addEventListener('fullscreenchange',updateMobileModeStatus);document.addEventListener('webkitfullscreenchange',updateMobileModeStatus);document.addEventListener('dblclick',e=>{if(mobileModeEnabled&&e.cancelable)e.preventDefault()},{passive:false});setMobileMode(mobileModeEnabled,false);
 $('#settingsBtn').onclick=()=>{initAudio();playSfx('ui');openSettings()};$('#pauseSettingsBtn').onclick=()=>{initAudio();playSfx('ui');openSettings()};$('#settingsCloseBtn').onclick=()=>{playSfx('ui');closeSettings()};$('#settingsApplyBtn').onclick=applySettings;$('#onlineBtn').onclick=()=>{$('#onlineOverlay').classList.add('show');playSfx('ui')};$('#onlineCloseBtn').onclick=()=>$('#onlineOverlay').classList.remove('show');$('#onlineOverlay').addEventListener('click',e=>{if(e.target===$('#onlineOverlay'))$('#onlineOverlay').classList.remove('show')});
-const APP_VERSION_NUMBER = '2.6';
+const APP_VERSION_NUMBER = '2.7';
 function parseAppVersionFromHtml(html){
  const title = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)||[])[1] || '';
  const m = (title+' '+html.slice(0,12000)).match(/VER\s*(\d+)\.(\d+)/i);
@@ -1575,7 +1575,7 @@ function updateTouchStick(e){
  const wantLeft=nx < -dead,wantRight=nx > dead;
  held.a=wantLeft;held.d=wantRight;
  if(touchStickHint)touchStickHint.textContent=wantLeft?'◀':wantRight?'▶':'MOVE';
-  // VER 2.6: the left stick controls horizontal movement only. Jump uses the separate right-hand button.
+  // VER 2.7: the left stick controls horizontal movement only. Jump uses the separate right-hand button.
   stickJumpActive=false;
   stickSlamActive=false;
 }
@@ -2683,7 +2683,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 </script>
 
 <script>
-// VER 2.6: refresh the fight canvas on orientation and visual-viewport changes.
+// VER 2.7: refresh the fight canvas on orientation and visual-viewport changes.
 (() => {
   const refreshResponsiveCanvas = () => {
     window.requestAnimationFrame(() => {
@@ -2701,7 +2701,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 </script>
 
 
-<!-- VER 2.6: touch-layout visual editor. -->
+<!-- VER 2.7: touch-layout visual editor. -->
 <div id="touchLayoutModal" class="touch-layout-modal" hidden>
  <section class="touch-layout-dialog" role="dialog" aria-modal="true" aria-labelledby="touchLayoutModalTitle">
   <header class="touch-layout-dialog-head">
@@ -2749,7 +2749,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
  </section>
 </div>
 <script>
-// VER 2.6: screenshot-backed drag-and-drop touch layout editor.
+// VER 2.7: viewport-matched drag-and-drop touch layout editor.
 (function(){
  const root=document.getElementById('touchControls');
  const modal=document.getElementById('touchLayoutModal');
@@ -2762,19 +2762,34 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
  const resetBtn=document.getElementById('touchLayoutModalResetBtn');
  const statusEl=document.getElementById('touchLayoutModalStatus');
  const pageStatus=document.getElementById('touchLayoutStatus');
- const storageKey='53sumaburaTouchLayout_v2';
- const legacyKey='53sumaburaTouchLayout_v1';
+ const storageKey='53sumaburaTouchLayout_v3';
+ const priorKeys=['53sumaburaTouchLayout_v2','53sumaburaTouchLayout_v1'];
  const defaults={stickSize:100,stickX:3,stickY:2,skillsSize:100,skillsX:3,skillsY:2,jumpSize:100,jumpX:3,jumpY:27,opacity:90};
- let values={...defaults}, saved=false, selected='stick', drag=null;
+ let values={...defaults}, saved=false, selected='stick', drag=null, previewScaleX=1, previewScaleY=1, screenW=390, screenH=800;
  const itemEls={stick:preview.querySelector('[data-layout-item="stick"]'),skills:preview.querySelector('[data-layout-item="skills"]'),jump:preview.querySelector('[data-layout-item="jump"]')};
  const selectedText=document.getElementById('touchLayoutSelectedLabel');
  const names={stick:'移動スティック',skills:'攻撃ボタン群',jump:'ジャンプボタン'};
+ const clamp=(v,min,max)=>Math.max(min,Math.min(max,Number(v)||0));
+ function getScreenSize(){
+  const app=document.getElementById('app');
+  const r=app?app.getBoundingClientRect():null;
+  const w=(r&&r.width>0?r.width:window.innerWidth)||390;
+  const h=(r&&r.height>0?r.height:window.innerHeight)||800;
+  return {w,h};
+ }
  function readStorage(){
   try{
-   let raw=localStorage.getItem(storageKey); if(!raw)raw=localStorage.getItem(legacyKey);
+   let raw=localStorage.getItem(storageKey);
+   if(!raw){for(const key of priorKeys){raw=localStorage.getItem(key);if(raw)break;}}
    if(raw){const parsed=JSON.parse(raw);Object.keys(defaults).forEach(k=>{const n=Number(parsed[k]);if(Number.isFinite(n))values[k]=n;});saved=true;}
   }catch(_){saved=false;values={...defaults};}
   sanitize();
+ }
+ function sizeBase(type,w=screenW,h=screenH){
+  // Keep this identical to the live control pixel sizes; the editor scales these exact sizes.
+  if(type==='stick')return w<=390?Math.min(w*.42,150):(h<=450?Math.min(h*.36,145):Math.min(w*.43,184));
+  if(type==='skills')return w<=390?Math.min(w*.49,176):(h<=450?Math.min(h*.55,236):Math.min(w*.49,232));
+  return w<=390?60:(h<=450?Math.min(h*.18,62):Math.max(56,Math.min(w*.14,76)));
  }
  function sanitize(){
   values.stickSize=clamp(values.stickSize,70,150);values.skillsSize=clamp(values.skillsSize,70,135);values.jumpSize=clamp(values.jumpSize,70,140);values.opacity=clamp(values.opacity,35,100);
@@ -2782,42 +2797,68 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   values.skillsX=clamp(values.skillsX,0,57);values.skillsY=clamp(values.skillsY,0,55);
   values.jumpX=clamp(values.jumpX,0,88);values.jumpY=clamp(values.jumpY,0,86);
  }
- function clamp(v,min,max){return Math.max(min,Math.min(max,Number(v)||0));}
- function sizeBase(type){const w=window.innerWidth||390,h=window.innerHeight||800;if(type==='stick')return w<=390?Math.min(w*.42,150):(h<=450?Math.min(h*.36,145):Math.min(w*.43,184));if(type==='skills')return w<=390?Math.min(w*.49,176):(h<=450?Math.min(h*.55,236):Math.min(w*.49,232));return w<=390?60:(h<=450?Math.min(h*.18,62):Math.max(56,Math.min(w*.14,76)));}
  function setVar(n,v){root.style.setProperty(n,v);}
  function applyActual(){
-  setVar('--touch-layout-stick-left',values.stickX+'%');setVar('--touch-layout-stick-bottom',values.stickY+'%');setVar('--touch-layout-stick-width',Math.round(sizeBase('stick')*values.stickSize/100)+'px');
-  setVar('--touch-layout-skills-right',values.skillsX+'%');setVar('--touch-layout-skills-bottom',values.skillsY+'%');setVar('--touch-layout-skills-width',Math.round(sizeBase('skills')*values.skillsSize/100)+'px');
-  setVar('--touch-layout-jump-right',values.jumpX+'%');setVar('--touch-layout-jump-bottom',values.jumpY+'%');setVar('--touch-layout-jump-size',Math.round(sizeBase('jump')*values.jumpSize/100)+'px');
+  const {w,h}=getScreenSize();
+  setVar('--touch-layout-stick-left',values.stickX+'%');setVar('--touch-layout-stick-bottom',values.stickY+'%');setVar('--touch-layout-stick-width',Math.round(sizeBase('stick',w,h)*values.stickSize/100)+'px');
+  setVar('--touch-layout-skills-right',values.skillsX+'%');setVar('--touch-layout-skills-bottom',values.skillsY+'%');setVar('--touch-layout-skills-width',Math.round(sizeBase('skills',w,h)*values.skillsSize/100)+'px');
+  setVar('--touch-layout-jump-right',values.jumpX+'%');setVar('--touch-layout-jump-bottom',values.jumpY+'%');setVar('--touch-layout-jump-size',Math.round(sizeBase('jump',w,h)*values.jumpSize/100)+'px');
   setVar('--touch-layout-opacity',String(clamp(values.opacity/100,.35,1)));
  }
+ function updatePreviewGeometry(){
+  const {w,h}=getScreenSize();screenW=w;screenH=h;
+  const wrap=preview.parentElement,wrapRect=wrap.getBoundingClientRect();
+  const availableW=Math.max(1,wrapRect.width);
+  let maxH=h*.54;
+  if(w<=560)maxH=h*.41;
+  if(h<=500&&w>h)maxH=h*.56;
+  // Render a scaled replica of the actual app viewport, not a fixed 16:9 mockup.
+  const scale=Math.min(availableW/w,maxH/h);
+  const pw=Math.max(1,w*scale),ph=Math.max(1,h*scale);
+  previewScaleX=pw/w;previewScaleY=ph/h;
+  preview.style.width=pw+'px';preview.style.height=ph+'px';preview.style.minHeight='0';preview.style.maxHeight='none';preview.style.maxWidth='100%';preview.style.aspectRatio='auto';
+ }
+ function setScaledPreviewText(){
+  const liveStick=root.querySelector('.touch-stick-hint');
+  const liveSkills=[...root.querySelectorAll('.touch-skill')];
+  const liveJump=root.querySelector('.touch-jump-button');
+  const previewStick=itemEls.stick.querySelector('span');
+  if(liveStick&&previewStick)previewStick.style.fontSize=(parseFloat(getComputedStyle(liveStick).fontSize)||10)*previewScaleX+'px';
+  const previewSkills=[...itemEls.skills.querySelectorAll('.layout-preview-skill')];
+  const liveSkillContainer=root.querySelector('.touch-skills');
+  const liveGap=liveSkillContainer?(parseFloat(getComputedStyle(liveSkillContainer).gap)||4):4;
+  itemEls.skills.style.gap=(liveGap*previewScaleX)+'px';itemEls.skills.style.padding='0';
+  previewSkills.forEach((el,i)=>{
+   const live=liveSkills[i];if(!live)return;
+   const liveB=live.querySelector('b'),liveSmall=live.querySelector('small'),previewB=el.querySelector('b'),previewSmall=el.querySelector('small');
+   if(liveB&&previewB)previewB.style.fontSize=(parseFloat(getComputedStyle(liveB).fontSize)||18)*previewScaleX+'px';
+   if(liveSmall&&previewSmall)previewSmall.style.fontSize=(parseFloat(getComputedStyle(liveSmall).fontSize)||9)*previewScaleX+'px';
+  });
+  const pJumpB=itemEls.jump.querySelector('b'),pJumpSmall=itemEls.jump.querySelector('small');
+  if(liveJump){const b=liveJump.querySelector('b'),sm=liveJump.querySelector('small');if(b&&pJumpB)pJumpB.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)||27)*previewScaleX+'px';if(sm&&pJumpSmall)pJumpSmall.style.fontSize=(parseFloat(getComputedStyle(sm).fontSize)||10)*previewScaleX+'px';}
+ }
  function applyPreview(){
-  sanitize();
-  const w=preview.clientWidth||600;
-  itemEls.stick.style.left=values.stickX+'%';itemEls.stick.style.bottom=values.stickY+'%';itemEls.stick.style.width=Math.max(56,w*.23*values.stickSize/100)+'px';
-  itemEls.skills.style.right=values.skillsX+'%';itemEls.skills.style.bottom=values.skillsY+'%';itemEls.skills.style.width=Math.max(105,w*.40*values.skillsSize/100)+'px';
-  itemEls.jump.style.right=values.jumpX+'%';itemEls.jump.style.bottom=values.jumpY+'%';itemEls.jump.style.width=Math.max(48,w*.105*values.jumpSize/100)+'px';
+  sanitize();if(!modal.hidden)updatePreviewGeometry();
+  itemEls.stick.style.left=values.stickX+'%';itemEls.stick.style.bottom=values.stickY+'%';itemEls.stick.style.width=(sizeBase('stick',screenW,screenH)*previewScaleX*values.stickSize/100)+'px';
+  itemEls.skills.style.right=values.skillsX+'%';itemEls.skills.style.bottom=values.skillsY+'%';itemEls.skills.style.width=(sizeBase('skills',screenW,screenH)*previewScaleX*values.skillsSize/100)+'px';
+  itemEls.jump.style.right=values.jumpX+'%';itemEls.jump.style.bottom=values.jumpY+'%';itemEls.jump.style.width=(sizeBase('jump',screenW,screenH)*previewScaleX*values.jumpSize/100)+'px';
   preview.style.setProperty('--layout-preview-opacity',String(clamp(values.opacity/100,.35,1)));
   Object.entries(itemEls).forEach(([key,el])=>el.classList.toggle('is-selected',key===selected));
   if(selectedText)selectedText.textContent='選択中：'+names[selected];
-  document.querySelectorAll('[data-layout-size]').forEach(b=>b.classList.toggle('selected',Number(b.dataset.layoutSizeValue)===values[selected+'Size']));
-  refreshToolSelection();
+  refreshToolSelection();setScaledPreviewText();
  }
  function refreshToolSelection(){
-  const sizeKey=selected+'Size';
-  const sizeMap={small:80,normal:100,large:125};
+  const sizeKey=selected+'Size',sizeMap={small:80,normal:100,large:125};
   document.querySelectorAll('[data-layout-size]').forEach(b=>b.classList.toggle('selected',sizeMap[b.dataset.layoutSize]===values[sizeKey]));
-  const opacityMap={low:50,normal:90,high:100};
-  const o=Object.keys(opacityMap).find(k=>opacityMap[k]===values.opacity);
+  const opacityMap={low:50,normal:90,high:100},o=Object.keys(opacityMap).find(k=>opacityMap[k]===values.opacity);
   document.querySelectorAll('[data-layout-opacity]').forEach(b=>b.classList.toggle('selected',b.dataset.layoutOpacity===o));
  }
  function setStatus(t,state='neutral'){if(statusEl){statusEl.textContent=t;statusEl.dataset.state=state;}if(pageStatus){pageStatus.textContent=t;pageStatus.dataset.state=state;}}
  function captureBattleImage(){
-  const canvas=document.getElementById('gameCanvas');
-  image.hidden=true;image.removeAttribute('src');preview.classList.remove('has-battle-image');
-  if(canvas&&canvas.width>0&&canvas.height>0){try{const data=canvas.toDataURL('image/png');if(data&&data.length>6000){image.onload=()=>{image.hidden=false;preview.classList.add('has-battle-image');};image.src=data;return;}}catch(_){} }
+  const canvas=document.getElementById('gameCanvas');image.hidden=true;image.removeAttribute('src');preview.classList.remove('has-battle-image');
+  if(canvas&&canvas.width>0&&canvas.height>0){try{const data=canvas.toDataURL('image/png');if(data&&data.length>6000){image.onload=()=>{image.hidden=false;preview.classList.add('has-battle-image');};image.src=data;}}catch(_){}}
  }
- function openEditor(){captureBattleImage();modal.hidden=false;selected='stick';applyPreview();document.body.classList.add('touch-layout-editor-open');setStatus('戦闘画面のプレビューで操作パネルをドラッグしてね。');}
+ function openEditor(){captureBattleImage();modal.hidden=false;selected='stick';document.body.classList.add('touch-layout-editor-open');requestAnimationFrame(()=>{updatePreviewGeometry();applyPreview();setStatus('プレビューは実際の画面と同じ縦横比・操作ボタンサイズです。ドラッグして位置を調整してね。');});}
  function closeEditor(){modal.hidden=true;document.body.classList.remove('touch-layout-editor-open');drag=null;}
  if(openBtn)openBtn.addEventListener('click',openEditor);
  if(closeBtn)closeBtn.addEventListener('click',closeEditor);
@@ -2825,38 +2866,29 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)closeEditor();});
  function pickItem(target){const el=target.closest('[data-layout-item]');return el&&preview.contains(el)?el:null;}
  preview.addEventListener('pointerdown',e=>{
-  const el=pickItem(e.target);if(!el)return;
-  e.preventDefault();selected=el.dataset.layoutItem;const rect=preview.getBoundingClientRect();
-  drag={key:selected,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,startValues:{...values},w:rect.width,h:rect.height,moved:false};
-  try{el.setPointerCapture(e.pointerId);}catch(_){}
-  applyPreview();setStatus('移動中：指を離すと位置が決まります。');
+  const el=pickItem(e.target);if(!el)return;e.preventDefault();selected=el.dataset.layoutItem;const rect=preview.getBoundingClientRect();
+  drag={key:selected,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,startValues:{...values},w:rect.width,h:rect.height};
+  try{el.setPointerCapture(e.pointerId);}catch(_){}applyPreview();setStatus('移動中：指を離すと位置が決まります。');
  });
  window.addEventListener('pointermove',e=>{
   if(!drag||e.pointerId!==drag.pointerId)return;
-  const dx=(e.clientX-drag.startX)/Math.max(1,drag.w)*100;
-  const dy=(e.clientY-drag.startY)/Math.max(1,drag.h)*100;
-  const k=drag.key, v=drag.startValues;
+  const dx=(e.clientX-drag.startX)/Math.max(1,drag.w)*100,dy=(e.clientY-drag.startY)/Math.max(1,drag.h)*100;
+  const k=drag.key,v=drag.startValues;
   if(k==='stick'){values.stickX=clamp(v.stickX+dx,0,77);values.stickY=clamp(v.stickY-dy,0,72);}
   else if(k==='skills'){values.skillsX=clamp(v.skillsX-dx,0,56);values.skillsY=clamp(v.skillsY-dy,0,54);}
-  else {values.jumpX=clamp(v.jumpX-dx,0,87);values.jumpY=clamp(v.jumpY-dy,0,85);}
-  drag.moved=true;applyPreview();
+  else{values.jumpX=clamp(v.jumpX-dx,0,87);values.jumpY=clamp(v.jumpY-dy,0,85);}
+  applyPreview();
  },{passive:false});
- function endDrag(e){if(drag&&(!e||e.pointerId===drag.pointerId)){drag=null;setStatus('位置を調整したよ。保存するまではゲーム本体に反映されません。');}}
+ function endDrag(e){if(drag&&(!e||e.pointerId===drag.pointerId)){drag=null;setStatus('位置を調整したよ。保存すると実際の対戦画面にも同じ比率・サイズで反映されます。');}}
  window.addEventListener('pointerup',endDrag);window.addEventListener('pointercancel',endDrag);
  Object.values(itemEls).forEach(el=>el.addEventListener('click',()=>{selected=el.dataset.layoutItem;applyPreview();}));
- document.querySelectorAll('[data-layout-size]').forEach(b=>b.addEventListener('click',()=>{
-  selected=selected||'stick';const map={small:80,normal:100,large:125};values[selected+'Size']=map[b.dataset.layoutSize]||100;applyPreview();setStatus(names[selected]+'のサイズを変更したよ。');
- }));
+ document.querySelectorAll('[data-layout-size]').forEach(b=>b.addEventListener('click',()=>{selected=selected||'stick';const map={small:80,normal:100,large:125};values[selected+'Size']=map[b.dataset.layoutSize]||100;applyPreview();setStatus(names[selected]+'のサイズを変更したよ。');}));
  document.querySelectorAll('[data-layout-opacity]').forEach(b=>b.addEventListener('click',()=>{const map={low:50,normal:90,high:100};values.opacity=map[b.dataset.layoutOpacity]||90;applyPreview();setStatus('操作ボタンの透明度を変更したよ。');}));
- if(saveBtn)saveBtn.addEventListener('click',()=>{
-  sanitize();applyActual();
-  try{localStorage.setItem(storageKey,JSON.stringify(values));localStorage.removeItem(legacyKey);saved=true;setStatus('タッチ操作レイアウトを保存したよ！','success');closeEditor();}
-  catch(_){setStatus('保存できませんでした。ブラウザの保存設定を確認してね。','error');}
- });
- if(resetBtn)resetBtn.addEventListener('click',()=>{values={...defaults};selected='stick';applyPreview();applyActual();try{localStorage.removeItem(storageKey);localStorage.removeItem(legacyKey);}catch(_){}saved=false;setStatus('標準配置に戻したよ。','success');});
- window.addEventListener('resize',()=>{if(saved)applyActual();if(!modal.hidden)applyPreview();},{passive:true});
- window.addEventListener('orientationchange',()=>setTimeout(()=>{if(saved)applyActual();if(!modal.hidden)applyPreview();},150),{passive:true});
- readStorage();applyPreview();if(saved)applyActual();
+ if(saveBtn)saveBtn.addEventListener('click',()=>{sanitize();applyActual();try{localStorage.setItem(storageKey,JSON.stringify(values));priorKeys.forEach(k=>localStorage.removeItem(k));saved=true;setStatus('タッチ操作レイアウトを保存したよ！','success');closeEditor();}catch(_){setStatus('保存できませんでした。ブラウザの保存設定を確認してね。','error');}});
+ if(resetBtn)resetBtn.addEventListener('click',()=>{values={...defaults};selected='stick';applyPreview();applyActual();try{localStorage.removeItem(storageKey);priorKeys.forEach(k=>localStorage.removeItem(k));}catch(_){}saved=false;setStatus('標準配置に戻したよ。','success');});
+ window.addEventListener('resize',()=>{const {w,h}=getScreenSize();screenW=w;screenH=h;if(saved)applyActual();if(!modal.hidden){updatePreviewGeometry();applyPreview();}},{passive:true});
+ window.addEventListener('orientationchange',()=>setTimeout(()=>{const {w,h}=getScreenSize();screenW=w;screenH=h;if(saved)applyActual();if(!modal.hidden){updatePreviewGeometry();applyPreview();}},150),{passive:true});
+ readStorage();const {w,h}=getScreenSize();screenW=w;screenH=h;applyPreview();if(saved)applyActual();
 })();
 </script>
 
