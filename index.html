@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>53sumabura | VER 1.0</title>
+<title>53sumabura | VER 1.1</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -199,7 +199,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
 </section>
 <section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 1.0</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 1.1</div>
 <div id="settingsOverlay" role="dialog" aria-modal="true" aria-label="設定"><div class="settings-box"><div class="step">SYSTEM / OPTIONS</div><h2 id="settingsTitle">SETTINGS</h2>
  <div class="settings-tabs" role="tablist" aria-label="設定カテゴリ"><button type="button" class="settings-tab active" data-settings-tab="graphics" role="tab" aria-selected="true">🎨 グラフィック</button><button type="button" class="settings-tab" data-settings-tab="language" role="tab" aria-selected="false">🌐 言語</button></div>
  <div class="settings-page active" id="settingsGraphicsPanel" role="tabpanel">
@@ -235,7 +235,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
   <p class="online-lead" id="onlineLead">Firebaseの接続を確認します。まず匿名ログインをテストし、そのあと対戦部屋用のデータベースを設定します。</p>
   <div class="online-status" id="onlineStatus" data-state="neutral" role="status" aria-live="polite">起動時に自動接続しています…</div>
   <div class="online-account-row" id="onlineAccountRow">
-   <div class="online-account-copy"><strong id="onlineAccountTitle">プレイヤーアカウント</strong><small id="onlineAccountInfo">同じブラウザでは自動で再接続します。Google連携すると別端末でも同じアカウントを使えます。</small></div>
+   <div class="online-account-copy"><strong id="onlineAccountTitle">プレイヤーアカウント</strong><small id="onlineAccountInfo">同じブラウザでは自動で再接続します。Googleログインすると別端末でも同じアカウントを使えます。</small></div>
    <button class="secondary-btn" id="onlineGoogleBtn" type="button">Googleでログイン</button>
   </div>
   <div class="online-steps" id="onlineSteps"><b>接続手順</b><br>1. Firebase匿名認証を確認する。<br>2. Realtime DatabaseのRulesに、安全な部屋アクセスルールを設定する。<br>3. 接続成功後に部屋を作成するか、6文字の部屋コードで参加する。</div>
@@ -1548,6 +1548,9 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     appId: '1:379614712817:web:d83e7eaec59c9a3d9bea50'
   };
   let firebaseInitPromise = null;
+  // 'link' keeps the current anonymous player ID where possible. 'signin' is used when
+  // the Google account already belongs to an existing Firebase player on another device.
+  let googleLoginMode = 'link';
 
   function hasGoogleProvider(user) {
     return !!(user && Array.isArray(user.providerData) && user.providerData.some(p => p && p.providerId === 'google.com'));
@@ -1558,20 +1561,30 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     $('onlineAccountTitle').textContent = ja() ? 'プレイヤーアカウント' : 'PLAYER ACCOUNT';
     if (!user) {
       $('onlineAccountInfo').textContent = ja()
-        ? '自動接続を準備中。Google連携すると別端末でも同じアカウントを使えます。'
-        : 'Preparing automatic sign-in. Link Google to use the same account on other devices.';
+        ? '自動接続を準備中。Googleアカウントでログインすると別端末でも同じアカウントを使えます。'
+        : 'Preparing automatic sign-in. Sign in with Google to use the same account on other devices.';
       btn.disabled = false;
-      btn.textContent = ja() ? 'Googleでログイン' : 'Sign in with Google';
+      btn.textContent = googleLoginMode === 'signin'
+        ? (ja() ? '既存Googleアカウントでログイン' : 'Sign in to existing Google account')
+        : (ja() ? 'Googleでログイン' : 'Sign in with Google');
       return;
     }
     const identity = user.displayName || user.email || (ja() ? 'プレイヤーID：' : 'Player ID: ') + user.uid.slice(0, 10) + '…';
-    $('onlineAccountInfo').textContent = googleLinked
-      ? (ja() ? 'Google連携済み：' : 'Google linked: ') + identity
-      : (ja() ? '匿名アカウントを自動保存中：' : 'Saved anonymous account: ') + identity + (ja() ? '。Google連携で別端末でも使えます。' : '. Link Google to use it on other devices.');
+    if (googleLinked) {
+      $('onlineAccountInfo').textContent = (ja() ? 'Google連携済み：' : 'Google linked: ') + identity;
+    } else if (googleLoginMode === 'signin') {
+      $('onlineAccountInfo').textContent = ja()
+        ? 'このGoogleアカウントは既存プレイヤーに登録済みの可能性があります。下のボタンをもう一度押して既存アカウントでログインしてね。部屋に入っている場合は先に退出してね。'
+        : 'This Google account may already belong to an existing player. Press the button again to sign in. Leave your current room first if you are in one.';
+    } else {
+      $('onlineAccountInfo').textContent = (ja() ? '匿名アカウントを自動保存中：' : 'Saved anonymous account: ') + identity + (ja() ? '。Google連携すると別端末でも使えます。' : '. Link Google to use it on other devices.');
+    }
     btn.disabled = googleLinked;
     btn.textContent = googleLinked
       ? (ja() ? '✅ Google連携済み' : '✅ Google linked')
-      : (ja() ? 'Googleアカウントと連携' : 'Link Google account');
+      : (googleLoginMode === 'signin'
+          ? (ja() ? '既存Googleアカウントでログイン' : 'Sign in to existing Google account')
+          : (ja() ? 'Googleアカウントと連携' : 'Link Google account'));
   }
   function connectedStatus(user) {
     const googleLinked = hasGoogleProvider(user);
@@ -1677,37 +1690,62 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     }
   });
 
-  // Google login links the automatically-created anonymous player, preserving the UID.
- $('onlineGoogleBtn').addEventListener('click', async () => {
+  // Google login preserves a guest UID when the Google account is new to this player.
+  // If that Google account already exists, switch to sign-in mode and ask for one more click.
+  $('onlineGoogleBtn').addEventListener('click', async () => {
     const googleBtn = $('onlineGoogleBtn');
     googleBtn.disabled = true;
-    const previousText = googleBtn.textContent;
     googleBtn.textContent = ja() ? 'Googleに接続中…' : 'CONNECTING TO GOOGLE…';
-    setStatus('neutral', ja() ? 'Googleアカウントと連携しています…' : 'Linking your Google account…');
+    setStatus('neutral', ja() ? 'Googleアカウントに接続しています…' : 'Connecting to Google…');
     try {
       await initializeFirebase();
       const user = onlineAuth.currentUser || onlineUser;
       const provider = new firebase.auth.GoogleAuthProvider();
       provider.setCustomParameters({ prompt: 'select_account' });
       let result;
+
       if (user && hasGoogleProvider(user)) {
         onlineUser = user;
+        googleLoginMode = 'link';
         connectedStatus(user);
         updateAccountUI(user);
         return;
       }
-      if (user && user.isAnonymous) {
-        // Link instead of replacing the anonymous user so an existing room keeps the same UID.
-        result = await user.linkWithPopup(provider);
+
+      if (googleLoginMode === 'signin') {
+        if (activeRoomRef) throw new Error('LEAVE_ROOM_BEFORE_ACCOUNT_SWITCH');
+        result = await onlineAuth.signInWithPopup(provider);
+      } else if (user && user.isAnonymous) {
+        try {
+          // Linking preserves the current player ID and any data attached to it.
+          result = await user.linkWithPopup(provider);
+        } catch (linkError) {
+          const linkCode = linkError && linkError.code ? linkError.code : '';
+          if (['auth/credential-already-in-use', 'auth/email-already-in-use', 'auth/account-exists-with-different-credential'].includes(linkCode)) {
+            googleLoginMode = 'signin';
+            updateAccountUI(user);
+            setStatus('neutral', ja()
+              ? (activeRoomRef
+                  ? 'このGoogleアカウントは既存プレイヤーに登録済みです。先に部屋を退出してから、もう一度Googleログインを押してね。'
+                  : 'このGoogleアカウントはすでに登録済みです。下のボタンをもう一度押すと、そのアカウントでログインできます。')
+              : (activeRoomRef
+                  ? 'This Google account already exists. Leave the room, then click Google sign-in again.'
+                  : 'This Google account already exists. Click the button again to sign in to that account.'));
+            return;
+          }
+          throw linkError;
+        }
       } else {
         if (activeRoomRef) throw new Error('LEAVE_ROOM_BEFORE_ACCOUNT_SWITCH');
         result = await onlineAuth.signInWithPopup(provider);
       }
+
       onlineUser = result.user || onlineAuth.currentUser;
+      googleLoginMode = 'link';
       updateAccountUI(onlineUser);
       connectedStatus(onlineUser);
-      setStatus('success', ja() ? '✅ Googleアカウントと連携できた！' : '✅ Google account linked!',
-        (ja() ? 'プレイヤーIDを維持して保存したよ：' : 'Your player ID was preserved: ') + onlineUser.uid.slice(0, 10) + '…' + (onlineUser.email ? '\n' + onlineUser.email : ''));
+      setStatus('success', ja() ? '✅ Googleアカウントでログインできた！' : '✅ Signed in with Google!',
+        (ja() ? 'プレイヤーID：' : 'Player ID: ') + onlineUser.uid.slice(0, 10) + '…' + (onlineUser.email ? '\n' + onlineUser.email : ''));
     } catch (error) {
       let message;
       if (error && error.message === 'LEAVE_ROOM_BEFORE_ACCOUNT_SWITCH') {
@@ -1721,7 +1759,6 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
       updateAccountUI((onlineAuth && onlineAuth.currentUser) || onlineUser);
       if (!hasGoogleProvider((onlineAuth && onlineAuth.currentUser) || onlineUser)) {
         googleBtn.disabled = false;
-        if (googleBtn.textContent === 'CONNECTING TO GOOGLE…' || googleBtn.textContent === 'Googleに接続中…') googleBtn.textContent = previousText;
       }
     }
   });
