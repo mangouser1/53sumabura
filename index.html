@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>53sumabura | VER 1.4</title>
+<title>53sumabura | VER 1.5</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -236,7 +236,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
 </section>
 <section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 1.4</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 1.5</div>
 <div id="settingsOverlay" role="dialog" aria-modal="true" aria-label="設定"><div class="settings-box"><div class="step">SYSTEM / OPTIONS</div><h2 id="settingsTitle">SETTINGS</h2>
  <div class="settings-tabs" role="tablist" aria-label="設定カテゴリ"><button type="button" class="settings-tab active" data-settings-tab="graphics" role="tab" aria-selected="true">🎨 グラフィック</button><button type="button" class="settings-tab" data-settings-tab="language" role="tab" aria-selected="false">🌐 言語</button><button type="button" class="settings-tab" data-settings-tab="account" role="tab" aria-selected="false">👤 アカウント</button></div>
  <div class="settings-page active" id="settingsGraphicsPanel" role="tabpanel">
@@ -264,6 +264,15 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
  </div>
  <div class="settings-page" id="settingsLanguagePanel" role="tabpanel" hidden><div class="setting-row"><div><label for="languageSelect" id="languageLabel">表示言語</label><small id="languageHelp">メニューと設定画面の表示言語</small></div><select id="languageSelect"><option value="ja">日本語</option><option value="en">English</option></select></div><div class="language-note" id="languageNote">言語を選んで「適用」を押してください。</div></div>
  <div class="settings-page" id="settingsAccountPanel" role="tabpanel" hidden>
+  <div class="settings-section-title" id="settingsPlayerNameHeading">プレイヤー名</div>
+  <div class="online-email-login settings-auth-email" id="settingsPlayerNameCard">
+   <label for="playerNameInput" id="playerNameLabel">自分のプレイヤー名</label>
+   <div class="online-email-row">
+    <input id="playerNameInput" type="text" maxlength="24" autocomplete="nickname" placeholder="プレイヤー名（最大24文字）" aria-label="自分のプレイヤー名">
+    <button class="secondary-btn" id="savePlayerNameBtn" type="button">名前を保存</button>
+   </div>
+   <div class="settings-auth-status" id="playerNameStatus" data-state="neutral" role="status" aria-live="polite">名前はこの端末に保存され、オンラインランキングにも反映されます。</div>
+  </div>
   <div class="settings-section-title" id="settingsAccountHeading">アカウント / ログイン</div>
   <div class="settings-auth-card">
    <div class="settings-auth-status" id="settingsLoginStatus" data-state="neutral" role="status" aria-live="polite">Firebaseの接続状態を確認しています…</div>
@@ -724,6 +733,35 @@ async function syncRankProfileWithCloud(){
  return rankCloudInitPromise;
 }
 function savePlayerProfile(syncCloud=true){savePlayerProfileLocal();updateRankUI();if(syncCloud&&window.SKYBOUND_RANKING_API){Promise.resolve(window.SKYBOUND_RANKING_API.saveProfile(playerProfile)).then(async result=>{if(result&&result.uid){rankCloudUID=result.uid;playerProfile.uid=result.uid;playerProfile.displayName=result.displayName||playerProfile.displayName;savePlayerProfileLocal()}cloudRankRows=await window.SKYBOUND_RANKING_API.top(10);rankCloudState='online';rankCloudMessage=uiLanguage==='ja'?'オンラインランキング · 上位10人':'ONLINE LEADERBOARD · TOP 10';updateRankUI()}).catch(error=>{rankCloudState='local';rankCloudMessage=uiLanguage==='ja'?'この端末に保存済み。オンラインランキングへの保存は失敗しました。':'Saved on this device; online leaderboard update failed.';updateRankUI();console.warn('Rank save failed:',error)})}}
+function refreshPlayerNameSettingsUI(){const input=$('#playerNameInput');if(input&&document.activeElement!==input)input.value=playerProfile.displayName||'Fighter';}
+function setPlayerNameSettingsStatus(state,message){const el=$('#playerNameStatus');if(el){el.dataset.state=state;el.textContent=message;}}
+async function savePlayerNameFromSettings(){
+ const input=$('#playerNameInput'),button=$('#savePlayerNameBtn');if(!input||!button)return;
+ const value=String(input.value||'').trim().replace(/\s+/g,' ').slice(0,24);
+ if(!value){setPlayerNameSettingsStatus('error',uiLanguage==='ja'?'プレイヤー名を入力してね。':'Enter a player name.');input.focus();return;}
+ const oldName=playerProfile.displayName||'Fighter';playerProfile.displayName=value;savePlayerProfileLocal();updateRankUI();input.value=value;
+ button.disabled=true;const oldText=button.textContent;button.textContent=uiLanguage==='ja'?'保存中…':'Saving…';
+ setPlayerNameSettingsStatus('neutral',uiLanguage==='ja'?'端末に保存しました。オンラインランキングも更新しています…':'Saved on this device. Updating online leaderboard…');
+ window.SKYBOUND_CURRENT_DISPLAY_NAME=()=>playerProfile.displayName||'Fighter';
+ window.dispatchEvent(new CustomEvent('53sumabura-player-name-changed',{detail:{displayName:value,oldName}}));
+ try{
+  if(window.SKYBOUND_RANKING_API){
+   const result=await window.SKYBOUND_RANKING_API.saveProfile(playerProfile);
+   if(result&&result.uid){rankCloudUID=result.uid;playerProfile.uid=result.uid;playerProfile.displayName=result.displayName||value;savePlayerProfileLocal();}
+   cloudRankRows=await window.SKYBOUND_RANKING_API.top(10);rankCloudState='online';rankCloudMessage=uiLanguage==='ja'?'オンラインランキング · 上位10人':'ONLINE LEADERBOARD · TOP 10';
+   updateRankUI();refreshPlayerNameSettingsUI();
+   setPlayerNameSettingsStatus('success',uiLanguage==='ja'?'✅ プレイヤー名を保存して、オンラインランキングも更新したよ！':'✅ Player name saved and online leaderboard updated!');
+  }else{setPlayerNameSettingsStatus('success',uiLanguage==='ja'?'✅ プレイヤー名をこの端末に保存したよ。':'✅ Player name saved on this device.');}
+ }catch(error){
+  rankCloudState='local';rankCloudMessage=uiLanguage==='ja'?'端末内に保存済み。オンラインランキングへの保存は失敗しました。':'Saved locally; online leaderboard update failed.';updateRankUI();
+  setPlayerNameSettingsStatus('error',uiLanguage==='ja'?'端末には保存したけど、オンラインランキングの更新に失敗したよ。Firebase Rulesと接続を確認してね。':'Saved locally, but online leaderboard update failed. Check Firebase Rules and connection.');
+  console.warn('Player name save failed:',error);
+ }finally{button.disabled=false;button.textContent=oldText;}
+}
+window.SKYBOUND_CURRENT_DISPLAY_NAME=()=>playerProfile.displayName||'Fighter';
+$('#savePlayerNameBtn').addEventListener('click',savePlayerNameFromSettings);
+$('#playerNameInput').addEventListener('keydown',e=>{if(e.key==='Enter')savePlayerNameFromSettings()});
+window.addEventListener('53sumabura-account-settings-open',()=>{refreshPlayerNameSettingsUI();setPlayerNameSettingsStatus('neutral',uiLanguage==='ja'?'名前は最大24文字。保存するとこの端末とオンラインランキングに反映されます。':'Up to 24 characters. Save to apply on this device and online leaderboard.');});
 function processMatchRewards(winner){
  if(!game||game.rewardsProcessed)return;game.rewardsProcessed=true;let message='';
  if(mode==='online'){
@@ -768,7 +806,7 @@ const settingsLocales={
 };
 function applyLanguage(lang){
  uiLanguage=lang==='en'?'en':'ja';const ja=uiLanguage==='ja',t=settingsLocales[uiLanguage];document.documentElement.lang=uiLanguage;
- $('#settingsTitle').textContent=t.settingsTitle;$('#bgmLabel').textContent=ja?'BGM（背景音楽）':'Background music (BGM)';$('#bgmHelp').textContent=ja?'メニュー・対戦中に流れる音楽':'Original music in menus and battles';$('#bgmVolumeLabel').textContent=ja?'BGM音量':'BGM volume';$('#bgmVolumeHelp').textContent=ja?'背景音楽の音量を調整':'Adjust background music volume';$('.settings-box .step').textContent=ja?'システム設定':'SYSTEM / OPTIONS';document.querySelector('[data-settings-tab="graphics"]').textContent=t.graphicsTab;document.querySelector('[data-settings-tab="language"]').textContent=t.languageTab;document.querySelector('[data-settings-tab="account"]').textContent=t.accountTab;$('#settingsAccountHeading').textContent=ja?'アカウント / ログイン':'ACCOUNT / SIGN-IN';$('#settingsEmailHeading').textContent=ja?'メールリンクでログイン':'SIGN IN WITH EMAIL LINK';$('#settingsEmailLabel').textContent=ja?'登録済みアカウントのメールアドレス':'Registered account email';$('#settingsEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link';$('#settingsEmailInput').placeholder=ja?'登録済みメールアドレス':'Registered email address';$('#settingsEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#settingsEmailHelp').textContent=ja?'同じメールアドレスに届いたリンクをこの端末で開くとログインできます。メールリンク認証はFirebase Consoleで有効にする必要があります。':'Open the sign-in link sent to this same email on this device. Email-link sign-in must be enabled in Firebase Console.';$('#settingsAccountNote').textContent=ja?'アカウントを切り替える前にオンラインの部屋から退出してください。登録済みと同じメールアドレスを使ってね。':'Leave your online room before switching accounts. Use the same email address that was previously registered.';['basicGraphicsTitle','audioSettingsTitle','graphicsDetailTitle','fpsLabel','fpsHelp','qualityLabel','qualityHelp','effectsLabel','effectsHelp','soundLabel','soundHelp','volumeLabel','volumeHelp','shadowLabel','shadowHelp','detailLabel','detailHelp','renderScaleLabel','renderScaleHelp','depthLabel','depthHelp','lightingLabel','lightingHelp','atmosphereLabel','atmosphereHelp','bloomLabel','bloomHelp','reflectionLabel','reflectionHelp','motionLabel','motionHelp','gradingLabel','gradingHelp','graphicsHint','languageLabel','languageHelp','languageNote'].forEach(id=>{if($('#'+id))$('#'+id).textContent=t[id]});$('#settingsCloseBtn').textContent=t.close;$('#settingsApplyBtn').textContent=t.apply;$('#settingsBtn').textContent=t.settingsButton;$('#pauseSettingsBtn').textContent=t.settingsButton;const q=$('#qualitySelect');q.options[0].textContent=t.qualityLow;q.options[1].textContent=t.qualityMedium;q.options[2].textContent=t.qualityHigh;q.options[3].textContent=t.qualityUltra;const sh=$('#shadowSelect');sh.options[0].textContent=t.shadowOff;sh.options[1].textContent=t.shadowSoft;sh.options[2].textContent=t.shadowHigh;const de=$('#detailSelect');de.options[0].textContent=t.detailLow;de.options[1].textContent=t.detailMedium;de.options[2].textContent=t.detailHigh;de.options[3].textContent=t.detailUltra;const rs=$('#renderScaleSelect');[t.scaleAuto,t.scale75,t.scale100,t.scale125,t.scale150,t.scale175,t.scale200].forEach((label,i)=>rs.options[i].textContent=label);
+ $('#settingsTitle').textContent=t.settingsTitle;$('#bgmLabel').textContent=ja?'BGM（背景音楽）':'Background music (BGM)';$('#bgmHelp').textContent=ja?'メニュー・対戦中に流れる音楽':'Original music in menus and battles';$('#bgmVolumeLabel').textContent=ja?'BGM音量':'BGM volume';$('#bgmVolumeHelp').textContent=ja?'背景音楽の音量を調整':'Adjust background music volume';$('.settings-box .step').textContent=ja?'システム設定':'SYSTEM / OPTIONS';document.querySelector('[data-settings-tab="graphics"]').textContent=t.graphicsTab;document.querySelector('[data-settings-tab="language"]').textContent=t.languageTab;document.querySelector('[data-settings-tab="account"]').textContent=t.accountTab;$('#settingsPlayerNameHeading').textContent=ja?'プレイヤー名':'PLAYER NAME';$('#playerNameLabel').textContent=ja?'自分のプレイヤー名':'Your player name';$('#playerNameInput').placeholder=ja?'プレイヤー名（最大24文字）':'Player name (max 24 characters)';$('#playerNameInput').setAttribute('aria-label',ja?'自分のプレイヤー名':'Your player name');$('#savePlayerNameBtn').textContent=ja?'名前を保存':'Save name';$('#settingsAccountHeading').textContent=ja?'アカウント / ログイン':'ACCOUNT / SIGN-IN';$('#settingsEmailHeading').textContent=ja?'メールリンクでログイン':'SIGN IN WITH EMAIL LINK';$('#settingsEmailLabel').textContent=ja?'登録済みアカウントのメールアドレス':'Registered account email';$('#settingsEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link';$('#settingsEmailInput').placeholder=ja?'登録済みメールアドレス':'Registered email address';$('#settingsEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#settingsEmailHelp').textContent=ja?'同じメールアドレスに届いたリンクをこの端末で開くとログインできます。メールリンク認証はFirebase Consoleで有効にする必要があります。':'Open the sign-in link sent to this same email on this device. Email-link sign-in must be enabled in Firebase Console.';$('#settingsAccountNote').textContent=ja?'アカウントを切り替える前にオンラインの部屋から退出してください。登録済みと同じメールアドレスを使ってね。':'Leave your online room before switching accounts. Use the same email address that was previously registered.';['basicGraphicsTitle','audioSettingsTitle','graphicsDetailTitle','fpsLabel','fpsHelp','qualityLabel','qualityHelp','effectsLabel','effectsHelp','soundLabel','soundHelp','volumeLabel','volumeHelp','shadowLabel','shadowHelp','detailLabel','detailHelp','renderScaleLabel','renderScaleHelp','depthLabel','depthHelp','lightingLabel','lightingHelp','atmosphereLabel','atmosphereHelp','bloomLabel','bloomHelp','reflectionLabel','reflectionHelp','motionLabel','motionHelp','gradingLabel','gradingHelp','graphicsHint','languageLabel','languageHelp','languageNote'].forEach(id=>{if($('#'+id))$('#'+id).textContent=t[id]});$('#settingsCloseBtn').textContent=t.close;$('#settingsApplyBtn').textContent=t.apply;$('#settingsBtn').textContent=t.settingsButton;$('#pauseSettingsBtn').textContent=t.settingsButton;const q=$('#qualitySelect');q.options[0].textContent=t.qualityLow;q.options[1].textContent=t.qualityMedium;q.options[2].textContent=t.qualityHigh;q.options[3].textContent=t.qualityUltra;const sh=$('#shadowSelect');sh.options[0].textContent=t.shadowOff;sh.options[1].textContent=t.shadowSoft;sh.options[2].textContent=t.shadowHigh;const de=$('#detailSelect');de.options[0].textContent=t.detailLow;de.options[1].textContent=t.detailMedium;de.options[2].textContent=t.detailHigh;de.options[3].textContent=t.detailUltra;const rs=$('#renderScaleSelect');[t.scaleAuto,t.scale75,t.scale100,t.scale125,t.scale150,t.scale175,t.scale200].forEach((label,i)=>rs.options[i].textContent=label);
  // ホーム画面
  $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、友達の部屋コードで参加しよう。':'Connects automatically at startup. Create a room or join with a friend’s room code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 部屋を作成するか、6文字の部屋コードで参加する。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Create a room or join with a 6-character code.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'2人で部屋に入り、キャラクターを選んで準備完了にしよう。ゲスト側は受信したゲーム状態を補間表示して、動きを滑らかにします。':'Join a room together, select fighters, and mark ready. Guest rendering interpolates host snapshots for smoother motion.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'先に「部屋を作成」するか、友達の6文字コードで参加してね。接続と部屋参加ができると「キャラ選択へ」が使えるよ。移動や攻撃の同期は次の工程で追加するよ。':'Share the room code with a friend. Movement and attack synchronization will be added next.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';$('#howBtn').textContent=ja?'遊び方':'HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER';
  // AI観戦ルーム
@@ -1532,7 +1570,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     const opponent = $('onlineOpponentFighterLabel');
     if (opponent) {
       if (!room.guestUid) opponent.textContent = '相手の参加を待っています…';
-      else if (other && other.characterId) opponent.textContent = displayOnlineFighter(other.characterId) + (other.ready ? ' · ✅ 準備完了' : ' · キャラ選択中');
+      else if (other && other.characterId) opponent.textContent = (other.displayName ? String(other.displayName).slice(0,24) + ' · ' : '') + displayOnlineFighter(other.characterId) + (other.ready ? ' · ✅ 準備完了' : ' · キャラ選択中');
       else opponent.textContent = '参加済み · キャラ選択中…';
     }
     renderOnlineCharacterCards();
@@ -1593,6 +1631,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     try {
       await activeRoomRef.child('players/' + playerKey).update({
         uid: onlineUser.uid,
+        displayName: (window.SKYBOUND_CURRENT_DISPLAY_NAME && window.SKYBOUND_CURRENT_DISPLAY_NAME()) || (onlineUser.displayName || 'Fighter'),
         characterId: selectedOnlineFighterId,
         ready: true,
         selectedAt: firebase.database.ServerValue.TIMESTAMP
@@ -1624,7 +1663,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
           guestUid: null,
           createdAt: firebase.database.ServerValue.TIMESTAMP,
           status: 'waiting',
-          players: { host: { uid: onlineUser.uid, joinedAt: firebase.database.ServerValue.TIMESTAMP } }
+          players: { host: { uid: onlineUser.uid, displayName: (window.SKYBOUND_CURRENT_DISPLAY_NAME && window.SKYBOUND_CURRENT_DISPLAY_NAME()) || (onlineUser.displayName || 'Fighter'), joinedAt: firebase.database.ServerValue.TIMESTAMP } }
         };
         const result = await ref.transaction(current => current === null ? roomData : undefined, undefined, false);
         if (result.committed) {
@@ -1656,7 +1695,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
       if (room.guestUid && room.guestUid !== onlineUser.uid) throw new Error('ROOM_FULL');
       const result = await ref.child('guestUid').transaction(current => current == null || current === onlineUser.uid ? onlineUser.uid : undefined, undefined, false);
       if (!result.committed) throw new Error('ROOM_FULL');
-      await ref.child('players/guest').set({ uid: onlineUser.uid, joinedAt: firebase.database.ServerValue.TIMESTAMP });
+      await ref.child('players/guest').set({ uid: onlineUser.uid, displayName: (window.SKYBOUND_CURRENT_DISPLAY_NAME && window.SKYBOUND_CURRENT_DISPLAY_NAME()) || (onlineUser.displayName || 'Fighter'), joinedAt: firebase.database.ServerValue.TIMESTAMP });
       bindRoom(ref, code, 'guest');
     } finally {
       if (!activeRoomRef) $('onlineJoinRoomBtn').disabled = false;
@@ -2054,6 +2093,13 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
       showConnectionError(error, 'anonymous');
       console.warn('Automatic Firebase connection failed:', error);
     });
+  });
+  window.addEventListener('53sumabura-player-name-changed', async event => {
+    const displayName = String(event && event.detail && event.detail.displayName || 'Fighter').trim().slice(0, 24) || 'Fighter';
+    if (!activeRoomRef || !onlineUser || !activeRoomRole) return;
+    const playerKey = activeRoomRole === 'host' ? 'host' : 'guest';
+    try { await activeRoomRef.child('players/' + playerKey).update({displayName}); }
+    catch (error) { console.warn('Room display name update failed:', error); }
   });
   window.addEventListener('53sumabura-account-settings-open', () => {
     updateAccountUI((onlineAuth && onlineAuth.currentUser) || onlineUser);
