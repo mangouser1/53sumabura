@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>53sumabura | VER 1.6</title>
+<title>53sumabura | VER 1.7</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -149,13 +149,19 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
 @media(max-width:720px){.online-char-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.online-opponent-strip{grid-template-columns:1fr}.online-char-actions{width:100%}.online-char-actions button{flex:1;min-width:0}.online-char-panel{padding:14px}.online-char-grid .portrait{height:135px}}
 @media(min-width:721px) and (max-height:760px){.online-char-grid .portrait{height:105px}.online-char-grid .char-moves{display:none}.online-char-panel{padding:15px 20px}.online-char-help{margin-bottom:8px}.online-opponent-strip{margin:8px 0 10px}}
 
+
+.custom-overlay{display:none;position:fixed;inset:0;z-index:45;align-items:center;justify-content:center;padding:16px;background:rgba(2,8,18,.90);backdrop-filter:blur(9px);overflow:auto}
+.custom-overlay.show{display:flex}.custom-overlay-box{width:min(920px,100%);max-height:calc(100vh - 32px);overflow:auto;padding:24px;background:linear-gradient(145deg,#102843,#071323);border:1px solid #4d718f;box-shadow:0 20px 70px #000b;color:#eff8ff}.custom-overlay-box h2{font-size:clamp(28px,4vw,40px);margin:5px 0 10px}.custom-overlay-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}.shop-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.shop-wallet{white-space:nowrap;border:1px solid #ffd87565;background:#4d3a144d;border-radius:10px;padding:10px 14px;font-size:20px;color:#ffe9a1}.shop-lead{color:#afc5d8;margin:0 0 14px;line-height:1.6}.shop-rules-note{border:1px solid #65efff30;background:#0b2438;border-radius:8px;padding:11px 13px;color:#b8d7e7;font-size:13px;line-height:1.65;margin:12px 0 16px}.shop-items-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.shop-item{border:1px solid #ffffff22;border-radius:10px;padding:14px;background:linear-gradient(150deg,#122b46,#081827);display:flex;flex-direction:column;gap:9px;min-width:0}.shop-item .shop-icon{font-size:36px;line-height:1.1}.shop-item h3{font-size:17px;margin:0;color:#f2fbff}.shop-item p{font-size:12px;line-height:1.5;color:#a9c2d5;margin:0;min-height:38px}.shop-item .shop-price{color:#ffe59d;font-weight:900;font-size:13px}.shop-item button{margin-top:auto;width:100%;min-height:38px}.shop-category{grid-column:1/-1;margin:12px 0 0;color:#8feaff;font-weight:900;font-size:12px;letter-spacing:.12em;border-bottom:1px solid #ffffff22;padding-bottom:6px}.shop-status{color:#b4c8d9;font-size:13px;min-height:22px;margin-top:14px}.online-room-capacity{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0;padding:10px 12px;background:#071727;border:1px solid #ffffff20;border-radius:8px}.online-room-capacity label{font-weight:900;font-size:12px;color:#a9cde0}.online-room-capacity select{background:#122d47;color:#f3fbff;border:1px solid #55758f;border-radius:6px;padding:8px}.online-room-capacity small{color:#7998b0;font-size:11px}.extra-player-hud{position:absolute;left:50%;top:86px;transform:translateX(-50%);z-index:7;display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:72%;pointer-events:none}.extra-player-hud-item{background:#071727db;border:1px solid #65efff4a;border-radius:6px;padding:5px 8px;color:#f0f9ff;font-size:11px;font-weight:900;box-shadow:0 4px 14px #0004}.extra-player-hud-item.dead{opacity:.45}.fighter-aura{pointer-events:none}.rank-cpu-note{font-size:12px;color:#ffe4a1;margin:5px 0 10px;text-align:center}
+@media(max-width:760px){.shop-items-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.custom-overlay-box{padding:16px}.shop-head{align-items:center}.shop-item p{min-height:0}.extra-player-hud{max-width:96%;top:115px}.extra-player-hud-item{font-size:10px;padding:4px 6px}}
+@media(max-width:430px){.shop-items-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
 <div id="app"><div id="backdrop"></div>
 <section id="titleScreen" class="screen active">
  <div class="title-mark"><div class="logo-kicker">14 ARENAS · A NEW GENERATION OF ARENA BRAWL</div><div class="logo">53<span>sumabura</span></div><div class="subtitle">空を舞台に、限界をぶつけろ。</div></div>
- <div class="title-actions"><button class="primary-btn" id="startBtn">▶　BATTLE START</button><button class="secondary-btn" id="onlineBtn">🌐 オンライン対戦</button><button class="secondary-btn" id="aiRoomBtn">🤖 AI観戦ルーム</button><button class="secondary-btn" id="howBtn">HOW TO PLAY</button><button class="secondary-btn" id="settingsBtn">⚙ SETTINGS</button></div>
+ <div class="title-actions"><button class="primary-btn" id="startBtn">▶　BATTLE START</button><button class="secondary-btn" id="onlineBtn">🌐 オンライン対戦</button><button class="secondary-btn" id="aiRoomBtn">🤖 AI観戦ルーム</button><button class="secondary-btn" id="howBtn">HOW TO PLAY</button><button class="secondary-btn" id="settingsBtn">⚙ SETTINGS</button><button class="secondary-btn" id="shopBtn">🛒 ショップ</button></div>
  <div class="mode-select" aria-label="対戦モード"><button class="mode-btn active" data-mode="cpu">1 PLAYER VS CPU</button><button class="mode-btn" data-mode="2p">2 PLAYERS</button></div>
  <div class="difficulty-picker" id="difficultyPicker" aria-label="CPUの強さ">
   <div class="difficulty-head"><span>CPU DIFFICULTY</span><strong id="difficultyValue">LEVEL 5 / 9</strong></div>
@@ -169,13 +175,13 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
    <div class="coin-display"><div class="coin-caption" id="coinCaption">所持コイン</div><div class="coin-amount"><span aria-hidden="true">🪙</span><span id="coinCount">0</span></div></div>
    <div class="rank-summary-card"><div class="rank-caption" id="rankCaption">AIランク戦 · 現在のランク</div><div class="rank-name-row"><strong class="rank-name" id="aiRankName">BRONZE I</strong><span class="rank-points" id="rankPointsText">0 RP</span></div><div class="rank-progress-track" aria-label="次のランクまで"><div class="rank-progress-fill" id="rankProgressBar"></div></div><div class="rank-meta"><span id="rankProgressText">0% 次のランクまで</span><span id="rankRecordText">0勝 0敗</span></div></div>
   </div>
-  <button class="primary-btn ai-ranked-action" id="aiRankedBtn">🏆 AIランク戦を始める</button>
+  <button class="primary-btn ai-ranked-action" id="aiRankedBtn">🏆 AIランク戦を始める</button><div class="rank-cpu-note" id="rankCpuLevelHint">現在のランクに応じてCPUの強さが自動で変化します。</div>
   <div class="rank-board-heading"><strong id="rankBoardTitle">AI RANKED LEADERBOARD</strong><span id="rankBoardSubtitle">順位・撃破・ダメージ・相手の強さを参考に進行</span></div>
   <div class="rank-board-status" id="rankBoardStatus" role="status" aria-live="polite">ランキングを読み込み中…</div>
   <div class="rank-board-wrap"><table class="rank-board"><thead><tr><th>#</th><th id="rankColPlayer">プレイヤー</th><th id="rankColTier">ランク</th><th id="rankColRP">RP</th></tr></thead><tbody id="rankLeaderboardRows"><tr><td colspan="4">ランキングを読み込み中…</td></tr></tbody></table></div>
  </section>
  <div id="howText" class="footnote" style="display:none;max-width:650px">相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。ダメージが高いほど遠くへ飛びやすい！<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ攻撃　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード<br>2P：<span class="keycap">←</span><span class="keycap">→</span> 移動　<span class="keycap">↑</span> ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ ダッシュ　↓ 地面攻撃　0 ガード</div>
- <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER</div>
+ <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 1.7</div>
 </section>
 <section id="aiRoomScreen" class="screen"><div class="panel ai-room-panel">
  <div class="panel-head"><div><div class="step">SPECTATOR MODE / AI VS AI</div><h2>AI BATTLE ROOM</h2><div class="ai-room-kicker">観戦専用ルーム · 2体のAIが自動で対戦</div></div><div class="ai-room-live">LOCAL AI ARENA</div></div>
@@ -188,7 +194,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
  <div class="ai-room-actions"><button class="secondary-btn" id="watchBackBtn">← ホームへ戻る</button><button class="primary-btn" id="watchStartBtn">▶ 観戦スタート</button></div>
  </div></section>
 <section id="charScreen" class="screen"><div class="panel">
- <div class="panel-head"><div><div class="step">STEP 01 / FIGHTER SELECT · 14 FIGHTERS</div><h2>CHOOSE YOUR FIGHTER</h2></div><div><div class="player-tabs" id="playerTabs"><button class="mode-btn active" data-player="1">PLAYER 1</button><button class="mode-btn" data-player="2">PLAYER 2</button></div><div class="panel-note">戦うキャラクターを選ぼう。<br>通常技・強攻撃・必殺技・突進・地上技がキャラごとに異なる。</div></div></div>
+ <div class="panel-head"><div><div class="step">STEP 01 / FIGHTER SELECT · 14 FIGHTERS</div><h2>CHOOSE YOUR FIGHTER</h2><p id="charRankNote" class="rank-cpu-note"></p></div><div><div class="player-tabs" id="playerTabs"><button class="mode-btn active" data-player="1">PLAYER 1</button><button class="mode-btn" data-player="2">PLAYER 2</button></div><div class="panel-note">戦うキャラクターを選ぼう。<br>通常技・強攻撃・必殺技・突進・地上技がキャラごとに異なる。</div></div></div>
  <div class="char-grid" id="charGrid"></div>
  <div class="panel-footer"><div class="selected-label" id="charSelectedText">PLAYER 1 <strong>ASTRA</strong></div><div style="display:flex;gap:8px"><button class="secondary-btn" id="backToTitle">BACK</button><button class="primary-btn" id="toStageBtn">NEXT　→</button></div></div>
  </div></section>
@@ -211,7 +217,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
  <div class="panel-footer"><div class="selected-label" id="stageSelectedText">ARENA <strong>CELESTIAL PEAK</strong></div><div style="display:flex;gap:8px"><button class="secondary-btn" id="backToChar">BACK</button><button class="primary-btn" id="fightBtn">FIGHT　⚡</button></div></div>
  </div></section>
 <section id="battleScreen" class="screen"><canvas id="gameCanvas" width="1280" height="720" aria-label="対戦画面"></canvas><div id="onlineNetStatus" class="online-net-status" hidden>ONLINE SYNC</div>
- <div id="touchControls" aria-label="タッチ操作" role="group">
+ <div id="extraPlayerHud" class="extra-player-hud" style="display:none"></div><div id="touchControls" aria-label="タッチ操作" role="group">
   <div class="touch-dpad" aria-label="移動とジャンプ">
    <button type="button" class="touch-key" data-touch-key="w" aria-label="ジャンプ">▲</button>
    <button type="button" class="touch-key" data-touch-key="a" aria-label="左へ移動">◀</button>
@@ -230,13 +236,27 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
   </div>
  </div>
  <div class="battle-top"><div class="fighter-hud left"><div class="hud-name" id="p1HudName">ASTRA</div><div class="hud-stat"><div class="damage" id="p1Damage">0<small>%</small></div></div><div class="hud-sub">PLAYER 1</div><div class="stock-dots" id="p1Stocks"></div><div class="ult-meter"><div class="ult-label">ULTIMATE <span id="p1UltValue">0%</span></div><div class="ult-track"><div id="p1UltFill" class="ult-fill"></div></div></div></div><div class="hud-center"><div class="round-label">53sumabura / ROUND 01</div><div class="timer" id="timerHud">02:00</div></div><div class="fighter-hud right"><div class="hud-name" id="p2HudName">CINDER</div><div class="hud-stat"><div class="damage" id="p2Damage">0<small>%</small></div></div><div class="hud-sub" id="p2Sub">CPU RIVAL</div><div class="stock-dots" id="p2Stocks"></div><div class="ult-meter"><div class="ult-label">ULTIMATE <span id="p2UltValue">0%</span></div><div class="ult-track"><div id="p2UltFill" class="ult-fill"></div></div></div></div></div>
- <div class="battle-bottom touch-layout"><div class="controls-note" id="controlsNote"><b>P1</b> A/D 移動　W ジャンプ　J 速攻　L 強攻撃<br>K 飛び道具　U ダッシュ攻撃　S 地面攻撃　I ガード　O 必殺技（ゲージ100%）</div><div class="battle-actions"><button class="small-btn" id="pauseBtn">Ⅱ PAUSE</button><button class="small-btn exit" id="quitBtn">EXIT</button></div></div>
+ <div class="battle-bottom touch-layout"><div class="controls-note" id="controlsNote"><b>P1</b> A/D 移動　W ジャンプ　J 速攻　L 強攻撃<br>K 飛び道具　U ダッシュ攻撃　S 地面攻撃　I ガード　O 必殺技（ゲージ100%）<br><b>V</b> エモート</div><div class="battle-actions"><button class="small-btn" id="pauseBtn">Ⅱ PAUSE</button><button class="small-btn exit" id="quitBtn">EXIT</button></div></div>
  <div id="toast">READY?</div>
  <div id="pauseOverlay"><div class="pause-box"><div class="step">BATTLE PAUSED</div><h2>PAUSE</h2><button class="primary-btn" id="resumeBtn">RESUME</button> <button class="secondary-btn" id="restartBtn">RESTART</button> <button class="secondary-btn" id="pauseSettingsBtn">⚙ SETTINGS</button> <button class="secondary-btn" id="pauseExitBtn">QUIT</button><div class="footnote">Esc で再開 / ポーズ</div></div></div>
 </section>
 <section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 1.6</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 1.7</div>
+<div id="battleSetupOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="battleSetupTitle">
+ <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 1.7</div><h2 id="battleSetupTitle">対戦設定</h2>
+ <p class="shop-lead">通常対戦のモードとCPUの強さを選んでから、キャラクター選択へ進もう。</p>
+ <div id="battleSetupControls"></div>
+ <div class="custom-overlay-actions"><button class="secondary-btn" id="battleSetupCancel">戻る</button><button class="primary-btn" id="battleSetupGo">キャラクター選択へ →</button></div>
+ </div>
+</div>
+<div id="shopOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
+ <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 1.7</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモートを購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
+ <div class="shop-rules-note">🐕 ペットは通常対戦限定。AIランク戦では使用できません。オーラとエモートは見た目だけで、ランク戦でも使用できます。エモートは V キー。</div>
+ <div id="shopItemsGrid" class="shop-items-grid"></div><div id="shopStatus" class="shop-status" aria-live="polite">アイテムを選んでね。</div>
+ <div class="custom-overlay-actions"><button class="secondary-btn" id="shopClose">戻る</button></div>
+ </div>
+</div>
 <div id="settingsOverlay" role="dialog" aria-modal="true" aria-label="設定"><div class="settings-box"><div class="step">SYSTEM / OPTIONS</div><h2 id="settingsTitle">SETTINGS</h2>
  <div class="settings-tabs" role="tablist" aria-label="設定カテゴリ"><button type="button" class="settings-tab active" data-settings-tab="graphics" role="tab" aria-selected="true">🎨 グラフィック</button><button type="button" class="settings-tab" data-settings-tab="language" role="tab" aria-selected="false">🌐 言語</button><button type="button" class="settings-tab" data-settings-tab="account" role="tab" aria-selected="false">👤 アカウント</button></div>
  <div class="settings-page active" id="settingsGraphicsPanel" role="tabpanel">
@@ -313,8 +333,9 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
   <div class="online-steps" id="onlineSteps"><b>接続手順</b><br>1. Firebase匿名認証を確認する。<br>2. Realtime DatabaseのRulesに、安全な部屋アクセスルールを設定する。<br>3. 接続成功後に部屋を作成するか、6文字の部屋コードで参加する。</div>
   <p class="online-help" id="onlineHelp">まずFirebaseに接続してください。部屋作成・参加ができると、相手の参加状態をリアルタイムで確認できます。キャラクター操作・攻撃のオンライン同期は次の工程です。</p>
   <div class="online-room-controls" id="onlineRoomControls">
-   <div class="online-room-title" id="onlineRoomTitle">ONLINE ROOM / 部屋作成・参加</div>
-   <div class="online-room-buttons"><button class="primary-btn" id="onlineCreateRoomBtn" disabled>＋ 部屋を作成</button><button class="secondary-btn" id="onlineCopyRoomBtn" disabled>部屋コードをコピー</button></div>
+<div class="online-room-title" id="onlineRoomTitle">ONLINE ROOM / 部屋作成・参加</div>
+<div class="online-room-capacity"><label for="onlinePlayerCountSelect">対戦人数</label><select id="onlinePlayerCountSelect"><option value="2">2人対戦</option><option value="3">3人対戦</option><option value="4">4人対戦</option></select><small>部屋を作成するホストが人数を選びます。</small></div>
+<div class="online-room-buttons"><button class="primary-btn" id="onlineCreateRoomBtn" disabled>＋ 部屋を作成</button><button class="secondary-btn" id="onlineCopyRoomBtn" disabled>部屋コードをコピー</button></div>
    <div class="online-room-join"><div><label for="onlineRoomCode" id="onlineCodeLabel">参加する部屋コード（6文字）</label><input id="onlineRoomCode" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABC234" aria-label="部屋コード"></div><button class="secondary-btn" id="onlineJoinRoomBtn" disabled>部屋に参加</button></div>
    <div class="online-room-state" id="onlineRoomStatus" data-state="neutral" role="status" aria-live="polite">接続後、部屋を作成するかコードを入力して参加してください。</div>
    <p class="online-room-foot" id="onlineRoomFoot">部屋コードを共有して相手を招待。2人ともキャラ選択で準備完了になったらホストが開始します。</p>
@@ -429,9 +450,10 @@ function pollGamepad(){
   for(const a of actions){const pressed=down(a.button);if(pressed&&!previous[a.button]){justPressed[a.key]=true;if(window.SKYBOUND_ONLINE_TOUCH_ACTION)window.SKYBOUND_ONLINE_TOUCH_ACTION(a.key);}}
   gamepadPreviousButtons.set(pad.index,Array.from({length:pad.buttons.length},(_,i)=>down(i)));
 }
-function updateControllerGuide(){const note=document.getElementById('controlsNote');if(!note)return;let guide=document.getElementById('gamepadGuide');if(!guide){guide=document.createElement('div');guide.id='gamepadGuide';guide.style.cssText='margin-top:5px;color:#bcefff;font-size:11px;line-height:1.35';note.appendChild(guide);}guide.textContent=uiLanguage==='ja'?'🎮 コントローラー：左スティック／十字キー移動・Aジャンプ・X速攻・Y強攻撃・B飛び道具・RB突進・RT地上技・LBガード・LT必殺技':'🎮 Controller: Stick/D-pad move · A jump · X quick · Y heavy · B projectile · RB dash · RT ground · LB guard · LT ultimate';}
-const onlineInputDefaults=()=>({left:false,right:false,jump:false,attack:false,heavy:false,special:false,dash:false,slam:false,guard:false,ultimate:false});
-window.SKYBOUND_ONLINE_INPUTS={p1:onlineInputDefaults(),p2:onlineInputDefaults()};
+function updateControllerGuide(){const note=document.getElementById('controlsNote');if(!note)return;let guide=document.getElementById('gamepadGuide');if(!guide){guide=document.createElement('div');guide.id='gamepadGuide';guide.style.cssText='margin-top:5px;color:#bcefff;font-size:11px;line-height:1.35';note.appendChild(guide);}guide.textContent=uiLanguage==='ja'?'🎮 コントローラー：左スティック／十字キー移動・Aジャンプ・X速攻・Y強攻撃・B飛び道具・RB突進・RT地上技・LBガード・LT必殺技　／　V：エモート':'🎮 Controller: Stick/D-pad move · A jump · X quick · Y heavy · B projectile · RB dash · RT ground · LB guard · LT ultimate · V: Emote';}
+const onlineInputDefaults=()=>({left:false,right:false,jump:false,attack:false,heavy:false,special:false,dash:false,slam:false,guard:false,ultimate:false,emote:false,emoteId:'cheer'});
+window.SKYBOUND_READ_LOCAL_ONLINE_HELD=()=>({left:!!held['a']||!!gamepadHeld.left,right:!!held['d']||!!gamepadHeld.right,guard:!!held['i']||!!gamepadHeld.guard});
+window.SKYBOUND_ONLINE_INPUTS={p1:onlineInputDefaults(),p2:onlineInputDefaults(),p3:onlineInputDefaults(),p4:onlineInputDefaults()};
 let graphicsQuality='medium',showFPS=true,particlesEnabled=true,accumulator=0,fpsFrames=0,fpsLastStamp=0;
 let shadowQuality='high',environmentDetail='high',depthEffects=true,cinematicLighting=true,atmosphereEnabled=true,bloomEnabled=true,reflectionEnabled=true,motionTrailsEnabled=true,colorGradingEnabled=true,resolutionScaleSetting='auto';
 try{const savedGraphics=JSON.parse(localStorage.getItem('skyboundGraphicsSettings')||'null');if(savedGraphics){if(['low','medium','high','ultra'].includes(savedGraphics.graphicsQuality))graphicsQuality=savedGraphics.graphicsQuality;if(['off','soft','high'].includes(savedGraphics.shadowQuality))shadowQuality=savedGraphics.shadowQuality;if(['low','medium','high','ultra'].includes(savedGraphics.environmentDetail))environmentDetail=savedGraphics.environmentDetail;if(typeof savedGraphics.showFPS==='boolean')showFPS=savedGraphics.showFPS;if(typeof savedGraphics.particlesEnabled==='boolean')particlesEnabled=savedGraphics.particlesEnabled;if(typeof savedGraphics.depthEffects==='boolean')depthEffects=savedGraphics.depthEffects;if(typeof savedGraphics.cinematicLighting==='boolean')cinematicLighting=savedGraphics.cinematicLighting;if(typeof savedGraphics.atmosphereEnabled==='boolean')atmosphereEnabled=savedGraphics.atmosphereEnabled;if(typeof savedGraphics.bloomEnabled==='boolean')bloomEnabled=savedGraphics.bloomEnabled;if(typeof savedGraphics.reflectionEnabled==='boolean')reflectionEnabled=savedGraphics.reflectionEnabled;if(typeof savedGraphics.motionTrailsEnabled==='boolean')motionTrailsEnabled=savedGraphics.motionTrailsEnabled;if(typeof savedGraphics.colorGradingEnabled==='boolean')colorGradingEnabled=savedGraphics.colorGradingEnabled;if(['auto','0.75','1','1.25','1.5','1.75','2'].includes(String(savedGraphics.resolutionScaleSetting)))resolutionScaleSetting=String(savedGraphics.resolutionScaleSetting)}}catch(_){/* settings can still be changed for this session */}
@@ -688,8 +710,27 @@ $('.mode-select').addEventListener('click',e=>{let b=e.target.closest('[data-mod
 const RANK_PROFILE_KEY='53sumabura.playerProfile.v1.3';
 const rankTiers=['BRONZE I','BRONZE II','BRONZE III','SILVER I','SILVER II','SILVER III','GOLD I','GOLD II','GOLD III','PLATINUM I','PLATINUM II','PLATINUM III','DIAMOND I','DIAMOND II','DIAMOND III','ELITE','CHAMPION','UNREAL'];
 const rankTiersJP=['ブロンズ I','ブロンズ II','ブロンズ III','シルバー I','シルバー II','シルバー III','ゴールド I','ゴールド II','ゴールド III','プラチナ I','プラチナ II','プラチナ III','ダイヤモンド I','ダイヤモンド II','ダイヤモンド III','エリート','チャンピオン','アンリアル'];
-const defaultPlayerProfile=()=>({coins:0,rankPoints:0,aiRankWins:0,aiRankLosses:0,onlineWins:0,onlineLosses:0,eliteProtected:false,unrealProtected:false,displayName:'Fighter',uid:''});
-function normalizePlayerProfile(raw){const p={...defaultPlayerProfile(),...(raw||{})};for(const k of ['coins','rankPoints','aiRankWins','aiRankLosses','onlineWins','onlineLosses'])p[k]=Math.max(0,Math.floor(Number(p[k])||0));p.eliteProtected=!!p.eliteProtected;p.unrealProtected=!!p.unrealProtected;p.displayName=String(p.displayName||'Fighter').slice(0,24);p.uid=String(p.uid||'');return p;}
+const SHOP_PETS=[
+ {id:'dog1',type:'pet',name:'ポチ',icon:'🐕',price:50,level:1,damage:4,cooldown:185,range:118,knockback:.65,desc:'小柄な犬。近づいて4ダメージ。通常対戦限定。',color:'#f1d1a0'},
+ {id:'dog2',type:'pet',name:'コロ',icon:'🐶',price:100,level:2,damage:6,cooldown:160,range:132,knockback:.72,desc:'すばやい犬。接近して6ダメージ。',color:'#c98c54'},
+ {id:'dog3',type:'pet',name:'クロ',icon:'🐕‍🦺',price:175,level:3,damage:8,cooldown:140,range:145,knockback:.8,desc:'バランス型。8ダメージ。',color:'#36394b'},
+ {id:'dog4',type:'pet',name:'ハヤテ',icon:'🐕',price:275,level:4,damage:10,cooldown:120,range:158,knockback:.94,desc:'大型犬。10ダメージと小さな押し戻し。',color:'#818999'},
+ {id:'dog5',type:'pet',name:'フェンリル',icon:'🐺',price:400,level:5,damage:12,cooldown:105,range:175,knockback:1.08,desc:'最強クラスの犬。12ダメージ。',color:'#7b9dff'}
+];
+const SHOP_AURAS=[
+ {id:'aura-cyan',type:'aura',name:'ネオンオーラ',icon:'💠',price:150,color:'#65efff',desc:'青い光輪。見た目のみでランク戦でも使用可能。'},
+ {id:'aura-flame',type:'aura',name:'フレイムオーラ',icon:'🔥',price:250,color:'#ff795f',desc:'炎の輪がキャラを包む。能力値は変化しない。'},
+ {id:'aura-cosmic',type:'aura',name:'コズミックオーラ',icon:'🌌',price:400,color:'#bd86ff',desc:'星屑のオーラ。AIランク戦・オンライン対戦で使用可能。'}
+];
+const SHOP_EMOTES=[
+ {id:'cheer',type:'emote',name:'ナイス！',icon:'👍',price:0,desc:'初期エモート。Vキーで表示。'},
+ {id:'dance',type:'emote',name:'ダンス',icon:'💃',price:120,desc:'勝利を祝うダンスエモート。Vキーで表示。'},
+ {id:'victory',type:'emote',name:'ビクトリー',icon:'🏆',price:200,desc:'トロフィーを掲げるエモート。Vキーで表示。'},
+ {id:'taunt',type:'emote',name:'挑発',icon:'😎',price:280,desc:'相手にアピール。見た目のみ。Vキーで表示。'}
+];
+const SHOP_ALL_ITEMS=[...SHOP_PETS,...SHOP_AURAS,...SHOP_EMOTES];
+const defaultPlayerProfile=()=>({coins:0,rankPoints:0,aiRankWins:0,aiRankLosses:0,onlineWins:0,onlineLosses:0,eliteProtected:false,unrealProtected:false,displayName:'Fighter',uid:'',ownedPets:[],ownedAuras:[],ownedEmotes:['cheer'],equippedPetId:'',equippedAuraId:'none',equippedEmoteId:'cheer'});
+function normalizePlayerProfile(raw){const p={...defaultPlayerProfile(),...(raw||{})};for(const k of ['coins','rankPoints','aiRankWins','aiRankLosses','onlineWins','onlineLosses'])p[k]=Math.max(0,Math.floor(Number(p[k])||0));p.eliteProtected=!!p.eliteProtected;p.unrealProtected=!!p.unrealProtected;p.displayName=String(p.displayName||'Fighter').slice(0,24);p.uid=String(p.uid||'');const clean=(v,allowed)=>Array.isArray(v)?[...new Set(v.filter(x=>allowed.includes(x)))]:[];p.ownedPets=clean(p.ownedPets,SHOP_PETS.map(x=>x.id));p.ownedAuras=clean(p.ownedAuras,SHOP_AURAS.map(x=>x.id));p.ownedEmotes=clean(p.ownedEmotes,SHOP_EMOTES.map(x=>x.id));if(!p.ownedEmotes.includes('cheer'))p.ownedEmotes.unshift('cheer');if(!p.ownedPets.includes(p.equippedPetId))p.equippedPetId='';if(!p.ownedAuras.includes(p.equippedAuraId))p.equippedAuraId='none';if(!p.ownedEmotes.includes(p.equippedEmoteId))p.equippedEmoteId='cheer';return p;}
 function loadPlayerProfile(){try{return normalizePlayerProfile(JSON.parse(localStorage.getItem(RANK_PROFILE_KEY)||'{}'))}catch(_){return defaultPlayerProfile()}}
 let playerProfile=loadPlayerProfile();
 let cloudRankRows=[];let rankCloudState='loading';let rankCloudMessage='ランキングを読み込み中…';let rankCloudInitPromise=null;let rankCloudUID='';
@@ -709,7 +750,7 @@ function updateRankUI(){
  const meta=getRankMeta(playerProfile.rankPoints);const name=$('#aiRankName'),points=$('#rankPointsText'),bar=$('#rankProgressBar'),progress=$('#rankProgressText'),record=$('#rankRecordText');
  if(name)name.textContent=meta.name;if(points)points.textContent=meta.unreal?`${playerProfile.rankPoints} RP`:`${playerProfile.rankPoints} RP`;
  if(bar)bar.style.width=meta.unreal?'100%':`${meta.progress}%`;
- if(progress)progress.textContent=meta.unreal?(uiLanguage==='ja'?'アンリアル到達 · リーダーボードで競争':'UNREAL · compete on the leaderboard'):(uiLanguage==='ja'?`${meta.progress}% 次のランクまで`:`${meta.progress}% to next rank`);
+ const rankCpuNote=$('#rankCpuLevelHint');if(rankCpuNote)rankCpuNote.textContent=`AIランク戦のCPU：レベル ${cpuLevelForRank(playerProfile.rankPoints)} / 9（ランク連動・変更不可）`;if(progress)progress.textContent=meta.unreal?(uiLanguage==='ja'?'アンリアル到達 · リーダーボードで競争':'UNREAL · compete on the leaderboard'):(uiLanguage==='ja'?`${meta.progress}% 次のランクまで`:`${meta.progress}% to next rank`);
  if(record)record.textContent=uiLanguage==='ja'?`${playerProfile.aiRankWins}勝 ${playerProfile.aiRankLosses}敗`:`${playerProfile.aiRankWins}W ${playerProfile.aiRankLosses}L`;
  const coinCaption=$('#coinCaption'),rankCaption=$('#rankCaption'),rankBoardTitle=$('#rankBoardTitle'),rankBoardSubtitle=$('#rankBoardSubtitle');
  if(coinCaption)coinCaption.textContent=uiLanguage==='ja'?'所持コイン':'COINS';if(rankCaption)rankCaption.textContent=uiLanguage==='ja'?'AIランク戦 · 現在のランク':'AI RANKED · CURRENT RANK';
@@ -744,6 +785,8 @@ async function savePlayerNameFromSettings(){
  button.disabled=true;const oldText=button.textContent;button.textContent=uiLanguage==='ja'?'保存中…':'Saving…';
  setPlayerNameSettingsStatus('neutral',uiLanguage==='ja'?'端末に保存しました。オンラインランキングも更新しています…':'Saved on this device. Updating online leaderboard…');
  window.SKYBOUND_CURRENT_DISPLAY_NAME=()=>playerProfile.displayName||'Fighter';
+window.SKYBOUND_GET_EQUIPPED_AURA=()=>playerProfile.equippedAuraId||'none';
+window.SKYBOUND_GET_EQUIPPED_EMOTE=()=>playerProfile.equippedEmoteId||'cheer';
  window.dispatchEvent(new CustomEvent('53sumabura-player-name-changed',{detail:{displayName:value,oldName}}));
  try{
   if(window.SKYBOUND_RANKING_API){
@@ -766,7 +809,7 @@ window.addEventListener('53sumabura-account-settings-open',()=>{refreshPlayerNam
 function processMatchRewards(winner){
  if(!game||game.rewardsProcessed)return;game.rewardsProcessed=true;let message='';
  if(mode==='online'){
-  const localPlayerNo=window.SKYBOUND_ONLINE_ROLE==='guest'?2:1;const won=winner.playerNo===localPlayerNo;const before=playerProfile.coins;const target=won?before+10:before-5;playerProfile.coins=Math.max(0,target);
+  const localPlayerNo=Math.max(1,Math.min(4,Number(window.SKYBOUND_ONLINE_PLAYER_NO)||(window.SKYBOUND_ONLINE_ROLE==='guest'?2:1)));const won=winner.playerNo===localPlayerNo;const before=playerProfile.coins;const target=won?before+10:before-5;playerProfile.coins=Math.max(0,target);
   const actual=playerProfile.coins-before;if(won)playerProfile.onlineWins++;else playerProfile.onlineLosses++;
   message=won?`🌐 オンライン勝利：🪙 +${actual}コイン`:`🌐 オンライン敗北：🪙 ${actual<0?'−'+Math.abs(actual):'−0'}コイン`;
  }else if(mode==='cpu'){
@@ -790,16 +833,63 @@ function processMatchRewards(winner){
 window.SKYBOUND_RANK_UI_READY=()=>{syncRankProfileWithCloud().catch(()=>{});};
 window.addEventListener('skybound-language-updated',()=>updateRankUI());
 
+function cpuLevelForRank(points){const meta=getRankMeta(points);return Math.max(1,Math.min(9,1+Math.round((meta.index/17)*8)));}
+function ownedShopItem(item){return item.type==='pet'?playerProfile.ownedPets.includes(item.id):item.type==='aura'?playerProfile.ownedAuras.includes(item.id):playerProfile.ownedEmotes.includes(item.id);}
+function equippedShopItem(item){return item.type==='pet'?playerProfile.equippedPetId===item.id:item.type==='aura'?playerProfile.equippedAuraId===item.id:playerProfile.equippedEmoteId===item.id;}
+function setShopStatus(message,isError=false){const el=$('#shopStatus');if(el){el.textContent=message;el.style.color=isError?'#ff9fb2':'#bdeaff';}}
+function renderShop(){
+ const grid=$('#shopItemsGrid');if(!grid)return;
+ $('#shopCoinCount').textContent=playerProfile.coins.toLocaleString();grid.replaceChildren();
+ const groups=[['🐕 ペット（通常対戦限定）',SHOP_PETS],['✨ オーラ（ランク戦でも使用可能）',SHOP_AURAS],['🎭 エモート（Vキー）',SHOP_EMOTES]];
+ for(const [title,items] of groups){const h=document.createElement('div');h.className='shop-category';h.textContent=title;grid.appendChild(h);
+  for(const item of items){const card=document.createElement('article');card.className='shop-item';
+   const owned=ownedShopItem(item),equipped=equippedShopItem(item);
+   let actionText='',action='';
+   if(owned){action=equipped?'unequip':'equip';actionText=equipped?'装備中 ✓':'装備する';}
+   else{action='buy';actionText=item.price===0?'無料で入手':`購入 · 🪙 ${item.price}`;}
+   const meta=item.type==='pet'?`レベル ${item.level} · 攻撃 ${item.damage}`:item.type==='aura'?'見た目のみ · ランク戦OK':'Vキーで発動';
+   card.innerHTML=`<div class="shop-icon">${item.icon}</div><h3>${item.name}</h3><div class="shop-price">${item.price===0?'無料':`🪙 ${item.price}`}　·　${meta}</div><p>${item.desc}</p><button class="${equipped?'secondary-btn':'primary-btn'}" data-shop-item="${item.id}" data-shop-action="${action}">${actionText}</button>`;grid.appendChild(card);
+  }
+ }
+}
+function openShop(){renderShop();$('#shopOverlay').classList.add('show');setShopStatus('購入したアイテムは端末に保存されます。ログイン中はクラウド保存も試みます。');}
+function closeShop(){$('#shopOverlay').classList.remove('show')}
+$('#shopBtn').addEventListener('click',openShop);$('#shopClose').addEventListener('click',closeShop);$('#shopOverlay').addEventListener('click',e=>{if(e.target===$('#shopOverlay'))closeShop()});
+$('#shopItemsGrid').addEventListener('click',async e=>{
+ const b=e.target.closest('[data-shop-item]');if(!b)return;const item=SHOP_ALL_ITEMS.find(x=>x.id===b.dataset.shopItem);if(!item)return;const action=b.dataset.shopAction;
+ if(action==='buy'){
+  if(ownedShopItem(item)){setShopStatus('すでに所持しているよ。',true);return;}
+  if(playerProfile.coins<item.price){setShopStatus(`コインが足りないよ！ 必要：${item.price} / 所持：${playerProfile.coins}`,true);return;}
+  playerProfile.coins=Math.max(0,playerProfile.coins-item.price);
+  if(item.type==='pet'){playerProfile.ownedPets.push(item.id);playerProfile.equippedPetId=item.id;}
+  else if(item.type==='aura'){playerProfile.ownedAuras.push(item.id);playerProfile.equippedAuraId=item.id;}
+  else {playerProfile.ownedEmotes.push(item.id);playerProfile.equippedEmoteId=item.id;}
+  savePlayerProfile(true);setShopStatus(`${item.icon} ${item.name}を購入して装備したよ！`);
+ }else if(action==='equip'){
+  if(item.type==='pet')playerProfile.equippedPetId=item.id;else if(item.type==='aura')playerProfile.equippedAuraId=item.id;else playerProfile.equippedEmoteId=item.id;
+  savePlayerProfile(true);setShopStatus(`${item.name}を装備したよ！`);
+ }else if(action==='unequip'){
+  if(item.type==='pet')playerProfile.equippedPetId='';else if(item.type==='aura')playerProfile.equippedAuraId='none';else playerProfile.equippedEmoteId='cheer';
+  savePlayerProfile(true);setShopStatus(`${item.name}を外したよ。`);
+ }
+ renderShop();
+});
+
 function renderDifficulty(){document.querySelectorAll('.difficulty-btn').forEach(b=>{const active=Number(b.dataset.level)===cpuLevel;b.classList.toggle('selected',active);b.setAttribute('aria-pressed',String(active))});$('#difficultyValue').textContent=`${uiLanguage==='ja'?'レベル':'LEVEL'} ${cpuLevel} / 9`;$('#difficultyCaption').textContent=uiLanguage==='ja'?`レベル ${cpuLevel} · ${difficultyJapanese[cpuLevel]} — ${cpuTips[cpuLevel]}`:`LEVEL ${cpuLevel} · ${cpuLevels[cpuLevel]} — ${cpuTips[cpuLevel]}`}
 $('#difficultyButtons').addEventListener('click',e=>{const b=e.target.closest('[data-level]');if(!b)return;cpuLevel=Number(b.dataset.level);renderDifficulty()});
-$('#aiRankedBtn').addEventListener('click',()=>{aiRankedMatchActive=true;mode='cpu';document.querySelectorAll('.mode-select .mode-btn').forEach(x=>x.classList.toggle('active',x.dataset.mode==='cpu'));$('#difficultyPicker').style.display='block';initAudio();playSfx('ui');renderChars();showScreen('charScreen');});
+$('#aiRankedBtn').addEventListener('click',()=>{aiRankedMatchActive=true;mode='cpu';cpuLevel=cpuLevelForRank(playerProfile.rankPoints);renderDifficulty();document.querySelectorAll('.mode-select .mode-btn').forEach(x=>x.classList.toggle('active',x.dataset.mode==='cpu'));$('#difficultyPicker').style.display='none';initAudio();playSfx('ui');renderChars();const note=$('#charRankNote');if(note)note.textContent=`🏆 AIランク戦：CPUレベル ${cpuLevel}/9（現在のランクで自動決定・変更不可）`;showScreen('charScreen');});
 updateRankUI();
 
-$('#startBtn').onclick=()=>{aiRankedMatchActive=false;mode=document.querySelector('.mode-select .mode-btn.active')?.dataset.mode||'cpu';initAudio();playSfx('ui');renderChars();showScreen('charScreen')};$('#howBtn').onclick=()=>{let x=$('#howText');x.style.display=x.style.display==='none'?'block':'none'};$('#backToTitle').onclick=()=>showScreen('titleScreen');$('#toStageBtn').onclick=()=>{renderStages();showScreen('stageScreen')};$('#backToChar').onclick=()=>showScreen('charScreen');
+// Move CPU choice off the main menu: it appears only after pressing BATTLE START.
+const battleSetupOverlay=$('#battleSetupOverlay');const setupControls=$('#battleSetupControls');
+if(setupControls){const modePanel=document.querySelector('.mode-select');const difficultyPanel=$('#difficultyPicker');if(modePanel)setupControls.appendChild(modePanel);if(difficultyPanel)setupControls.appendChild(difficultyPanel);}
+$('#battleSetupGo').addEventListener('click',()=>{aiRankedMatchActive=false;mode=document.querySelector('.mode-select .mode-btn.active')?.dataset.mode||'cpu';$('#difficultyPicker').style.display=mode==='cpu'?'block':'none';battleSetupOverlay.classList.remove('show');initAudio();playSfx('ui');const note=$('#charRankNote');if(note)note.textContent='';renderChars();showScreen('charScreen')});
+$('#battleSetupCancel').addEventListener('click',()=>battleSetupOverlay.classList.remove('show'));
+$('#startBtn').onclick=()=>{initAudio();playSfx('ui');$('#difficultyPicker').style.display=(document.querySelector('.mode-select .mode-btn.active')?.dataset.mode||'cpu')==='cpu'?'block':'none';battleSetupOverlay.classList.add('show')};$('#howBtn').onclick=()=>{let x=$('#howText');x.style.display=x.style.display==='none'?'block':'none'};$('#backToTitle').onclick=()=>showScreen('titleScreen');$('#toStageBtn').onclick=()=>{renderStages();showScreen('stageScreen')};$('#backToChar').onclick=()=>showScreen('charScreen');
 $('#fightBtn').onclick=()=>startBattle();
 const canvas=$('#gameCanvas'),ctx=canvas.getContext('2d');let cw=1280,ch=720;let paused=false,finished=false;
 function resizeCanvas(){const dpr=Math.min(window.devicePixelRatio||1,2);const presetScale=graphicsQuality==='low'?.75:graphicsQuality==='medium'?Math.min(dpr,1.2):graphicsQuality==='high'?Math.min(dpr,1.6):Math.min(dpr,2);const scale=resolutionScaleSetting==='auto'?presetScale:Math.max(.65,Math.min(2,Number(resolutionScaleSetting)||presetScale));const r=canvas.getBoundingClientRect();canvas.width=Math.max(1,Math.round(r.width*scale));canvas.height=Math.max(1,Math.round(r.height*scale));cw=canvas.width;ch=canvas.height;ctx.setTransform(1,0,0,1,0,0)}window.addEventListener('resize',()=>{if($('#battleScreen').classList.contains('active'))resizeCanvas()});
-function createPlayer(f,x,playerNo){return {f,x,y:430,vx:0,vy:0,damage:0,stocks:3,face:playerNo===1?1:-1,grounded:false,jumps:0,attack:0,attackType:'quick',attackCD:0,heavyCD:0,dashCD:0,slamCD:0,specialCD:0,ultMeter:0,invuln:100,anim:Math.random()*20,hitFlash:0,guarding:false,playerNo,aiThink:0,aiMove:0,aiJump:0,aiGuardFrames:0,aiFoeX:null,aiMood:'approach',aiPauseFrames:0,aiComboMove:null,aiComboDeadline:0,aiComboUntil:0,aiComboHits:0,dead:false}}
+function createPlayer(f,x,playerNo){const allowPet=playerNo===1&&!aiRankedMatchActive&&mode!=='online';return {f,x,y:430,vx:0,vy:0,damage:0,stocks:3,face:playerNo===1?1:-1,grounded:false,jumps:0,attack:0,attackType:'quick',attackCD:0,heavyCD:0,dashCD:0,slamCD:0,specialCD:0,ultMeter:0,invuln:100,anim:Math.random()*20,hitFlash:0,guarding:false,playerNo,aiThink:0,aiMove:0,aiJump:0,aiGuardFrames:0,aiFoeX:null,aiMood:'approach',aiPauseFrames:0,aiComboMove:null,aiComboDeadline:0,aiComboUntil:0,aiComboHits:0,dead:false,displayName:playerNo===1?(playerProfile.displayName||'Fighter'):'',auraId:playerNo===1?(playerProfile.equippedAuraId||'none'):'none',emoteId:playerNo===1?(playerProfile.equippedEmoteId||'cheer'):'cheer',emoteFrames:0,emoteCooldown:0,petId:allowPet?(playerProfile.equippedPetId||''):'',petX:x-(playerNo===1?1:-1)*43,petY:430,petCooldown:90,petBiteFrames:0}}
 function moveNamesLine(p,binds,label){return `<b>${label} ${p.f.name}</b>　${binds[0]} ${p.f.moves.quick.name}　${binds[1]} ${p.f.moves.heavy.name}<br>${binds[2]} ${p.f.moves.special.name}　${binds[3]} ${p.f.moves.dash.name}　${binds[4]} ${p.f.moves.slam.name}　${binds[5]} ガード`}
 const settingsLocales={
  ja:{settingsTitle:'設定',graphicsTab:'🎨 グラフィック',advancedTab:'🔧 詳細設定',languageTab:'🌐 言語',accountTab:'👤 アカウント',basicGraphicsTitle:'基本設定',audioSettingsTitle:'サウンド',graphicsDetailTitle:'詳細グラフィック設定',fpsLabel:'FPS表示',fpsHelp:'画面左上に現在の描画FPSを表示',qualityLabel:'グラフィック品質',qualityHelp:'全体の描画品質と解像度のプリセット',effectsLabel:'パーティクルエフェクト',effectsHelp:'攻撃時の光・火花・粒子',soundLabel:'効果音',soundHelp:'打撃・防御・風切り音・飛び道具・ノックアウト',volumeLabel:'音量',volumeHelp:'効果音の音量を調整',shadowLabel:'影の品質',shadowHelp:'キャラクターの接地影と足場の柔らかな影',detailLabel:'背景の描き込み',detailHelp:'遠景・雲・星・環境ディテールの量',renderScaleLabel:'描画解像度',renderScaleHelp:'高くするほど鮮明になりますが、負荷が増えます',depthLabel:'奥行き表現',depthHelp:'遠景レイヤーと遠近感を強調する',lightingLabel:'立体的な光と陰影',lightingHelp:'光源のにじみやキャラクターの縁の光を強調',atmosphereLabel:'大気遠近・透明感',atmosphereHelp:'遠くの景色に薄い霞を重ね、空気の層を表現',bloomLabel:'光のにじみ（ブルーム）',bloomHelp:'発光する足場・必殺技・光源を柔らかくする',reflectionLabel:'表面の反射・透明感',reflectionHelp:'足場の表面に控えめな反射ハイライトを追加',motionLabel:'スピードの残像',motionHelp:'高速移動中に流れる光の軌跡を表示',gradingLabel:'映画風の色調・周辺光',gradingHelp:'画面端の陰影と色のまとまりを調整',graphicsHint:'よりリアルな奥行き・光・影の細かさは「詳細設定」で個別に調整できます。',languageLabel:'表示言語',languageHelp:'メニュー・対戦画面・結果画面など全体の表示言語',languageNote:'言語を選んで「適用」を押してください。',close:'戻る',apply:'適用',settingsButton:'⚙ 設定',qualityLow:'低（軽量）',qualityMedium:'中（標準）',qualityHigh:'高（高画質）',qualityUltra:'最高（シネマ）',shadowOff:'オフ',shadowSoft:'柔らかい',shadowHigh:'高精細',detailLow:'少なめ',detailMedium:'標準',detailHigh:'高精細',detailUltra:'最高精細',scaleAuto:'自動（画質に合わせる）',scale75:'75%（軽い）',scale100:'100%',scale125:'125%',scale150:'150%',scale175:'175%',scale200:'200%（最高）'},
@@ -809,7 +899,7 @@ function applyLanguage(lang){
  uiLanguage=lang==='en'?'en':'ja';const ja=uiLanguage==='ja',t=settingsLocales[uiLanguage];document.documentElement.lang=uiLanguage;
  $('#settingsTitle').textContent=t.settingsTitle;$('#bgmLabel').textContent=ja?'BGM（背景音楽）':'Background music (BGM)';$('#bgmHelp').textContent=ja?'メニュー・対戦中に流れる音楽':'Original music in menus and battles';$('#bgmVolumeLabel').textContent=ja?'BGM音量':'BGM volume';$('#bgmVolumeHelp').textContent=ja?'背景音楽の音量を調整':'Adjust background music volume';$('.settings-box .step').textContent=ja?'システム設定':'SYSTEM / OPTIONS';document.querySelector('[data-settings-tab="graphics"]').textContent=t.graphicsTab;document.querySelector('[data-settings-tab="language"]').textContent=t.languageTab;document.querySelector('[data-settings-tab="account"]').textContent=t.accountTab;$('#settingsPlayerNameHeading').textContent=ja?'プレイヤー名':'PLAYER NAME';$('#playerNameLabel').textContent=ja?'自分のプレイヤー名':'Your player name';$('#playerNameInput').placeholder=ja?'プレイヤー名（最大24文字）':'Player name (max 24 characters)';$('#playerNameInput').setAttribute('aria-label',ja?'自分のプレイヤー名':'Your player name');$('#savePlayerNameBtn').textContent=ja?'名前を保存':'Save name';$('#settingsAccountHeading').textContent=ja?'アカウント / ログイン':'ACCOUNT / SIGN-IN';$('#settingsEmailHeading').textContent=ja?'メールリンクでログイン':'SIGN IN WITH EMAIL LINK';$('#settingsEmailLabel').textContent=ja?'登録済みアカウントのメールアドレス':'Registered account email';$('#settingsEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link';$('#settingsEmailInput').placeholder=ja?'登録済みメールアドレス':'Registered email address';$('#settingsEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#settingsEmailHelp').textContent=ja?'同じメールアドレスに届いたリンクをこの端末で開くとログインできます。メールリンク認証はFirebase Consoleで有効にする必要があります。':'Open the sign-in link sent to this same email on this device. Email-link sign-in must be enabled in Firebase Console.';$('#settingsAccountNote').textContent=ja?'アカウントを切り替える前にオンラインの部屋から退出してください。登録済みと同じメールアドレスを使ってね。':'Leave your online room before switching accounts. Use the same email address that was previously registered.';['basicGraphicsTitle','audioSettingsTitle','graphicsDetailTitle','fpsLabel','fpsHelp','qualityLabel','qualityHelp','effectsLabel','effectsHelp','soundLabel','soundHelp','volumeLabel','volumeHelp','shadowLabel','shadowHelp','detailLabel','detailHelp','renderScaleLabel','renderScaleHelp','depthLabel','depthHelp','lightingLabel','lightingHelp','atmosphereLabel','atmosphereHelp','bloomLabel','bloomHelp','reflectionLabel','reflectionHelp','motionLabel','motionHelp','gradingLabel','gradingHelp','graphicsHint','languageLabel','languageHelp','languageNote'].forEach(id=>{if($('#'+id))$('#'+id).textContent=t[id]});$('#settingsCloseBtn').textContent=t.close;$('#settingsApplyBtn').textContent=t.apply;$('#settingsBtn').textContent=t.settingsButton;$('#pauseSettingsBtn').textContent=t.settingsButton;const q=$('#qualitySelect');q.options[0].textContent=t.qualityLow;q.options[1].textContent=t.qualityMedium;q.options[2].textContent=t.qualityHigh;q.options[3].textContent=t.qualityUltra;const sh=$('#shadowSelect');sh.options[0].textContent=t.shadowOff;sh.options[1].textContent=t.shadowSoft;sh.options[2].textContent=t.shadowHigh;const de=$('#detailSelect');de.options[0].textContent=t.detailLow;de.options[1].textContent=t.detailMedium;de.options[2].textContent=t.detailHigh;de.options[3].textContent=t.detailUltra;const rs=$('#renderScaleSelect');[t.scaleAuto,t.scale75,t.scale100,t.scale125,t.scale150,t.scale175,t.scale200].forEach((label,i)=>rs.options[i].textContent=label);
  // ホーム画面
- $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、友達の部屋コードで参加しよう。':'Connects automatically at startup. Create a room or join with a friend’s room code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 部屋を作成するか、6文字の部屋コードで参加する。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Create a room or join with a 6-character code.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'2人で部屋に入り、キャラクターを選んで準備完了にしよう。ゲスト側は受信したゲーム状態を補間表示して、動きを滑らかにします。':'Join a room together, select fighters, and mark ready. Guest rendering interpolates host snapshots for smoother motion.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'先に「部屋を作成」するか、友達の6文字コードで参加してね。接続と部屋参加ができると「キャラ選択へ」が使えるよ。移動や攻撃の同期は次の工程で追加するよ。':'Share the room code with a friend. Movement and attack synchronization will be added next.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';$('#howBtn').textContent=ja?'遊び方':'HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER';
+ $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、友達の部屋コードで参加しよう。':'Connects automatically at startup. Create a room or join with a friend’s room code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 部屋を作成するか、6文字の部屋コードで参加する。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Create a room or join with a 6-character code.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストが2・3・4人の対戦人数を選んで部屋を作成。友達は部屋コードで参加し、全員がキャラクターを選んで準備完了にしたら開始できます。':'Host chooses a 2-, 3-, or 4-player room. Friends join with the room code, select fighters, and ready up before the host starts.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';$('#howBtn').textContent=ja?'遊び方':'HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 1.7':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 1.7';
  // AI観戦ルーム
  const roomHead=$('#aiRoomScreen .panel-head');roomHead.querySelector('.step').textContent=ja?'観戦モード / AI対AI':'SPECTATOR MODE / AI VS AI';roomHead.querySelector('h2').textContent=ja?'AI対戦ルーム':'AI BATTLE ROOM';$('#aiRoomScreen .ai-room-kicker').textContent=ja?'観戦専用ルーム · 2体のAIが自動で対戦':'Spectator room · Two AIs fight automatically';$('#aiRoomScreen .ai-room-live').textContent=ja?'ローカルAIアリーナ':'LOCAL AI ARENA';const roomCards=document.querySelectorAll('.ai-room-card h3');if(roomCards[0])roomCards[0].textContent=ja?'01 / シアンチーム':'01 / CYAN TEAM';if(roomCards[1])roomCards[1].textContent=ja?'02 / ピンクチーム':'02 / PINK TEAM';[['#aiRoomScreen label[for="watchP1Select"]','キャラクター1','FIGHTER 1'],['#aiRoomScreen label[for="watchLevel1"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchP2Select"]','キャラクター2','FIGHTER 2'],['#aiRoomScreen label[for="watchLevel2"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchStageSelect"]','ステージ','BATTLE ARENA'],['#aiRoomScreen label[for="watchMatchLength"]','対戦時間','MATCH LENGTH']].forEach(([sel,j,e])=>setText(sel,j,e));$('#aiRoomScreen .ai-room-hint').textContent=ja?'AIが自分で移動・ジャンプ・攻撃・ガード・必殺技を使って戦うよ。観戦中は操作不要。キャラや強さを変えて、何度でも対戦を見られる！':'AIs move, jump, attack, guard and use special moves automatically. No controls are needed while watching. Change fighters or levels and watch again!';$('#watchBackBtn').textContent=ja?'← ホームへ戻る':'← BACK TO HOME';$('#watchStartBtn').textContent=ja?'▶ 観戦開始':'▶ START WATCHING';
  // キャラクター・ステージ選択
@@ -833,10 +923,19 @@ applyLanguage(uiLanguage);
 document.addEventListener('click',e=>{if(e.target.closest('button')&&!e.target.closest('#settingsApplyBtn')){initAudio();playSfx('ui')}},{capture:true});
 document.addEventListener('pointerdown',()=>{initAudio();if(bgmEnabled)startBGM()},{once:true,capture:true});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(bgmScheduler!==null){clearInterval(bgmScheduler);bgmScheduler=null}if(audioCtx&&bgmGain)bgmGain.gain.setTargetAtTime(0,audioCtx.currentTime,.04)}else if(bgmEnabled&&audioCtx){if(audioCtx.state==='suspended')audioCtx.resume();startBGM()} });
-function startBattle(matchSeconds=120){initAudio();playSfx('start');cameraXCurrent=0;const st=stages[stagePick];game={aiRankedMatch:mode==='cpu'&&aiRankedMatchActive,cpuLevelAtStart:cpuLevel,rewardsProcessed:false,rewardMessage:'',stage:st,p1:createPlayer(fighters[p1Pick],st.id==='neon'?510:490,1),p2:createPlayer(fighters[p2Pick],st.id==='neon'?770:790,2),projectiles:[],particles:[],elapsed:0,limit:matchSeconds*60,shake:0,announcement:120,started:false,trail:[],winner:null,lastKOReason:'stage'};paused=false;finished=false;$('#pauseOverlay').classList.remove('show');$('#p1HudName').textContent=fighterDisplayName(game.p1.f);$('#p2HudName').textContent=fighterDisplayName(game.p2.f);$('#touchControls').style.display=mode==='watch'?'none':'';$('#toast').textContent=uiLanguage==='ja'?'準備！':'READY?';$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),1250);updateHUD();updateBattleLocalizedText();updateControllerGuide();showScreen('battleScreen');resizeCanvas();$('#fpsCounter').style.display=showFPS?'block':'none';lastTime=performance.now();accumulator=0;fpsFrames=0;fpsLastStamp=lastTime;cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
-window.SKYBOUND_READ_LOCAL_ONLINE_HELD=()=>({left:!!held['a']||!!gamepadHeld.left,right:!!held['d']||!!gamepadHeld.right,guard:!!held['i']||!!gamepadHeld.guard});
-// Multiplayer performance preset: reduce canvas fill rate and expensive visual effects
-// for BOTH roles. This is runtime-only and does not overwrite the user's saved settings.
+function startBattle(matchSeconds=120){
+ initAudio();playSfx('start');cameraXCurrent=0;const st=stages[stagePick];if(mode==='cpu'&&aiRankedMatchActive){cpuLevel=cpuLevelForRank(playerProfile.rankPoints);renderDifficulty();}
+ const remoteRoster=(mode==='online'&&Array.isArray(window.SKYBOUND_ONLINE_ROSTER)&&window.SKYBOUND_ONLINE_ROSTER.length)?window.SKYBOUND_ONLINE_ROSTER:[];
+ let players=[];
+ if(mode==='online'&&remoteRoster.length>=2){
+  const count=Math.max(2,Math.min(4,remoteRoster.length));const xs=count===2?[490,790]:count===3?[300,640,980]:[210,500,790,1080];
+  players=remoteRoster.slice(0,count).map((r,i)=>{const fi=fighters.findIndex(f=>f.id===r.characterId||f.id===r.fighterId);const p=createPlayer(fighters[fi>=0?fi:(i%fighters.length)],xs[i],i+1);p.displayName=String(r.displayName||('PLAYER '+(i+1))).slice(0,24);p.auraId=SHOP_AURAS.some(a=>a.id===r.auraId)?r.auraId:'none';p.emoteId=SHOP_EMOTES.some(e=>e.id===r.emoteId)?r.emoteId:'cheer';p.petId='';return p;});
+ }else{players=[createPlayer(fighters[p1Pick],st.id==='neon'?510:490,1),createPlayer(fighters[p2Pick],st.id==='neon'?770:790,2)];}
+ game={aiRankedMatch:mode==='cpu'&&aiRankedMatchActive,cpuLevelAtStart:cpuLevel,rewardsProcessed:false,rewardMessage:'',stage:st,players,p1:players[0],p2:players[1],projectiles:[],particles:[],elapsed:0,limit:matchSeconds*60,shake:0,announcement:120,started:false,trail:[],winner:null,lastKOReason:'stage'};
+ paused=false;finished=false;$('#pauseOverlay').classList.remove('show');$('#p1HudName').textContent=mode==='online'?(game.p1.displayName||fighterDisplayName(game.p1.f)):fighterDisplayName(game.p1.f);$('#p2HudName').textContent=mode==='online'?(game.p2.displayName||fighterDisplayName(game.p2.f)):fighterDisplayName(game.p2.f);$('#p2Sub').textContent=mode==='online'?'PLAYER 2':mode==='2p'?'PLAYER 2':'CPU RIVAL';
+ const extraHud=$('#extraPlayerHud');if(extraHud)extraHud.style.display=players.length>2?'flex':'none';
+ $('#touchControls').style.display=mode==='watch'?'none':'';$('#toast').textContent=uiLanguage==='ja'?'準備！':'READY?';$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),1250);updateHUD();updateBattleLocalizedText();updateControllerGuide();showScreen('battleScreen');resizeCanvas();$('#fpsCounter').style.display=showFPS?'block':'none';lastTime=performance.now();accumulator=0;fpsFrames=0;fpsLastStamp=lastTime;cancelAnimationFrame(raf);raf=requestAnimationFrame(loop);setBgmMode('battle');
+}
 function enableOnlinePerformancePreset(){
   graphicsQuality='low';
   particlesEnabled=false;
@@ -852,53 +951,42 @@ function enableOnlinePerformancePreset(){
   resolutionScaleSetting='0.75';
   resizeCanvas();
 }
-window.SKYBOUND_ONLINE_RESET_INPUTS=()=>{window.SKYBOUND_ONLINE_INPUTS={p1:onlineInputDefaults(),p2:onlineInputDefaults()};held={};justPressed={};};
-window.SKYBOUND_START_ONLINE_BATTLE=(p1Id,p2Id,stageId='peak',matchSeconds=120)=>{
-  const i1=fighters.findIndex(f=>f.id===p1Id),i2=fighters.findIndex(f=>f.id===p2Id),si=stages.findIndex(st=>st.id===stageId);
-  p1Pick=i1>=0?i1:0;p2Pick=i2>=0?i2:1;stagePick=si>=0?si:0;mode='online';aiRankedMatchActive=false;frame=0;
-  enableOnlinePerformancePreset();
-  window.SKYBOUND_ONLINE_RESET_INPUTS();startBattle(Math.max(30,Math.min(300,Number(matchSeconds)||120)));
+window.SKYBOUND_ONLINE_RESET_INPUTS=()=>{window.SKYBOUND_ONLINE_INPUTS={p1:onlineInputDefaults(),p2:onlineInputDefaults(),p3:onlineInputDefaults(),p4:onlineInputDefaults()};held={};justPressed={};};
+let onlineBattleRoster=[];
+window.SKYBOUND_START_ONLINE_BATTLE=(p1Id,p2Id,stageId='peak',matchSeconds=120,roster=[])=>{
+ const i1=fighters.findIndex(f=>f.id===p1Id),i2=fighters.findIndex(f=>f.id===p2Id),si=stages.findIndex(st=>st.id===stageId);
+ p1Pick=i1>=0?i1:0;p2Pick=i2>=0?i2:1;stagePick=si>=0?si:0;mode='online';aiRankedMatchActive=false;frame=0;onlineBattleRoster=Array.isArray(roster)?roster:[];window.SKYBOUND_ONLINE_ROSTER=onlineBattleRoster;
+ enableOnlinePerformancePreset();window.SKYBOUND_ONLINE_RESET_INPUTS();startBattle(Math.max(30,Math.min(300,Number(matchSeconds)||120)));
 };
 window.SKYBOUND_GET_ONLINE_STATE=()=>{
-  if(!game)return null;
-  const fields=['x','y','vx','vy','damage','stocks','face','grounded','jumps','attack','attackType','attackSlot','attackCD','heavyCD','dashCD','slamCD','specialCD','ultMeter','invuln','anim','hitFlash','guarding','aiThink','aiMove','aiJump','aiGuardFrames','aiFoeX','aiMood','aiPauseFrames','aiComboMove','aiComboDeadline','aiComboUntil','aiComboHits','dead'];
-  const packPlayer=p=>{const o={fighterId:p.f.id};for(const k of fields)o[k]=p[k]===undefined?null:p[k];return o;};
-  const projectiles=game.projectiles.map(q=>{const o={};for(const k in q)if(k!=='owner'&&q[k]!==undefined&&typeof q[k]!=='function')o[k]=q[k];o.ownerPlayerNo=q.owner===game.p1?1:2;return o;});
-  return {p1:packPlayer(game.p1),p2:packPlayer(game.p2),projectiles,elapsed:game.elapsed,limit:game.limit,started:game.started,announcement:game.announcement,shake:game.shake,finished:!!finished,winnerPlayerNo:game.winner?game.winner.playerNo:null,timedOut:!!game.timedOut,lastKOReason:game.lastKOReason};
+ if(!game)return null;
+ const fields=['x','y','vx','vy','damage','stocks','face','grounded','jumps','attack','attackType','attackSlot','attackCD','heavyCD','dashCD','slamCD','specialCD','ultMeter','invuln','anim','hitFlash','guarding','aiThink','aiMove','aiJump','aiGuardFrames','aiFoeX','aiMood','aiPauseFrames','aiComboMove','aiComboDeadline','aiComboUntil','aiComboHits','dead','emoteId','emoteFrames','auraId','displayName'];
+ const packPlayer=p=>{const o={fighterId:p.f.id};for(const k of fields)o[k]=p[k]===undefined?null:p[k];o.playerNo=p.playerNo;return o;};
+ const players=(game.players||[game.p1,game.p2]).map(packPlayer);
+ const projectiles=game.projectiles.map(q=>{const o={};for(const k in q)if(k!=='owner'&&q[k]!==undefined&&typeof q[k]!=='function')o[k]=q[k];o.ownerPlayerNo=q.owner&&q.owner.playerNo||1;return o;});
+ return {players,p1:players[0],p2:players[1],projectiles,elapsed:game.elapsed,limit:game.limit,started:game.started,announcement:game.announcement,shake:game.shake,finished:!!finished,winnerPlayerNo:game.winner?game.winner.playerNo:null,timedOut:!!game.timedOut,lastKOReason:game.lastKOReason};
 };
-// Guest rendering buffer: Firebase snapshots arrive at ~20Hz, so interpolate them between frames.
-const onlineRenderSnapshots=[];
-let lastOnlineStateSequence=-1;
+const onlineRenderSnapshots=[];let lastOnlineStateSequence=-1;
 window.SKYBOUND_CLEAR_ONLINE_SNAPSHOTS=()=>{onlineRenderSnapshots.length=0;lastOnlineStateSequence=-1;};
 window.SKYBOUND_APPLY_ONLINE_STATE=state=>{
-  if(!game||!state)return;
-  if(mode==='online'&&window.SKYBOUND_ONLINE_ROLE==='guest'){
-    // Ignore stale/duplicate state packets and coalesce bursts delivered after a network stall.
-    const sequence=Number(state._seq);
-    if(Number.isFinite(sequence)&&sequence>0){if(sequence<=lastOnlineStateSequence)return;lastOnlineStateSequence=sequence;}
-    const now=performance.now();
-    const previous=onlineRenderSnapshots[onlineRenderSnapshots.length-1];
-    if(previous){
-      const gap=now-previous.t;
-      // A long gap means the interpolation history is stale; a sub-frame gap usually
-      // means Firebase delivered a backlog. In either case, keep the freshest snapshot.
-      if(gap>260||gap<6)onlineRenderSnapshots.length=0;
-    }
-    onlineRenderSnapshots.push({t:now,state});
-    // Keep enough history for jittery 20–25 Hz snapshots, but bound memory use.
-    if(onlineRenderSnapshots.length>18)onlineRenderSnapshots.splice(0,onlineRenderSnapshots.length-18);
-  }
-  const fields=['x','y','vx','vy','damage','stocks','face','grounded','jumps','attack','attackType','attackSlot','attackCD','heavyCD','dashCD','slamCD','specialCD','ultMeter','invuln','anim','hitFlash','guarding','aiThink','aiMove','aiJump','aiGuardFrames','aiFoeX','aiMood','aiPauseFrames','aiComboMove','aiComboDeadline','aiComboUntil','aiComboHits','dead'];
-  for(const [slot,p] of [['p1',game.p1],['p2',game.p2]]){const remote=state[slot];if(!remote)continue;for(const k of fields)if(remote[k]!==undefined&&remote[k]!==null)p[k]=remote[k];}
-  game.projectiles=(state.projectiles||[]).map(q=>{const o={};for(const k in q)if(k!=='ownerPlayerNo')o[k]=q[k];o.owner=q.ownerPlayerNo===1?game.p1:game.p2;return o;});
-  if(Number.isFinite(state.elapsed))game.elapsed=state.elapsed;if(Number.isFinite(state.limit))game.limit=state.limit;
-  if(typeof state.started==='boolean')game.started=state.started;if(Number.isFinite(state.announcement))game.announcement=state.announcement;if(Number.isFinite(state.shake))game.shake=state.shake;
-  game.lastKOReason=state.lastKOReason||game.lastKOReason;updateHUD();
-  if(state.finished&&!finished){const winner=state.winnerPlayerNo===2?game.p2:game.p1;finishBattle(winner,!!state.timedOut);}
+ if(!game||!state)return;
+ if(mode==='online'&&window.SKYBOUND_ONLINE_ROLE!=='host'){
+  const sequence=Number(state._seq);if(Number.isFinite(sequence)&&sequence>0){if(sequence<=lastOnlineStateSequence)return;lastOnlineStateSequence=sequence;}
+  const now=performance.now(),previous=onlineRenderSnapshots[onlineRenderSnapshots.length-1];
+  if(previous){const gap=now-previous.t;if(gap>260||gap<6)onlineRenderSnapshots.length=0;}
+  onlineRenderSnapshots.push({t:now,state});if(onlineRenderSnapshots.length>18)onlineRenderSnapshots.splice(0,onlineRenderSnapshots.length-18);
+ }
+ const fields=['x','y','vx','vy','damage','stocks','face','grounded','jumps','attack','attackType','attackSlot','attackCD','heavyCD','dashCD','slamCD','specialCD','ultMeter','invuln','anim','hitFlash','guarding','aiThink','aiMove','aiJump','aiGuardFrames','aiFoeX','aiMood','aiPauseFrames','aiComboMove','aiComboDeadline','aiComboUntil','aiComboHits','dead','emoteId','emoteFrames','auraId','displayName'];
+ const players=game.players||[game.p1,game.p2];const remotePlayers=Array.isArray(state.players)?state.players:[state.p1,state.p2].filter(Boolean);
+ players.forEach((p,i)=>{const remote=remotePlayers[i]||state['p'+(i+1)];if(!remote)return;for(const k of fields)if(remote[k]!==undefined&&remote[k]!==null)p[k]=remote[k];});
+ game.projectiles=(state.projectiles||[]).map(q=>{const o={};for(const k in q)if(k!=='ownerPlayerNo')o[k]=q[k];o.owner=players[Math.max(0,Math.min(players.length-1,(Number(q.ownerPlayerNo)||1)-1))]||game.p1;return o;});
+ if(Number.isFinite(state.elapsed))game.elapsed=state.elapsed;if(Number.isFinite(state.limit))game.limit=state.limit;if(typeof state.started==='boolean')game.started=state.started;if(Number.isFinite(state.announcement))game.announcement=state.announcement;if(Number.isFinite(state.shake))game.shake=state.shake;
+ game.lastKOReason=state.lastKOReason||game.lastKOReason;updateHUD();
+ if(state.finished&&!finished){const winNo=Number(state.winnerPlayerNo)||1;const winner=players.find(p=>p.playerNo===winNo)||game.p1;finishBattle(winner,!!state.timedOut);}
 };
-function updateHUD(){if(!game)return;[['p1',game.p1],['p2',game.p2]].forEach(([id,p])=>{$('#'+id+'Damage').innerHTML=`${Math.floor(p.damage)}<small>%</small>`;$('#'+id+'Damage').style.color=p.damage>=100?'#ff799b':p.damage>60?'#ffcf75':'#fff';$('#'+id+'Stocks').innerHTML=Array.from({length:3},(_,i)=>`<span class="stock ${i>=p.stocks?'off':''}" style="color:${p.f.color};background:${i>=p.stocks?'#5b6f81':p.f.color}"></span>`).join('');const meter=Math.floor(p.ultMeter||0);$('#'+id+'UltValue').textContent=meter+'%';$('#'+id+'UltFill').style.width=meter+'%';$('#'+id+'UltFill').style.background=meter>=100?'linear-gradient(90deg,#ffe66d,#ff7aab)':'linear-gradient(90deg,#65efff,#fff2a3,#ff7aab)'});let sec=Math.max(0,Math.ceil((game.limit-game.elapsed)/60));$('#timerHud').textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`}
+function updateHUD(){if(!game)return;[['p1',game.p1],['p2',game.p2]].forEach(([id,p])=>{$('#'+id+'Damage').innerHTML=`${Math.floor(p.damage)}<small>%</small>`;$('#'+id+'Damage').style.color=p.damage>=100?'#ff799b':p.damage>60?'#ffcf75':'#fff';$('#'+id+'Stocks').innerHTML=Array.from({length:3},(_,i)=>`<span class="stock ${i>=p.stocks?'off':''}" style="color:${p.f.color};background:${i>=p.stocks?'#5b6f81':p.f.color}"></span>`).join('');const meter=Math.floor(p.ultMeter||0);$('#'+id+'UltValue').textContent=meter+'%';$('#'+id+'UltFill').style.width=meter+'%';$('#'+id+'UltFill').style.background=meter>=100?'linear-gradient(90deg,#ffe66d,#ff7aab)':'linear-gradient(90deg,#65efff,#fff2a3,#ff7aab)'});const extra=$('#extraPlayerHud');if(extra){extra.replaceChildren();const ps=(game.players||[game.p1,game.p2]).slice(2);extra.style.display=ps.length?'flex':'none';for(const p of ps){const item=document.createElement('div');item.className='extra-player-hud-item'+(p.dead?' dead':'');item.style.borderColor=(p.f&&p.f.color||'#65efff')+'88';item.textContent=`P${p.playerNo} ${String(p.displayName||p.f.name).slice(0,14)} · ${Math.floor(p.damage)}% · ${p.stocks} STOCK`;extra.appendChild(item);}}let sec=Math.max(0,Math.ceil((game.limit-game.elapsed)/60));$('#timerHud').textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`}
 function keyName(e){if(e.code==='Space')return 'Space';return e.key.toLowerCase()}
-window.addEventListener('keydown',e=>{const k=keyName(e);if(['arrowleft','arrowright','arrowup','arrowdown',' ','space'].includes(k)||e.code.startsWith('Arrow'))e.preventDefault();if(!held[k])justPressed[k]=true;held[k]=true;if(k==='escape'&&$('#settingsOverlay').classList.contains('show')){closeSettings();return}if((k==='escape'||k==='p')&&$('#battleScreen').classList.contains('active'))togglePause();});window.addEventListener('keyup',e=>{held[keyName(e)]=false});
+window.addEventListener('keydown',e=>{const k=keyName(e);if(['arrowleft','arrowright','arrowup','arrowdown',' ','space'].includes(k)||e.code.startsWith('Arrow'))e.preventDefault();if(!held[k])justPressed[k]=true;held[k]=true;if(mode==='online'&&window.SKYBOUND_ONLINE_TOUCH_ACTION&&['w','j','l','k','u','s','o','v'].includes(k))window.SKYBOUND_ONLINE_TOUCH_ACTION(k);if(k==='escape'&&$('#settingsOverlay').classList.contains('show')){closeSettings();return}if(k==='escape'&&$('#shopOverlay').classList.contains('show')){closeShop();return}if(k==='escape'&&$('#battleSetupOverlay').classList.contains('show')){battleSetupOverlay.classList.remove('show');return}if((k==='escape'||k==='p')&&$('#battleScreen').classList.contains('active'))togglePause();});window.addEventListener('keyup',e=>{held[keyName(e)]=false});
 // Touch/mobile controls inject the same logical inputs as the keyboard bindings.
 const touchControls=$('#touchControls');
 const activeTouchPointers=new Map();
@@ -1019,9 +1107,9 @@ function cpuInput(p){
  const left=p.aiMove<0,right=p.aiMove>0;
  return {left,right,jump,attack,heavy,special,dash,slam,guard,ultimate};
 }
-function inputPlayer(p){if(mode==='online'){const src=window.SKYBOUND_ONLINE_INPUTS&&(p.playerNo===1?window.SKYBOUND_ONLINE_INPUTS.p1:window.SKYBOUND_ONLINE_INPUTS.p2);return src?{left:!!src.left,right:!!src.right,jump:!!src.jump,attack:!!src.attack,heavy:!!src.heavy,special:!!src.special,dash:!!src.dash,slam:!!src.slam,guard:!!src.guard,ultimate:!!src.ultimate}:{left:false,right:false,jump:false,attack:false,heavy:false,special:false,dash:false,slam:false,guard:false,ultimate:false}}let left=false,right=false,jump=false,attack=false,heavy=false,special=false,dash=false,slam=false,guard=false,ultimate=false;if(p.playerNo===1){left=!!held['a']||!!gamepadHeld.left;right=!!held['d']||!!gamepadHeld.right;jump=!!justPressed['w'];attack=!!justPressed['j'];heavy=!!justPressed['l'];special=!!justPressed['k'];dash=!!justPressed['u'];slam=!!justPressed['s'];guard=!!held['i']||!!gamepadHeld.guard;ultimate=!!justPressed['o']}else{left=!!held['arrowleft'];right=!!held['arrowright'];jump=!!justPressed['arrowup'];attack=!!justPressed['enter'];heavy=!!justPressed['.'];special=!!justPressed['shift'];dash=!!justPressed['/'];slam=!!justPressed['arrowdown'];guard=!!held['0'];ultimate=!!justPressed['3']}
+function inputPlayer(p){if(mode==='online'){const src=window.SKYBOUND_ONLINE_INPUTS&&window.SKYBOUND_ONLINE_INPUTS['p'+p.playerNo];return src?{left:!!src.left,right:!!src.right,jump:!!src.jump,attack:!!src.attack,heavy:!!src.heavy,special:!!src.special,dash:!!src.dash,slam:!!src.slam,guard:!!src.guard,ultimate:!!src.ultimate,emote:!!src.emote,emoteId:src.emoteId||p.emoteId}:{left:false,right:false,jump:false,attack:false,heavy:false,special:false,dash:false,slam:false,guard:false,ultimate:false,emote:false}}let left=false,right=false,jump=false,attack=false,heavy=false,special=false,dash=false,slam=false,guard=false,ultimate=false;if(p.playerNo===1){left=!!held['a']||!!gamepadHeld.left;right=!!held['d']||!!gamepadHeld.right;jump=!!justPressed['w'];attack=!!justPressed['j'];heavy=!!justPressed['l'];special=!!justPressed['k'];dash=!!justPressed['u'];slam=!!justPressed['s'];guard=!!held['i']||!!gamepadHeld.guard;ultimate=!!justPressed['o']}else{left=!!held['arrowleft'];right=!!held['arrowright'];jump=!!justPressed['arrowup'];attack=!!justPressed['enter'];heavy=!!justPressed['.'];special=!!justPressed['shift'];dash=!!justPressed['/'];slam=!!justPressed['arrowdown'];guard=!!held['0'];ultimate=!!justPressed['3']}
  if(mode==='watch'||(p.playerNo===2&&mode==='cpu'))return cpuInput(p);
- return {left,right,jump,attack,heavy,special,dash,slam,guard,ultimate}}
+ return {left,right,jump,attack,heavy,special,dash,slam,guard,ultimate,emote:!!justPressed['v'],emoteId:playerProfile.equippedEmoteId||'cheer'}}
 function useMelee(p,slot){const m=p.f.moves[slot];const key={quick:'attackCD',heavy:'heavyCD',dash:'dashCD',slam:'slamCD'}[slot];if(!m||p[key]>0)return;p.attack=m.duration;p.attackType=m.id;p.attackSlot=slot;p[key]=m.cooldown;playSfx(slot==='heavy'||slot==='slam'?'heavy':slot==='dash'?'dash':'swing',p.x);
  if(slot==='quick')p.vx+=p.face*(m.recoil||1.2);
  if(slot==='heavy'){p.vx+=p.face*(m.recoil||2);game.shake=Math.min(12,game.shake+(m.shake||1.4));}
@@ -1044,27 +1132,43 @@ function spawnBurst(x,y,color,n){if(!particlesEnabled)return; if(graphicsQuality
 function hurt(target,attacker,base,dir,kind='melee',knockback=1){if(target.invuln>0)return;const guarded=target.guarding;playSfx(guarded?'guard':'hit',target.x,kind);const dmg=base*attacker.f.power*(guarded?.24:1);target.damage+=dmg;if(kind!=='ultimate'){attacker.ultMeter=Math.min(100,(attacker.ultMeter||0)+dmg*.72);target.ultMeter=Math.min(100,(target.ultMeter||0)+dmg*.24)}let force=(5.6+target.damage*.078)*attacker.f.power*(guarded?.3:1)*knockback*1.22;target.vx=dir*force+(attacker.vx*.16);target.vy=-Math.min(17,force*.86+(guarded?.9:2.8));target.grounded=false;target.jumps=Math.min(target.jumps,1);target.invuln=guarded?7:12;target.hitFlash=guarded?4:9;game.shake=Math.min(12,game.shake+(guarded?1:5));spawnBurst(target.x,target.y-48,guarded?target.f.accent:attacker.f.color,guarded?8:16);for(let i=0;i<(guarded?2:5);i++)game.particles.push({x:target.x,y:target.y-50,vx:dir*(2+Math.random()*5),vy:-3-Math.random()*5,life:20,max:20,r:3+Math.random()*3,color:guarded?target.f.accent:'#fff',grav:.2})}
 function collisionAttack(p,foe){if(p.attack<=0)return;const m=p.f.moves[p.attackSlot];if(!m||p.attack!==m.hitFrame)return;const dx=foe.x-p.x,dy=(foe.y-55)-(p.y-55);const inRange=Math.abs(dx)<m.range&&Math.abs(dy)<m.vertical&&(m.kind==='slam'||dx*p.face>0);if(inRange){const wasVulnerable=foe.invuln<=0&&!foe.guarding;hurt(foe,p,m.damage,Math.sign(dx)||p.face,m.id,m.knockback||1);if(wasVulnerable)scheduleAICombo(p,foe,m);if(m.kind==='slam'){spawnBurst((p.x+foe.x)/2,p.y-45,m.color||p.f.color,m.effect==='snare'?26:20);game.shake=Math.min(14,game.shake+(m.effect==='snare'?1.4:2));if(m.effect==='snare'){foe.vx*=.35;foe.aiPauseFrames=Math.max(foe.aiPauseFrames||0,10)}}}}
 function collidePlatforms(p,oldY){const plats=game.stage.platforms; p.grounded=false;for(const pl of plats){if(p.x+20<pl.x||p.x-20>pl.x+pl.w)continue;if(p.vy>=0&&oldY<=pl.y&&p.y>=pl.y&&p.y<pl.y+45){p.y=pl.y;p.vy=0;p.grounded=true;p.jumps=0;}}}
-function respawn(p,damageKO=false){playSfx('ko',p.x);p.stocks--;game.lastKOReason=damageKO?'damage':'stage';spawnBurst(p.x,p.y-50,p.f.color,25);if(p.stocks<=0){p.dead=true;return}p.x=p.playerNo===1?460:820;p.y=300;p.vx=0;p.vy=0;p.damage=damageKO?0:Math.max(0,p.damage-18);p.invuln=100;p.jumps=0;}
+function respawn(p,damageKO=false){playSfx('ko',p.x);p.stocks--;game.lastKOReason=damageKO?'damage':'stage';spawnBurst(p.x,p.y-50,p.f.color,25);if(p.stocks<=0){p.dead=true;return}const pc=(game.players||[game.p1,game.p2]).length;p.x=pc<=2?(p.playerNo===1?460:820):(230+((p.playerNo-1)/Math.max(1,pc-1))*820);p.y=300;p.vx=0;p.vy=0;p.damage=damageKO?0:Math.max(0,p.damage-18);p.invuln=100;p.jumps=0;}
 function updatePlayer(p,dt){if(p.dead)return;const input=inputPlayer(p);const oldY=p.y;p.anim++;
  if(p.invuln>0)p.invuln--;if(p.attackCD>0)p.attackCD--;if(p.heavyCD>0)p.heavyCD--;if(p.dashCD>0)p.dashCD--;if(p.slamCD>0)p.slamCD--;if(p.specialCD>0)p.specialCD--;if(p.attack>0)p.attack--;if(p.hitFlash>0)p.hitFlash--;
  p.guarding=!!input.guard;if(p.aiPauseFrames>0)p.aiPauseFrames--;const accel=p.grounded?.95:.58,activeCpuLevel=mode==='watch'?(p.playerNo===1?watchLevel1:watchLevel2):cpuLevel,cpuControlled=mode==='watch'||(p.playerNo===2&&mode==='cpu'),max=p.f.speed*(cpuControlled?1+(activeCpuLevel-1)*.035:1); if(input.left&&p.aiPauseFrames<=0){p.vx-=accel;p.face=-1}if(input.right&&p.aiPauseFrames<=0){p.vx+=accel;p.face=1}if(!input.left&&!input.right)p.vx*=p.grounded?.78:.985;if(input.guard)p.vx*=.88;p.vx=Math.max(-max,Math.min(max,p.vx));
  if(input.jump&&p.jumps<2){playSfx('jump',p.x);p.vy=-p.f.jump*(p.jumps===0?1:.88);p.jumps++;p.grounded=false;spawnBurst(p.x,p.y-4,p.f.color,5)}
  if(!input.guard){if(input.attack)attack(p);if(input.heavy)heavyAttack(p);if(input.special)special(p);if(input.dash)dashAttack(p);if(input.slam)slamAttack(p);if(input.ultimate)ultimateAttack(p)}
+ if(p.emoteCooldown>0)p.emoteCooldown--;if(p.emoteFrames>0)p.emoteFrames--;
+ if(input.emote&&p.emoteCooldown<=0){p.emoteId=String(input.emoteId||p.emoteId||'cheer');p.emoteFrames=100;p.emoteCooldown=48;playSfx('ui',p.x);}
+ if(p.petId&&!game.aiRankedMatch&&mode!=='online'&&p.playerNo===1){
+  if(p.petCooldown>0)p.petCooldown--;if(p.petBiteFrames>0)p.petBiteFrames--;
+  const pet=SHOP_PETS.find(x=>x.id===p.petId);const foe=(game.players||[game.p1,game.p2]).find(q=>q.playerNo!==p.playerNo&&!q.dead);
+  if(pet&&foe&&p.petCooldown<=0&&Math.abs(foe.x-p.x)<pet.range&&Math.abs((foe.y||0)-(p.y||0))<118){p.petCooldown=pet.cooldown;p.petBiteFrames=18;hurt(foe,p,pet.damage,Math.sign(foe.x-p.x)||p.face,'pet',pet.knockback);spawnBurst(foe.x,foe.y-47,pet.color,8);}
+  p.petX+=(p.x-p.face*44-p.petX)*0.18;p.petY+=(p.y-p.petY)*0.18;
+ }
  p.vy+=.52;p.vy=Math.min(17,p.vy);p.x+=p.vx;p.y+=p.vy;
  // tiny edge drag and world limits
  p.x=Math.max(-240,Math.min(1520,p.x));collidePlatforms(p,oldY);
  if(p.y>760||p.x<-145||p.x>1425)respawn(p);
  if(Math.abs(p.vx)>0.5&&p.grounded&&Math.random()<.12)game.particles.push({x:p.x,y:p.y-2,vx:-p.vx*.2,vy:-Math.random()*1.4,life:14,max:14,r:2,color:p.f.color,grav:.06});
 }
-function update(dt){if(!game||paused||finished)return;if(mode==='online'&&window.SKYBOUND_ONLINE_ROLE==='guest'){justPressed={};return;}frame++;if(game.announcement>0){game.announcement--;if(game.announcement===1){game.started=true;$('#toast').textContent=uiLanguage==='ja'?'はじめ！':'FIGHT!';$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),650)}}else{game.elapsed+=dt*60}
- if(game.started){updatePlayer(game.p1,dt*60);updatePlayer(game.p2,dt*60);collisionAttack(game.p1,game.p2);collisionAttack(game.p2,game.p1);
- for(let i=game.projectiles.length-1;i>=0;i--){let q=game.projectiles[i];q.x+=q.vx;q.y+=q.vy;q.vy+=q.gravity||0;q.life--;if(!q.owner.dead){let foe=q.owner===game.p1?game.p2:game.p1;if(!foe.dead&&Math.abs(q.x-foe.x)<q.r+20&&Math.abs(q.y-(foe.y-55))<q.r+35&&foe.invuln<=0){const wasVulnerable=!foe.guarding;hurt(foe,q.owner,q.damage,Math.sign(q.vx),String(q.moveId||'').startsWith('ultimate-')?'ultimate':'special',q.knockback||1);if(wasVulnerable)scheduleAICombo(q.owner,foe,q);q.life=0;spawnBurst(q.x,q.y,q.color,q.style==='lightning'?10:18)}}if(q.life<=0||q.x<-180||q.x>1460||q.y<0||q.y>760)game.projectiles.splice(i,1)}
- // 100% damage triggers a KO and costs one stock. Surviving players respawn at 0%.
- if(!game.p1.dead&&game.p1.damage>=100)respawn(game.p1,true);
- if(!game.p2.dead&&game.p2.damage>=100)respawn(game.p2,true);
- for(let i=game.particles.length-1;i>=0;i--){let q=game.particles[i];q.x+=q.vx;q.y+=q.vy;q.vy+=q.grav||.1;q.vx*=.985;q.life--;if(q.life<=0)game.particles.splice(i,1)}
- game.shake*=.83;if(!(mode==='online'&&window.SKYBOUND_ONLINE_ROLE==='guest')&&(game.elapsed>=game.limit||game.p1.dead||game.p2.dead)){let winner;if(game.p1.dead&&!game.p2.dead)winner=game.p2;else if(game.p2.dead&&!game.p1.dead)winner=game.p1;else if(game.p1.stocks!==game.p2.stocks)winner=game.p1.stocks>game.p2.stocks?game.p1:game.p2;else winner=game.p1.damage<=game.p2.damage?game.p1:game.p2;finishBattle(winner,game.elapsed>=game.limit)}}
- if(mode==='online'&&window.SKYBOUND_ONLINE_INPUTS){for(const slot of ['p1','p2']){const input=window.SKYBOUND_ONLINE_INPUTS[slot];if(input)for(const action of ['jump','attack','heavy','special','dash','slam','ultimate'])input[action]=false}}
+function update(dt){if(!game||paused||finished)return;if(mode==='online'&&window.SKYBOUND_ONLINE_ROLE!=='host'){justPressed={};return;}frame++;if(game.announcement>0){game.announcement--;if(game.announcement===1){game.started=true;$('#toast').textContent=uiLanguage==='ja'?'はじめ！':'FIGHT!';$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),650)}}else{game.elapsed+=dt*60}
+ const players=game.players||[game.p1,game.p2];
+ if(game.started){
+  for(const p of players)updatePlayer(p,dt*60);
+  for(const p of players){if(p.dead)continue;for(const foe of players){if(foe!==p&&!foe.dead)collisionAttack(p,foe);}}
+  for(let i=game.projectiles.length-1;i>=0;i--){let q=game.projectiles[i];q.x+=q.vx;q.y+=q.vy;q.vy+=q.gravity||0;q.life--;let hit=false;if(!q.owner.dead){for(const foe of players){if(foe===q.owner||foe.dead)continue;if(Math.abs(q.x-foe.x)<q.r+20&&Math.abs(q.y-(foe.y-55))<q.r+35&&foe.invuln<=0){const wasVulnerable=!foe.guarding;hurt(foe,q.owner,q.damage,Math.sign(q.vx)||q.owner.face,String(q.moveId||'').startsWith('ultimate-')?'ultimate':'special',q.knockback||1);if(wasVulnerable)scheduleAICombo(q.owner,foe,q);q.life=0;spawnBurst(q.x,q.y,q.color,q.style==='lightning'?10:18);hit=true;break;}}}
+   if(q.life<=0||q.x<-180||q.x>1460||q.y<0||q.y>760)game.projectiles.splice(i,1);
+  }
+  for(const p of players){if(!p.dead&&p.damage>=100)respawn(p,true);}
+  for(let i=game.particles.length-1;i>=0;i--){let q=game.particles[i];q.x+=q.vx;q.y+=q.vy;q.vy+=q.grav||.1;q.vx*=.985;q.life--;if(q.life<=0)game.particles.splice(i,1)}
+  game.shake*=.83;
+  const alive=players.filter(p=>!p.dead);
+  if((mode!=='online'||window.SKYBOUND_ONLINE_ROLE==='host')&&(game.elapsed>=game.limit||alive.length<=1)){
+   let winner;if(alive.length===1)winner=alive[0];else winner=players.slice().sort((a,b)=>b.stocks-a.stocks||a.damage-b.damage)[0];finishBattle(winner,game.elapsed>=game.limit);
+  }
+ }
+ if(mode==='online'&&window.SKYBOUND_ONLINE_INPUTS){for(const slot of ['p1','p2','p3','p4']){const input=window.SKYBOUND_ONLINE_INPUTS[slot];if(input)for(const action of ['jump','attack','heavy','special','dash','slam','ultimate','emote'])input[action]=false;}}
  justPressed={};updateHUD()}
 function finishBattle(winner,timeout){if(finished)return;playSfx('ko',winner.x);finished=true;game.winner=winner;game.timedOut=!!timeout;processMatchRewards(winner);cancelAnimationFrame(raf);showScreen('resultScreen');refreshResultLocalization()}
 function loop(now){if(paused||finished||!$('#battleScreen').classList.contains('active'))return;
@@ -1103,7 +1207,8 @@ function drawBackground(st,cameraX){const w=1280,h=720;let g=ctx.createLinearGra
  if(bloomEnabled){let rg=ctx.createRadialGradient(w*.5,500,20,w*.5,500,500);rg.addColorStop(0,st.glow+'22');rg.addColorStop(1,st.glow+'00');ctx.fillStyle=rg;ctx.fillRect(0,200,w,400)}
 }
 function drawPlatform(pl,st,cam){const x=pl.x-cam,y=pl.y;if(shadowQuality!=='off'&&depthEffects){ctx.save();ctx.globalAlpha=shadowQuality==='high'?.52:.31;const sh=ctx.createRadialGradient(x+pl.w*.5,y+pl.h+4,Math.max(12,pl.w*.08),x+pl.w*.5,y+pl.h+10,pl.w*.62);sh.addColorStop(0,'rgba(0,5,16,.72)');sh.addColorStop(1,'rgba(0,5,16,0)');ctx.fillStyle=sh;ctx.beginPath();ctx.ellipse(x+pl.w*.5,y+pl.h+8,pl.w*.57,shadowQuality==='high'?23:14,0,0,Math.PI*2);ctx.fill();ctx.restore()}let g=ctx.createLinearGradient(0,y,0,y+pl.h);g.addColorStop(0,cinematicLighting?'#93abc0':'#627f9e');g.addColorStop(.16,st.ground);g.addColorStop(1,'#0e2039');ctx.fillStyle=g;ctx.fillRect(x,y,pl.w,pl.h);if(reflectionEnabled){ctx.save();ctx.globalAlpha=cinematicLighting?.25:.12;const rg=ctx.createLinearGradient(0,y,0,y+12);rg.addColorStop(0,'rgba(255,255,255,.85)');rg.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=rg;ctx.fillRect(x,y,pl.w,12);ctx.restore()}ctx.fillStyle=st.glow;ctx.shadowColor=st.glow;ctx.shadowBlur=bloomEnabled?(graphicsQuality==='ultra'?19:12):0;ctx.fillRect(x,y,pl.w,3);ctx.shadowBlur=0;ctx.fillStyle='rgba(255,255,255,.1)';for(let xx=x+13;xx<x+pl.w-9;xx+=43)ctx.fillRect(xx,y+13,20,2);ctx.fillStyle='#071221';ctx.fillRect(x,y+pl.h-5,pl.w,5);}
-function drawFighter(p,cam){if(p.dead)return;let x=p.x-cam,y=p.y;ctx.save();ctx.translate(x,y);const flicker=p.invuln>0&&Math.floor(p.invuln/5)%2===0;ctx.globalAlpha=flicker?.42:1;
+function drawPetCompanion(p,cam){if(!p||!p.petId||game.aiRankedMatch||mode==='online'||p.dead)return;const pet=SHOP_PETS.find(x=>x.id===p.petId);if(!pet)return;const phase=Math.sin(frame*.19),px=(Number.isFinite(p.petX)?p.petX:p.x-p.face*43)-cam,py=(Number.isFinite(p.petY)?p.petY:p.y);ctx.save();ctx.translate(px,py);ctx.globalAlpha=.98;ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(0,0,21,5,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=pet.color;ctx.beginPath();ctx.ellipse(0,-21,19,11,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(p.petBiteFrames>0?p.face*16:13,-33,11,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.moveTo(6,-40);ctx.lineTo(2,-51);ctx.lineTo(13,-44);ctx.fill();ctx.beginPath();ctx.moveTo(16,-41);ctx.lineTo(22,-50);ctx.lineTo(24,-39);ctx.fill();ctx.fillStyle='#17243a';ctx.beginPath();ctx.arc(16,-35,1.8,0,Math.PI*2);ctx.fill();ctx.fillStyle='#f9e9d4';ctx.beginPath();ctx.ellipse(23,-29,5,3,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle=pet.color;ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-15,-23);ctx.quadraticCurveTo(-27,-30+phase*4,-25,-36+phase*4);ctx.stroke();if(pet.level>=4){ctx.globalAlpha=.65;ctx.strokeStyle=pet.id==='dog5'?'#a4c5ff':'#ffffff';ctx.lineWidth=1.8;ctx.beginPath();ctx.arc(5,-27,25+Math.sin(frame*.12)*2,Math.PI*1.05,Math.PI*1.9);ctx.stroke();}if(p.petBiteFrames>0){ctx.fillStyle='#ffe5a0';ctx.font='900 17px system-ui';ctx.textAlign='center';ctx.fillText('!',25,-51);}ctx.restore();}
+function drawFighter(p,cam){if(p.dead)return;let x=p.x-cam,y=p.y;ctx.save();ctx.translate(x,y);const aura=SHOP_AURAS.find(a=>a.id===p.auraId);if(aura){ctx.save();ctx.globalAlpha=.52+Math.sin(frame*.12)*.12;ctx.strokeStyle=aura.color;ctx.lineWidth=3;ctx.shadowColor=aura.color;ctx.shadowBlur=bloomEnabled?18:3;for(let i=0;i<3;i++){ctx.beginPath();ctx.ellipse(0,-52,29+i*6,56+i*3,Math.sin(frame*.015+i)*.08,0,Math.PI*2);ctx.stroke();}ctx.restore();}const flicker=p.invuln>0&&Math.floor(p.invuln/5)%2===0;ctx.globalAlpha=flicker?.42:1;
  // soft contact shadow gives fighters a stronger sense of depth
  if(shadowQuality!=='off'){ctx.save();ctx.globalAlpha=shadowQuality==='high'?.78:.53;const shadowRadius=shadowQuality==='high'?48:37;const sg=ctx.createRadialGradient(0,3,2,0,3,shadowRadius);sg.addColorStop(0,'rgba(2,8,20,.72)');sg.addColorStop(.48,'rgba(2,8,20,.35)');sg.addColorStop(1,'rgba(2,8,20,0)');ctx.fillStyle=sg;ctx.beginPath();ctx.ellipse(0,3,29+(Math.abs(p.vy)*.4),shadowQuality==='high'?12:8,0,0,Math.PI*2);ctx.fill();ctx.restore()}
  ctx.scale(p.face,1);if(p.hitFlash>0){ctx.globalAlpha=.6+Math.random()*.4;ctx.shadowColor='#fff';ctx.shadowBlur=bloomEnabled?23:0}
@@ -1132,80 +1237,28 @@ function drawFighter(p,cam){if(p.dead)return;let x=p.x-cam,y=p.y;ctx.save();ctx.
  // damage aura
  if(p.damage>75){ctx.globalAlpha=.25+Math.sin(frame*.2)*.12;ctx.strokeStyle=p.damage>130?'#ff637f':'#ffd47d';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y-54,43+Math.sin(frame*.17)*5,0,Math.PI*2);ctx.stroke()}
  ctx.restore();
+ if(p.emoteFrames>0){const em=SHOP_EMOTES.find(e=>e.id===p.emoteId)||SHOP_EMOTES[0];ctx.save();ctx.globalAlpha=Math.min(1,p.emoteFrames/16);ctx.font='900 23px system-ui';ctx.textAlign='center';ctx.shadowColor='#061321';ctx.shadowBlur=8;ctx.fillStyle='#fff4b8';ctx.fillText(em.icon+' '+em.name,x,y-146);ctx.restore();}
 }
 function render(){if(!game)return;
  let onlineSmoothRestore=null;
- if(mode==='online'&&window.SKYBOUND_ONLINE_ROLE==='guest'&&onlineRenderSnapshots.length){
-   const buffer=onlineRenderSnapshots;
-   const now=performance.now();
-   // Keep two or three host snapshots in reserve. When packets stall, predict briefly
-   // from velocity instead of freezing until the next Firebase event arrives.
-   const interpolationDelay=85;
-   const targetTime=now-interpolationDelay;
-   let a=buffer[0],b=buffer[buffer.length-1];
-   let predictionMs=0;
-   if(buffer.length===1){
-     a=b=buffer[0];
-     predictionMs=Math.min(145,Math.max(0,now-buffer[0].t));
-   }else if(targetTime<=buffer[0].t){
-     a=b=buffer[0];
-   }else if(targetTime<buffer[buffer.length-1].t){
-     for(let i=0;i<buffer.length-1;i++){
-       if(buffer[i].t<=targetTime&&targetTime<=buffer[i+1].t){a=buffer[i];b=buffer[i+1];break;}
-     }
-   }else{
-     a=b=buffer[buffer.length-1];
-     predictionMs=Math.min(145,Math.max(0,targetTime-b.t));
-   }
-   const span=Math.max(1,b.t-a.t),alpha=Math.max(0,Math.min(1,(targetTime-a.t)/span));
-   const lerp=(av,bv)=>Number.isFinite(av)&&Number.isFinite(bv)?av+(bv-av)*alpha:(Number.isFinite(bv)?bv:av);
-   const p1a=a.state&&a.state.p1||{},p1b=b.state&&b.state.p1||{},p2a=a.state&&a.state.p2||{},p2b=b.state&&b.state.p2||{};
-   onlineSmoothRestore={p1:{x:game.p1.x,y:game.p1.y,vx:game.p1.vx,vy:game.p1.vy,anim:game.p1.anim,face:game.p1.face},p2:{x:game.p2.x,y:game.p2.y,vx:game.p2.vx,vy:game.p2.vy,anim:game.p2.anim,face:game.p2.face},projectiles:game.projectiles};
-   const predictFrames=Math.min(8.7,predictionMs*0.06); // 60 simulation ticks per second, capped below 150 ms.
-   for(const [p,pa,pb] of [[game.p1,p1a,p1b],[game.p2,p2a,p2b]]){
-     for(const key of ['x','y','vx','vy','anim']){const v=lerp(pa[key],pb[key]);if(Number.isFinite(v))p[key]=v;}
-     if(predictionMs>0){
-       const vx=Number.isFinite(pb.vx)?pb.vx:(Number.isFinite(pa.vx)?pa.vx:0);
-       const vy=Number.isFinite(pb.vy)?pb.vy:(Number.isFinite(pa.vy)?pa.vy:0);
-       // Approximate the game's ground friction when no fresh packet is available.
-       const grounded=!!pb.grounded;
-       const horizontalFrames=grounded&&Math.abs(vx)>0.1?((1-Math.pow(.78,predictFrames))/.22):predictFrames;
-       p.x+=(vx*(grounded?horizontalFrames:predictFrames));
-       if(!grounded)p.y+=vy*predictFrames+.26*predictFrames*(predictFrames+1);
-     }
-   }
-   // Guest-side local prediction: advance the guest's own fighter through the short
-   // interpolation delay using its immediate A/D/guard input. The host remains the
-   // authority for hits and damage; this only makes local movement feel responsive.
-   if(predictionMs===0&&buffer.length>1&&targetTime>=buffer[0].t&&targetTime<=buffer[buffer.length-1].t&&typeof window.SKYBOUND_READ_LOCAL_ONLINE_HELD==='function'){
-     const own=game.p2,held=window.SKYBOUND_READ_LOCAL_ONLINE_HELD();
-     let x=own.x,vx=own.vx,face=own.face;
-     let frames=Math.min(6.5,Math.max(0,(now-targetTime)/1000*60));
-     const grounded=!!p2b.grounded,accel=grounded?.95:.58,maxSpeed=own.f.speed||5;
-     // Simulate fractional fixed steps so this works at 60, 120, and 144 Hz display rates.
-     while(frames>0.001){
-       const dt=Math.min(1,frames);frames-=dt;
-       if(held.left){vx-=accel*dt;face=-1;}
-       if(held.right){vx+=accel*dt;face=1;}
-       if(!held.left&&!held.right)vx*=Math.pow(grounded?.78:.985,dt);
-       if(held.guard)vx*=Math.pow(.88,dt);
-       vx=Math.max(-maxSpeed,Math.min(maxSpeed,vx));
-       x+=vx*dt;
-     }
-     own.x=Math.max(-240,Math.min(1520,x));own.vx=vx;own.face=face;
-   }
-   // Projectiles continue along their last known velocity during short packet gaps.
-   const qa=(a.state&&a.state.projectiles)||[],qb=(b.state&&b.state.projectiles)||[];
-   const sameProjectiles=qa.length===qb.length&&qa.every((q,i)=>q.ownerPlayerNo===qb[i].ownerPlayerNo&&q.moveId===qb[i].moveId&&q.style===qb[i].style);
-   if(sameProjectiles){
-     game.projectiles=qa.map((q,i)=>{
-       const vq=qb[i];let x=lerp(q.x,vq.x),y=lerp(q.y,vq.y),vx=lerp(q.vx,vq.vx),vy=lerp(q.vy,vq.vy);
-       if(predictionMs>0){const n=predictFrames;x+=vx*n;y+=vy*n+.5*(Number(vq.gravity)||0)*n*n;}
-       return {...q,x,y,vx,vy,owner:q.ownerPlayerNo===1?game.p1:game.p2};
-     });
-   }
+ if(mode==='online'&&window.SKYBOUND_ONLINE_ROLE!=='host'&&onlineRenderSnapshots.length){
+  const buffer=onlineRenderSnapshots,now=performance.now(),delay=72,targetTime=now-delay;let a=buffer[0],b=buffer[buffer.length-1],predictionMs=0;
+  if(buffer.length===1){a=b=buffer[0];predictionMs=Math.min(100,Math.max(0,now-buffer[0].t));}
+  else if(targetTime<=buffer[0].t){a=b=buffer[0];}
+  else if(targetTime<buffer[buffer.length-1].t){for(let i=0;i<buffer.length-1;i++){if(buffer[i].t<=targetTime&&targetTime<=buffer[i+1].t){a=buffer[i];b=buffer[i+1];break;}}}
+  else{a=b=buffer[buffer.length-1];predictionMs=Math.min(100,Math.max(0,targetTime-b.t));}
+  const span=Math.max(1,b.t-a.t),alpha=Math.max(0,Math.min(1,(targetTime-a.t)/span)),lerp=(x,y)=>Number.isFinite(x)&&Number.isFinite(y)?x+(y-x)*alpha:(Number.isFinite(y)?y:x);
+  const players=game.players||[game.p1,game.p2],snapPlayers=state=>Array.isArray(state.players)?state.players:[state.p1,state.p2].filter(Boolean);
+  const pa=snapPlayers(a.state),pb=snapPlayers(b.state);
+  onlineSmoothRestore={players:players.map(p=>({x:p.x,y:p.y,vx:p.vx,vy:p.vy,anim:p.anim,face:p.face})),projectiles:game.projectiles};
+  const predictFrames=Math.min(6,predictionMs*.06);
+  players.forEach((p,i)=>{const sa=pa[i]||{},sb=pb[i]||{};for(const key of ['x','y','vx','vy','anim']){const v=lerp(sa[key],sb[key]);if(Number.isFinite(v))p[key]=v;}if(predictionMs>0){const vx=Number.isFinite(sb.vx)?sb.vx:(Number.isFinite(sa.vx)?sa.vx:0),vy=Number.isFinite(sb.vy)?sb.vy:(Number.isFinite(sa.vy)?sa.vy:0);const grounded=!!sb.grounded,hf=grounded&&Math.abs(vx)>.1?((1-Math.pow(.78,predictFrames))/.22):predictFrames;p.x+=vx*(grounded?hf:predictFrames);if(!grounded)p.y+=vy*predictFrames+.26*predictFrames*(predictFrames+1);}});
+  const localNo=Math.max(1,Math.min(players.length,Number(window.SKYBOUND_ONLINE_PLAYER_NO)||2)),own=players[localNo-1],held=window.SKYBOUND_READ_LOCAL_ONLINE_HELD&&window.SKYBOUND_READ_LOCAL_ONLINE_HELD(),ownSnap=pb[localNo-1]||{};
+  if(own&&held&&predictionMs===0&&buffer.length>1&&targetTime>=buffer[0].t&&targetTime<=buffer[buffer.length-1].t){let x=own.x,vx=own.vx,face=own.face,frames=Math.min(5,Math.max(0,(now-targetTime)/1000*60));const grounded=!!ownSnap.grounded,accel=grounded?.95:.58,maxSpeed=own.f.speed||5;while(frames>.001){const dt=Math.min(1,frames);frames-=dt;if(held.left){vx-=accel*dt;face=-1;}if(held.right){vx+=accel*dt;face=1;}if(!held.left&&!held.right)vx*=Math.pow(grounded?.78:.985,dt);if(held.guard)vx*=Math.pow(.88,dt);vx=Math.max(-maxSpeed,Math.min(maxSpeed,vx));x+=vx*dt;}own.x=Math.max(-240,Math.min(1520,x));own.vx=vx;own.face=face;}
+  const qa=a.state&&a.state.projectiles||[],qb=b.state&&b.state.projectiles||[];const same=qa.length===qb.length&&qa.every((q,i)=>q.ownerPlayerNo===qb[i].ownerPlayerNo&&q.moveId===qb[i].moveId&&q.style===qb[i].style);
+  if(same)game.projectiles=qa.map((q,i)=>{const vq=qb[i];let x=lerp(q.x,vq.x),y=lerp(q.y,vq.y),vx=lerp(q.vx,vq.vx),vy=lerp(q.vy,vq.vy);if(predictionMs>0){x+=vx*predictFrames;y+=vy*predictFrames+.5*(Number(vq.gravity)||0)*predictFrames*predictFrames;}return {...q,x,y,vx,vy,owner:players[Math.max(0,Math.min(players.length-1,(Number(q.ownerPlayerNo)||1)-1))]||game.p1};});
  }
- const sx=cw/1280,sy=ch/720;ctx.setTransform(sx,0,0,sy,0,0);ctx.clearRect(0,0,1280,720);const st=game.stage;const center=(game.p1.x+game.p2.x)/2;const targetCam=Math.max(-240,Math.min(240,center-640));cameraXCurrent+=(targetCam-cameraXCurrent)*0.18;if(Math.abs(targetCam-cameraXCurrent)<0.08)cameraXCurrent=targetCam;const cam=cameraXCurrent;ctx.save();if(game.shake>.4)ctx.translate((Math.random()-.5)*game.shake,(Math.random()-.5)*game.shake);drawBackground(st,cam); // subtle floor grid
+ const sx=cw/1280,sy=ch/720;ctx.setTransform(sx,0,0,sy,0,0);ctx.clearRect(0,0,1280,720);const st=game.stage;const cameraPlayers=(game.players||[game.p1,game.p2]).filter(p=>!p.dead);const center=cameraPlayers.length?cameraPlayers.reduce((a,p)=>a+p.x,0)/cameraPlayers.length:640;const targetCam=Math.max(-360,Math.min(360,center-640));cameraXCurrent+=(targetCam-cameraXCurrent)*0.18;if(Math.abs(targetCam-cameraXCurrent)<0.08)cameraXCurrent=targetCam;const cam=cameraXCurrent;ctx.save();if(game.shake>.4)ctx.translate((Math.random()-.5)*game.shake,(Math.random()-.5)*game.shake);drawBackground(st,cam); // subtle floor grid
  ctx.save();ctx.globalAlpha=.1;ctx.strokeStyle=st.glow;ctx.lineWidth=1;for(let x=-((cam*1.2)%80);x<1320;x+=80){ctx.beginPath();ctx.moveTo(x,570);ctx.lineTo(x-80,720);ctx.stroke()}ctx.restore();
  for(const pl of st.platforms)drawPlatform(pl,st,cam);
  // platform supports / details
@@ -1214,17 +1267,17 @@ function render(){if(!game)return;
  ctx.globalAlpha=.22;ctx.fillStyle=st.glow;ctx.fillRect(25-cam,150,2,425);ctx.fillRect(1253-cam,150,2,425);ctx.globalAlpha=1;
  // projectiles
  for(const q of game.projectiles){let x=q.x-cam;ctx.save();ctx.shadowColor=q.color;ctx.shadowBlur=bloomEnabled?(q.style==='lightning'?28:22):0;ctx.fillStyle=q.color;ctx.strokeStyle=q.color;ctx.lineWidth=2.5;if(q.style==='lightning'){ctx.beginPath();ctx.moveTo(x-q.vx*3,q.y+5);ctx.lineTo(x-q.vx*1.7,q.y-7);ctx.lineTo(x-q.vx*.7,q.y+3);ctx.lineTo(x,q.y-10);ctx.lineTo(x+q.vx*.12,q.y+3);ctx.lineTo(x+q.vx*.35,q.y-3);ctx.stroke();ctx.beginPath();ctx.arc(x,q.y, q.r*.52,0,Math.PI*2);ctx.fill()}else if(q.style==='seed'){ctx.translate(x,q.y);ctx.rotate(frame*.12);ctx.beginPath();ctx.ellipse(0,0,q.r*1.35,q.r*.7,-.4,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.moveTo(-q.r,0);ctx.quadraticCurveTo(0,-q.r*1.8,q.r,0);ctx.stroke();ctx.restore();continue}else if(q.style==='flame'){ctx.beginPath();ctx.moveTo(x-q.r*1.7,q.y);ctx.quadraticCurveTo(x-q.r*.5,q.y-q.r*1.5,x+q.r*.5,q.y-q.r*.5);ctx.quadraticCurveTo(x+q.r*2.0,q.y-q.r*1.2,x+q.r*.8,q.y+q.r*.7);ctx.quadraticCurveTo(x,q.y+q.r*1.55,x-q.r*1.7,q.y);ctx.fill();ctx.fillStyle='#fff1c7';ctx.beginPath();ctx.ellipse(x,q.y,q.r*.45,q.r*.75,-.3,0,Math.PI*2);ctx.fill()}else{let grad=ctx.createRadialGradient(x,q.y,1,x,q.y,q.r*1.8);grad.addColorStop(0,'#fff');grad.addColorStop(.35,q.color);grad.addColorStop(1,q.color+'00');ctx.fillStyle=grad;ctx.beginPath();ctx.arc(x,q.y,q.r*1.8,0,Math.PI*2);ctx.fill();ctx.fillStyle=q.color;ctx.beginPath();ctx.arc(x,q.y,q.r*.65,0,Math.PI*2);ctx.fill()}ctx.strokeStyle=q.color;ctx.lineWidth=Math.max(2,q.r*.8);ctx.globalAlpha=.6;ctx.beginPath();ctx.moveTo(x-q.vx*2,q.y-q.vy*1.3);ctx.lineTo(x-q.vx*5,q.y-q.vy*3);ctx.stroke();ctx.restore()}
- if(motionTrailsEnabled){for(const p of [game.p1,game.p2]){if(p.dead||Math.abs(p.vx)<2.4)continue;const x=p.x-cam,y=p.y-58,sign=Math.sign(p.vx)||p.face,len=Math.min(52,Math.abs(p.vx)*7);ctx.save();ctx.globalAlpha=Math.min(.42,.10+Math.abs(p.vx)*.025);const streak=ctx.createLinearGradient(x-sign*len,y,x-sign*3,y);streak.addColorStop(0,p.f.color+'00');streak.addColorStop(.7,p.f.color+'a8');streak.addColorStop(1,p.f.accent);ctx.strokeStyle=streak;ctx.lineWidth=graphicsQuality==='ultra'?6:4;ctx.shadowColor=p.f.color;ctx.shadowBlur=bloomEnabled?10:0;ctx.beginPath();ctx.moveTo(x-sign*len,y+9);ctx.quadraticCurveTo(x-sign*len*.48,y-2,x-sign*2,y+3);ctx.stroke();ctx.restore()}}drawFighter(game.p1,cam);drawFighter(game.p2,cam);
+ if(motionTrailsEnabled){for(const p of (game.players||[game.p1,game.p2])){if(p.dead||Math.abs(p.vx)<2.4)continue;const x=p.x-cam,y=p.y-58,sign=Math.sign(p.vx)||p.face,len=Math.min(52,Math.abs(p.vx)*7);ctx.save();ctx.globalAlpha=Math.min(.42,.10+Math.abs(p.vx)*.025);const streak=ctx.createLinearGradient(x-sign*len,y,x-sign*3,y);streak.addColorStop(0,p.f.color+'00');streak.addColorStop(.7,p.f.color+'a8');streak.addColorStop(1,p.f.accent);ctx.strokeStyle=streak;ctx.lineWidth=graphicsQuality==='ultra'?6:4;ctx.shadowColor=p.f.color;ctx.shadowBlur=bloomEnabled?10:0;ctx.beginPath();ctx.moveTo(x-sign*len,y+9);ctx.quadraticCurveTo(x-sign*len*.48,y-2,x-sign*2,y+3);ctx.stroke();ctx.restore()}}for(const p of (game.players||[game.p1,game.p2])){drawFighter(p,cam);drawPetCompanion(p,cam);if((game.players||[]).length>2&&!p.dead){ctx.save();ctx.fillStyle='#ffffffdd';ctx.font='900 12px system-ui';ctx.textAlign='center';ctx.shadowColor='#061321';ctx.shadowBlur=4;ctx.fillText(String(p.displayName||('P'+p.playerNo)).slice(0,18),p.x-cam,p.y-132);ctx.restore();}}
  for(const q of game.particles){ctx.save();ctx.globalAlpha=Math.max(0,q.life/q.max);ctx.fillStyle=q.color;ctx.shadowColor=q.color;ctx.shadowBlur=bloomEnabled?q.r*2:0;ctx.beginPath();ctx.arc(q.x-cam,q.y,q.r,0,Math.PI*2);ctx.fill();ctx.restore()}
  // optional cinematic color grading and edge falloff
  if(colorGradingEnabled){let vg=ctx.createLinearGradient(0,0,0,720);vg.addColorStop(0,'#03091666');vg.addColorStop(.18,'transparent');vg.addColorStop(.78,'transparent');vg.addColorStop(1,'#03091688');ctx.fillStyle=vg;ctx.fillRect(0,0,1280,720)}
  if(game.announcement>0){ctx.save();ctx.globalAlpha=Math.min(1,(120-game.announcement+8)/16);ctx.fillStyle='#06132266';ctx.fillRect(0,0,1280,720);ctx.textAlign='center';ctx.font='900 italic 70px "Barlow Condensed",sans-serif';ctx.fillStyle='#fff';ctx.shadowColor=st.glow;ctx.shadowBlur=30;ctx.fillText(game.announcement>80?'3':game.announcement>40?'2':'1',640,370);ctx.restore()}
  ctx.restore();
- if(onlineSmoothRestore){Object.assign(game.p1,onlineSmoothRestore.p1);Object.assign(game.p2,onlineSmoothRestore.p2);game.projectiles=onlineSmoothRestore.projectiles;}
+ if(onlineSmoothRestore){(game.players||[game.p1,game.p2]).forEach((p,i)=>{const saved=onlineSmoothRestore.players[i];if(saved)Object.assign(p,saved);});game.projectiles=onlineSmoothRestore.projectiles;}
 }
 $('#rematchBtn').onclick=()=>{if(mode==='online'){showAIToast(uiLanguage==='ja'?'オンライン再戦はまだ準備中だよ。部屋から新しく対戦を開始してね。':'Online rematch is not available yet. Start a new match from a room.',2200);return}startBattle(mode==='watch'?(Number($('#watchMatchLength')?.value)||120):120)};$('#selectAgainBtn').onclick=()=>{if(mode==='online'){showScreen('onlineCharacterScreen');setOnlineNetStatus('オンライン対戦は終了しました。部屋を退出して新しい対戦を始めてね。',false);return}if(mode==='watch'){fillAIRoomSelectors();$('#watchP1Select').value=String(p1Pick);$('#watchP2Select').value=String(p2Pick);$('#watchStageSelect').value=String(stagePick);$('#watchLevel1').value=String(watchLevel1);$('#watchLevel2').value=String(watchLevel2);showScreen('aiRoomScreen')}else{renderChars();showScreen('charScreen')}};$('#homeBtn').onclick=()=>{aiRankedMatchActive=false;mode='cpu';document.querySelectorAll('.mode-select .mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode==='cpu'));$('#difficultyPicker').style.display='block';cancelAnimationFrame(raf);paused=false;finished=true;$('#pauseOverlay').classList.remove('show');$('#touchControls').style.display='none';showScreen('titleScreen')};
 // keyboard selection shortcut: Enter from title; Escape from menus returns one step
-window.addEventListener('keydown',e=>{let k=keyName(e);if(k==='enter'&&$('#titleScreen').classList.contains('active')){renderChars();showScreen('charScreen')}if(k==='escape'&&$('#stageScreen').classList.contains('active'))showScreen('charScreen');else if(k==='escape'&&$('#charScreen').classList.contains('active'))showScreen('titleScreen')});
+window.addEventListener('keydown',e=>{let k=keyName(e);if(k==='enter'&&$('#titleScreen').classList.contains('active')){battleSetupOverlay.classList.add('show')}if(k==='escape'&&$('#stageScreen').classList.contains('active'))showScreen('charScreen');else if(k==='escape'&&$('#charScreen').classList.contains('active'))showScreen('titleScreen')});
 // Expose read-only fighter data and drawing helpers for the lightweight online lobby UI.
 window.SKYBOUND_FIGHTERS = fighters;
 window.SKYBOUND_DRAW_FIGHTER_ART = drawFighterArt;
@@ -1262,12 +1315,12 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   let onlineStateRef = null;
   let onlineInputsListener = null;
   let onlineStateListener = null;
-  let localActionSequences = {jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0};
-  let remoteActionSequences = {host:{jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0},guest:{jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0}};
+  let localActionSequences = {jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0,emote:0};
+  let remoteActionSequences = Object.fromEntries(['host','guest','guest3','guest4'].map(r=>[r,{jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0,emote:0}]));
   let lastInputPacket = '';
   let lastInputSentAt = 0;
-  const oneShotActions = ['jump','attack','heavy','special','dash','slam','ultimate'];
-  const blankInput = () => ({left:false,right:false,jump:false,attack:false,heavy:false,special:false,dash:false,slam:false,guard:false,ultimate:false});
+  const oneShotActions = ['jump','attack','heavy','special','dash','slam','ultimate','emote'];
+  const blankInput = () => ({left:false,right:false,jump:false,attack:false,heavy:false,special:false,dash:false,slam:false,guard:false,ultimate:false,emote:false,emoteId:'cheer'});
   function resetTransportState(){
     if(onlineInputTimer){clearInterval(onlineInputTimer);onlineInputTimer=null;}
     if(onlineStateTimer){clearInterval(onlineStateTimer);onlineStateTimer=null;}
@@ -1275,110 +1328,64 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     if(onlineStateRef&&onlineStateListener)onlineStateRef.off('value',onlineStateListener);
     onlineInputsRef=null;onlineStateRef=null;onlineInputsListener=null;onlineStateListener=null;
     onlineMatchStarted=false;lastRoomUiFingerprint='';lastInputPacket='';lastInputSentAt=0;
-    localActionSequences={jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0};
-    remoteActionSequences={host:{jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0},guest:{jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0}};
+    localActionSequences={jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0,emote:0};
+    remoteActionSequences=Object.fromEntries(['host','guest','guest3','guest4'].map(r=>[r,{jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0,emote:0}]));
   }
-  function onlineLocalSlot(){return activeRoomRole==='host'?'p1':activeRoomRole==='guest'?'p2':'';}
+  function onlineRoleNumber(role){return ({host:1,guest:2,guest3:3,guest4:4})[role]||0;}
+  function onlineUidField(role){return ({host:'hostUid',guest:'guestUid',guest3:'guest3Uid',guest4:'guest4Uid'})[role]||'';}
+  function onlineRoleKeys(){return ['host','guest','guest3','guest4'];}
+  function onlineLocalSlot(){const n=onlineRoleNumber(activeRoomRole);return n?'p'+n:'';}
   function onlineLogicalHeld(){return typeof window.SKYBOUND_READ_LOCAL_ONLINE_HELD==='function'?window.SKYBOUND_READ_LOCAL_ONLINE_HELD():{left:false,right:false,guard:false};}
   function notifyLocalAction(action){
     if(!onlineMatchStarted||!oneShotActions.includes(action))return;
     localActionSequences[action]++;
     const slot=onlineLocalSlot();const states=window.SKYBOUND_ONLINE_INPUTS;
-    if(slot&&states&&states[slot])states[slot][action]=true;
+    if(slot&&states&&states[slot]){states[slot][action]=true;if(action==='emote')states[slot].emoteId=(window.SKYBOUND_GET_EQUIPPED_EMOTE&&window.SKYBOUND_GET_EQUIPPED_EMOTE())||'cheer';}
   }
-  window.SKYBOUND_ONLINE_TOUCH_ACTION=key=>{const map={w:'jump',j:'attack',l:'heavy',k:'special',u:'dash',s:'slam',o:'ultimate'};if(map[key])notifyLocalAction(map[key]);};
+  window.SKYBOUND_ONLINE_TOUCH_ACTION=key=>{const map={w:'jump',j:'attack',l:'heavy',k:'special',u:'dash',s:'slam',o:'ultimate',v:'emote'};if(map[key])notifyLocalAction(map[key]);};
   function startOnlineTransport(){
     if(!activeRoomRef||!activeRoomCode||!activeRoomRole)return;
     if(window.SKYBOUND_CLEAR_ONLINE_SNAPSHOTS)window.SKYBOUND_CLEAR_ONLINE_SNAPSHOTS();
-    if(onlineInputTimer){clearInterval(onlineInputTimer);onlineInputTimer=null;}
-    onlineInputsRef=activeRoomRef.child('inputs');
-    onlineStateRef=activeRoomRef.child('state');
-    const myRole=activeRoomRole,otherRole=myRole==='host'?'guest':'host',mySlot=myRole==='host'?'p1':'p2',otherSlot=otherRole==='host'?'p1':'p2';
-    remoteActionSequences[myRole]={...localActionSequences};
-    onlineInputsListener=snapshot=>{
-      const all=snapshot.val()||{};const states=window.SKYBOUND_ONLINE_INPUTS;
-      if(!states)return;
-      for(const role of ['host','guest']){
-        if(role===myRole)continue;
-        const slot=role==='host'?'p1':'p2',packet=all[role]||{},dest=states[slot];
-        dest.left=!!packet.left;dest.right=!!packet.right;dest.guard=!!packet.guard;
-        const seqs=packet.actions||{};
-        for(const action of oneShotActions){const seq=Number(seqs[action])||0;const prev=remoteActionSequences[role][action]||0;if(seq>prev)dest[action]=true;remoteActionSequences[role][action]=Math.max(prev,seq);}
+    if(onlineInputTimer){clearInterval(onlineInputTimer);onlineInputTimer=null;}if(onlineStateTimer){clearInterval(onlineStateTimer);onlineStateTimer=null;}
+    onlineInputsRef=activeRoomRef.child('inputs');onlineStateRef=activeRoomRef.child('state');
+    const myRole=activeRoomRole,mySlot=onlineLocalSlot();
+    onlineInputsListener=snapshot=>{const all=snapshot.val()||{},states=window.SKYBOUND_ONLINE_INPUTS;if(!states)return;
+      for(const role of onlineRoleKeys()){if(role===myRole)continue;const slot='p'+onlineRoleNumber(role),packet=all[role]||{},dest=states[slot];if(!dest)continue;dest.left=!!packet.left;dest.right=!!packet.right;dest.guard=!!packet.guard;
+        if(packet.emoteId)dest.emoteId=packet.emoteId;const seqs=packet.actions||{},previousByRole=remoteActionSequences[role]||(remoteActionSequences[role]={});
+        for(const action of oneShotActions){const seq=Number(seqs[action])||0,prev=Number(previousByRole[action])||0;if(seq>prev)dest[action]=true;previousByRole[action]=Math.max(prev,seq);}
       }
     };
-    onlineInputsRef.on('value',onlineInputsListener,error=>{
-      const message='⚠ 入力同期エラー：'+roomErrorMessage(error);setOnlineCharacterStatus(message);setOnlineNetStatus(message,true);
-    });
-    if(myRole==='guest'){
+    onlineInputsRef.on('value',onlineInputsListener,error=>{const message='⚠ 入力同期エラー：'+roomErrorMessage(error);setOnlineCharacterStatus(message);setOnlineNetStatus(message,true);});
+    if(myRole!=='host'){
       onlineStateListener=snapshot=>{const data=snapshot.val();if(data&&window.SKYBOUND_APPLY_ONLINE_STATE){window.SKYBOUND_APPLY_ONLINE_STATE(data);if(!$('onlineNetStatus').dataset.receivedOnce){$('onlineNetStatus').dataset.receivedOnce='1';setOnlineNetStatus('オンライン同期中 · 受信OK',false);}}};
       onlineStateRef.on('value',onlineStateListener,error=>{const message='⚠ ゲーム状態の受信に失敗：'+roomErrorMessage(error);setOnlineCharacterStatus(message);setOnlineNetStatus(message,true);});
     }
-    // A disconnect clears this client's last held input, so movement/guard cannot get stuck.
     try{activeRoomRef.child('inputs/'+myRole).onDisconnect().remove();}catch(_){ }
-    onlineInputTimer=setInterval(()=>{
-      const heldState=onlineLogicalHeld();
-      const packet={left:!!heldState.left,right:!!heldState.right,guard:!!heldState.guard,actions:{...localActionSequences}};
-      const states=window.SKYBOUND_ONLINE_INPUTS;
+    onlineInputTimer=setInterval(()=>{const heldState=onlineLogicalHeld(),states=window.SKYBOUND_ONLINE_INPUTS;const packet={left:!!heldState.left,right:!!heldState.right,guard:!!heldState.guard,emoteId:(window.SKYBOUND_GET_EQUIPPED_EMOTE&&window.SKYBOUND_GET_EQUIPPED_EMOTE())||'cheer',actions:{...localActionSequences}};
       if(states&&states[mySlot]){states[mySlot].left=packet.left;states[mySlot].right=packet.right;states[mySlot].guard=packet.guard;}
-      const core=JSON.stringify(packet),now=Date.now();
-      if(core!==lastInputPacket||now-lastInputSentAt>1000){
-        lastInputPacket=core;lastInputSentAt=now;
-        activeRoomRef.child('inputs/'+myRole).set({...packet,updatedAt:now}).catch(error=>{const message='⚠ 入力送信エラー：'+roomErrorMessage(error);setOnlineCharacterStatus(message);setOnlineNetStatus(message,true);});
-      }
+      const core=JSON.stringify(packet),now=Date.now();if(core!==lastInputPacket||now-lastInputSentAt>1000){lastInputPacket=core;lastInputSentAt=now;activeRoomRef.child('inputs/'+myRole).set({...packet,updatedAt:now}).catch(error=>{const message='⚠ 入力送信エラー：'+roomErrorMessage(error);setOnlineCharacterStatus(message);setOnlineNetStatus(message,true);});}
     },25);
-    if(myRole==='host'){
-      // Send a compact authoritative snapshot on a steady 25Hz cadence.
-      // Do not wait for each server acknowledgement: RTT-based gating reduced the
-      // actual snapshot rate to ~1/RTT, causing freezes on higher-latency links.
-      // RTDB keeps writes ordered; guests discard duplicate sequence numbers and
-      // coalesce bursts in their render buffer.
-      const stateRef=onlineStateRef;
-      let stateSequence=0;
-      let lastStateWriteErrorAt=0;
-      onlineStateTimer=setInterval(()=>{
-        if(!onlineMatchStarted||!window.SKYBOUND_GET_ONLINE_STATE)return;
-        const state=window.SKYBOUND_GET_ONLINE_STATE();if(!state)return;
-        state._seq=++stateSequence;
-        state._hostSentAt=Date.now();
-        stateRef.set(state).then(()=>{lastStateWriteErrorAt=0;}).catch(error=>{
-          const now=Date.now();
-          if(now-lastStateWriteErrorAt>2500){
-            lastStateWriteErrorAt=now;
-            const message='⚠ ゲーム状態の送信に失敗：'+roomErrorMessage(error)+'（自動再試行中）';
-            setOnlineCharacterStatus(message);setOnlineNetStatus(message,true);
-          }
-        });
-      },40);
-    }
+    if(myRole==='host'){const stateRef=onlineStateRef;let stateSequence=0,lastStateWriteErrorAt=0;onlineStateTimer=setInterval(()=>{if(!onlineMatchStarted||!window.SKYBOUND_GET_ONLINE_STATE)return;const state=window.SKYBOUND_GET_ONLINE_STATE();if(!state)return;state._seq=++stateSequence;state._hostSentAt=Date.now();stateRef.set(state).then(()=>{lastStateWriteErrorAt=0;}).catch(error=>{const now=Date.now();if(now-lastStateWriteErrorAt>2500){lastStateWriteErrorAt=now;const message='⚠ ゲーム状態の送信に失敗：'+roomErrorMessage(error)+'（自動再試行中）';setOnlineCharacterStatus(message);setOnlineNetStatus(message,true);}});},40);}
     setOnlineNetStatus('オンライン同期を接続中…（対戦中は軽量画質）',false);
-    // Firebase sends the initial input/state snapshots as soon as the listeners attach.
   }
   function launchOnlineMatch(room){
     if(onlineMatchStarted||!room||!room.match||room.match.status!=='playing')return;
-    const host=room.players&&room.players.host,guest=room.players&&room.players.guest;
-    if(!host||!guest||!host.ready||!guest.ready)return;
-    const p1Id=host.characterId||'astra',p2Id=guest.characterId||'cinder';
-    onlineMatchStarted=true;
-    window.SKYBOUND_ONLINE_ROLE=activeRoomRole;
-    if(window.SKYBOUND_START_ONLINE_BATTLE)window.SKYBOUND_START_ONLINE_BATTLE(p1Id,p2Id,room.match.stageId||'peak',room.match.matchSeconds||120);
+    const roomKeys=['host','guest','guest3','guest4'],maxPlayers=Math.max(2,Math.min(4,Number(room.maxPlayers||room.match.playerCount)||2));
+    const roster=roomKeys.slice(0,maxPlayers).map((key,index)=>{const p=room.players&&room.players[key];return p?{role:key,playerNo:index+1,characterId:p.characterId||(['astra','cinder','briar','nova'][index]),displayName:p.displayName||('Player '+(index+1)),auraId:p.auraId||'none',emoteId:p.emoteId||'cheer'}:null;});
+    if(roster.length!==maxPlayers||roster.some(p=>!p||!room.players[p.role].ready))return;
+    onlineMatchStarted=true;window.SKYBOUND_ONLINE_ROLE=activeRoomRole;window.SKYBOUND_ONLINE_PLAYER_NO=onlineRoleNumber(activeRoomRole);window.SKYBOUND_ONLINE_ROSTER=roster;
+    if(window.SKYBOUND_START_ONLINE_BATTLE)window.SKYBOUND_START_ONLINE_BATTLE(roster[0].characterId,roster[1].characterId,room.match.stageId||'peak',room.match.matchSeconds||120,roster);
     startOnlineTransport();
   }
   async function requestOnlineBattleStart(){
     if(!activeRoomRef||activeRoomRole!=='host'||!onlineUser){setOnlineCharacterStatus('ホスト側から対戦を開始してください。');return;}
     const button=$('onlineStartBattleBtn');button.disabled=true;
-    try{
-      const snapshot=await activeRoomRef.once('value');const room=snapshot.val()||{};
-      if(!room.guestUid||!room.players||!room.players.host||!room.players.guest||!room.players.host.ready||!room.players.guest.ready)throw new Error('BOTH_PLAYERS_NOT_READY');
-      // Clear each role's input separately so Database Rules can restrict writes per player.
-      await activeRoomRef.child('inputs/host').remove();
-      await activeRoomRef.child('inputs/guest').remove();
-      await activeRoomRef.child('state').remove();
-      await activeRoomRef.child('match').set({status:'playing',stageId:'peak',matchSeconds:120,startedBy:onlineUser.uid,createdAt:firebase.database.ServerValue.TIMESTAMP});
-      setOnlineCharacterStatus('⚔️ 対戦を開始！相手と接続しています…');
-    }catch(error){
-      setOnlineCharacterStatus(error&&error.message==='BOTH_PLAYERS_NOT_READY'?'2人とも準備完了になってから開始してね。':'対戦開始に失敗：'+roomErrorMessage(error));
-      button.disabled=false;
-    }
+    try{const snapshot=await activeRoomRef.once('value'),room=snapshot.val()||{},maxPlayers=Math.max(2,Math.min(4,Number(room.maxPlayers)||2)),keys=['host','guest','guest3','guest4'].slice(0,maxPlayers),players=keys.map(k=>room.players&&room.players[k]);
+      if(players.length!==maxPlayers||players.some(p=>!p||!p.uid||!p.ready))throw new Error('ALL_PLAYERS_NOT_READY');
+      for(const role of onlineRoleKeys())await activeRoomRef.child('inputs/'+role).remove();await activeRoomRef.child('state').remove();
+      await activeRoomRef.child('match').set({status:'playing',stageId:'peak',matchSeconds:120,playerCount:maxPlayers,startedBy:onlineUser.uid,createdAt:firebase.database.ServerValue.TIMESTAMP});
+      setOnlineCharacterStatus('⚔️ 対戦を開始！全プレイヤーを同期しています…');
+    }catch(error){setOnlineCharacterStatus(error&&error.message==='ALL_PLAYERS_NOT_READY'?`全員（設定人数分）がキャラ選択で準備完了になってから開始してね。`:'対戦開始に失敗：'+roomErrorMessage(error));button.disabled=false;}
   }
 
 
@@ -1430,48 +1437,19 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     if ($('onlineStartBattleBtn')) { $('onlineStartBattleBtn').hidden = true; $('onlineStartBattleBtn').disabled = true; }
     $('onlineCreateRoomBtn').disabled = !onlineUser;
     $('onlineJoinRoomBtn').disabled = !onlineUser;
+    if($('onlinePlayerCountSelect'))$('onlinePlayerCountSelect').disabled=false;
     setRoomStatus('neutral', message || (ja() ? '接続後、部屋を作成するかコードを入力して参加してください。' : 'Create a room or enter a code to join.'));
   }
-  function bindRoom(ref, code, role) {
-    resetTransportState();
-    detachRoomListener();
-    activeRoomRef = ref;
-    activeRoomCode = code;
-    activeRoomRole = role;
-    $('onlineRoomCode').value = code;
-    $('onlineCopyRoomBtn').disabled = false;
-    $('onlineLeaveRoomBtn').disabled = false;
-    $('onlineChooseFighterBtn').disabled = false;
-    $('onlineCreateRoomBtn').disabled = true;
-    $('onlineJoinRoomBtn').disabled = true;
-    activeRoomListener = snapshot => {
-      if (!snapshot.exists()) {
-        resetTransportState();
-        resetRoomState(ja() ? '部屋が終了しました。新しい部屋を作成するか、別のコードで参加してください。' : 'This room has ended. Create or join another room.');
-        return;
-      }
-      const room = snapshot.val() || {};
-      const guestConnected = !!room.guestUid;
-      if (activeRoomRole === 'guest' && room.guestUid !== onlineUser.uid) {
-        resetTransportState();
-        resetRoomState(ja() ? '部屋から退出しました。' : 'You have left the room.');
-        return;
-      }
-      const uiFingerprint = JSON.stringify({guestUid:room.guestUid||null,players:room.players||null,status:room.status||null});
-      if (uiFingerprint !== lastRoomUiFingerprint) {
-        lastRoomUiFingerprint = uiFingerprint;
-        updateOnlineCharacterRoomView(room);
-        if (guestConnected) {
-          setRoomStatus('success', ja() ? '✅ 相手が部屋に参加しました！' : '✅ Opponent joined the room!', (ja() ? '部屋コード：' : 'Room code: ') + activeRoomCode + '\n' + (ja() ? 'あなた：' + (activeRoomRole === 'host' ? 'ホスト' : 'ゲスト') + '\n2人の接続を確認しました。' : 'You: ' + activeRoomRole + '\nBoth players are connected.'));
-        } else {
-          setRoomStatus('neutral', ja() ? '対戦相手を待っています…' : 'Waiting for an opponent…', (ja() ? '部屋コード：' : 'Room code: ') + activeRoomCode + '\n' + (ja() ? 'このコードを友達に共有してね。' : 'Share this code with a friend.'));
-        }
-      }
+  function bindRoom(ref,code,role){
+    resetTransportState();detachRoomListener();activeRoomRef=ref;activeRoomCode=code;activeRoomRole=role;$('onlineRoomCode').value=code;$('onlineCopyRoomBtn').disabled=false;$('onlineLeaveRoomBtn').disabled=false;$('onlineChooseFighterBtn').disabled=false;$('onlineCreateRoomBtn').disabled=true;$('onlineJoinRoomBtn').disabled=true;
+    activeRoomListener=snapshot=>{if(!snapshot.exists()){resetTransportState();resetRoomState(ja()?'部屋が終了しました。新しい部屋を作成してください。':'This room has ended. Create a new room.');return;}
+      const room=snapshot.val()||{},uidField=onlineUidField(activeRoomRole),expected=activeRoomRole==='host'?room.hostUid:room[uidField];
+      if(activeRoomRole!=='host'&&expected!==onlineUser.uid){resetTransportState();resetRoomState(ja()?'部屋から退出しました。':'You have left the room.');return;}
+      const maxPlayers=Math.max(2,Math.min(4,Number(room.maxPlayers)||2)),keys=['host','guest','guest3','guest4'].slice(0,maxPlayers),present=keys.filter(k=>room.players&&room.players[k]&&room.players[k].uid);const fingerprint=JSON.stringify({maxPlayers,players:room.players||null,status:room.status||null,match:room.match||null});
+      if(fingerprint!==lastRoomUiFingerprint){lastRoomUiFingerprint=fingerprint;updateOnlineCharacterRoomView(room);setRoomStatus(present.length>=maxPlayers?'success':'neutral',present.length>=maxPlayers?(ja()?`✅ ${maxPlayers}人参加！`:`✅ ${maxPlayers} players joined`):(ja()?`参加者を待っています：${present.length}/${maxPlayers}人`:`Waiting for players: ${present.length}/${maxPlayers}`),(ja()?'部屋コード：':'Room code: ')+activeRoomCode+'\n'+(ja()?`あなた：P${onlineRoleNumber(activeRoomRole)}。コードを友達に共有してね。`:`You are P${onlineRoleNumber(activeRoomRole)}. Share the code with friends.`));}
       launchOnlineMatch(room);
     };
-    activeRoomRef.on('value', activeRoomListener, error => {
-      setRoomStatus('error', roomErrorMessage(error));
-    });
+    activeRoomRef.on('value',activeRoomListener,error=>setRoomStatus('error',roomErrorMessage(error)));
   }
   function onlineFighters() {
     return Array.isArray(window.SKYBOUND_FIGHTERS) ? window.SKYBOUND_FIGHTERS : [];
@@ -1537,9 +1515,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     });
     updateOnlineLocalSelectionText();
   }
-  function onlineRoomPlayerKey() {
-    return activeRoomRole === 'host' ? 'host' : activeRoomRole === 'guest' ? 'guest' : '';
-  }
+  function onlineRoomPlayerKey() { return ['host','guest','guest3','guest4'].includes(activeRoomRole)?activeRoomRole:''; }
   function setOnlineCharacterStatus(text) {
     const el = $('onlineCharStatus');
     if (el) el.textContent = text;
@@ -1555,42 +1531,15 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     if (!onlineCharacterReady) setOnlineCharacterStatus(displayOnlineFighter(selectedOnlineFighterId) + 'を選択中。決定ボタンで相手に共有しよう。');
   }
   function updateOnlineCharacterRoomView(room) {
-    if (!room) return;
-    const codeLabel = $('onlineCharacterRoomCode');
-    if (codeLabel) codeLabel.textContent = activeRoomCode || '------';
-    const roleLabel = $('onlineRoleChip');
-    if (roleLabel) roleLabel.textContent = activeRoomRole === 'host' ? 'HOST / P1' : 'GUEST / P2';
-    const myKey = onlineRoomPlayerKey();
-    const otherKey = activeRoomRole === 'host' ? 'guest' : 'host';
-    const mine = room.players && myKey ? room.players[myKey] : null;
-    const other = room.players && room.players[otherKey] ? room.players[otherKey] : null;
-    if (!selectedOnlineTouched && mine && mine.characterId && onlineFighterById(mine.characterId)) {
-      selectedOnlineFighterId = mine.characterId;
-      onlineCharacterReady = !!mine.ready;
-    }
-    const opponent = $('onlineOpponentFighterLabel');
-    if (opponent) {
-      if (!room.guestUid) opponent.textContent = '相手の参加を待っています…';
-      else if (other && other.characterId) opponent.textContent = (other.displayName ? String(other.displayName).slice(0,24) + ' · ' : '') + displayOnlineFighter(other.characterId) + (other.ready ? ' · ✅ 準備完了' : ' · キャラ選択中');
-      else opponent.textContent = '参加済み · キャラ選択中…';
-    }
-    renderOnlineCharacterCards();
-    if (mine && mine.ready) {
-      onlineCharacterReady = true;
-      setOnlineCharacterStatus('✅ ' + displayOnlineFighter(mine.characterId || selectedOnlineFighterId) + 'で準備完了。相手の選択を待っています。');
-    }
-    const bothReady = !!(room.guestUid && mine && mine.ready && other && other.ready);
-    const startButton = $('onlineStartBattleBtn');
-    if (startButton) {
-      startButton.hidden = !bothReady;
-      startButton.disabled = !bothReady || activeRoomRole !== 'host';
-      startButton.textContent = activeRoomRole === 'host' ? '⚔️ 対戦開始！' : 'ホストの開始を待っています';
-    }
-    if (bothReady) {
-      setOnlineCharacterStatus(activeRoomRole === 'host'
-        ? '🎉 2人とも準備完了！「対戦開始！」を押してオンライン対戦を始めよう。'
-        : '🎉 2人とも準備完了！ホストが対戦を開始するのを待っています。');
-    }
+    if(!room)return;const codeLabel=$('onlineCharacterRoomCode');if(codeLabel)codeLabel.textContent=activeRoomCode||'------';
+    const myKey=onlineRoomPlayerKey(),keys=['host','guest','guest3','guest4'],myNo=onlineRoleNumber(activeRoomRole),roleLabel=$('onlineRoleChip');if(roleLabel)roleLabel.textContent=(activeRoomRole==='host'?'HOST':'PLAYER')+' / P'+myNo;
+    const mine=room.players&&myKey?room.players[myKey]:null,maxPlayers=Math.max(2,Math.min(4,Number(room.maxPlayers)||2)),present=keys.slice(0,maxPlayers).map((key,index)=>({key,index,p:room.players&&room.players[key]})).filter(x=>x.p&&x.p.uid),readyCount=present.filter(x=>x.p.ready).length;
+    if(!selectedOnlineTouched&&mine&&mine.characterId&&onlineFighterById(mine.characterId)){selectedOnlineFighterId=mine.characterId;onlineCharacterReady=!!mine.ready;}
+    const opponent=$('onlineOpponentFighterLabel');if(opponent){const others=present.filter(x=>x.key!==myKey);opponent.textContent=others.length?others.map(x=>`P${x.index+1} ${String(x.p.displayName||'Fighter').slice(0,16)} · ${x.p.characterId?displayOnlineFighter(x.p.characterId):'キャラ選択中'}${x.p.ready?' · ✅':' · 準備中'}`).join('　｜　'):`参加者を待っています（${present.length}/${maxPlayers}人）`;}
+    renderOnlineCharacterCards();if(mine&&mine.ready){onlineCharacterReady=true;setOnlineCharacterStatus('✅ '+displayOnlineFighter(mine.characterId||selectedOnlineFighterId)+'で準備完了。ほかのプレイヤーの選択を待っています。');}
+    const allReady=present.length===maxPlayers&&readyCount===maxPlayers;const startButton=$('onlineStartBattleBtn');if(startButton){startButton.hidden=!allReady;startButton.disabled=!allReady||activeRoomRole!=='host';startButton.textContent=activeRoomRole==='host'?'⚔️ 対戦開始！':'ホストの開始を待っています';}
+    const capacitySelect=$('onlinePlayerCountSelect');if(capacitySelect){capacitySelect.value=String(maxPlayers);capacitySelect.disabled=!!activeRoomRef&&activeRoomRole!=='host';if(activeRoomRef)capacitySelect.disabled=true;}
+    if(allReady)setOnlineCharacterStatus(`🎉 ${maxPlayers}人全員が準備完了！ホストが対戦を開始できます。`);
   }
   function openOnlineCharacterScreen() {
     if (!activeRoomRef || !activeRoomCode || !activeRoomRole) {
@@ -1602,7 +1551,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     const codeLabel = $('onlineCharacterRoomCode');
     if (codeLabel) codeLabel.textContent = activeRoomCode;
     const roleLabel = $('onlineRoleChip');
-    if (roleLabel) roleLabel.textContent = activeRoomRole === 'host' ? 'HOST / P1' : 'GUEST / P2';
+    if (roleLabel) roleLabel.textContent = (activeRoomRole==='host'?'HOST':'PLAYER')+' / P'+onlineRoleNumber(activeRoomRole);
     renderOnlineCharacterCards();
     activeRoomRef.once('value').then(snapshot => {
       if (snapshot.exists()) updateOnlineCharacterRoomView(snapshot.val() || {});
@@ -1634,6 +1583,8 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
         uid: onlineUser.uid,
         displayName: (window.SKYBOUND_CURRENT_DISPLAY_NAME && window.SKYBOUND_CURRENT_DISPLAY_NAME()) || (onlineUser.displayName || 'Fighter'),
         characterId: selectedOnlineFighterId,
+        auraId: (window.SKYBOUND_GET_EQUIPPED_AURA&&window.SKYBOUND_GET_EQUIPPED_AURA())||'none',
+        emoteId: (window.SKYBOUND_GET_EQUIPPED_EMOTE&&window.SKYBOUND_GET_EQUIPPED_EMOTE())||'cheer',
         ready: true,
         selectedAt: firebase.database.ServerValue.TIMESTAMP
       });
@@ -1652,77 +1603,25 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   }
 
   async function createRoom() {
-    if (!onlineUser || !onlineDb) throw new Error('NOT_CONNECTED');
-    $('onlineCreateRoomBtn').disabled = true;
-    setRoomStatus('neutral', ja() ? '部屋を作成しています…' : 'Creating room…');
-    try {
-      for (let i = 0; i < 8; i++) {
-        const code = makeRoomCode();
-        const ref = onlineDb.ref('rooms/' + code);
-        const roomData = {
-          hostUid: onlineUser.uid,
-          guestUid: null,
-          createdAt: firebase.database.ServerValue.TIMESTAMP,
-          status: 'waiting',
-          players: { host: { uid: onlineUser.uid, displayName: (window.SKYBOUND_CURRENT_DISPLAY_NAME && window.SKYBOUND_CURRENT_DISPLAY_NAME()) || (onlineUser.displayName || 'Fighter'), joinedAt: firebase.database.ServerValue.TIMESTAMP } }
-        };
-        const result = await ref.transaction(current => current === null ? roomData : undefined, undefined, false);
-        if (result.committed) {
-          bindRoom(ref, code, 'host');
-          return;
-        }
-      }
-      throw new Error('ROOM_CREATE_FAILED');
-    } finally {
-      if (!activeRoomRef) $('onlineCreateRoomBtn').disabled = false;
-    }
+    if(!onlineUser||!onlineDb)throw new Error('NOT_CONNECTED');$('onlineCreateRoomBtn').disabled=true;setRoomStatus('neutral',ja()?'部屋を作成しています…':'Creating room…');
+    const maxPlayers=Math.max(2,Math.min(4,Number($('onlinePlayerCountSelect')&&$('onlinePlayerCountSelect').value)||2));
+    try{for(let i=0;i<8;i++){const code=makeRoomCode(),ref=onlineDb.ref('rooms/'+code);const roomData={hostUid:onlineUser.uid,guestUid:null,guest3Uid:null,guest4Uid:null,maxPlayers,createdAt:firebase.database.ServerValue.TIMESTAMP,status:'waiting',players:{host:{uid:onlineUser.uid,displayName:(window.SKYBOUND_CURRENT_DISPLAY_NAME&&window.SKYBOUND_CURRENT_DISPLAY_NAME())||(onlineUser.displayName||'Fighter'),joinedAt:firebase.database.ServerValue.TIMESTAMP}}};const result=await ref.transaction(current=>current===null?roomData:undefined,undefined,false);if(result.committed){bindRoom(ref,code,'host');return;}}throw new Error('ROOM_CREATE_FAILED');}
+    finally{if(!activeRoomRef)$('onlineCreateRoomBtn').disabled=false;}
   }
-  async function joinRoom() {
-    if (!onlineUser || !onlineDb) throw new Error('NOT_CONNECTED');
-    const code = $('onlineRoomCode').value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-    $('onlineRoomCode').value = code;
-    if (code.length !== 6) {
-      setRoomStatus('error', ja() ? '6文字の部屋コードを入力してね。' : 'Enter a 6-character room code.');
-      return;
-    }
-    $('onlineJoinRoomBtn').disabled = true;
-    setRoomStatus('neutral', ja() ? '部屋を確認しています…' : 'Checking room…');
-    const ref = onlineDb.ref('rooms/' + code);
-    try {
-      const snapshot = await ref.once('value');
-      if (!snapshot.exists()) throw new Error('ROOM_NOT_FOUND');
-      const room = snapshot.val() || {};
-      if (room.hostUid === onlineUser.uid) throw new Error('CANNOT_JOIN_OWN_ROOM');
-      if (room.guestUid && room.guestUid !== onlineUser.uid) throw new Error('ROOM_FULL');
-      const result = await ref.child('guestUid').transaction(current => current == null || current === onlineUser.uid ? onlineUser.uid : undefined, undefined, false);
-      if (!result.committed) throw new Error('ROOM_FULL');
-      await ref.child('players/guest').set({ uid: onlineUser.uid, displayName: (window.SKYBOUND_CURRENT_DISPLAY_NAME && window.SKYBOUND_CURRENT_DISPLAY_NAME()) || (onlineUser.displayName || 'Fighter'), joinedAt: firebase.database.ServerValue.TIMESTAMP });
-      bindRoom(ref, code, 'guest');
-    } finally {
-      if (!activeRoomRef) $('onlineJoinRoomBtn').disabled = false;
-    }
+  async function joinRoom(){
+    if(!onlineUser||!onlineDb)throw new Error('NOT_CONNECTED');const code=$('onlineRoomCode').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');$('onlineRoomCode').value=code;
+    if(code.length!==6){setRoomStatus('error',ja()?'6文字の部屋コードを入力してね。':'Enter a 6-character room code.');return;}
+    $('onlineJoinRoomBtn').disabled=true;setRoomStatus('neutral',ja()?'部屋を確認しています…':'Checking room…');const ref=onlineDb.ref('rooms/'+code);
+    try{const snapshot=await ref.once('value');if(!snapshot.exists())throw new Error('ROOM_NOT_FOUND');const room=snapshot.val()||{};if(room.hostUid===onlineUser.uid||Object.values(room.players||{}).some(p=>p&&p.uid===onlineUser.uid))throw new Error('CANNOT_JOIN_OWN_ROOM');
+      const maxPlayers=Math.max(2,Math.min(4,Number(room.maxPlayers)||2));const candidates=[{role:'guest',field:'guestUid',key:'guest'},{role:'guest3',field:'guest3Uid',key:'guest3'},{role:'guest4',field:'guest4Uid',key:'guest4'}].slice(0,maxPlayers-1);let joinedRole='';
+      for(const c of candidates){const result=await ref.child(c.field).transaction(current=>current==null||current===onlineUser.uid?onlineUser.uid:undefined,undefined,false);if(result.committed){joinedRole=c.role;await ref.child('players/'+c.key).set({uid:onlineUser.uid,displayName:(window.SKYBOUND_CURRENT_DISPLAY_NAME&&window.SKYBOUND_CURRENT_DISPLAY_NAME())||(onlineUser.displayName||'Fighter'),joinedAt:firebase.database.ServerValue.TIMESTAMP});break;}}
+      if(!joinedRole)throw new Error('ROOM_FULL');bindRoom(ref,code,joinedRole);
+    }finally{if(!activeRoomRef)$('onlineJoinRoomBtn').disabled=false;}
   }
-  async function leaveRoom() {
-    if (!activeRoomRef || !onlineUser) return;
-    resetTransportState();
-    const ref = activeRoomRef;
-    const role = activeRoomRole;
-    const code = activeRoomCode;
-    detachRoomListener();
-    $('onlineLeaveRoomBtn').disabled = true;
-    setRoomStatus('neutral', ja() ? '部屋を退出しています…' : 'Leaving room…');
-    try {
-      if (role === 'host') {
-        await ref.remove();
-      } else {
-        await ref.child('players/guest').remove();
-        await ref.child('guestUid').remove();
-      }
-      resetRoomState(ja() ? '部屋を退出しました。' : 'You left the room.');
-    } catch (error) {
-      setRoomStatus('error', roomErrorMessage(error));
-      if (activeRoomRef) bindRoom(ref, code, role);
-    }
+  async function leaveRoom(){
+    if(!activeRoomRef||!onlineUser)return;resetTransportState();const ref=activeRoomRef,role=activeRoomRole,code=activeRoomCode;detachRoomListener();$('onlineLeaveRoomBtn').disabled=true;setRoomStatus('neutral',ja()?'部屋を退出しています…':'Leaving room…');
+    try{if(role==='host'){await ref.remove();}else{const field=onlineUidField(role);await ref.child('players/'+role).remove();if(field)await ref.child(field).remove();}resetRoomState(ja()?'部屋を退出しました。':'You left the room.');}
+    catch(error){setRoomStatus('error',roomErrorMessage(error));if(activeRoomRef)bindRoom(ref,code,role);}
   }
 
   const firebaseConfig = {
@@ -1933,6 +1832,12 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
         onlineLosses: Math.max(0, Math.floor(Number(profile.onlineLosses) || 0)),
         eliteProtected: !!profile.eliteProtected,
         unrealProtected: !!profile.unrealProtected,
+        ownedPets: Array.isArray(profile.ownedPets) ? profile.ownedPets.filter(x => ['dog1','dog2','dog3','dog4','dog5'].includes(x)) : [],
+        ownedAuras: Array.isArray(profile.ownedAuras) ? profile.ownedAuras.filter(x => ['aura-cyan','aura-flame','aura-cosmic'].includes(x)) : [],
+        ownedEmotes: Array.isArray(profile.ownedEmotes) ? profile.ownedEmotes.filter(x => ['cheer','dance','victory','taunt'].includes(x)) : ['cheer'],
+        equippedPetId: ['dog1','dog2','dog3','dog4','dog5'].includes(profile.equippedPetId) ? profile.equippedPetId : '',
+        equippedAuraId: ['aura-cyan','aura-flame','aura-cosmic'].includes(profile.equippedAuraId) ? profile.equippedAuraId : 'none',
+        equippedEmoteId: ['cheer','dance','victory','taunt'].includes(profile.equippedEmoteId) ? profile.equippedEmoteId : 'cheer',
         updatedAt: Date.now()
       };
       await onlineDb.ref('rankedLeaderboard/players/' + user.uid).set(payload);
