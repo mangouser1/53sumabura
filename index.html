@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>53sumabura | VER 5.3</title>
+<title>53sumabura | VER 5.4</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -692,17 +692,19 @@ body.touch-layout-editor-open{overflow:hidden}
 
 
 <style id="ver53-motion-manual-styles">
-/* VER 5.3: calm page-navigation motion, deliberately different from the old neon slash. */
+/* VER 5.4: cover-before-swap page transitions. The old page is covered first; the new page is revealed afterwards. */
 #pageTransitionFx{position:fixed;inset:0;z-index:99980;overflow:hidden;pointer-events:none;visibility:hidden;opacity:1;contain:strict;display:block}
 #pageTransitionFx:before,#pageTransitionFx:after{content:none!important;display:none!important;animation:none!important}
-#pageTransitionFx .page-curtain{position:absolute;top:-3%;height:106%;width:25.2%;left:calc(var(--curtain-index,0)*25%);opacity:0;transform:translateY(-110%);background:linear-gradient(160deg,#1a3550 0%,#0c1b30 48%,#07101e 100%);border-right:1px solid #8defff20;box-shadow:inset 0 0 30px #5deaff0a;will-change:transform,opacity}
+#pageTransitionFx .page-curtain{position:absolute;top:-3%;height:106%;width:25.25%;left:calc(var(--curtain-index,0)*25%);opacity:0;transform:translateY(-112%);background:linear-gradient(160deg,#1a3550 0%,#0c1b30 48%,#07101e 100%);border-right:1px solid #8defff20;box-shadow:inset 0 0 30px #5deaff0a;will-change:transform,opacity}
 #pageTransitionFx .curtain-1{left:0%;--curtain-delay:0ms}
-#pageTransitionFx .curtain-2{left:25%;--curtain-delay:35ms}
-#pageTransitionFx .curtain-3{left:50%;--curtain-delay:70ms}
-#pageTransitionFx .curtain-4{left:75%;--curtain-delay:105ms}
+#pageTransitionFx .curtain-2{left:25%;--curtain-delay:22ms}
+#pageTransitionFx .curtain-3{left:50%;--curtain-delay:44ms}
+#pageTransitionFx .curtain-4{left:75%;--curtain-delay:66ms}
 #pageTransitionFx.is-active{visibility:visible;opacity:1}
-#pageTransitionFx.is-active .page-curtain{animation:pageCurtainOpen .68s cubic-bezier(.52,.02,.25,1) var(--curtain-delay,0ms) both}
-@keyframes pageCurtainOpen{0%{opacity:0;transform:translateY(-110%)}14%{opacity:1}38%{opacity:1;transform:translateY(0)}58%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(110%)}}
+#pageTransitionFx.is-closing .page-curtain{animation:pageCurtainCover .285s cubic-bezier(.62,.02,.34,1) var(--curtain-delay,0ms) both}
+#pageTransitionFx.is-revealing .page-curtain{animation:pageCurtainReveal .39s cubic-bezier(.42,0,.2,1) var(--curtain-delay,0ms) both}
+@keyframes pageCurtainCover{0%{opacity:0;transform:translateY(-112%)}8%{opacity:1}100%{opacity:1;transform:translateY(0)}}
+@keyframes pageCurtainReveal{0%{opacity:1;transform:translateY(0)}82%{opacity:1}100%{opacity:0;transform:translateY(112%)}}
 /* Page reveal: unfolds from one side like a physical page; no attack flashes or combat shake. */
 .screen.active.screen-entry-animate{animation:pageLeafUnfold .58s cubic-bezier(.2,.8,.22,1) both!important;will-change:clip-path,opacity,transform}
 @keyframes pageLeafUnfold{0%{opacity:.25;clip-path:inset(0 0 0 100%);transform:perspective(1400px) rotateY(-7deg) scale(.99);filter:blur(2px)}62%{opacity:1;clip-path:inset(0 0 0 0);transform:perspective(1400px) rotateY(1deg) scale(1.003);filter:blur(0)}100%{opacity:1;clip-path:inset(0 0 0 0);transform:perspective(1400px) rotateY(0) scale(1);filter:none}}
@@ -810,7 +812,7 @@ body.touch-layout-editor-open{overflow:hidden}
 <body>
 <div id="app"><div id="startupIntro" role="button" tabindex="0" aria-label="53sumaburaを起動。タップしてスキップ">
  <div class="intro-frame"><i class="intro-corner tl"></i><i class="intro-corner tr"></i><i class="intro-corner bl"></i><i class="intro-corner br"></i>
-  <div class="intro-kicker">FIGHTER SYSTEMS ONLINE · VER 5.3</div>
+  <div class="intro-kicker">FIGHTER SYSTEMS ONLINE · VER 5.4</div>
   <div class="intro-logo">53<span>sumabura</span></div>
   <div class="intro-tagline">READY · SET · FIGHT</div>
   <div class="intro-bar"><span></span></div>
@@ -841,13 +843,13 @@ body.touch-layout-editor-open{overflow:hidden}
   <div class="rank-board-wrap"><table class="rank-board"><thead><tr><th>#</th><th id="rankColPlayer">プレイヤー</th><th id="rankColTier">ランク</th><th id="rankColRP">RP</th></tr></thead><tbody id="rankLeaderboardRows"><tr><td colspan="4">ランキングを読み込み中…</td></tr></tbody></table></div>
  </section>
  <div id="howText" class="footnote" style="display:none;max-width:650px">相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。ダメージが高いほど遠くへ飛びやすい！<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ攻撃　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード<br>2P：<span class="keycap">←</span><span class="keycap">→</span> 移動　<span class="keycap">↑</span> ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ ダッシュ　↓ 地面攻撃　0 ガード</div>
- <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 5.3</div>
+ <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 5.4</div>
 </section>
 <section id="howScreen" class="screen" aria-labelledby="howPageTitle">
  <div class="how-guide">
   <header class="how-guide-header">
    <button class="secondary-btn how-back-btn" id="howBackBtn" type="button">← タイトルへ戻る</button>
-   <div class="how-guide-kicker">PLAYER MANUAL / PERMANENT EDITION / VER 5.3</div>
+   <div class="how-guide-kicker">PLAYER MANUAL / PERMANENT EDITION / VER 5.4</div>
    <h1 id="howPageTitle">53sumabura <span>遊び方ガイド</span></h1>
    <p>初めて遊ぶ人からオンライン対戦まで。操作・ルール・モード・設定をまとめた保存版マニュアル。</p>
    <div class="how-guide-badges"><span>14 FIGHTERS</span><span>14 ARENAS</span><span>KEYBOARD / TOUCH</span><span>LOCAL / ONLINE</span></div>
@@ -962,7 +964,7 @@ body.touch-layout-editor-open{overflow:hidden}
     <details><summary>ボタンが反応しない</summary><p>対戦開始前の設定画面を閉じてから別の画面へ移動してみる。スマホではボタンを連打せず、接続や画面切り替えが終わってから押すと安定しやすいよ。</p></details>
    </div>
   </section>
-  <footer class="how-guide-footer"><span>53sumabura / PLAYER MANUAL / VER 5.3</span><button class="primary-btn" id="howTopBtn" type="button">↑ 目次の上へ戻る</button><button class="secondary-btn" id="howBackBottomBtn" type="button">タイトルへ戻る</button></footer>
+  <footer class="how-guide-footer"><span>53sumabura / PLAYER MANUAL / VER 5.4</span><button class="primary-btn" id="howTopBtn" type="button">↑ 目次の上へ戻る</button><button class="secondary-btn" id="howBackBottomBtn" type="button">タイトルへ戻る</button></footer>
  </div>
 </section>
 <section id="cpuChallengeScreen" class="screen">
@@ -1033,19 +1035,19 @@ body.touch-layout-editor-open{overflow:hidden}
  <div id="toast">READY?</div>
  <div id="pauseOverlay"><div class="pause-box"><div class="step">BATTLE PAUSED</div><h2>PAUSE</h2><button class="primary-btn" id="resumeBtn">RESUME</button> <button class="secondary-btn" id="restartBtn">RESTART</button> <button class="secondary-btn" id="pauseSettingsBtn">⚙ SETTINGS</button> <button class="secondary-btn" id="pauseExitBtn">QUIT</button><div class="footnote">Esc で再開 / ポーズ</div></div></div>
 </section>
-<section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · VER 5.3 · ORIGINAL BROWSER FIGHTER</div></section>
+<section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · VER 5.4 · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
 <div id="pingCounter" aria-label="オンライン遅延" aria-live="off">PING: -- ms</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 5.3</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 5.4</div>
 <div id="battleSetupOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="battleSetupTitle">
- <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 5.3</div><h2 id="battleSetupTitle">対戦設定</h2>
+ <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 5.4</div><h2 id="battleSetupTitle">対戦設定</h2>
  <p class="shop-lead">通常対戦のモードとCPUの強さを選んでから、キャラクター選択へ進もう。</p>
  <div id="battleSetupControls"></div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="battleSetupCancel">戻る</button><button class="primary-btn" id="battleSetupGo">キャラクター選択へ →</button></div>
  </div>
 </div>
 <div id="shopOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
- <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 5.3</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモート・キャラの登場演出を購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
+ <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 5.4</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモート・キャラの登場演出を購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
  <div class="shop-rules-note">🐕 ペットは通常対戦限定。AIランク戦・CPUチャレンジでは使用できません。オーラとエモートは見た目だけで、ランク戦でも使用できます。エモートは V キー。</div>
  <div id="shopItemsGrid" class="shop-items-grid"></div><div id="shopStatus" class="shop-status" aria-live="polite">アイテムを選んでね。</div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="shopClose">戻る</button></div>
@@ -1140,7 +1142,7 @@ body.touch-layout-editor-open{overflow:hidden}
  <section class="settings-update-card" aria-label="バージョン更新">
   <div><div class="settings-update-title" id="versionUpdateTitle">🔄 バージョン更新</div><div class="settings-update-copy" id="versionUpdateCopy">公開サイトに新しいバージョンがあるか確認します。更新が見つかった場合は再読み込みできます。</div></div>
   <button class="secondary-btn" id="versionUpdateBtn" type="button">更新を確認</button>
-  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 5.3</div>
+  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 5.4</div>
  </section>
  <div class="setting-actions"><button class="secondary-btn" id="settingsCloseBtn">戻る</button><button class="primary-btn" id="settingsApplyBtn">適用</button></div>
  </div></div>
@@ -1192,23 +1194,15 @@ let mobileModeEnabled = false;
 try { mobileModeEnabled = localStorage.getItem('skyboundMobileMode') === '1'; } catch (_) {}
 const screens = ['titleScreen','howScreen','cpuChallengeScreen','aiRoomScreen','charScreen','onlineCharacterScreen','stageScreen','battleScreen','resultScreen'].map(id=>$('#'+id));
 let lastShownScreenId = screens.find(s=>s&&s.classList.contains('active'))?.id || 'titleScreen';
+let pageTransitionSwapTimer = 0;
 let pageTransitionTimer = 0;
 let screenEntryToken = 0;
-function showScreen(id){
- const next=screens.find(s=>s&&s.id===id);
- if(!next){setBgmMode(id==='battleScreen'?'battle':'menu');return;}
- const entryToken=++screenEntryToken;
+function finishScreenActivation(next,id,entryToken){
  screens.forEach(s=>{if(!s)return;s.classList.remove('active','screen-entry-animate');});
- // Force a fresh animation even when revisiting the same screen (for example after a rematch).
+ // Start the incoming-page animation while the curtain still covers the screen.
  void next.offsetWidth;
  next.classList.add('active','screen-entry-animate');
  lastShownScreenId=id;
- const fx=document.getElementById('pageTransitionFx');
- if(fx&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  fx.classList.remove('is-active');void fx.offsetWidth;fx.classList.add('is-active');
-  if(pageTransitionTimer)clearTimeout(pageTransitionTimer);
-  pageTransitionTimer=setTimeout(()=>fx.classList.remove('is-active'),850);
- }
  setTimeout(()=>{if(screenEntryToken===entryToken)next.classList.remove('screen-entry-animate');},1200);
  if(id==='charScreen'||id==='onlineCharacterScreen'){
   next.querySelectorAll('.char-grid>*').forEach((el,i)=>el.style.setProperty('--entry-delay',`${Math.min(i,14)*22}ms`));
@@ -1217,6 +1211,39 @@ function showScreen(id){
  if(id==='aiRoomScreen')next.querySelectorAll('.ai-room-card').forEach((el,i)=>el.style.setProperty('--entry-delay',`${i*110}ms`));
  if(id==='resultScreen')next.querySelectorAll(':scope>*').forEach((el,i)=>el.style.setProperty('--result-delay',`${i*70}ms`));
  setBgmMode(id==='battleScreen'?'battle':'menu');
+}
+function showScreen(id){
+ const next=screens.find(s=>s&&s.id===id);
+ if(!next){setBgmMode(id==='battleScreen'?'battle':'menu');return;}
+ const entryToken=++screenEntryToken;
+ const fx=document.getElementById('pageTransitionFx');
+ const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const current=screens.find(s=>s&&s.classList.contains('active'));
+ if(pageTransitionSwapTimer){clearTimeout(pageTransitionSwapTimer);pageTransitionSwapTimer=0;}
+ if(pageTransitionTimer){clearTimeout(pageTransitionTimer);pageTransitionTimer=0;}
+ if(!fx||reduceMotion||!current||current===next){
+  if(fx)fx.classList.remove('is-active','is-closing','is-revealing');
+  finishScreenActivation(next,id,entryToken);
+  return;
+ }
+ // Phase 1: keep the current page visible while shutters cover it.
+ fx.classList.remove('is-active','is-closing','is-revealing');
+ void fx.offsetWidth;
+ fx.classList.add('is-active','is-closing');
+ // Only now swap screens, underneath the closed shutters, then reveal the new page.
+ pageTransitionSwapTimer=setTimeout(()=>{
+  if(screenEntryToken!==entryToken)return;
+  pageTransitionSwapTimer=0;
+  finishScreenActivation(next,id,entryToken);
+  fx.classList.remove('is-closing');
+  void fx.offsetWidth;
+  fx.classList.add('is-revealing');
+  pageTransitionTimer=setTimeout(()=>{
+   if(screenEntryToken!==entryToken)return;
+   fx.classList.remove('is-active','is-closing','is-revealing');
+   pageTransitionTimer=0;
+  },520);
+ },355);
 }
 window.SKYBOUND_SHOW_SCREEN = showScreen;
 const fighters = [
@@ -1253,7 +1280,7 @@ const fighters = [
 const bonusFighterSpecs = [
  {id:'rime',name:'RIME',jp:'ライム',role:'THE FROST DUELIST',desc:'氷晶の刃で相手を凍てつかせる剣士。',color:'#84eaff',dark:'#245985',accent:'#effdff',speed:4.75,power:1.04,jump:12.9,weight:1.02,skill:'FROST LANCE',ultimateName:'GLACIAL NOVA',type:4,style:'ice',stats:[75,76,79],moveNames:['氷晶斬','氷河砕き','氷槍','凍結ステップ','氷柱落とし'],damage:[8.2,15.4,11.5,10.2,13.2],range:[100,125,108],cooldown:[23,48,88,59,74],speedShot:9.1,projVy:-.3,projGravity:0,projLife:76,projRadius:13,dashSpeed:11.6,knockback:1.08},
  {id:'shade',name:'SHADE',jp:'シェイド',role:'THE PHANTOM NINJA',desc:'影に身を隠し、死角から連撃を放つ。',color:'#b99aff',dark:'#30234f',accent:'#f0e9ff',speed:5.55,power:.9,jump:14.2,weight:.86,skill:'PHANTOM ORB',ultimateName:'ECLIPSE RUSH',type:5,style:'shadow',stats:[96,65,92],moveNames:['影縫い','宵闇斬り','幻影弾','残像突進','影落とし'],damage:[7.3,13.2,9.2,10.2,11.8],range:[94,114,102],cooldown:[19,42,76,49,68],speedShot:8.6,projVy:-.5,projGravity:0,projLife:82,projRadius:12,dashSpeed:15.2,knockback:.93},
- {id:'tidal',name:'TIDAL',jp:'タイダル',role:'THE TIDEKEEPER',desc:'水流を操り、波状攻撃で敵を押し返す。',color:'#55d9ff',dark:'#176b8e',accent:'#e5ffff',speed:4.55,power:1.03,jump:13.1,weight:1.0,skill:'TIDAL WAVE',ultimateName:'OCEAN BREAKER',type:6,style:'water',stats:[73,76,81],moveNames:['潮流打ち','大波砕き','水弾','渦潮ダッシュ','津波落とし'],damage:[8.1,15.3,10.4,11.2,13.7],range:[102,126,110],cooldown:[23,48,86,60,76],speedShot:8.3,projVy:-.7,projGravity:.015,projLife:78,projRadius:15,dashSpeed:11.3,knockback:1.08},
+ {id:'tidal',name:'TIDAL',jp:'タイダル',role:'THE TIDEKEEPER',desc:'水流を操り、波状攻撃で敵を押し返す。',color:'#55d9ff',dark:'#176b8e',accent:'#e5ffff',speed:4.55,power:1.03,jump:13.1,weight:1.0,skill:'TIDAL WAVE',ultimateName:'OCEAN BREAKER',type:6,style:'water',stats:[73,76,81],moveNames:['潮流打ち','大波砕き','水弾','渦潮ダッシュ','津波落とし'],damage:[8.1,15.4,10.4,11.2,13.7],range:[102,126,110],cooldown:[23,48,86,60,76],speedShot:8.3,projVy:-.7,projGravity:.015,projLife:78,projRadius:15,dashSpeed:11.3,knockback:1.08},
  {id:'granite',name:'GRANITE',jp:'グラナイト',role:'THE STONE TITAN',desc:'岩の鎧と怪力で、重い一撃を叩き込む。',color:'#d9ad7d',dark:'#71503e',accent:'#fff0d8',speed:3.55,power:1.34,jump:10.8,weight:1.34,skill:'BOULDER BLAST',ultimateName:'TITANFALL',type:7,style:'stone',stats:[43,99,48],moveNames:['岩拳','巨岩砕き','岩塊投げ','地割れ突進','大地震'],damage:[10.2,18.7,13.6,13.4,17.2],range:[90,119,105],cooldown:[29,58,104,73,86],speedShot:6.8,projVy:-1.1,projGravity:.055,projLife:65,projRadius:19,dashSpeed:10.1,knockback:1.4},
  {id:'sonata',name:'SONATA',jp:'ソナタ',role:'THE SOUND BREAKER',desc:'音波を刃に変え、リズムよく攻め続ける。',color:'#ff91d5',dark:'#814670',accent:'#ffe8fb',speed:4.9,power:.98,jump:13.6,weight:.94,skill:'RESONANCE PULSE',ultimateName:'FINAL CRESCENDO',type:8,style:'sound',stats:[82,72,84],moveNames:['音撃','共鳴クラッシュ','音波弾','ビートステップ','衝撃波'],damage:[7.9,14.5,10.2,10.9,12.8],range:[98,119,108],cooldown:[21,45,82,55,72],speedShot:9.7,projVy:0,projGravity:0,projLife:72,projRadius:13,dashSpeed:12.7,knockback:1.03},
  {id:'zephyr',name:'ZEPHYR',jp:'ゼファー',role:'THE GALE DANCER',desc:'風をまとって空中を舞う高速ファイター。',color:'#b8f3b2',dark:'#347c73',accent:'#ecfff0',speed:5.7,power:.84,jump:14.7,weight:.82,skill:'GALE BLADE',ultimateName:'SKY CYCLONE',type:9,style:'wind',stats:[99,59,99],moveNames:['風切り','真空刃','風刃弾','疾風ステップ','竜巻落とし'],damage:[6.8,12.6,8.9,9.8,11.5],range:[96,115,106],cooldown:[17,40,73,47,65],speedShot:11.8,projVy:-.25,projGravity:0,projLife:65,projRadius:10,dashSpeed:16.1,knockback:.88},
@@ -1289,7 +1316,7 @@ const stages = [
  {id:'aurora',name:'AURORA TUNDRA',jp:'オーロラの雪原',desc:'夜空のオーロラが雪原を鮮やかに染める。',tag:'POLAR SKY',sky:['#071a39','#246b78'],ground:'#294e67',glow:'#82ffe0',type:12,platforms:[{x:0,y:510,w:1280,h:66},{x:120,y:420,w:240,h:18},{x:920,y:420,w:240,h:18},{x:450,y:340,w:380,h:20}]},
  {id:'scrapyard',name:'TITAN SCRAPYARD',jp:'巨人のスクラップ場',desc:'廃ロボットと鉄骨が積み重なる工業地帯。',tag:'INDUSTRIAL WASTELAND',sky:['#202838','#77634d'],ground:'#4d5961',glow:'#ffb15e',type:13,platforms:[{x:100,y:510,w:1080,h:66},{x:180,y:415,w:220,h:18},{x:880,y:415,w:220,h:18},{x:465,y:325,w:350,h:20}]}
 ];
-let mode='cpu', p1Pick=0,p2Pick=1,stagePick=0,game=null,frame=0,lastTime=0,raf=0,held={},justPressed={},muted=false,cpuLevel=5,watchLevel1=5,watchLevel2=5;
+let mode='cpu', p1Pick=0,p2Pick=1,stagePick=0,game=null,frame=0,lastTime=0,raf=0,battleLaunchTimer=0,held={},justPressed={},muted=false,cpuLevel=5,watchLevel1=5,watchLevel2=5;
 // VER 5.2: estimate the display's requestAnimationFrame cadence while the menu is lightweight.
 let estimatedDisplayRefreshHz=60,currentSimulationFrameScale=1,currentRenderFrameScale=1;
 (function measureDisplayRefreshRate(){
@@ -1894,7 +1921,7 @@ function applyLanguage(lang){
  uiLanguage=lang==='en'?'en':'ja';const ja=uiLanguage==='ja',t=settingsLocales[uiLanguage];document.documentElement.lang=uiLanguage;
  $('#settingsTitle').textContent=t.settingsTitle;$('#bgmLabel').textContent=ja?'BGM（背景音楽）':'Background music (BGM)';$('#bgmHelp').textContent=ja?'メニュー・対戦中に流れる音楽':'Original music in menus and battles';$('#bgmVolumeLabel').textContent=ja?'BGM音量':'BGM volume';$('#bgmVolumeHelp').textContent=ja?'背景音楽の音量を調整':'Adjust background music volume';$('.settings-box .step').textContent=ja?'システム設定':'SYSTEM / OPTIONS';document.querySelector('[data-settings-tab="graphics"]').textContent=t.graphicsTab;document.querySelector('[data-settings-tab="language"]').textContent=t.languageTab;document.querySelector('[data-settings-tab="account"]').textContent=t.accountTab;const mobileTabButton=document.querySelector('[data-settings-tab="mobile"]');if(mobileTabButton)mobileTabButton.textContent=ja?'📱 スマホ':'📱 Mobile';if($('#mobileModeSectionTitle'))$('#mobileModeSectionTitle').textContent=ja?'スマホモード':'MOBILE MODE';if($('#mobileModeLabel'))$('#mobileModeLabel').textContent=ja?'スマホモードを有効にする':'Enable mobile mode';if($('#mobileModeHelp'))$('#mobileModeHelp').textContent=ja?'ダブルタップでの拡大を抑え、タッチ向け表示を有効にします。ピンチ拡大は利用できます。':'Reduces double-tap zoom and enables touch-friendly layout. Pinch zoom remains available.';if($('#mobileModeNote'))$('#mobileModeNote').textContent=ja?'「適用」でスマホモードを保存します。全画面表示は上のボタンを押したときに開始します。ブラウザによっては全画面表示に対応していません。':'Press Apply to save mobile mode. Fullscreen starts only after pressing the button. Some browsers do not support fullscreen.';$('#settingsPlayerNameHeading').textContent=ja?'プレイヤー名':'PLAYER NAME';$('#playerNameLabel').textContent=ja?'自分のプレイヤー名':'Your player name';$('#playerNameInput').placeholder=ja?'プレイヤー名（最大24文字）':'Player name (max 24 characters)';$('#playerNameInput').setAttribute('aria-label',ja?'自分のプレイヤー名':'Your player name');$('#savePlayerNameBtn').textContent=ja?'名前を保存':'Save name';$('#settingsAccountHeading').textContent=ja?'アカウント / ログイン':'ACCOUNT / SIGN-IN';$('#settingsEmailHeading').textContent=ja?'メールリンクでログイン':'SIGN IN WITH EMAIL LINK';$('#settingsEmailLabel').textContent=ja?'登録済みアカウントのメールアドレス':'Registered account email';$('#settingsEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link';$('#settingsEmailInput').placeholder=ja?'登録済みメールアドレス':'Registered email address';$('#settingsEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#settingsEmailHelp').textContent=ja?'同じメールアドレスに届いたリンクをこの端末で開くとログインできます。メールリンク認証はFirebase Consoleで有効にする必要があります。':'Open the sign-in link sent to this same email on this device. Email-link sign-in must be enabled in Firebase Console.';$('#settingsAccountNote').textContent=ja?'アカウントを切り替える前にオンラインの部屋から退出してください。登録済みと同じメールアドレスを使ってね。':'Leave your online room before switching accounts. Use the same email address that was previously registered.';['basicGraphicsTitle','audioSettingsTitle','graphicsDetailTitle','fpsLabel','fpsHelp','onlineStatusLabel','onlineStatusHelp','qualityLabel','qualityHelp','effectsLabel','effectsHelp','soundLabel','soundHelp','volumeLabel','volumeHelp','shadowLabel','shadowHelp','detailLabel','detailHelp','renderScaleLabel','renderScaleHelp','depthLabel','depthHelp','lightingLabel','lightingHelp','sunlightLabel','sunlightHelp','atmosphereLabel','atmosphereHelp','bloomLabel','bloomHelp','reflectionLabel','reflectionHelp','motionLabel','motionHelp','gradingLabel','gradingHelp','graphicsHint','languageLabel','languageHelp','languageNote'].forEach(id=>{if($('#'+id))$('#'+id).textContent=t[id]});$('#settingsCloseBtn').textContent=t.close;$('#settingsApplyBtn').textContent=t.apply;$('#settingsBtn').textContent=t.settingsButton;$('#pauseSettingsBtn').textContent=t.settingsButton;const q=$('#qualitySelect');q.options[0].textContent=t.qualityLow;q.options[1].textContent=t.qualityMedium;q.options[2].textContent=t.qualityHigh;q.options[3].textContent=t.qualityUltra;const sh=$('#shadowSelect');sh.options[0].textContent=t.shadowOff;sh.options[1].textContent=t.shadowSoft;sh.options[2].textContent=t.shadowHigh;sh.options[3].textContent=t.shadowUltra;const de=$('#detailSelect');de.options[0].textContent=t.detailLow;de.options[1].textContent=t.detailMedium;de.options[2].textContent=t.detailHigh;de.options[3].textContent=t.detailUltra;const rs=$('#renderScaleSelect');[t.scaleAuto,t.scale75,t.scale100,t.scale125,t.scale150,t.scale175,t.scale200].forEach((label,i)=>rs.options[i].textContent=label);
  // ホーム画面
- $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、公開ルーム一覧から参加しよう。参加コードは任意で4文字。':'Connects automatically at startup. Create a room or join a listed public room. A host can optionally require a 4-character code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 公開ルーム一覧から参加するか、6文字の部屋コードを入力する。4文字の参加コードは必要な部屋だけ入力。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Join from the public room list or enter a 6-character room ID. Enter a 4-character PIN only when a room requires it.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストは対戦人数を選んで部屋を作成。公開ルーム一覧から参加でき、必要なら4文字コードを入力します。全員が準備完了になるとホストが開始できます。':'Host chooses 2, 3, or 4 players. Join listed rooms without a room ID; enter a 4-character PIN only if requested.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';if($('#onlineCreateAccessCodeLabel'))$('#onlineCreateAccessCodeLabel').textContent=ja?'参加コード（任意・4文字）':'Room access code (optional, 4 chars)';if($('#onlineCreateAccessCode'))$('#onlineCreateAccessCode').placeholder=ja?'空欄なら誰でも参加':'Blank = open room';if($('#onlineCreateAccessCodeHelp'))$('#onlineCreateAccessCodeHelp').textContent=ja?'空欄なら公開ルーム。4文字を設定すると参加時に入力が必要になります。':'Blank makes the room open. Set a 4-character code to require it for joining.';if($('#onlinePublicRoomsTitle'))$('#onlinePublicRoomsTitle').textContent=ja?'公開ルーム一覧':'PUBLIC ROOMS';if($('#onlineRefreshPublicRoomsBtn'))$('#onlineRefreshPublicRoomsBtn').textContent=ja?'一覧を更新':'REFRESH LIST';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';if($('#cpuChallengeBtn'))$('#cpuChallengeBtn').textContent=ja?'💀 CPUチャレンジ':'💀 CPU CHALLENGE';$('#howBtn').textContent=ja?'📘 遊び方ガイド':'📘 HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 5.3':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 5.3';
+ $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、公開ルーム一覧から参加しよう。参加コードは任意で4文字。':'Connects automatically at startup. Create a room or join a listed public room. A host can optionally require a 4-character code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 公開ルーム一覧から参加するか、6文字の部屋コードを入力する。4文字の参加コードは必要な部屋だけ入力。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Join from the public room list or enter a 6-character room ID. Enter a 4-character PIN only when a room requires it.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストは対戦人数を選んで部屋を作成。公開ルーム一覧から参加でき、必要なら4文字コードを入力します。全員が準備完了になるとホストが開始できます。':'Host chooses 2, 3, or 4 players. Join listed rooms without a room ID; enter a 4-character PIN only if requested.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';if($('#onlineCreateAccessCodeLabel'))$('#onlineCreateAccessCodeLabel').textContent=ja?'参加コード（任意・4文字）':'Room access code (optional, 4 chars)';if($('#onlineCreateAccessCode'))$('#onlineCreateAccessCode').placeholder=ja?'空欄なら誰でも参加':'Blank = open room';if($('#onlineCreateAccessCodeHelp'))$('#onlineCreateAccessCodeHelp').textContent=ja?'空欄なら公開ルーム。4文字を設定すると参加時に入力が必要になります。':'Blank makes the room open. Set a 4-character code to require it for joining.';if($('#onlinePublicRoomsTitle'))$('#onlinePublicRoomsTitle').textContent=ja?'公開ルーム一覧':'PUBLIC ROOMS';if($('#onlineRefreshPublicRoomsBtn'))$('#onlineRefreshPublicRoomsBtn').textContent=ja?'一覧を更新':'REFRESH LIST';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';if($('#cpuChallengeBtn'))$('#cpuChallengeBtn').textContent=ja?'💀 CPUチャレンジ':'💀 CPU CHALLENGE';$('#howBtn').textContent=ja?'📘 遊び方ガイド':'📘 HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 5.4':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 5.4';
  // AI観戦ルーム
  const roomHead=$('#aiRoomScreen .panel-head');roomHead.querySelector('.step').textContent=ja?'観戦モード / AI対AI':'SPECTATOR MODE / AI VS AI';roomHead.querySelector('h2').textContent=ja?'AI対戦ルーム':'AI BATTLE ROOM';$('#aiRoomScreen .ai-room-kicker').textContent=ja?'観戦専用ルーム · 2体のAIが自動で対戦':'Spectator room · Two AIs fight automatically';$('#aiRoomScreen .ai-room-live').textContent=ja?'ローカルAIアリーナ':'LOCAL AI ARENA';const roomCards=document.querySelectorAll('.ai-room-card h3');if(roomCards[0])roomCards[0].textContent=ja?'01 / シアンチーム':'01 / CYAN TEAM';if(roomCards[1])roomCards[1].textContent=ja?'02 / ピンクチーム':'02 / PINK TEAM';[['#aiRoomScreen label[for="watchP1Select"]','キャラクター1','FIGHTER 1'],['#aiRoomScreen label[for="watchLevel1"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchP2Select"]','キャラクター2','FIGHTER 2'],['#aiRoomScreen label[for="watchLevel2"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchStageSelect"]','ステージ','BATTLE ARENA'],['#aiRoomScreen label[for="watchMatchLength"]','対戦時間','MATCH LENGTH']].forEach(([sel,j,e])=>setText(sel,j,e));$('#aiRoomScreen .ai-room-hint').textContent=ja?'AIが自分で移動・ジャンプ・攻撃・ガード・必殺技を使って戦うよ。観戦中は操作不要。キャラや強さを変えて、何度でも対戦を見られる！':'AIs move, jump, attack, guard and use special moves automatically. No controls are needed while watching. Change fighters or levels and watch again!';$('#watchBackBtn').textContent=ja?'← ホームへ戻る':'← BACK TO HOME';$('#watchStartBtn').textContent=ja?'▶ 観戦開始':'▶ START WATCHING';
  // キャラクター・ステージ選択
@@ -1902,7 +1929,7 @@ function applyLanguage(lang){
  // 対戦画面・一時停止
  document.querySelectorAll('.fighter-hud .hud-sub').forEach((el,i)=>{el.textContent=i===0?(ja?'プレイヤー1':'PLAYER 1'):(ja?'CPUの相手':'CPU RIVAL')});document.querySelectorAll('.ult-label').forEach(el=>{const meter=el.querySelector('span');el.textContent=ja?'必殺技ゲージ':'ULTIMATE';if(meter)el.appendChild(meter)});$('.round-label').textContent=ja?'53sumabura / ラウンド 01':'53sumabura / ROUND 01';$('#pauseBtn').textContent=ja?'Ⅱ 一時停止':'Ⅱ PAUSE';$('#quitBtn').textContent=ja?'終了':'EXIT';$('#pauseOverlay .step').textContent=ja?'対戦を一時停止中':'BATTLE PAUSED';$('#pauseOverlay h2').textContent=ja?'一時停止':'PAUSE';$('#resumeBtn').textContent=ja?'再開':'RESUME';$('#restartBtn').textContent=ja?'最初からやり直す':'RESTART';$('#pauseExitBtn').textContent=ja?'タイトルへ戻る':'QUIT';$('#pauseOverlay .footnote').textContent=ja?'Escキー：再開／一時停止':'Press Esc to resume or pause';$('#gameCanvas').setAttribute('aria-label',ja?'対戦画面':'Battle screen');$('#touchControls').setAttribute('aria-label',ja?'タッチ操作':'Touch controls');
  // 結果画面
- $('.result-kicker').textContent=ja?'対戦結果 / ラウンド 01':'BATTLE RESULTS / ROUND 01';$('.result-title').textContent=ja?'勝利！':'VICTORY!';$('.result-winner').textContent=ja?'勝者':'WINNER';$('#rematchBtn').textContent=ja?'もう一度対戦　↻':'REMATCH　↻';$('#selectAgainBtn').textContent=ja?'キャラクターを変更':'CHANGE FIGHTERS';$('#homeBtn').textContent=ja?'メインメニュー':'MAIN MENU';$('#resultScreen .footnote').textContent=ja?'53sumabura · オリジナルのブラウザ格闘ゲーム':'53sumabura · VER 5.3 · ORIGINAL BROWSER FIGHTER';
+ $('.result-kicker').textContent=ja?'対戦結果 / ラウンド 01':'BATTLE RESULTS / ROUND 01';$('.result-title').textContent=ja?'勝利！':'VICTORY!';$('.result-winner').textContent=ja?'勝者':'WINNER';$('#rematchBtn').textContent=ja?'もう一度対戦　↻':'REMATCH　↻';$('#selectAgainBtn').textContent=ja?'キャラクターを変更':'CHANGE FIGHTERS';$('#homeBtn').textContent=ja?'メインメニュー':'MAIN MENU';$('#resultScreen .footnote').textContent=ja?'53sumabura · オリジナルのブラウザ格闘ゲーム':'53sumabura · VER 5.4 · ORIGINAL BROWSER FIGHTER';
  renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();if(game&&$('#battleScreen').classList.contains('active')){updateBattleLocalizedText();updateControllerGuide();}if($('#resultScreen').classList.contains('active')&&game)refreshResultLocalization();try{localStorage.setItem('skyboundLanguage',uiLanguage)}catch(_){/* Current selection still applies when storage is blocked. */}window.dispatchEvent(new Event('skybound-language-updated'));
 }
 function updateBattleLocalizedText(){if(!game)return;const ja=uiLanguage==='ja';$('#p1HudName').textContent=fighterDisplayName(game.p1.f);$('#p2HudName').textContent=fighterDisplayName(game.p2.f);const leftSub=document.querySelector('.fighter-hud.left .hud-sub');if(leftSub)leftSub.textContent=mode==='watch'?(ja?`AI 1 · レベル ${watchLevel1}`:`AI 1 · LEVEL ${watchLevel1}`):(ja?'プレイヤー1':'PLAYER 1');$('#p2Sub').textContent=mode==='cpu'?(ja?`CPU · レベル ${cpuLevel}`:`CPU · LEVEL ${cpuLevel}`):mode==='watch'?(ja?`AI 2 · レベル ${watchLevel2}`:`AI 2 · LEVEL ${watchLevel2}`):(ja?'プレイヤー2':'PLAYER 2');if(mode==='online')$('#controlsNote').innerHTML=ja?'<strong>🌐 オンライン対戦</strong>　A/D 移動　W ジャンプ　J 速攻　L 強攻撃　K 飛び道具　U 突進　S 地上技　I ガード　O 必殺技':'<strong>🌐 ONLINE MATCH</strong>　A/D move　W jump　J quick　L heavy　K projectile　U dash　S ground　I guard　O ultimate';else if(mode==='watch')$('#controlsNote').innerHTML=ja?'<strong class="watching-label">🤖 AI観戦ルーム — 2体のAIが自動で対戦中</strong>':'<strong class="watching-label">🤖 AI BATTLE ROOM — TWO AIs ARE FIGHTING</strong>';else if(ja){$('#controlsNote').innerHTML=mode==='cpu'?'<b>1P</b> A/D 移動　W ジャンプ　J 速攻　L 強攻撃<br>K 飛び道具　U 突進攻撃　S 地上技　I ガード　O 必殺技（ゲージ100%）':'<b>1P</b> A/D 移動　W ジャンプ　J 速攻　L 強攻撃<br>K 飛び道具　U 突進攻撃　S 地上技　I ガード　O 必殺技（ゲージ100%）<br><b>2P</b> ←/→ 移動　↑ ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ 突進　↓ 地上技　0 ガード　3 必殺技'}else{$('#controlsNote').innerHTML=mode==='cpu'?'<b>P1</b> A/D Move　W Jump　J Quick　L Heavy<br>K Projectile　U Dash　S Ground attack　I Guard　O Ultimate (100%)':'<b>P1</b> A/D Move　W Jump　J Quick　L Heavy<br>K Projectile　U Dash　S Ground attack　I Guard　O Ultimate (100%)<br><b>P2</b> ←/→ Move　↑ Jump　Enter Quick　. Heavy　Shift Projectile　/ Dash　↓ Ground attack　0 Guard　3 Ultimate'}}
@@ -2025,7 +2052,7 @@ $('#adminCopyUidBtn').addEventListener('click',async()=>{const uid=$('#adminCurr
 $('#adminLockBtn').addEventListener('click',()=>{adminModeUnlocked=false;adminModeIdentity=null;adminModeProfiles=[];$('#adminModePanel').hidden=true;$('#adminPasswordInput').value='';setAdminModeStatus('管理者モードを閉じました。');});
 document.querySelectorAll('[data-settings-tab]').forEach(b=>b.addEventListener('click',()=>openSettingsTab(b.dataset.settingsTab)));$('#mobileFullscreenBtn').addEventListener('click',toggleMobileFullscreen);$('#mobileModeToggle').addEventListener('change',()=>{const status=$('#mobileModeStatus');if(status){status.dataset.state='neutral';status.textContent=$('#mobileModeToggle').checked?(uiLanguage==='en'?'Press Apply to enable mobile mode.':'「適用」を押すとスマホモードが有効になります。'):(uiLanguage==='en'?'Press Apply to disable mobile mode.':'「適用」を押すとスマホモードがオフになります。')}});document.addEventListener('fullscreenchange',updateMobileModeStatus);document.addEventListener('webkitfullscreenchange',updateMobileModeStatus);document.addEventListener('dblclick',e=>{if(mobileModeEnabled&&e.cancelable)e.preventDefault()},{passive:false});setMobileMode(mobileModeEnabled,false);
 $('#settingsBtn').onclick=()=>{initAudio();playSfx('ui');openSettings()};$('#pauseSettingsBtn').onclick=()=>{initAudio();playSfx('ui');openSettings()};$('#settingsCloseBtn').onclick=()=>{playSfx('ui');closeSettings()};$('#settingsApplyBtn').onclick=applySettings;$('#onlineBtn').onclick=()=>{$('#onlineOverlay').classList.add('show');playSfx('ui')};$('#onlineCloseBtn').onclick=()=>$('#onlineOverlay').classList.remove('show');$('#onlineOverlay').addEventListener('click',e=>{if(e.target===$('#onlineOverlay'))$('#onlineOverlay').classList.remove('show')});
-const APP_VERSION_NUMBER = '5.3';
+const APP_VERSION_NUMBER = '5.4';
 function parseAppVersionFromHtml(html){
  const title = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)||[])[1] || '';
  const m = (title+' '+html.slice(0,12000)).match(/VER\s*(\d+)\.(\d+)/i);
@@ -2089,7 +2116,7 @@ function startBattle(matchSeconds=120){
  game={aiRankedMatch:mode==='cpu'&&aiRankedMatchActive,cpuChallengeActive:!!cpuChallengeActive,cpuChallengeLevel:cpuChallengeActive?cpuChallengeLevel:0,cpuLevelAtStart:cpuLevel,rewardsProcessed:false,rewardMessage:'',stage:st,players,p1:players[0],p2:players[1],projectiles:[],particles:[],elapsed:0,limit:matchSeconds*60,shake:0,announcement:120,started:false,trail:[],winner:null,lastKOReason:'stage'};
  paused=false;finished=false;$('#pauseOverlay').classList.remove('show');$('#p1HudName').textContent=mode==='online'?(game.p1.displayName||fighterDisplayName(game.p1.f)):fighterDisplayName(game.p1.f);$('#p2HudName').textContent=mode==='online'?(game.p2.displayName||fighterDisplayName(game.p2.f)):fighterDisplayName(game.p2.f);$('#p2Sub').textContent=mode==='online'?'PLAYER 2':mode==='2p'?'PLAYER 2':'CPU RIVAL';
  const extraHud=$('#extraPlayerHud');if(extraHud)extraHud.style.display=players.length>2?'flex':'none';
- $('#touchControls').style.display=mode==='watch'?'none':'';$('#toast').textContent=uiLanguage==='ja'?'準備！':'READY?';$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),1250);updateHUD();updateBattleLocalizedText();updateControllerGuide();showScreen('battleScreen');resizeCanvas();$('#fpsCounter').style.display=showFPS?'block':'none';if(window.SKYBOUND_UPDATE_PING_UI)window.SKYBOUND_UPDATE_PING_UI();lastTime=performance.now();accumulator=0;fpsFrames=0;fpsLastStamp=lastTime;cancelAnimationFrame(raf);raf=requestAnimationFrame(loop);setBgmMode('battle');
+ $('#touchControls').style.display=mode==='watch'?'none':'';$('#toast').textContent=uiLanguage==='ja'?'準備！':'READY?';$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),1250);updateHUD();updateBattleLocalizedText();updateControllerGuide();showScreen('battleScreen');$('#fpsCounter').style.display=showFPS?'block':'none';if(window.SKYBOUND_UPDATE_PING_UI)window.SKYBOUND_UPDATE_PING_UI();cancelAnimationFrame(raf);if(battleLaunchTimer){clearTimeout(battleLaunchTimer);battleLaunchTimer=0;}const launchBattleLoop=()=>{battleLaunchTimer=0;if(!$('#battleScreen').classList.contains('active')||finished)return;resizeCanvas();lastTime=performance.now();accumulator=0;fpsFrames=0;fpsLastStamp=lastTime;raf=requestAnimationFrame(loop);setBgmMode('battle');};if($('#battleScreen').classList.contains('active'))launchBattleLoop();else battleLaunchTimer=setTimeout(launchBattleLoop,365);
 }
 function enableOnlinePerformancePreset(){
   // VER 5.2: online mode must respect each player's local quality settings too.
@@ -4175,7 +4202,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 <div id="versusIntro" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="対戦開始キャラクター紹介">
  <div class="versus-bg"></div><div class="versus-stripes"></div><div class="versus-flash"></div>
  <div class="versus-frame">
-  <div class="versus-topline"><div class="versus-brand">53<span>SUMABURA</span></div><div id="versusModeLabel">FIGHTER SHOWDOWN</div><div>VER 5.3</div></div>
+  <div class="versus-topline"><div class="versus-brand">53<span>SUMABURA</span></div><div id="versusModeLabel">FIGHTER SHOWDOWN</div><div>VER 5.4</div></div>
   <div class="versus-roster" id="versusRoster" data-count="2" aria-live="off"></div>
   <div class="versus-title" id="versusTitleText" aria-hidden="true">VS</div>
   <div class="versus-footer"><span id="versusFooterText">CHARACTERS LOCKED IN</span><span class="versus-start-tag">GET READY　⚡</span></div>
