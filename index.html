@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>53sumabura | VER 1.2</title>
+<title>53sumabura | VER 1.3</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -19,7 +19,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:0} button:focus-visible{
 .logo{font-family:'Barlow Condensed',Impact,sans-serif;font-weight:900;font-style:italic;line-height:.83;font-size:clamp(56px,10vw,126px);letter-spacing:-.04em;text-transform:none;text-shadow:0 5px 0 #10223a,0 11px 40px rgba(68,210,255,.25);margin:12px 0 18px;transform:skew(-5deg)}
 .logo span{color:var(--cyan);text-shadow:0 0 28px rgba(96,240,255,.6)}
 .subtitle{color:#b9cadc;font-size:13px;letter-spacing:.13em}
-#titleScreen{flex-direction:column;text-align:center;gap:0;padding-top:6vh}
+#titleScreen{flex-direction:column;justify-content:flex-start;text-align:center;gap:0;padding-top:6vh;padding-bottom:28px;overflow-y:auto}
 .title-mark{position:relative;margin-bottom:22px}.title-mark:before{content:"";position:absolute;width:350px;height:150px;left:50%;top:49%;transform:translate(-50%,-50%);background:linear-gradient(90deg,transparent,rgba(96,240,255,.10),rgba(255,96,142,.09),transparent);filter:blur(15px);z-index:-1}
 .title-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:32px 0 20px}
 .primary-btn,.secondary-btn{padding:14px 26px;min-width:178px;font-weight:900;letter-spacing:.08em;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);transition:transform .16s,filter .16s;background:linear-gradient(100deg,#57e9ff,#8bf9ef);color:#061526;box-shadow:0 7px 0 #1c879d}
@@ -28,6 +28,32 @@ button{font:inherit;color:inherit;cursor:pointer;border:0} button:focus-visible{
 .mode-select{display:flex;gap:8px;padding:5px;border:1px solid rgba(167,213,239,.2);border-radius:99px;background:rgba(4,12,24,.55);margin:3px auto 0}
 .mode-btn{padding:8px 15px;border-radius:99px;background:transparent;color:#91a8c0;font-size:12px;font-weight:700}.mode-btn.active{background:#e9fbff;color:#071323}
 .ai-room-panel{width:min(920px,100%)}.ai-room-kicker{font-size:11px;color:#92abc3;letter-spacing:.16em;font-weight:800;margin-top:8px}.ai-room-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.ai-room-card{position:relative;overflow:hidden;padding:18px;border:1px solid #ffffff24;background:linear-gradient(145deg,#132b48,#091629);min-width:0}.ai-room-card:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--room-color,#60f0ff);box-shadow:0 0 20px var(--room-color,#60f0ff)}.ai-room-card.ai-two{--room-color:#ff608e}.ai-room-card h3{font-family:'Barlow Condensed',sans-serif;font-size:23px;letter-spacing:.08em;margin:0 0 14px}.ai-room-field{display:flex;flex-direction:column;gap:7px;margin-top:13px}.ai-room-field label{font-size:11px;letter-spacing:.08em;font-weight:900;color:#9fb7cf}.ai-room-field select{width:100%;min-width:0;padding:11px;background:#071526;color:#f2f9ff;border:1px solid #476581;border-radius:6px;font:700 13px 'Noto Sans JP',sans-serif}.ai-room-arena{margin-top:15px;padding:15px;border:1px solid #60f0ff35;background:#0613239e;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}.ai-room-hint{font-size:11px;color:#819bb5;line-height:1.7;margin:13px 0 0}.ai-room-actions{display:flex;justify-content:space-between;gap:12px;margin-top:20px;flex-wrap:wrap}.ai-room-live{display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.15em;color:#9cb8d0}.ai-room-live:before{content:"";width:7px;height:7px;border-radius:50%;background:#69ffbd;box-shadow:0 0 12px #69ffbd}.watching-label{color:#9bfff0!important}.difficulty-picker{width:min(420px,92vw);margin:15px auto 0;padding:12px 14px 10px;background:rgba(4,12,24,.62);border:1px solid rgba(96,240,255,.25);border-radius:12px;text-align:left}.difficulty-head{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:10px;letter-spacing:.13em;color:#9eb6ce;font-weight:900}.difficulty-head strong{color:var(--cyan);font-size:11px}.difficulty-buttons{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:5px;margin-top:10px}.difficulty-btn{height:31px;border:1px solid #35516d;background:#10223a;color:#b8cce0;border-radius:5px;font-size:12px;font-weight:900;transition:all .15s}.difficulty-btn:hover{border-color:var(--cyan);color:#fff}.difficulty-btn.selected{background:linear-gradient(145deg,#60f0ff,#9bfff1);color:#061526;border-color:#d4ffff;box-shadow:0 0 13px #60f0ff44;transform:translateY(-1px)}.difficulty-caption{font-size:10px;color:#7895b0;margin-top:8px;min-height:15px;line-height:1.5}
+
+.progression-panel{width:min(760px,94vw);margin:15px auto 0;padding:15px 17px;text-align:left;border:1px solid #60f0ff35;border-radius:12px;background:linear-gradient(145deg,rgba(10,28,48,.92),rgba(4,12,24,.94));box-shadow:0 12px 32px #02081166}
+.progression-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:12px;align-items:stretch}
+.coin-display,.rank-summary-card{padding:12px 14px;border:1px solid #ffffff1c;border-radius:8px;background:#071526}
+.coin-caption,.rank-caption{font-size:10px;font-weight:900;letter-spacing:.14em;color:#91abc5}
+.coin-amount{display:flex;align-items:center;gap:8px;margin-top:6px;font:900 27px/1 'Barlow Condensed',sans-serif;color:#ffe29a}
+.rank-name-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px}
+.rank-name{font:900 23px/1 'Barlow Condensed',sans-serif;color:#75f4ff;letter-spacing:.03em}
+.rank-points{font:800 11px ui-monospace,monospace;color:#c6d9e9}
+.rank-progress-track{height:7px;margin-top:9px;background:#162b40;border-radius:99px;overflow:hidden}
+.rank-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#60f0ff,#a3ffda,#ffe29a);border-radius:99px;transition:width .25s}
+.rank-meta{display:flex;justify-content:space-between;gap:8px;margin-top:6px;font-size:10px;color:#8fa9c3}
+.ai-ranked-action{width:100%;margin-top:12px;padding:12px 18px;min-width:0;clip-path:none;border-radius:6px;background:linear-gradient(95deg,#ffe29a,#ffb86b);box-shadow:0 4px 0 #88572f;color:#211304;font-weight:900;letter-spacing:.04em}
+.ai-ranked-action:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.rank-board-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:17px 0 7px;padding-top:13px;border-top:1px solid #ffffff1d}
+.rank-board-heading strong{font:900 18px 'Barlow Condensed',sans-serif;letter-spacing:.08em;color:#e9f8ff}
+.rank-board-heading span{font-size:10px;color:#86a3bd}
+.rank-board-status{font-size:10px;color:#83a0bb;margin-bottom:7px;line-height:1.5}
+.rank-board-wrap{overflow-x:auto;border:1px solid #ffffff17;border-radius:7px}
+.rank-board{width:100%;border-collapse:collapse;font-size:11px;min-width:360px}
+.rank-board th{padding:8px 10px;text-align:left;background:#102641;color:#91abc5;font-size:9px;letter-spacing:.08em}
+.rank-board td{padding:8px 10px;border-top:1px solid #ffffff12;color:#d7e7f4}
+.rank-board tr.current-player td{color:#ffe29a;background:#ffe29a0c;font-weight:800}
+.rank-board td:first-child{width:38px;color:#7eeeff;font-weight:900}
+@media(max-width:560px){.progression-top{grid-template-columns:1fr}.progression-panel{padding:12px}.rank-board-heading{align-items:flex-start;flex-direction:column;gap:4px}}
+
 .footnote{font-size:11px;color:#6f89a6;margin-top:28px;line-height:1.9}.keycap{display:inline-flex;align-items:center;justify-content:center;min-width:25px;height:23px;padding:0 6px;border-radius:5px;border:1px solid #5b7896;background:#142944;color:#d9f7ff;font-size:11px;font-weight:800;box-shadow:0 2px 0 #020811;margin:0 2px}
 .panel{width:min(1120px,100%);background:linear-gradient(135deg,rgba(14,34,59,.88),rgba(5,14,28,.91));border:1px solid rgba(144,202,234,.24);box-shadow:0 22px 75px #02060c99;position:relative;padding:clamp(18px,3vw,32px);}
 .panel:before,.panel:after{content:"";position:absolute;width:42px;height:3px;background:var(--cyan);top:-1px;left:-1px}.panel:after{left:auto;right:-1px;background:var(--pink)}
@@ -48,7 +74,7 @@ h2{font-family:'Barlow Condensed','Noto Sans JP',sans-serif;font-size:clamp(27px
 .battle-top{position:absolute;top:0;left:0;right:0;padding:15px 20px;display:flex;align-items:flex-start;justify-content:space-between;pointer-events:none;z-index:3;background:linear-gradient(#071323b8,transparent)}.fighter-hud{width:min(32vw,300px);min-width:150px}.fighter-hud.right{text-align:right}.hud-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(20px,3vw,30px);font-weight:900;letter-spacing:.08em;text-shadow:0 2px 9px #071323}.hud-stat{display:flex;align-items:baseline;gap:7px}.right .hud-stat{justify-content:flex-end}.damage{font-family:'Barlow Condensed',sans-serif;font-size:clamp(34px,5.5vw,58px);font-weight:900;line-height:.95;text-shadow:0 2px 0 #071323,0 0 20px #000}.damage small{font-size:17px;color:#d9edf5}.hud-sub{font-size:10px;letter-spacing:.13em;color:#bdd0df;margin-top:5px}.stock-dots{display:flex;gap:5px;margin-top:7px}.right .stock-dots{justify-content:flex-end}.stock{height:9px;width:9px;border-radius:50%;background:#fff;box-shadow:0 0 8px currentColor}.stock.off{opacity:.15;box-shadow:none}.ult-meter{width:min(100%,210px);margin-top:7px}.right .ult-meter{margin-left:auto}.ult-label{display:flex;justify-content:space-between;font:800 9px ui-monospace,monospace;letter-spacing:.12em;color:#d5e9f8;margin-bottom:3px}.ult-track{height:7px;border:1px solid #ffffff65;background:#071323c9;transform:skewX(-12deg);overflow:hidden}.ult-fill{height:100%;width:0%;background:linear-gradient(90deg,#65efff,#fff2a3,#ff7aab);box-shadow:0 0 12px #65efff;transition:width .12s}.ultimate-key{border-color:#ffe79a!important;box-shadow:0 0 12px #ffd76a55}.ultimate-key b{color:#ffe79a!important}.hud-center{position:absolute;top:18px;left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap}.timer{font-family:'Barlow Condensed',sans-serif;font-size:clamp(25px,4vw,40px);font-weight:900;letter-spacing:.12em}.round-label{font-size:8px;letter-spacing:.3em;color:#b6cbe0}
 .battle-bottom{position:absolute;bottom:0;left:0;right:0;padding:24px 19px 15px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px;pointer-events:none;z-index:3;background:linear-gradient(transparent,#06101ed9)}.controls-note{font-size:10px;line-height:1.8;color:#d3e5f2;text-shadow:0 1px 3px #06101e}.controls-note b{color:#fff}.battle-actions{display:flex;gap:7px;pointer-events:auto}.small-btn{padding:9px 13px;font-size:10px;font-weight:900;letter-spacing:.1em;background:#132b46d9;border:1px solid #5b7896;color:#e6faff}.small-btn:hover{background:#234569}.small-btn.exit{border-color:#ff8da9;color:#ffdce5}
 #toast{position:absolute;z-index:4;left:50%;top:25%;transform:translate(-50%,-10px);opacity:0;pointer-events:none;padding:10px 23px;border:1px solid #a9f7ff;background:#08192be8;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;letter-spacing:.18em;box-shadow:0 0 30px #4deaff22;transition:opacity .18s,transform .18s;white-space:nowrap}#toast.show{opacity:1;transform:translate(-50%,0)}
-#resultScreen{background:radial-gradient(ellipse at 50% 40%,#24425f 0%,#0b1c31 50%,#050a13 100%);text-align:center;flex-direction:column}.result-kicker{font-family:'Barlow Condensed';letter-spacing:.32em;color:var(--cyan);font-weight:900}.result-title{font-family:'Barlow Condensed';font-size:clamp(52px,11vw,115px);font-weight:900;font-style:italic;line-height:.95;margin:12px 0;text-shadow:0 0 38px #60f0ff30}.result-winner{font-size:22px;font-weight:900}.result-summary{color:#afc5d9;font-size:12px;line-height:1.9;margin:12px 0 28px}.result-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+#resultScreen{background:radial-gradient(ellipse at 50% 40%,#24425f 0%,#0b1c31 50%,#050a13 100%);text-align:center;flex-direction:column}.result-kicker{font-family:'Barlow Condensed';letter-spacing:.32em;color:var(--cyan);font-weight:900}.result-title{font-family:'Barlow Condensed';font-size:clamp(52px,11vw,115px);font-weight:900;font-style:italic;line-height:.95;margin:12px 0;text-shadow:0 0 38px #60f0ff30}.result-winner{font-size:22px;font-weight:900}.result-summary{color:#afc5d9;font-size:12px;line-height:1.9;margin:12px 0 28px}.result-reward-line{display:inline-block;margin-top:7px;color:#ffe29a;font-weight:900;line-height:1.8}.result-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 #pauseOverlay{display:none;position:absolute;inset:0;z-index:5;background:#061020cf;backdrop-filter:blur(8px);align-items:center;justify-content:center;text-align:center}#pauseOverlay.show{display:flex}.pause-box{padding:28px 35px;border:1px solid #4d718f;background:#0b1b30e8;box-shadow:0 20px 60px #0008}.pause-box h2{font-size:46px;margin-bottom:22px}
 #stageScreen .panel,#charScreen .panel{max-height:calc(100vh - 30px);overflow-y:auto}
 @media(max-width:1000px){.stage-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -137,6 +163,16 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
   </div>
   <div class="difficulty-caption" id="difficultyCaption">LEVEL 5 · STANDARD — バランスのよい強さ</div>
  </div>
+ <section class="progression-panel" id="progressionPanel" aria-label="コインとAIランク">
+  <div class="progression-top">
+   <div class="coin-display"><div class="coin-caption" id="coinCaption">所持コイン</div><div class="coin-amount"><span aria-hidden="true">🪙</span><span id="coinCount">0</span></div></div>
+   <div class="rank-summary-card"><div class="rank-caption" id="rankCaption">AIランク戦 · 現在のランク</div><div class="rank-name-row"><strong class="rank-name" id="aiRankName">BRONZE I</strong><span class="rank-points" id="rankPointsText">0 RP</span></div><div class="rank-progress-track" aria-label="次のランクまで"><div class="rank-progress-fill" id="rankProgressBar"></div></div><div class="rank-meta"><span id="rankProgressText">0% 次のランクまで</span><span id="rankRecordText">0勝 0敗</span></div></div>
+  </div>
+  <button class="primary-btn ai-ranked-action" id="aiRankedBtn">🏆 AIランク戦を始める</button>
+  <div class="rank-board-heading"><strong id="rankBoardTitle">AI RANKED LEADERBOARD</strong><span id="rankBoardSubtitle">順位・撃破・ダメージ・相手の強さを参考に進行</span></div>
+  <div class="rank-board-status" id="rankBoardStatus" role="status" aria-live="polite">ランキングを読み込み中…</div>
+  <div class="rank-board-wrap"><table class="rank-board"><thead><tr><th>#</th><th id="rankColPlayer">プレイヤー</th><th id="rankColTier">ランク</th><th id="rankColRP">RP</th></tr></thead><tbody id="rankLeaderboardRows"><tr><td colspan="4">ランキングを読み込み中…</td></tr></tbody></table></div>
+ </section>
  <div id="howText" class="footnote" style="display:none;max-width:650px">相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。ダメージが高いほど遠くへ飛びやすい！<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ攻撃　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード<br>2P：<span class="keycap">←</span><span class="keycap">→</span> 移動　<span class="keycap">↑</span> ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ ダッシュ　↓ 地面攻撃　0 ガード</div>
  <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER</div>
 </section>
@@ -199,7 +235,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
 </section>
 <section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 1.2</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 1.3</div>
 <div id="settingsOverlay" role="dialog" aria-modal="true" aria-label="設定"><div class="settings-box"><div class="step">SYSTEM / OPTIONS</div><h2 id="settingsTitle">SETTINGS</h2>
  <div class="settings-tabs" role="tablist" aria-label="設定カテゴリ"><button type="button" class="settings-tab active" data-settings-tab="graphics" role="tab" aria-selected="true">🎨 グラフィック</button><button type="button" class="settings-tab" data-settings-tab="language" role="tab" aria-selected="false">🌐 言語</button></div>
  <div class="settings-page active" id="settingsGraphicsPanel" role="tabpanel">
@@ -341,6 +377,8 @@ const stages = [
  {id:'scrapyard',name:'TITAN SCRAPYARD',jp:'巨人のスクラップ場',desc:'廃ロボットと鉄骨が積み重なる工業地帯。',tag:'INDUSTRIAL WASTELAND',sky:['#202838','#77634d'],ground:'#4d5961',glow:'#ffb15e',type:13,platforms:[{x:100,y:510,w:1080,h:66},{x:180,y:415,w:220,h:18},{x:880,y:415,w:220,h:18},{x:465,y:325,w:350,h:20}]}
 ];
 let mode='cpu', p1Pick=0,p2Pick=1,stagePick=0,game=null,frame=0,lastTime=0,raf=0,held={},justPressed={},muted=false,cpuLevel=5,watchLevel1=5,watchLevel2=5;
+let aiRankedMatchActive=false;
+
 // Gamepad input state (standard Gamepad API mapping). The controller controls Player 1 / the local online player.
 let gamepadHeld={left:false,right:false,guard:false};
 let activeGamepadIndex=-1;
@@ -617,10 +655,89 @@ $('#watchStartBtn').onclick=()=>{
  mode='watch';startBattle(matchLength); 
 };
 $('#playerTabs').addEventListener('click',e=>{const b=e.target.closest('[data-player]');if(!b)return;selectingPlayer=Number(b.dataset.player);renderChars()});
-$('.mode-select').addEventListener('click',e=>{let b=e.target.closest('[data-mode]');if(!b)return;mode=b.dataset.mode;$('.mode-select').querySelectorAll('.mode-btn').forEach(x=>x.classList.toggle('active',x===b));$('#difficultyPicker').style.display=mode==='cpu'?'block':'none';if(mode==='2p'){p2Pick=(p1Pick+1)%fighters.length;$('#howText').innerHTML='相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード<br>2P：<span class="keycap">←</span><span class="keycap">→</span> 移動　<span class="keycap">↑</span> ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ ダッシュ　↓ 地面攻撃　0 ガード'}else{$('#howText').innerHTML='相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。ダメージが高いほど遠くへ飛びやすい！<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ攻撃　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード'}renderChars()});
+$('.mode-select').addEventListener('click',e=>{let b=e.target.closest('[data-mode]');if(!b)return;aiRankedMatchActive=false;mode=b.dataset.mode;$('.mode-select').querySelectorAll('.mode-btn').forEach(x=>x.classList.toggle('active',x===b));$('#difficultyPicker').style.display=mode==='cpu'?'block':'none';if(mode==='2p'){p2Pick=(p1Pick+1)%fighters.length;$('#howText').innerHTML='相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード<br>2P：<span class="keycap">←</span><span class="keycap">→</span> 移動　<span class="keycap">↑</span> ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ ダッシュ　↓ 地面攻撃　0 ガード'}else{$('#howText').innerHTML='相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。ダメージが高いほど遠くへ飛びやすい！<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ攻撃　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード'}renderChars()});
+const RANK_PROFILE_KEY='53sumabura.playerProfile.v1.3';
+const rankTiers=['BRONZE I','BRONZE II','BRONZE III','SILVER I','SILVER II','SILVER III','GOLD I','GOLD II','GOLD III','PLATINUM I','PLATINUM II','PLATINUM III','DIAMOND I','DIAMOND II','DIAMOND III','ELITE','CHAMPION','UNREAL'];
+const rankTiersJP=['ブロンズ I','ブロンズ II','ブロンズ III','シルバー I','シルバー II','シルバー III','ゴールド I','ゴールド II','ゴールド III','プラチナ I','プラチナ II','プラチナ III','ダイヤモンド I','ダイヤモンド II','ダイヤモンド III','エリート','チャンピオン','アンリアル'];
+const defaultPlayerProfile=()=>({coins:0,rankPoints:0,aiRankWins:0,aiRankLosses:0,onlineWins:0,onlineLosses:0,eliteProtected:false,unrealProtected:false,displayName:'Fighter',uid:''});
+function normalizePlayerProfile(raw){const p={...defaultPlayerProfile(),...(raw||{})};for(const k of ['coins','rankPoints','aiRankWins','aiRankLosses','onlineWins','onlineLosses'])p[k]=Math.max(0,Math.floor(Number(p[k])||0));p.eliteProtected=!!p.eliteProtected;p.unrealProtected=!!p.unrealProtected;p.displayName=String(p.displayName||'Fighter').slice(0,24);p.uid=String(p.uid||'');return p;}
+function loadPlayerProfile(){try{return normalizePlayerProfile(JSON.parse(localStorage.getItem(RANK_PROFILE_KEY)||'{}'))}catch(_){return defaultPlayerProfile()}}
+let playerProfile=loadPlayerProfile();
+let cloudRankRows=[];let rankCloudState='loading';let rankCloudMessage='ランキングを読み込み中…';let rankCloudInitPromise=null;let rankCloudUID='';
+function savePlayerProfileLocal(){try{localStorage.setItem(RANK_PROFILE_KEY,JSON.stringify(playerProfile))}catch(_){} }
+function getRankMeta(points){const rp=Math.max(0,Math.floor(Number(points)||0));const tierIndex=Math.min(rankTiers.length-1,Math.floor(rp/100));const progress=tierIndex===rankTiers.length-1?rp%100:rp%100;return {index:tierIndex,name:(uiLanguage==='ja'?rankTiersJP:rankTiers)[tierIndex],enName:rankTiers[tierIndex],points:rp,progress,unreal:tierIndex===rankTiers.length-1};}
+function renderRankBoard(){
+ const body=$('#rankLeaderboardRows');if(!body)return;body.replaceChildren();
+ let rows=Array.isArray(cloudRankRows)?cloudRankRows.slice():[];
+ if(!rows.length){rows=[{uid:playerProfile.uid||'local-player',displayName:playerProfile.displayName||'YOU',rankPoints:playerProfile.rankPoints,coins:playerProfile.coins,local:true}];}
+ rows.sort((a,b)=>(Number(b.rankPoints)||0)-(Number(a.rankPoints)||0));
+ rows.slice(0,10).forEach((row,index)=>{const tr=document.createElement('tr');if(row.uid&&playerProfile.uid&&row.uid===playerProfile.uid)tr.className='current-player';else if(row.local)tr.className='current-player';const values=[String(index+1),String(row.displayName||'Fighter').slice(0,24),getRankMeta(row.rankPoints).name,`${Math.max(0,Math.floor(Number(row.rankPoints)||0))} RP`];values.forEach((value,i)=>{const td=document.createElement('td');td.textContent=value;tr.appendChild(td)});body.appendChild(tr)});
+ if(!rows.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=4;td.textContent='ランキングデータはまだありません。';tr.appendChild(td);body.appendChild(tr)}
+ const status=$('#rankBoardStatus');if(status)status.textContent=rankCloudMessage;
+}
+function updateRankUI(){
+ const coins=$('#coinCount');if(coins)coins.textContent=playerProfile.coins.toLocaleString();
+ const meta=getRankMeta(playerProfile.rankPoints);const name=$('#aiRankName'),points=$('#rankPointsText'),bar=$('#rankProgressBar'),progress=$('#rankProgressText'),record=$('#rankRecordText');
+ if(name)name.textContent=meta.name;if(points)points.textContent=meta.unreal?`${playerProfile.rankPoints} RP`:`${playerProfile.rankPoints} RP`;
+ if(bar)bar.style.width=meta.unreal?'100%':`${meta.progress}%`;
+ if(progress)progress.textContent=meta.unreal?(uiLanguage==='ja'?'アンリアル到達 · リーダーボードで競争':'UNREAL · compete on the leaderboard'):(uiLanguage==='ja'?`${meta.progress}% 次のランクまで`:`${meta.progress}% to next rank`);
+ if(record)record.textContent=uiLanguage==='ja'?`${playerProfile.aiRankWins}勝 ${playerProfile.aiRankLosses}敗`:`${playerProfile.aiRankWins}W ${playerProfile.aiRankLosses}L`;
+ const coinCaption=$('#coinCaption'),rankCaption=$('#rankCaption'),rankBoardTitle=$('#rankBoardTitle'),rankBoardSubtitle=$('#rankBoardSubtitle');
+ if(coinCaption)coinCaption.textContent=uiLanguage==='ja'?'所持コイン':'COINS';if(rankCaption)rankCaption.textContent=uiLanguage==='ja'?'AIランク戦 · 現在のランク':'AI RANKED · CURRENT RANK';
+ if(rankBoardTitle)rankBoardTitle.textContent=uiLanguage==='ja'?'AIランクランキング':'AI RANKED LEADERBOARD';if(rankBoardSubtitle)rankBoardSubtitle.textContent=uiLanguage==='ja'?'勝敗・相手の強さ・ストック・ダメージ差でRPが変動':'RP changes with win/loss, opponent level, stocks and damage';const colPlayer=$('#rankColPlayer'),colTier=$('#rankColTier'),colRP=$('#rankColRP');if(colPlayer)colPlayer.textContent=uiLanguage==='ja'?'プレイヤー':'PLAYER';if(colTier)colTier.textContent=uiLanguage==='ja'?'ランク':'RANK';if(colRP)colRP.textContent='RP';
+ const rankedBtn=$('#aiRankedBtn');if(rankedBtn)rankedBtn.textContent=uiLanguage==='ja'?'🏆 AIランク戦を始める':'🏆 START AI RANKED MATCH';
+ renderRankBoard();
+}
+async function syncRankProfileWithCloud(){
+ if(rankCloudInitPromise)return rankCloudInitPromise;
+ rankCloudInitPromise=(async()=>{
+  const api=window.SKYBOUND_RANKING_API;
+  if(!api){rankCloudState='local';rankCloudMessage=uiLanguage==='ja'?'この端末にランキングを保存中。オンライン共有を確認中…':'Saved on this device. Checking online leaderboard…';updateRankUI();return;}
+  try{
+   const loaded=await api.loadProfile();if(!loaded||!loaded.uid)throw new Error('RANK_AUTH_UNAVAILABLE');rankCloudUID=loaded.uid;
+   if(loaded.profile){playerProfile=normalizePlayerProfile({...defaultPlayerProfile(),...loaded.profile,uid:loaded.uid,displayName:loaded.profile.displayName||loaded.displayName||`Fighter-${loaded.uid.slice(0,5)}`});}
+   else{playerProfile.uid=loaded.uid;playerProfile.displayName=loaded.displayName||`Fighter-${loaded.uid.slice(0,5)}`;await api.saveProfile(playerProfile);}
+   savePlayerProfileLocal();
+   cloudRankRows=await api.top(10);rankCloudState='online';rankCloudMessage=uiLanguage==='ja'?'オンラインランキング · 上位10人':'ONLINE LEADERBOARD · TOP 10';
+  }catch(error){rankCloudState='local';rankCloudMessage=uiLanguage==='ja'?'ローカル保存中。オンラインランキングはFirebase Rulesの追加が必要な場合があります。':'Local save active. Online leaderboard may require the Firebase Rules add-on.';console.warn('Rank cloud sync unavailable:',error)}
+  updateRankUI();return rankCloudState;
+ })();
+ return rankCloudInitPromise;
+}
+function savePlayerProfile(syncCloud=true){savePlayerProfileLocal();updateRankUI();if(syncCloud&&window.SKYBOUND_RANKING_API){Promise.resolve(window.SKYBOUND_RANKING_API.saveProfile(playerProfile)).then(async result=>{if(result&&result.uid){rankCloudUID=result.uid;playerProfile.uid=result.uid;playerProfile.displayName=result.displayName||playerProfile.displayName;savePlayerProfileLocal()}cloudRankRows=await window.SKYBOUND_RANKING_API.top(10);rankCloudState='online';rankCloudMessage=uiLanguage==='ja'?'オンラインランキング · 上位10人':'ONLINE LEADERBOARD · TOP 10';updateRankUI()}).catch(error=>{rankCloudState='local';rankCloudMessage=uiLanguage==='ja'?'この端末に保存済み。オンラインランキングへの保存は失敗しました。':'Saved on this device; online leaderboard update failed.';updateRankUI();console.warn('Rank save failed:',error)})}}
+function processMatchRewards(winner){
+ if(!game||game.rewardsProcessed)return;game.rewardsProcessed=true;let message='';
+ if(mode==='online'){
+  const localPlayerNo=window.SKYBOUND_ONLINE_ROLE==='guest'?2:1;const won=winner.playerNo===localPlayerNo;const before=playerProfile.coins;const target=won?before+10:before-5;playerProfile.coins=Math.max(0,target);
+  const actual=playerProfile.coins-before;if(won)playerProfile.onlineWins++;else playerProfile.onlineLosses++;
+  message=won?`🌐 オンライン勝利：🪙 +${actual}コイン`:`🌐 オンライン敗北：🪙 ${actual<0?'−'+Math.abs(actual):'−0'}コイン`;
+ }else if(mode==='cpu'){
+  const won=winner.playerNo===1;const level=Math.max(1,Math.min(9,Number(game.cpuLevelAtStart)||cpuLevel));
+  if(won){const reward=Math.min(10,level+1);playerProfile.coins+=reward;message=`🤖 AI勝利：🪙 +${reward}コイン（レベル${level}）`;}
+  else message='🤖 AI戦敗北：コイン報酬なし';
+  if(game.aiRankedMatch){
+   const old=playerProfile.rankPoints;const player=game.p1,opponent=game.p2;const performance=Math.max(-8,Math.min(8,Math.round(((Number(opponent.damage)||0)-(Number(player.damage)||0))/25)));
+   let delta=won?(25+level*3+Math.max(0,player.stocks)*5+performance):Math.min(-3,-(8+level*2)+Math.max(-8,Math.min(8,Math.round(((Number(player.damage)||0)-(Number(opponent.damage)||0))/30))));
+   let target=Math.max(0,old+delta);
+   if(target>=1500)playerProfile.eliteProtected=true;if(target>=1700)playerProfile.unrealProtected=true;
+   if(playerProfile.eliteProtected)target=Math.max(1500,target);if(playerProfile.unrealProtected)target=Math.max(1700,target);
+   playerProfile.rankPoints=target;delta=target-old;
+   if(won)playerProfile.aiRankWins++;else playerProfile.aiRankLosses++;
+   const rank=getRankMeta(playerProfile.rankPoints);const deltaText=delta>=0?`+${delta}`:`${delta}`;
+   message+=`<br>🏆 AIランク：${deltaText} RP → ${rank.name} (${rank.progress}%)`;
+  }
+ }
+ game.rewardMessage=message;savePlayerProfile(true);
+}
+window.SKYBOUND_RANK_UI_READY=()=>{syncRankProfileWithCloud().catch(()=>{});};
+window.addEventListener('skybound-language-updated',()=>updateRankUI());
+
 function renderDifficulty(){document.querySelectorAll('.difficulty-btn').forEach(b=>{const active=Number(b.dataset.level)===cpuLevel;b.classList.toggle('selected',active);b.setAttribute('aria-pressed',String(active))});$('#difficultyValue').textContent=`${uiLanguage==='ja'?'レベル':'LEVEL'} ${cpuLevel} / 9`;$('#difficultyCaption').textContent=uiLanguage==='ja'?`レベル ${cpuLevel} · ${difficultyJapanese[cpuLevel]} — ${cpuTips[cpuLevel]}`:`LEVEL ${cpuLevel} · ${cpuLevels[cpuLevel]} — ${cpuTips[cpuLevel]}`}
 $('#difficultyButtons').addEventListener('click',e=>{const b=e.target.closest('[data-level]');if(!b)return;cpuLevel=Number(b.dataset.level);renderDifficulty()});
-$('#startBtn').onclick=()=>{mode=document.querySelector('.mode-select .mode-btn.active')?.dataset.mode||'cpu';initAudio();playSfx('ui');renderChars();showScreen('charScreen')};$('#howBtn').onclick=()=>{let x=$('#howText');x.style.display=x.style.display==='none'?'block':'none'};$('#backToTitle').onclick=()=>showScreen('titleScreen');$('#toStageBtn').onclick=()=>{renderStages();showScreen('stageScreen')};$('#backToChar').onclick=()=>showScreen('charScreen');
+$('#aiRankedBtn').addEventListener('click',()=>{aiRankedMatchActive=true;mode='cpu';document.querySelectorAll('.mode-select .mode-btn').forEach(x=>x.classList.toggle('active',x.dataset.mode==='cpu'));$('#difficultyPicker').style.display='block';initAudio();playSfx('ui');renderChars();showScreen('charScreen');});
+updateRankUI();
+
+$('#startBtn').onclick=()=>{aiRankedMatchActive=false;mode=document.querySelector('.mode-select .mode-btn.active')?.dataset.mode||'cpu';initAudio();playSfx('ui');renderChars();showScreen('charScreen')};$('#howBtn').onclick=()=>{let x=$('#howText');x.style.display=x.style.display==='none'?'block':'none'};$('#backToTitle').onclick=()=>showScreen('titleScreen');$('#toStageBtn').onclick=()=>{renderStages();showScreen('stageScreen')};$('#backToChar').onclick=()=>showScreen('charScreen');
 $('#fightBtn').onclick=()=>startBattle();
 const canvas=$('#gameCanvas'),ctx=canvas.getContext('2d');let cw=1280,ch=720;let paused=false,finished=false;
 function resizeCanvas(){const dpr=Math.min(window.devicePixelRatio||1,2);const presetScale=graphicsQuality==='low'?.75:graphicsQuality==='medium'?Math.min(dpr,1.2):graphicsQuality==='high'?Math.min(dpr,1.6):Math.min(dpr,2);const scale=resolutionScaleSetting==='auto'?presetScale:Math.max(.65,Math.min(2,Number(resolutionScaleSetting)||presetScale));const r=canvas.getBoundingClientRect();canvas.width=Math.max(1,Math.round(r.width*scale));canvas.height=Math.max(1,Math.round(r.height*scale));cw=canvas.width;ch=canvas.height;ctx.setTransform(1,0,0,1,0,0)}window.addEventListener('resize',()=>{if($('#battleScreen').classList.contains('active'))resizeCanvas()});
@@ -646,7 +763,7 @@ function applyLanguage(lang){
  renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();if(game&&$('#battleScreen').classList.contains('active')){updateBattleLocalizedText();updateControllerGuide();}if($('#resultScreen').classList.contains('active')&&game)refreshResultLocalization();try{localStorage.setItem('skyboundLanguage',uiLanguage)}catch(_){/* Current selection still applies when storage is blocked. */}window.dispatchEvent(new Event('skybound-language-updated'));
 }
 function updateBattleLocalizedText(){if(!game)return;const ja=uiLanguage==='ja';$('#p1HudName').textContent=fighterDisplayName(game.p1.f);$('#p2HudName').textContent=fighterDisplayName(game.p2.f);const leftSub=document.querySelector('.fighter-hud.left .hud-sub');if(leftSub)leftSub.textContent=mode==='watch'?(ja?`AI 1 · レベル ${watchLevel1}`:`AI 1 · LEVEL ${watchLevel1}`):(ja?'プレイヤー1':'PLAYER 1');$('#p2Sub').textContent=mode==='cpu'?(ja?`CPU · レベル ${cpuLevel}`:`CPU · LEVEL ${cpuLevel}`):mode==='watch'?(ja?`AI 2 · レベル ${watchLevel2}`:`AI 2 · LEVEL ${watchLevel2}`):(ja?'プレイヤー2':'PLAYER 2');if(mode==='online')$('#controlsNote').innerHTML=ja?'<strong>🌐 オンライン対戦</strong>　A/D 移動　W ジャンプ　J 速攻　L 強攻撃　K 飛び道具　U 突進　S 地上技　I ガード　O 必殺技':'<strong>🌐 ONLINE MATCH</strong>　A/D move　W jump　J quick　L heavy　K projectile　U dash　S ground　I guard　O ultimate';else if(mode==='watch')$('#controlsNote').innerHTML=ja?'<strong class="watching-label">🤖 AI観戦ルーム — 2体のAIが自動で対戦中</strong>':'<strong class="watching-label">🤖 AI BATTLE ROOM — TWO AIs ARE FIGHTING</strong>';else if(ja){$('#controlsNote').innerHTML=mode==='cpu'?'<b>1P</b> A/D 移動　W ジャンプ　J 速攻　L 強攻撃<br>K 飛び道具　U 突進攻撃　S 地上技　I ガード　O 必殺技（ゲージ100%）':'<b>1P</b> A/D 移動　W ジャンプ　J 速攻　L 強攻撃<br>K 飛び道具　U 突進攻撃　S 地上技　I ガード　O 必殺技（ゲージ100%）<br><b>2P</b> ←/→ 移動　↑ ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ 突進　↓ 地上技　0 ガード　3 必殺技'}else{$('#controlsNote').innerHTML=mode==='cpu'?'<b>P1</b> A/D Move　W Jump　J Quick　L Heavy<br>K Projectile　U Dash　S Ground attack　I Guard　O Ultimate (100%)':'<b>P1</b> A/D Move　W Jump　J Quick　L Heavy<br>K Projectile　U Dash　S Ground attack　I Guard　O Ultimate (100%)<br><b>P2</b> ←/→ Move　↑ Jump　Enter Quick　. Heavy　Shift Projectile　/ Dash　↓ Ground attack　0 Guard　3 Ultimate'}}
-function refreshResultLocalization(){if(!game||!game.winner)return;const ja=uiLanguage==='ja',winner=game.winner;$('#resultTitle').textContent=mode==='watch'?(ja?'AI対戦終了':'AI BATTLE FINISHED'):winner.playerNo===1?(ja?'勝利！':'VICTORY!'):(ja?'敗北':'DEFEAT');$('#resultTitle').style.color=winner.f.color;$('#resultWinner').textContent=ja?`${fighterDisplayName(winner.f)} の勝利`:`${winner.f.name} WINS`;const timeoutText=ja?'時間切れ！ 判定で勝敗が決定。':'TIME UP! Winner decided by judgment.';const stock=ja?'残りストック':'Stocks remaining';const damage=ja?'ダメージ':'Damage';const body=game.timedOut?timeoutText:(game.lastKOReason==='damage'?(ja?'ダメージが100%に達してKO！':'KO by reaching 100% damage!'):(ja?'相手をステージの外へ吹っ飛ばした！':'Blasted the opponent off the stage!'));let extra=mode==='watch'?(ja?`<br>AI 1 レベル ${watchLevel1} 対 AI 2 レベル ${watchLevel2} · 観戦ルーム`:`<br>AI 1 LEVEL ${watchLevel1} vs AI 2 LEVEL ${watchLevel2} · Spectator room`):mode==='cpu'?(ja?`<br>CPU レベル ${cpuLevel} · ${difficultyDisplayName(cpuLevel)}`:`<br>CPU LEVEL ${cpuLevel} · ${cpuLevels[cpuLevel]}`):'';$('#resultSummary').innerHTML=`${body}<br>${stock}：${winner.stocks}　／　${damage}：${Math.floor(winner.damage)}%<br>${stageDisplayName(game.stage)}${extra}`;$('#rematchBtn').textContent=mode==='watch'?(ja?'もう一度観戦　↻':'WATCH AGAIN　↻'):(ja?'もう一度対戦　↻':'REMATCH　↻');$('#selectAgainBtn').textContent=mode==='watch'?(ja?'観戦ルームへ':'BACK TO SPECTATOR ROOM'):(ja?'キャラクターを変更':'CHANGE FIGHTERS');$('#homeBtn').textContent=ja?'メインメニュー':'MAIN MENU'}
+function refreshResultLocalization(){if(!game||!game.winner)return;const ja=uiLanguage==='ja',winner=game.winner;$('#resultTitle').textContent=mode==='watch'?(ja?'AI対戦終了':'AI BATTLE FINISHED'):winner.playerNo===1?(ja?'勝利！':'VICTORY!'):(ja?'敗北':'DEFEAT');$('#resultTitle').style.color=winner.f.color;$('#resultWinner').textContent=ja?`${fighterDisplayName(winner.f)} の勝利`:`${winner.f.name} WINS`;const timeoutText=ja?'時間切れ！ 判定で勝敗が決定。':'TIME UP! Winner decided by judgment.';const stock=ja?'残りストック':'Stocks remaining';const damage=ja?'ダメージ':'Damage';const body=game.timedOut?timeoutText:(game.lastKOReason==='damage'?(ja?'ダメージが100%に達してKO！':'KO by reaching 100% damage!'):(ja?'相手をステージの外へ吹っ飛ばした！':'Blasted the opponent off the stage!'));let extra=mode==='watch'?(ja?`<br>AI 1 レベル ${watchLevel1} 対 AI 2 レベル ${watchLevel2} · 観戦ルーム`:`<br>AI 1 LEVEL ${watchLevel1} vs AI 2 LEVEL ${watchLevel2} · Spectator room`):mode==='cpu'?(ja?`<br>CPU レベル ${cpuLevel} · ${difficultyDisplayName(cpuLevel)}`:`<br>CPU LEVEL ${cpuLevel} · ${cpuLevels[cpuLevel]}`):'';const rewardLine=game.rewardMessage?`<br><span class="result-reward-line">${game.rewardMessage}</span>`:'';$('#resultSummary').innerHTML=`${body}<br>${stock}：${winner.stocks}　／　${damage}：${Math.floor(winner.damage)}%<br>${stageDisplayName(game.stage)}${extra}${rewardLine}`;$('#rematchBtn').textContent=mode==='watch'?(ja?'もう一度観戦　↻':'WATCH AGAIN　↻'):(ja?'もう一度対戦　↻':'REMATCH　↻');$('#selectAgainBtn').textContent=mode==='watch'?(ja?'観戦ルームへ':'BACK TO SPECTATOR ROOM'):(ja?'キャラクターを変更':'CHANGE FIGHTERS');$('#homeBtn').textContent=ja?'メインメニュー':'MAIN MENU'}
 function openSettingsTab(tab){const valid=['graphics','language'].includes(tab)?tab:'graphics';document.querySelectorAll('[data-settings-tab]').forEach(b=>{const active=b.dataset.settingsTab===valid;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))});[['graphics','#settingsGraphicsPanel'],['language','#settingsLanguagePanel']].forEach(([name,selector])=>{const el=$(selector),active=name===valid;el.classList.toggle('active',active);el.hidden=!active})}
 function openSettings(){initAudio();$('#settingsOverlay').classList.add('show');$('#fpsToggle').checked=showFPS;$('#qualitySelect').value=graphicsQuality;$('#effectsToggle').checked=particlesEnabled;$('#soundToggle').checked=soundEnabled;$('#soundVolume').value=Math.round(soundVolume*100);$('#bgmToggle').checked=bgmEnabled;$('#bgmVolume').value=Math.round(bgmVolume*100);$('#languageSelect').value=uiLanguage;$('#shadowSelect').value=shadowQuality;$('#detailSelect').value=environmentDetail;$('#renderScaleSelect').value=resolutionScaleSetting;$('#depthToggle').checked=depthEffects;$('#lightingToggle').checked=cinematicLighting;$('#atmosphereToggle').checked=atmosphereEnabled;$('#bloomToggle').checked=bloomEnabled;$('#reflectionToggle').checked=reflectionEnabled;$('#motionToggle').checked=motionTrailsEnabled;$('#gradingToggle').checked=colorGradingEnabled;openSettingsTab('graphics')}
 function saveGraphicsSettings(){try{localStorage.setItem('skyboundGraphicsSettings',JSON.stringify({graphicsQuality,showFPS,particlesEnabled,shadowQuality,environmentDetail,depthEffects,cinematicLighting,atmosphereEnabled,bloomEnabled,reflectionEnabled,motionTrailsEnabled,colorGradingEnabled,resolutionScaleSetting}))}catch(_){/* current session settings still work */}}
@@ -658,7 +775,7 @@ applyLanguage(uiLanguage);
 document.addEventListener('click',e=>{if(e.target.closest('button')&&!e.target.closest('#settingsApplyBtn')){initAudio();playSfx('ui')}},{capture:true});
 document.addEventListener('pointerdown',()=>{initAudio();if(bgmEnabled)startBGM()},{once:true,capture:true});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(bgmScheduler!==null){clearInterval(bgmScheduler);bgmScheduler=null}if(audioCtx&&bgmGain)bgmGain.gain.setTargetAtTime(0,audioCtx.currentTime,.04)}else if(bgmEnabled&&audioCtx){if(audioCtx.state==='suspended')audioCtx.resume();startBGM()} });
-function startBattle(matchSeconds=120){initAudio();playSfx('start');const st=stages[stagePick];game={stage:st,p1:createPlayer(fighters[p1Pick],st.id==='neon'?510:490,1),p2:createPlayer(fighters[p2Pick],st.id==='neon'?770:790,2),projectiles:[],particles:[],elapsed:0,limit:matchSeconds*60,shake:0,announcement:120,started:false,trail:[],winner:null,lastKOReason:'stage'};paused=false;finished=false;$('#pauseOverlay').classList.remove('show');$('#p1HudName').textContent=fighterDisplayName(game.p1.f);$('#p2HudName').textContent=fighterDisplayName(game.p2.f);$('#touchControls').style.display=mode==='watch'?'none':'';$('#toast').textContent=uiLanguage==='ja'?'準備！':'READY?';$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),1250);updateHUD();updateBattleLocalizedText();updateControllerGuide();showScreen('battleScreen');resizeCanvas();$('#fpsCounter').style.display=showFPS?'block':'none';lastTime=performance.now();accumulator=0;fpsFrames=0;fpsLastStamp=lastTime;cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+function startBattle(matchSeconds=120){initAudio();playSfx('start');const st=stages[stagePick];game={aiRankedMatch:mode==='cpu'&&aiRankedMatchActive,cpuLevelAtStart:cpuLevel,rewardsProcessed:false,rewardMessage:'',stage:st,p1:createPlayer(fighters[p1Pick],st.id==='neon'?510:490,1),p2:createPlayer(fighters[p2Pick],st.id==='neon'?770:790,2),projectiles:[],particles:[],elapsed:0,limit:matchSeconds*60,shake:0,announcement:120,started:false,trail:[],winner:null,lastKOReason:'stage'};paused=false;finished=false;$('#pauseOverlay').classList.remove('show');$('#p1HudName').textContent=fighterDisplayName(game.p1.f);$('#p2HudName').textContent=fighterDisplayName(game.p2.f);$('#touchControls').style.display=mode==='watch'?'none':'';$('#toast').textContent=uiLanguage==='ja'?'準備！':'READY?';$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),1250);updateHUD();updateBattleLocalizedText();updateControllerGuide();showScreen('battleScreen');resizeCanvas();$('#fpsCounter').style.display=showFPS?'block':'none';lastTime=performance.now();accumulator=0;fpsFrames=0;fpsLastStamp=lastTime;cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
 window.SKYBOUND_READ_LOCAL_ONLINE_HELD=()=>({left:!!held['a']||!!gamepadHeld.left,right:!!held['d']||!!gamepadHeld.right,guard:!!held['i']||!!gamepadHeld.guard});
 // Multiplayer performance preset: reduce canvas fill rate and expensive visual effects
 // for BOTH roles. This is runtime-only and does not overwrite the user's saved settings.
@@ -680,7 +797,7 @@ function enableOnlinePerformancePreset(){
 window.SKYBOUND_ONLINE_RESET_INPUTS=()=>{window.SKYBOUND_ONLINE_INPUTS={p1:onlineInputDefaults(),p2:onlineInputDefaults()};held={};justPressed={};};
 window.SKYBOUND_START_ONLINE_BATTLE=(p1Id,p2Id,stageId='peak',matchSeconds=120)=>{
   const i1=fighters.findIndex(f=>f.id===p1Id),i2=fighters.findIndex(f=>f.id===p2Id),si=stages.findIndex(st=>st.id===stageId);
-  p1Pick=i1>=0?i1:0;p2Pick=i2>=0?i2:1;stagePick=si>=0?si:0;mode='online';frame=0;
+  p1Pick=i1>=0?i1:0;p2Pick=i2>=0?i2:1;stagePick=si>=0?si:0;mode='online';aiRankedMatchActive=false;frame=0;
   enableOnlinePerformancePreset();
   window.SKYBOUND_ONLINE_RESET_INPUTS();startBattle(Math.max(30,Math.min(300,Number(matchSeconds)||120)));
 };
@@ -891,7 +1008,7 @@ function update(dt){if(!game||paused||finished)return;if(mode==='online'&&window
  game.shake*=.83;if(!(mode==='online'&&window.SKYBOUND_ONLINE_ROLE==='guest')&&(game.elapsed>=game.limit||game.p1.dead||game.p2.dead)){let winner;if(game.p1.dead&&!game.p2.dead)winner=game.p2;else if(game.p2.dead&&!game.p1.dead)winner=game.p1;else if(game.p1.stocks!==game.p2.stocks)winner=game.p1.stocks>game.p2.stocks?game.p1:game.p2;else winner=game.p1.damage<=game.p2.damage?game.p1:game.p2;finishBattle(winner,game.elapsed>=game.limit)}}
  if(mode==='online'&&window.SKYBOUND_ONLINE_INPUTS){for(const slot of ['p1','p2']){const input=window.SKYBOUND_ONLINE_INPUTS[slot];if(input)for(const action of ['jump','attack','heavy','special','dash','slam','ultimate'])input[action]=false}}
  justPressed={};updateHUD()}
-function finishBattle(winner,timeout){if(finished)return;playSfx('ko',winner.x);finished=true;game.winner=winner;game.timedOut=!!timeout;cancelAnimationFrame(raf);showScreen('resultScreen');refreshResultLocalization()}
+function finishBattle(winner,timeout){if(finished)return;playSfx('ko',winner.x);finished=true;game.winner=winner;game.timedOut=!!timeout;processMatchRewards(winner);cancelAnimationFrame(raf);showScreen('resultScreen');refreshResultLocalization()}
 function loop(now){if(paused||finished||!$('#battleScreen').classList.contains('active'))return;
  pollGamepad();
  const step=1/60;const elapsed=Math.min(.1,Math.max(0,(now-lastTime)/1000));lastTime=now;accumulator+=elapsed;
@@ -1047,7 +1164,7 @@ function render(){if(!game)return;
  ctx.restore();
  if(onlineSmoothRestore){Object.assign(game.p1,onlineSmoothRestore.p1);Object.assign(game.p2,onlineSmoothRestore.p2);game.projectiles=onlineSmoothRestore.projectiles;}
 }
-$('#rematchBtn').onclick=()=>{if(mode==='online'){showAIToast(uiLanguage==='ja'?'オンライン再戦はまだ準備中だよ。部屋から新しく対戦を開始してね。':'Online rematch is not available yet. Start a new match from a room.',2200);return}startBattle(mode==='watch'?(Number($('#watchMatchLength')?.value)||120):120)};$('#selectAgainBtn').onclick=()=>{if(mode==='online'){showScreen('onlineCharacterScreen');setOnlineNetStatus('オンライン対戦は終了しました。部屋を退出して新しい対戦を始めてね。',false);return}if(mode==='watch'){fillAIRoomSelectors();$('#watchP1Select').value=String(p1Pick);$('#watchP2Select').value=String(p2Pick);$('#watchStageSelect').value=String(stagePick);$('#watchLevel1').value=String(watchLevel1);$('#watchLevel2').value=String(watchLevel2);showScreen('aiRoomScreen')}else{renderChars();showScreen('charScreen')}};$('#homeBtn').onclick=()=>{mode='cpu';document.querySelectorAll('.mode-select .mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode==='cpu'));$('#difficultyPicker').style.display='block';cancelAnimationFrame(raf);paused=false;finished=true;$('#pauseOverlay').classList.remove('show');$('#touchControls').style.display='none';showScreen('titleScreen')};
+$('#rematchBtn').onclick=()=>{if(mode==='online'){showAIToast(uiLanguage==='ja'?'オンライン再戦はまだ準備中だよ。部屋から新しく対戦を開始してね。':'Online rematch is not available yet. Start a new match from a room.',2200);return}startBattle(mode==='watch'?(Number($('#watchMatchLength')?.value)||120):120)};$('#selectAgainBtn').onclick=()=>{if(mode==='online'){showScreen('onlineCharacterScreen');setOnlineNetStatus('オンライン対戦は終了しました。部屋を退出して新しい対戦を始めてね。',false);return}if(mode==='watch'){fillAIRoomSelectors();$('#watchP1Select').value=String(p1Pick);$('#watchP2Select').value=String(p2Pick);$('#watchStageSelect').value=String(stagePick);$('#watchLevel1').value=String(watchLevel1);$('#watchLevel2').value=String(watchLevel2);showScreen('aiRoomScreen')}else{renderChars();showScreen('charScreen')}};$('#homeBtn').onclick=()=>{aiRankedMatchActive=false;mode='cpu';document.querySelectorAll('.mode-select .mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode==='cpu'));$('#difficultyPicker').style.display='block';cancelAnimationFrame(raf);paused=false;finished=true;$('#pauseOverlay').classList.remove('show');$('#touchControls').style.display='none';showScreen('titleScreen')};
 // keyboard selection shortcut: Enter from title; Escape from menus returns one step
 window.addEventListener('keydown',e=>{let k=keyName(e);if(k==='enter'&&$('#titleScreen').classList.contains('active')){renderChars();showScreen('charScreen')}if(k==='escape'&&$('#stageScreen').classList.contains('active'))showScreen('charScreen');else if(k==='escape'&&$('#charScreen').classList.contains('active'))showScreen('titleScreen')});
 // Expose read-only fighter data and drawing helpers for the lightweight online lobby UI.
@@ -1704,6 +1821,48 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     });
     return firebaseInitPromise;
   }
+  // Account-bound ranked profile and leaderboard. The database Rules add-on shipped with VER 1.3
+  // grants each signed-in player write access only to their own profile and read access to the board.
+  window.SKYBOUND_RANKING_API = {
+    async loadProfile() {
+      const user = await initializeFirebase();
+      if (!onlineDb || !user) throw new Error('RANK_AUTH_UNAVAILABLE');
+      const snapshot = await onlineDb.ref('rankedLeaderboard/players/' + user.uid).once('value');
+      return { uid: user.uid, displayName: ((snapshot.val() && snapshot.val().displayName) || ('Player-' + user.uid.slice(0, 5).toUpperCase())).slice(0, 24), profile: snapshot.exists() ? snapshot.val() : null };
+    },
+    async saveProfile(profile) {
+      const user = await initializeFirebase();
+      if (!onlineDb || !user) throw new Error('RANK_AUTH_UNAVAILABLE');
+      const oldSnap = await onlineDb.ref('rankedLeaderboard/players/' + user.uid).once('value');
+      const oldProfile = oldSnap.val() || {};
+      const generatedName = 'Player-' + user.uid.slice(0, 5).toUpperCase();
+      const requestedName = (profile.displayName && profile.displayName !== 'Fighter') ? profile.displayName : oldProfile.displayName;
+      const displayName = String(requestedName || generatedName).trim().slice(0, 24) || generatedName;
+      const payload = {
+        uid: user.uid,
+        displayName,
+        rankPoints: Math.max(0, Math.floor(Number(profile.rankPoints) || 0)),
+        coins: Math.max(0, Math.floor(Number(profile.coins) || 0)),
+        aiRankWins: Math.max(0, Math.floor(Number(profile.aiRankWins) || 0)),
+        aiRankLosses: Math.max(0, Math.floor(Number(profile.aiRankLosses) || 0)),
+        onlineWins: Math.max(0, Math.floor(Number(profile.onlineWins) || 0)),
+        onlineLosses: Math.max(0, Math.floor(Number(profile.onlineLosses) || 0)),
+        eliteProtected: !!profile.eliteProtected,
+        unrealProtected: !!profile.unrealProtected,
+        updatedAt: Date.now()
+      };
+      await onlineDb.ref('rankedLeaderboard/players/' + user.uid).set(payload);
+      return { uid: user.uid, displayName, profile: payload };
+    },
+    async top(limit = 10) {
+      await initializeFirebase();
+      if (!onlineDb) throw new Error('RANK_DB_UNAVAILABLE');
+      const snapshot = await onlineDb.ref('rankedLeaderboard/players').orderByChild('rankPoints').limitToLast(Math.max(1, Math.min(50, Number(limit) || 10))).once('value');
+      const values = snapshot.val() || {};
+      return Object.entries(values).map(([uid, value]) => ({ uid, ...value })).sort((a, b) => (Number(b.rankPoints) || 0) - (Number(a.rankPoints) || 0)).slice(0, Math.max(1, Math.min(50, Number(limit) || 10)));
+    }
+  };
+
   function showConnectionError(error, action) {
     let message = authErrorText(error, action);
     if (error && error.message === 'SDK_NOT_LOADED') message = ja()
@@ -1852,9 +2011,12 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     });
   });
   window.addEventListener('skybound-language-updated', () => updateAccountUI((onlineAuth && onlineAuth.currentUser) || onlineUser));
-  initializeFirebase().catch(error => {
+  initializeFirebase().then(() => {
+    if (window.SKYBOUND_RANK_UI_READY) window.SKYBOUND_RANK_UI_READY();
+  }).catch(error => {
     showConnectionError(error, 'anonymous');
     console.warn('Automatic Firebase connection failed:', error);
+    if (window.SKYBOUND_RANK_UI_READY) window.SKYBOUND_RANK_UI_READY();
   });
 
   $('onlineCreateRoomBtn').addEventListener('click', async () => {
