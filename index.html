@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>53sumabura | VER 1.5</title>
+<title>53sumabura | VER 1.6</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -236,7 +236,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
 </section>
 <section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 1.5</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 1.6</div>
 <div id="settingsOverlay" role="dialog" aria-modal="true" aria-label="設定"><div class="settings-box"><div class="step">SYSTEM / OPTIONS</div><h2 id="settingsTitle">SETTINGS</h2>
  <div class="settings-tabs" role="tablist" aria-label="設定カテゴリ"><button type="button" class="settings-tab active" data-settings-tab="graphics" role="tab" aria-selected="true">🎨 グラフィック</button><button type="button" class="settings-tab" data-settings-tab="language" role="tab" aria-selected="false">🌐 言語</button><button type="button" class="settings-tab" data-settings-tab="account" role="tab" aria-selected="false">👤 アカウント</button></div>
  <div class="settings-page active" id="settingsGraphicsPanel" role="tabpanel">
@@ -405,6 +405,7 @@ const stages = [
  {id:'scrapyard',name:'TITAN SCRAPYARD',jp:'巨人のスクラップ場',desc:'廃ロボットと鉄骨が積み重なる工業地帯。',tag:'INDUSTRIAL WASTELAND',sky:['#202838','#77634d'],ground:'#4d5961',glow:'#ffb15e',type:13,platforms:[{x:100,y:510,w:1080,h:66},{x:180,y:415,w:220,h:18},{x:880,y:415,w:220,h:18},{x:465,y:325,w:350,h:20}]}
 ];
 let mode='cpu', p1Pick=0,p2Pick=1,stagePick=0,game=null,frame=0,lastTime=0,raf=0,held={},justPressed={},muted=false,cpuLevel=5,watchLevel1=5,watchLevel2=5;
+let cameraXCurrent=0; // Shared camera for all stages; follows the arena center left and right.
 let aiRankedMatchActive=false;
 
 // Gamepad input state (standard Gamepad API mapping). The controller controls Player 1 / the local online player.
@@ -832,7 +833,7 @@ applyLanguage(uiLanguage);
 document.addEventListener('click',e=>{if(e.target.closest('button')&&!e.target.closest('#settingsApplyBtn')){initAudio();playSfx('ui')}},{capture:true});
 document.addEventListener('pointerdown',()=>{initAudio();if(bgmEnabled)startBGM()},{once:true,capture:true});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){if(bgmScheduler!==null){clearInterval(bgmScheduler);bgmScheduler=null}if(audioCtx&&bgmGain)bgmGain.gain.setTargetAtTime(0,audioCtx.currentTime,.04)}else if(bgmEnabled&&audioCtx){if(audioCtx.state==='suspended')audioCtx.resume();startBGM()} });
-function startBattle(matchSeconds=120){initAudio();playSfx('start');const st=stages[stagePick];game={aiRankedMatch:mode==='cpu'&&aiRankedMatchActive,cpuLevelAtStart:cpuLevel,rewardsProcessed:false,rewardMessage:'',stage:st,p1:createPlayer(fighters[p1Pick],st.id==='neon'?510:490,1),p2:createPlayer(fighters[p2Pick],st.id==='neon'?770:790,2),projectiles:[],particles:[],elapsed:0,limit:matchSeconds*60,shake:0,announcement:120,started:false,trail:[],winner:null,lastKOReason:'stage'};paused=false;finished=false;$('#pauseOverlay').classList.remove('show');$('#p1HudName').textContent=fighterDisplayName(game.p1.f);$('#p2HudName').textContent=fighterDisplayName(game.p2.f);$('#touchControls').style.display=mode==='watch'?'none':'';$('#toast').textContent=uiLanguage==='ja'?'準備！':'READY?';$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),1250);updateHUD();updateBattleLocalizedText();updateControllerGuide();showScreen('battleScreen');resizeCanvas();$('#fpsCounter').style.display=showFPS?'block':'none';lastTime=performance.now();accumulator=0;fpsFrames=0;fpsLastStamp=lastTime;cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+function startBattle(matchSeconds=120){initAudio();playSfx('start');cameraXCurrent=0;const st=stages[stagePick];game={aiRankedMatch:mode==='cpu'&&aiRankedMatchActive,cpuLevelAtStart:cpuLevel,rewardsProcessed:false,rewardMessage:'',stage:st,p1:createPlayer(fighters[p1Pick],st.id==='neon'?510:490,1),p2:createPlayer(fighters[p2Pick],st.id==='neon'?770:790,2),projectiles:[],particles:[],elapsed:0,limit:matchSeconds*60,shake:0,announcement:120,started:false,trail:[],winner:null,lastKOReason:'stage'};paused=false;finished=false;$('#pauseOverlay').classList.remove('show');$('#p1HudName').textContent=fighterDisplayName(game.p1.f);$('#p2HudName').textContent=fighterDisplayName(game.p2.f);$('#touchControls').style.display=mode==='watch'?'none':'';$('#toast').textContent=uiLanguage==='ja'?'準備！':'READY?';$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),1250);updateHUD();updateBattleLocalizedText();updateControllerGuide();showScreen('battleScreen');resizeCanvas();$('#fpsCounter').style.display=showFPS?'block':'none';lastTime=performance.now();accumulator=0;fpsFrames=0;fpsLastStamp=lastTime;cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
 window.SKYBOUND_READ_LOCAL_ONLINE_HELD=()=>({left:!!held['a']||!!gamepadHeld.left,right:!!held['d']||!!gamepadHeld.right,guard:!!held['i']||!!gamepadHeld.guard});
 // Multiplayer performance preset: reduce canvas fill rate and expensive visual effects
 // for BOTH roles. This is runtime-only and does not overwrite the user's saved settings.
@@ -1204,13 +1205,13 @@ function render(){if(!game)return;
      });
    }
  }
- const sx=cw/1280,sy=ch/720;ctx.setTransform(sx,0,0,sy,0,0);ctx.clearRect(0,0,1280,720);const st=game.stage;let center=(game.p1.x+game.p2.x)/2;let cam=Math.max(0,Math.min(240,center-640));ctx.save();if(game.shake>.4)ctx.translate((Math.random()-.5)*game.shake,(Math.random()-.5)*game.shake);drawBackground(st,cam); // subtle floor grid
+ const sx=cw/1280,sy=ch/720;ctx.setTransform(sx,0,0,sy,0,0);ctx.clearRect(0,0,1280,720);const st=game.stage;const center=(game.p1.x+game.p2.x)/2;const targetCam=Math.max(-240,Math.min(240,center-640));cameraXCurrent+=(targetCam-cameraXCurrent)*0.18;if(Math.abs(targetCam-cameraXCurrent)<0.08)cameraXCurrent=targetCam;const cam=cameraXCurrent;ctx.save();if(game.shake>.4)ctx.translate((Math.random()-.5)*game.shake,(Math.random()-.5)*game.shake);drawBackground(st,cam); // subtle floor grid
  ctx.save();ctx.globalAlpha=.1;ctx.strokeStyle=st.glow;ctx.lineWidth=1;for(let x=-((cam*1.2)%80);x<1320;x+=80){ctx.beginPath();ctx.moveTo(x,570);ctx.lineTo(x-80,720);ctx.stroke()}ctx.restore();
  for(const pl of st.platforms)drawPlatform(pl,st,cam);
  // platform supports / details
  for(let i=1;i<st.platforms.length;i++){let pl=st.platforms[i],x=pl.x-cam;if(x+pl.w<0||x>1280)continue;ctx.globalAlpha=.28;ctx.fillStyle=st.glow;ctx.fillRect(x+12,pl.y+pl.h,pl.w-24,3);ctx.globalAlpha=1}
  // match boundary streaks
- ctx.globalAlpha=.22;ctx.fillStyle=st.glow;ctx.fillRect(25,150,2,425);ctx.fillRect(1253,150,2,425);ctx.globalAlpha=1;
+ ctx.globalAlpha=.22;ctx.fillStyle=st.glow;ctx.fillRect(25-cam,150,2,425);ctx.fillRect(1253-cam,150,2,425);ctx.globalAlpha=1;
  // projectiles
  for(const q of game.projectiles){let x=q.x-cam;ctx.save();ctx.shadowColor=q.color;ctx.shadowBlur=bloomEnabled?(q.style==='lightning'?28:22):0;ctx.fillStyle=q.color;ctx.strokeStyle=q.color;ctx.lineWidth=2.5;if(q.style==='lightning'){ctx.beginPath();ctx.moveTo(x-q.vx*3,q.y+5);ctx.lineTo(x-q.vx*1.7,q.y-7);ctx.lineTo(x-q.vx*.7,q.y+3);ctx.lineTo(x,q.y-10);ctx.lineTo(x+q.vx*.12,q.y+3);ctx.lineTo(x+q.vx*.35,q.y-3);ctx.stroke();ctx.beginPath();ctx.arc(x,q.y, q.r*.52,0,Math.PI*2);ctx.fill()}else if(q.style==='seed'){ctx.translate(x,q.y);ctx.rotate(frame*.12);ctx.beginPath();ctx.ellipse(0,0,q.r*1.35,q.r*.7,-.4,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.moveTo(-q.r,0);ctx.quadraticCurveTo(0,-q.r*1.8,q.r,0);ctx.stroke();ctx.restore();continue}else if(q.style==='flame'){ctx.beginPath();ctx.moveTo(x-q.r*1.7,q.y);ctx.quadraticCurveTo(x-q.r*.5,q.y-q.r*1.5,x+q.r*.5,q.y-q.r*.5);ctx.quadraticCurveTo(x+q.r*2.0,q.y-q.r*1.2,x+q.r*.8,q.y+q.r*.7);ctx.quadraticCurveTo(x,q.y+q.r*1.55,x-q.r*1.7,q.y);ctx.fill();ctx.fillStyle='#fff1c7';ctx.beginPath();ctx.ellipse(x,q.y,q.r*.45,q.r*.75,-.3,0,Math.PI*2);ctx.fill()}else{let grad=ctx.createRadialGradient(x,q.y,1,x,q.y,q.r*1.8);grad.addColorStop(0,'#fff');grad.addColorStop(.35,q.color);grad.addColorStop(1,q.color+'00');ctx.fillStyle=grad;ctx.beginPath();ctx.arc(x,q.y,q.r*1.8,0,Math.PI*2);ctx.fill();ctx.fillStyle=q.color;ctx.beginPath();ctx.arc(x,q.y,q.r*.65,0,Math.PI*2);ctx.fill()}ctx.strokeStyle=q.color;ctx.lineWidth=Math.max(2,q.r*.8);ctx.globalAlpha=.6;ctx.beginPath();ctx.moveTo(x-q.vx*2,q.y-q.vy*1.3);ctx.lineTo(x-q.vx*5,q.y-q.vy*3);ctx.stroke();ctx.restore()}
  if(motionTrailsEnabled){for(const p of [game.p1,game.p2]){if(p.dead||Math.abs(p.vx)<2.4)continue;const x=p.x-cam,y=p.y-58,sign=Math.sign(p.vx)||p.face,len=Math.min(52,Math.abs(p.vx)*7);ctx.save();ctx.globalAlpha=Math.min(.42,.10+Math.abs(p.vx)*.025);const streak=ctx.createLinearGradient(x-sign*len,y,x-sign*3,y);streak.addColorStop(0,p.f.color+'00');streak.addColorStop(.7,p.f.color+'a8');streak.addColorStop(1,p.f.accent);ctx.strokeStyle=streak;ctx.lineWidth=graphicsQuality==='ultra'?6:4;ctx.shadowColor=p.f.color;ctx.shadowBlur=bloomEnabled?10:0;ctx.beginPath();ctx.moveTo(x-sign*len,y+9);ctx.quadraticCurveTo(x-sign*len*.48,y-2,x-sign*2,y+3);ctx.stroke();ctx.restore()}}drawFighter(game.p1,cam);drawFighter(game.p2,cam);
