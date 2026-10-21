@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>53sumabura | VER 3.4</title>
+<title>53sumabura | VER 3.5</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -109,7 +109,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
 @media (pointer:coarse),(max-width:760px){#touchControls{display:block}.battle-bottom{pointer-events:none;padding:0;background:none}.controls-note{display:none}.battle-actions{position:absolute;top:106px;left:50%;transform:translateX(-50%);gap:5px}.small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52,.78)}}
 @media(max-width:390px){.touch-dpad{width:min(42vw,150px);left:8px;bottom:max(12px,env(safe-area-inset-bottom))}.touch-skills{width:min(49vw,176px);right:8px;bottom:max(12px,env(safe-area-inset-bottom));gap:4px}.touch-skill b{font-size:17px}.touch-skill small{font-size:8px}.battle-bottom.touch-layout .battle-actions,html.has-touch .battle-actions{top:92px}}
 @media(max-height:450px){.touch-dpad{width:min(36vh,145px);left:12px;bottom:8px}.touch-skills{width:min(55vh,236px);right:12px;bottom:8px;gap:5px}.touch-skill b{font-size:18px}.touch-skill small{font-size:8px}.battle-bottom.touch-layout .battle-actions,html.has-touch .battle-actions{top:77px}}
-/* VER 3.4 mobile mode: suppress double-tap zoom but retain pinch zoom. */
+/* VER 3.5 mobile mode: suppress double-tap zoom but retain pinch zoom. */
 html.mobile-mode,html.mobile-mode body{touch-action:manipulation;overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 html.mobile-mode #app{height:100dvh;min-height:0}
 html.mobile-mode #touchControls{display:block!important}
@@ -175,6 +175,11 @@ html.mobile-mode .touch-key{touch-action:none}
 .online-char-status{flex:1;min-width:min(100%,260px);font-size:12px;line-height:1.7;color:#b9cadc;white-space:pre-line}
 .online-char-actions{display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap}
 .online-char-actions button{min-width:140px}.online-char-actions button[hidden]{display:none!important}.online-net-status{position:absolute;top:112px;left:50%;transform:translateX(-50%);z-index:30;max-width:90vw;padding:7px 12px;border:1px solid #65efff66;border-radius:999px;background:#061322e8;color:#a8ffc1;font:800 11px/1.4 system-ui,sans-serif;text-align:center;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:auto;user-select:text;-webkit-user-select:text;max-height:32vh;overflow:auto;box-shadow:0 6px 24px #0005}.online-net-status[data-state="error"]{color:#ffd2d2;border-color:#ff718a99}.online-net-status[hidden]{display:none!important}
+/* VER 3.5: keep RTC diagnostics visible separately so fallback status messages cannot overwrite them. */
+.online-rtc-diagnostic{position:absolute;top:calc(112px + 42px);left:50%;transform:translateX(-50%);z-index:31;width:min(94vw,880px);max-height:22vh;overflow:auto;padding:7px 10px;border:1px solid #60f0ff55;border-radius:8px;background:rgba(3,12,24,.88);color:#bfefff;font:600 10px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:auto;user-select:text;-webkit-user-select:text;box-shadow:0 4px 16px #0005}
+.online-rtc-diagnostic[hidden]{display:none!important}
+@media(max-width:560px){.online-rtc-diagnostic{top:calc(112px + 39px);width:96vw;max-height:19vh;font-size:9px;padding:5px 7px}}
+
 @media(max-width:720px){.online-char-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.online-opponent-strip{grid-template-columns:1fr}.online-char-actions{width:100%}.online-char-actions button{flex:1;min-width:0}.online-char-panel{padding:14px}.online-char-grid .portrait{height:135px}}
 @media(min-width:721px) and (max-height:760px){.online-char-grid .portrait{height:105px}.online-char-grid .char-moves{display:none}.online-char-panel{padding:15px 20px}.online-char-help{margin-bottom:8px}.online-opponent-strip{margin:8px 0 10px}}
 
@@ -186,7 +191,7 @@ html.mobile-mode .touch-key{touch-action:none}
 
 
 
-/* VER 3.4: responsive layout pass for small phones, tablets, desktop and landscape. */
+/* VER 3.5: responsive layout pass for small phones, tablets, desktop and landscape. */
 :root { color-scheme: dark; }
 html, body {
   min-width: 0;
@@ -398,7 +403,7 @@ img, canvas, video, svg { max-width: 100%; }
 }
 
 
-/* VER 3.4: cinematic startup animation */
+/* VER 3.5: cinematic startup animation */
 #startupIntro{position:absolute;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;isolation:isolate;cursor:pointer;background:radial-gradient(ellipse at 50% 44%,#153856 0%,#09182b 42%,#02050d 100%);opacity:1;visibility:visible;transition:opacity .65s ease,visibility .65s ease}
 #startupIntro:before{content:"";position:absolute;inset:-45%;z-index:-2;background:repeating-linear-gradient(122deg,transparent 0 8%,rgba(96,240,255,.075) 8.1%,transparent 8.35% 15%),repeating-linear-gradient(28deg,transparent 0 18%,rgba(255,96,142,.045) 18.1%,transparent 18.3% 27%);animation:introSweep 8s linear infinite}
 #startupIntro:after{content:"";position:absolute;z-index:-1;left:-10%;right:-10%;top:50%;height:1px;background:linear-gradient(90deg,transparent,#60f0ff,#ffe29a,#ff608e,transparent);box-shadow:0 0 22px 5px #60f0ff55;transform:scaleX(0);animation:introSlash 1.05s .22s cubic-bezier(.2,.75,.2,1) forwards}
@@ -424,7 +429,7 @@ img, canvas, video, svg { max-width: 100%; }
 </style>
 
 <style>
-/* VER 3.4: dedicated right-thumb jump button and touch-accessible pause/exit. */
+/* VER 3.5: dedicated right-thumb jump button and touch-accessible pause/exit. */
 .touch-jump-button {
   display: none; position: absolute; z-index: 8; pointer-events: auto; touch-action: none;
   right: max(10px, env(safe-area-inset-right));
@@ -465,7 +470,7 @@ img, canvas, video, svg { max-width: 100%; }
 }
 </style>
 <style>
-/* VER 3.4: per-device touch control layout customization. */
+/* VER 3.5: per-device touch control layout customization. */
 #touchControls { opacity: var(--touch-layout-opacity, 1); }
 #touchControls .touch-dpad {
   left: var(--touch-layout-stick-left, max(10px, env(safe-area-inset-left))) !important;
@@ -503,7 +508,7 @@ img, canvas, video, svg { max-width: 100%; }
 }
 
 
-/* VER 3.4: fix menu CSS leak and add visual touch layout editor. */
+/* VER 3.5: fix menu CSS leak and add visual touch layout editor. */
 #touchLayoutOpenBtn{width:100%;min-height:50px;margin:8px 0 2px}
 .touch-layout-launch-card{padding:12px;border:1px solid #ffffff20;border-radius:10px;background:#061425a8;margin-top:10px}
 .touch-layout-modal{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:rgba(1,6,14,.9);backdrop-filter:blur(8px)}
@@ -545,7 +550,7 @@ body.touch-layout-editor-open{overflow:hidden}
 <body>
 <div id="app"><div id="startupIntro" role="button" tabindex="0" aria-label="53sumaburaを起動。タップしてスキップ">
  <div class="intro-frame"><i class="intro-corner tl"></i><i class="intro-corner tr"></i><i class="intro-corner bl"></i><i class="intro-corner br"></i>
-  <div class="intro-kicker">FIGHTER SYSTEMS ONLINE · VER 3.4</div>
+  <div class="intro-kicker">FIGHTER SYSTEMS ONLINE · VER 3.5</div>
   <div class="intro-logo">53<span>sumabura</span></div>
   <div class="intro-tagline">READY · SET · FIGHT</div>
   <div class="intro-bar"><span></span></div>
@@ -575,7 +580,7 @@ body.touch-layout-editor-open{overflow:hidden}
   <div class="rank-board-wrap"><table class="rank-board"><thead><tr><th>#</th><th id="rankColPlayer">プレイヤー</th><th id="rankColTier">ランク</th><th id="rankColRP">RP</th></tr></thead><tbody id="rankLeaderboardRows"><tr><td colspan="4">ランキングを読み込み中…</td></tr></tbody></table></div>
  </section>
  <div id="howText" class="footnote" style="display:none;max-width:650px">相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。ダメージが高いほど遠くへ飛びやすい！<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ攻撃　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード<br>2P：<span class="keycap">←</span><span class="keycap">→</span> 移動　<span class="keycap">↑</span> ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ ダッシュ　↓ 地面攻撃　0 ガード</div>
- <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 3.4</div>
+ <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 3.5</div>
 </section>
 <section id="aiRoomScreen" class="screen"><div class="panel ai-room-panel">
  <div class="panel-head"><div><div class="step">SPECTATOR MODE / AI VS AI</div><h2>AI BATTLE ROOM</h2><div class="ai-room-kicker">観戦専用ルーム · 2体のAIが自動で対戦</div></div><div class="ai-room-live">LOCAL AI ARENA</div></div>
@@ -610,7 +615,7 @@ body.touch-layout-editor-open{overflow:hidden}
  <div class="stage-grid" id="stageGrid"></div>
  <div class="panel-footer"><div class="selected-label" id="stageSelectedText">ARENA <strong>CELESTIAL PEAK</strong></div><div style="display:flex;gap:8px"><button class="secondary-btn" id="backToChar">BACK</button><button class="primary-btn" id="fightBtn">FIGHT　⚡</button></div></div>
  </div></section>
-<section id="battleScreen" class="screen"><canvas id="gameCanvas" width="1280" height="720" aria-label="対戦画面"></canvas><div id="onlineNetStatus" class="online-net-status" hidden>ONLINE SYNC</div>
+<section id="battleScreen" class="screen"><canvas id="gameCanvas" width="1280" height="720" aria-label="対戦画面"></canvas><div id="onlineNetStatus" class="online-net-status" hidden>ONLINE SYNC</div><div id="onlineRtcDiagnostic" class="online-rtc-diagnostic" hidden aria-live="polite"></div>
  <div id="extraPlayerHud" class="extra-player-hud" style="display:none"></div><div id="touchControls" aria-label="タッチ操作" role="group">
   <div class="touch-dpad" id="touchStickArea" aria-label="移動スティック。左右へ動かして移動" role="application">
    <div class="touch-stick-base" aria-hidden="true"></div>
@@ -639,16 +644,16 @@ body.touch-layout-editor-open{overflow:hidden}
 </section>
 <section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 3.4</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 3.5</div>
 <div id="battleSetupOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="battleSetupTitle">
- <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 3.4</div><h2 id="battleSetupTitle">対戦設定</h2>
+ <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 3.5</div><h2 id="battleSetupTitle">対戦設定</h2>
  <p class="shop-lead">通常対戦のモードとCPUの強さを選んでから、キャラクター選択へ進もう。</p>
  <div id="battleSetupControls"></div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="battleSetupCancel">戻る</button><button class="primary-btn" id="battleSetupGo">キャラクター選択へ →</button></div>
  </div>
 </div>
 <div id="shopOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
- <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 3.4</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモートを購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
+ <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 3.5</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモートを購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
  <div class="shop-rules-note">🐕 ペットは通常対戦限定。AIランク戦では使用できません。オーラとエモートは見た目だけで、ランク戦でも使用できます。エモートは V キー。</div>
  <div id="shopItemsGrid" class="shop-items-grid"></div><div id="shopStatus" class="shop-status" aria-live="polite">アイテムを選んでね。</div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="shopClose">戻る</button></div>
@@ -741,7 +746,7 @@ body.touch-layout-editor-open{overflow:hidden}
  <section class="settings-update-card" aria-label="バージョン更新">
   <div><div class="settings-update-title" id="versionUpdateTitle">🔄 バージョン更新</div><div class="settings-update-copy" id="versionUpdateCopy">公開サイトに新しいバージョンがあるか確認します。更新が見つかった場合は再読み込みできます。</div></div>
   <button class="secondary-btn" id="versionUpdateBtn" type="button">更新を確認</button>
-  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 3.4</div>
+  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 3.5</div>
  </section>
  <div class="setting-actions"><button class="secondary-btn" id="settingsCloseBtn">戻る</button><button class="primary-btn" id="settingsApplyBtn">適用</button></div>
  </div></div>
@@ -863,7 +868,7 @@ const stages = [
  {id:'scrapyard',name:'TITAN SCRAPYARD',jp:'巨人のスクラップ場',desc:'廃ロボットと鉄骨が積み重なる工業地帯。',tag:'INDUSTRIAL WASTELAND',sky:['#202838','#77634d'],ground:'#4d5961',glow:'#ffb15e',type:13,platforms:[{x:100,y:510,w:1080,h:66},{x:180,y:415,w:220,h:18},{x:880,y:415,w:220,h:18},{x:465,y:325,w:350,h:20}]}
 ];
 let mode='cpu', p1Pick=0,p2Pick=1,stagePick=0,game=null,frame=0,lastTime=0,raf=0,held={},justPressed={},muted=false,cpuLevel=5,watchLevel1=5,watchLevel2=5;
-// VER 3.4: estimate the display's requestAnimationFrame cadence while the menu is lightweight.
+// VER 3.5: estimate the display's requestAnimationFrame cadence while the menu is lightweight.
 let estimatedDisplayRefreshHz=60,currentSimulationFrameScale=1,currentRenderFrameScale=1;
 (function measureDisplayRefreshRate(){
  const intervals=[];let previous=0,count=0;
@@ -1384,7 +1389,7 @@ function applyLanguage(lang){
  uiLanguage=lang==='en'?'en':'ja';const ja=uiLanguage==='ja',t=settingsLocales[uiLanguage];document.documentElement.lang=uiLanguage;
  $('#settingsTitle').textContent=t.settingsTitle;$('#bgmLabel').textContent=ja?'BGM（背景音楽）':'Background music (BGM)';$('#bgmHelp').textContent=ja?'メニュー・対戦中に流れる音楽':'Original music in menus and battles';$('#bgmVolumeLabel').textContent=ja?'BGM音量':'BGM volume';$('#bgmVolumeHelp').textContent=ja?'背景音楽の音量を調整':'Adjust background music volume';$('.settings-box .step').textContent=ja?'システム設定':'SYSTEM / OPTIONS';document.querySelector('[data-settings-tab="graphics"]').textContent=t.graphicsTab;document.querySelector('[data-settings-tab="language"]').textContent=t.languageTab;document.querySelector('[data-settings-tab="account"]').textContent=t.accountTab;const mobileTabButton=document.querySelector('[data-settings-tab="mobile"]');if(mobileTabButton)mobileTabButton.textContent=ja?'📱 スマホ':'📱 Mobile';if($('#mobileModeSectionTitle'))$('#mobileModeSectionTitle').textContent=ja?'スマホモード':'MOBILE MODE';if($('#mobileModeLabel'))$('#mobileModeLabel').textContent=ja?'スマホモードを有効にする':'Enable mobile mode';if($('#mobileModeHelp'))$('#mobileModeHelp').textContent=ja?'ダブルタップでの拡大を抑え、タッチ向け表示を有効にします。ピンチ拡大は利用できます。':'Reduces double-tap zoom and enables touch-friendly layout. Pinch zoom remains available.';if($('#mobileModeNote'))$('#mobileModeNote').textContent=ja?'「適用」でスマホモードを保存します。全画面表示は上のボタンを押したときに開始します。ブラウザによっては全画面表示に対応していません。':'Press Apply to save mobile mode. Fullscreen starts only after pressing the button. Some browsers do not support fullscreen.';$('#settingsPlayerNameHeading').textContent=ja?'プレイヤー名':'PLAYER NAME';$('#playerNameLabel').textContent=ja?'自分のプレイヤー名':'Your player name';$('#playerNameInput').placeholder=ja?'プレイヤー名（最大24文字）':'Player name (max 24 characters)';$('#playerNameInput').setAttribute('aria-label',ja?'自分のプレイヤー名':'Your player name');$('#savePlayerNameBtn').textContent=ja?'名前を保存':'Save name';$('#settingsAccountHeading').textContent=ja?'アカウント / ログイン':'ACCOUNT / SIGN-IN';$('#settingsEmailHeading').textContent=ja?'メールリンクでログイン':'SIGN IN WITH EMAIL LINK';$('#settingsEmailLabel').textContent=ja?'登録済みアカウントのメールアドレス':'Registered account email';$('#settingsEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link';$('#settingsEmailInput').placeholder=ja?'登録済みメールアドレス':'Registered email address';$('#settingsEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#settingsEmailHelp').textContent=ja?'同じメールアドレスに届いたリンクをこの端末で開くとログインできます。メールリンク認証はFirebase Consoleで有効にする必要があります。':'Open the sign-in link sent to this same email on this device. Email-link sign-in must be enabled in Firebase Console.';$('#settingsAccountNote').textContent=ja?'アカウントを切り替える前にオンラインの部屋から退出してください。登録済みと同じメールアドレスを使ってね。':'Leave your online room before switching accounts. Use the same email address that was previously registered.';['basicGraphicsTitle','audioSettingsTitle','graphicsDetailTitle','fpsLabel','fpsHelp','qualityLabel','qualityHelp','effectsLabel','effectsHelp','soundLabel','soundHelp','volumeLabel','volumeHelp','shadowLabel','shadowHelp','detailLabel','detailHelp','renderScaleLabel','renderScaleHelp','depthLabel','depthHelp','lightingLabel','lightingHelp','atmosphereLabel','atmosphereHelp','bloomLabel','bloomHelp','reflectionLabel','reflectionHelp','motionLabel','motionHelp','gradingLabel','gradingHelp','graphicsHint','languageLabel','languageHelp','languageNote'].forEach(id=>{if($('#'+id))$('#'+id).textContent=t[id]});$('#settingsCloseBtn').textContent=t.close;$('#settingsApplyBtn').textContent=t.apply;$('#settingsBtn').textContent=t.settingsButton;$('#pauseSettingsBtn').textContent=t.settingsButton;const q=$('#qualitySelect');q.options[0].textContent=t.qualityLow;q.options[1].textContent=t.qualityMedium;q.options[2].textContent=t.qualityHigh;q.options[3].textContent=t.qualityUltra;const sh=$('#shadowSelect');sh.options[0].textContent=t.shadowOff;sh.options[1].textContent=t.shadowSoft;sh.options[2].textContent=t.shadowHigh;const de=$('#detailSelect');de.options[0].textContent=t.detailLow;de.options[1].textContent=t.detailMedium;de.options[2].textContent=t.detailHigh;de.options[3].textContent=t.detailUltra;const rs=$('#renderScaleSelect');[t.scaleAuto,t.scale75,t.scale100,t.scale125,t.scale150,t.scale175,t.scale200].forEach((label,i)=>rs.options[i].textContent=label);
  // ホーム画面
- $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、友達の部屋コードで参加しよう。':'Connects automatically at startup. Create a room or join with a friend’s room code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 部屋を作成するか、6文字の部屋コードで参加する。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Create a room or join with a 6-character code.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストが2・3・4人の対戦人数を選んで部屋を作成。友達は部屋コードで参加し、全員がキャラクターを選んで準備完了にしたら開始できます。':'Host chooses a 2-, 3-, or 4-player room. Friends join with the room code, select fighters, and ready up before the host starts.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';$('#howBtn').textContent=ja?'遊び方':'HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 3.4':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 3.4';
+ $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、友達の部屋コードで参加しよう。':'Connects automatically at startup. Create a room or join with a friend’s room code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 部屋を作成するか、6文字の部屋コードで参加する。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Create a room or join with a 6-character code.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストが2・3・4人の対戦人数を選んで部屋を作成。友達は部屋コードで参加し、全員がキャラクターを選んで準備完了にしたら開始できます。':'Host chooses a 2-, 3-, or 4-player room. Friends join with the room code, select fighters, and ready up before the host starts.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';$('#howBtn').textContent=ja?'遊び方':'HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 3.5':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 3.5';
  // AI観戦ルーム
  const roomHead=$('#aiRoomScreen .panel-head');roomHead.querySelector('.step').textContent=ja?'観戦モード / AI対AI':'SPECTATOR MODE / AI VS AI';roomHead.querySelector('h2').textContent=ja?'AI対戦ルーム':'AI BATTLE ROOM';$('#aiRoomScreen .ai-room-kicker').textContent=ja?'観戦専用ルーム · 2体のAIが自動で対戦':'Spectator room · Two AIs fight automatically';$('#aiRoomScreen .ai-room-live').textContent=ja?'ローカルAIアリーナ':'LOCAL AI ARENA';const roomCards=document.querySelectorAll('.ai-room-card h3');if(roomCards[0])roomCards[0].textContent=ja?'01 / シアンチーム':'01 / CYAN TEAM';if(roomCards[1])roomCards[1].textContent=ja?'02 / ピンクチーム':'02 / PINK TEAM';[['#aiRoomScreen label[for="watchP1Select"]','キャラクター1','FIGHTER 1'],['#aiRoomScreen label[for="watchLevel1"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchP2Select"]','キャラクター2','FIGHTER 2'],['#aiRoomScreen label[for="watchLevel2"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchStageSelect"]','ステージ','BATTLE ARENA'],['#aiRoomScreen label[for="watchMatchLength"]','対戦時間','MATCH LENGTH']].forEach(([sel,j,e])=>setText(sel,j,e));$('#aiRoomScreen .ai-room-hint').textContent=ja?'AIが自分で移動・ジャンプ・攻撃・ガード・必殺技を使って戦うよ。観戦中は操作不要。キャラや強さを変えて、何度でも対戦を見られる！':'AIs move, jump, attack, guard and use special moves automatically. No controls are needed while watching. Change fighters or levels and watch again!';$('#watchBackBtn').textContent=ja?'← ホームへ戻る':'← BACK TO HOME';$('#watchStartBtn').textContent=ja?'▶ 観戦開始':'▶ START WATCHING';
  // キャラクター・ステージ選択
@@ -1437,7 +1442,7 @@ function saveGraphicsSettings(){try{localStorage.setItem('skyboundGraphicsSettin
 function closeSettings(){ $('#settingsOverlay').classList.remove('show') }
 function applySettings(){showFPS=$('#fpsToggle').checked;graphicsQuality=$('#qualitySelect').value;particlesEnabled=$('#effectsToggle').checked;shadowQuality=$('#shadowSelect').value;environmentDetail=$('#detailSelect').value;resolutionScaleSetting=$('#renderScaleSelect').value;depthEffects=$('#depthToggle').checked;cinematicLighting=$('#lightingToggle').checked;atmosphereEnabled=$('#atmosphereToggle').checked;bloomEnabled=$('#bloomToggle').checked;reflectionEnabled=$('#reflectionToggle').checked;motionTrailsEnabled=$('#motionToggle').checked;colorGradingEnabled=$('#gradingToggle').checked;soundEnabled=$('#soundToggle').checked;soundVolume=Number($('#soundVolume').value)/100;bgmEnabled=$('#bgmToggle').checked;bgmVolume=Number($('#bgmVolume').value)/100;applyLanguage($('#languageSelect').value);setMobileMode($('#mobileModeToggle').checked,true);saveGraphicsSettings();saveAudioSettings();initAudio();if(masterGain)masterGain.gain.setTargetAtTime(soundEnabled?soundVolume:0,audioCtx.currentTime,.025);if(bgmEnabled)startBGM();else stopBGM();if(bgmGain)bgmGain.gain.setTargetAtTime(bgmEnabled?bgmVolume:0,audioCtx.currentTime,.08);$('#fpsCounter').style.display=showFPS&&$('#battleScreen').classList.contains('active')?'block':'none';resizeCanvas();closeSettings();if($('#battleScreen').classList.contains('active'))render();playSfx('ui')}
 
-// VER 3.4 admin panel. This client-side password is only a UI gate;
+// VER 3.5 admin panel. This client-side password is only a UI gate;
 // Firebase Rules must separately authorize one trusted admin UID.
 const ADMIN_MODE_PASSWORD = 'kansuke1102';
 let adminModeUnlocked = false;
@@ -1656,7 +1661,7 @@ function updateTouchStick(e){
  const wantLeft=nx < -dead,wantRight=nx > dead;
  held.a=wantLeft;held.d=wantRight;
  if(touchStickHint)touchStickHint.textContent=wantLeft?'◀':wantRight?'▶':'MOVE';
-  // VER 3.4: the left stick controls horizontal movement only. Jump uses the separate right-hand button.
+  // VER 3.5: the left stick controls horizontal movement only. Jump uses the separate right-hand button.
   stickJumpActive=false;
   stickSlamActive=false;
 }
@@ -1983,7 +1988,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   let onlineStateRef = null;
   let onlineInputsListener = null;
   let onlineStateListener = null;
-  // VER 3.4: use WebRTC DataChannels for live match traffic; Firebase remains room/auth/signaling and fallback.
+  // VER 3.5: use WebRTC DataChannels for live match traffic; Firebase remains room/auth/signaling and fallback.
   const rtcPeers = new Map();
   const rtcSignalSubscriptions = [];
   let rtcMatchKey = '';
@@ -1991,7 +1996,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   let rtcSignalReadError = '';
   let rtcSignalWriteError = '';
   let rtcSignalPaths = []; 
-  // VER 3.4: count signaling messages so a missing answer or mismatched session is visible.
+  // VER 3.5: count signaling messages so a missing answer or mismatched session is visible.
   let rtcSignalCounts = {offerSent:0, offerReceived:0, answerSent:0, answerReceived:0, candidatesReceived:0, sessionMismatch:0};
   let lastFallbackStateWriteAt = 0;
   let localActionSequences = {jump:0,attack:0,heavy:0,special:0,dash:0,slam:0,ultimate:0,emote:0};
@@ -2026,10 +2031,8 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   function refreshRtcStatus(){
     const connected=rtcFastStateReady();
     window.SKYBOUND_ONLINE_RTC_CONNECTED=connected;
-    if(connected){setOnlineNetStatus('⚡ 低遅延P2P同期中（WebRTC）',false);return;}
-    // VER 3.4: diagnostics are shown on guests too, even if the room has not
-    // created its peer yet or onlineMatchStarted is still false.
-    if(!activeRoomRef || !activeRoomRole)return;
+    const diagEl=$('onlineRtcDiagnostic');
+    if(!activeRoomRef || !activeRoomRole){if(diagEl)diagEl.hidden=true;return;}
     let detail='';
     if(rtcSignalWriteError) detail='シグナリング書き込み失敗: '+rtcSignalWriteError;
     else if(rtcSignalReadError) detail='シグナリング受信失敗: '+rtcSignalReadError;
@@ -2041,7 +2044,10 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     }
     const paths=rtcSignalPaths.length?(' | signalPath='+rtcSignalPaths.map(x=>x.peerRole+':'+x.path).join(' ; ')):'';
     detail+=` | role=${activeRoomRole||'?'} room=${activeRoomCode||'?'} session=${rtcMatchKey||'?'} signals: offer↑${rtcSignalCounts.offerSent}/↓${rtcSignalCounts.offerReceived}, answer↑${rtcSignalCounts.answerSent}/↓${rtcSignalCounts.answerReceived}, cand↓${rtcSignalCounts.candidatesReceived}, keyMismatch=${rtcSignalCounts.sessionMismatch}`+paths;
-    setOnlineNetStatus((onlineMatchStarted?'オンライン同期中':'オンライン接続診断')+' · Firebaseバックアップで継続中\n診断: '+detail,false);
+    if(diagEl){diagEl.textContent='診断 ('+activeRoomRole+'): '+detail;diagEl.hidden=false;}
+    if(connected){setOnlineNetStatus('⚡ 低遅延P2P同期中（WebRTC）',false);}
+    else if(rtcSignalWriteError||rtcSignalReadError){setOnlineNetStatus('⚠ P2P接続エラー · Firebaseバックアップで継続中',true);}
+    else{setOnlineNetStatus((onlineMatchStarted?'オンライン同期中':'オンライン接続診断')+' · Firebaseバックアップで継続中',false);}
   }
   function sendRtcSignal(peerRole,payload){
     if(!activeRoomRef||!rtcMatchKey||!activeRoomRole)return Promise.resolve(false);
@@ -2090,7 +2096,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     if(typeof RTCPeerConnection==='undefined')throw new Error('WEBRTC_UNAVAILABLE');
     const pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'},{urls:'stun:stun2.l.google.com:19302'},{urls:'stun:stun.cloudflare.com:3478'}]});
     const rec={role:peerRole,pc,control:null,state:null,pendingCandidates:[],localCandidateBuffer:[],allowTrickle:false,remoteDescriptionSet:false};rtcPeers.set(peerRole,rec);
-    // VER 3.4: prefer a complete SDP; if gathering takes too long, fall back to safely queued trickle candidates.
+    // VER 3.5: prefer a complete SDP; if gathering takes too long, fall back to safely queued trickle candidates.
     pc.onicecandidate=event=>{
       if(event.candidate){const candidate=event.candidate.toJSON?event.candidate.toJSON():event.candidate;rec.localCandidateBuffer.push(candidate);if(rec.allowTrickle)sendRtcSignal(peerRole,{type:'candidate',candidate});}
       if(pc.iceGatheringState==='complete')refreshRtcStatus();
@@ -2181,7 +2187,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
       remoteSignalRef.on('child_added',listener,error=>{rtcSignalReadError=error&&(error.code||error.message)||'permission denied';console.warn('RTC signal listener failed:',error);refreshRtcStatus();});
       refreshRtcStatus();
       // Display the exact shared session and signaling path for easier Firebase-rule diagnosis.
-      console.info('[53sumabura VER 3.4 RTC]',{role:activeRoomRole,peerRole,roomCode:activeRoomCode,session:rtcMatchKey,path:remoteSignalRef.toString()});
+      console.info('[53sumabura VER 3.5 RTC]',{role:activeRoomRole,peerRole,roomCode:activeRoomCode,session:rtcMatchKey,path:remoteSignalRef.toString()});
       if(activeRoomRole==='host'){
         offerJobs.push((async()=>{
           try{const offer=await rec.pc.createOffer();await rec.pc.setLocalDescription(offer);await publishRtcDescription(peerRole,rec,'offer');refreshRtcStatus();}
@@ -2209,12 +2215,12 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     onlineInputsListener=snapshot=>{const all=snapshot.val()||{};for(const role of onlineRoleKeys()){if(role===myRole)continue;const packet=all[role];if(packet)applyRemoteInputPacket(role,packet);}};
     onlineInputsRef.on('value',onlineInputsListener,error=>{const message='⚠ 入力同期エラー：'+roomErrorMessage(error);setOnlineCharacterStatus(message);setOnlineNetStatus(message,true);});
     if(myRole!=='host'){
-      onlineStateListener=snapshot=>{if(rtcFastStateReady())return;const data=snapshot.val();if(data&&window.SKYBOUND_APPLY_ONLINE_STATE){window.SKYBOUND_APPLY_ONLINE_STATE(data);if(!$('onlineNetStatus').dataset.receivedOnce){$('onlineNetStatus').dataset.receivedOnce='1';setOnlineNetStatus('オンライン同期中 · Firebaseバックアップ受信OK',false);}}};
+      onlineStateListener=snapshot=>{if(rtcFastStateReady())return;const data=snapshot.val();if(data&&window.SKYBOUND_APPLY_ONLINE_STATE){window.SKYBOUND_APPLY_ONLINE_STATE(data);if(!$('onlineNetStatus').dataset.receivedOnce){$('onlineNetStatus').dataset.receivedOnce='1';}refreshRtcStatus();}};
       onlineStateRef.on('value',onlineStateListener,error=>{const message='⚠ ゲーム状態の受信に失敗：'+roomErrorMessage(error);setOnlineCharacterStatus(message);setOnlineNetStatus(message,true);});
     }
     try{activeRoomRef.child('inputs/'+myRole).onDisconnect().remove();}catch(_){ }
     // Firebase signal exchange is used only to establish peer-to-peer WebRTC links.
-    Promise.resolve(setupRtcForRoom(room||{})).catch(error=>{console.warn('WebRTC setup failed; Firebase fallback active:',error);setOnlineNetStatus('WebRTC接続不可・Firebaseバックアップ同期中',false);});
+    Promise.resolve(setupRtcForRoom(room||{})).catch(error=>{rtcSignalReadError='WebRTC setup: '+(error&&(error.code||error.message)||'unknown error');console.warn('WebRTC setup failed; Firebase fallback active:',error);refreshRtcStatus();});
     onlineInputTimer=setInterval(()=>{
       const heldState=onlineLogicalHeld(),states=window.SKYBOUND_ONLINE_INPUTS;
       const packet={type:'input',role:myRole,left:!!heldState.left,right:!!heldState.right,guard:!!heldState.guard,emoteId:(window.SKYBOUND_GET_EQUIPPED_EMOTE&&window.SKYBOUND_GET_EQUIPPED_EMOTE())||'cheer',actions:{...localActionSequences}};
@@ -2238,7 +2244,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
         if(allRtc&&anyRtc)refreshRtcStatus();
       },33);
     }
-    setOnlineNetStatus('⚡ P2P接続を準備中（接続候補をそろえて交渉中）。接続できない相手にはFirebaseバックアップを使用します。',false);
+    refreshRtcStatus();
   }
   function launchOnlineMatch(room){
     if(onlineMatchStarted||!room||!room.match||room.match.status!=='playing')return;
@@ -2971,7 +2977,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 </script>
 
 <script>
-// VER 3.4: refresh the fight canvas on orientation and visual-viewport changes.
+// VER 3.5: refresh the fight canvas on orientation and visual-viewport changes.
 (() => {
   const refreshResponsiveCanvas = () => {
     window.requestAnimationFrame(() => {
@@ -2989,7 +2995,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 </script>
 
 
-<!-- VER 3.4: touch-layout visual editor. -->
+<!-- VER 3.5: touch-layout visual editor. -->
 <div id="touchLayoutModal" class="touch-layout-modal" hidden>
  <section class="touch-layout-dialog" role="dialog" aria-modal="true" aria-labelledby="touchLayoutModalTitle">
   <header class="touch-layout-dialog-head">
@@ -3037,7 +3043,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
  </section>
 </div>
 <script>
-// VER 3.4: viewport-matched drag-and-drop touch layout editor.
+// VER 3.5: viewport-matched drag-and-drop touch layout editor.
 (function(){
  const root=document.getElementById('touchControls');
  const modal=document.getElementById('touchLayoutModal');
@@ -3182,7 +3188,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 
 
 <script>
-// VER 3.4 cinematic startup: short intro, tap/click/key to skip.
+// VER 3.5 cinematic startup: short intro, tap/click/key to skip.
 (function(){
  const intro=document.getElementById('startupIntro');if(!intro)return;let ended=false;let timer=null;
  function finishIntro(){if(ended)return;ended=true;if(timer!==null)clearTimeout(timer);intro.classList.add('is-exiting');intro.setAttribute('aria-hidden','true');setTimeout(()=>{if(intro.isConnected)intro.remove();},720);}
