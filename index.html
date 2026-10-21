@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>53sumabura | VER 5.2</title>
+<title>53sumabura | VER 5.3</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -690,11 +690,127 @@ body.touch-layout-editor-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){#versusIntro *,#versusIntro *:before,#versusIntro *:after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
 </style>
 
+
+<style id="ver53-motion-manual-styles">
+/* VER 5.3: calm page-navigation motion, deliberately different from the old neon slash. */
+#pageTransitionFx{position:fixed;inset:0;z-index:99980;overflow:hidden;pointer-events:none;visibility:hidden;opacity:1;contain:strict;display:block}
+#pageTransitionFx:before,#pageTransitionFx:after{content:none!important;display:none!important;animation:none!important}
+#pageTransitionFx .page-curtain{position:absolute;top:-3%;height:106%;width:25.2%;left:calc(var(--curtain-index,0)*25%);opacity:0;transform:translateY(-110%);background:linear-gradient(160deg,#1a3550 0%,#0c1b30 48%,#07101e 100%);border-right:1px solid #8defff20;box-shadow:inset 0 0 30px #5deaff0a;will-change:transform,opacity}
+#pageTransitionFx .curtain-1{left:0%;--curtain-delay:0ms}
+#pageTransitionFx .curtain-2{left:25%;--curtain-delay:35ms}
+#pageTransitionFx .curtain-3{left:50%;--curtain-delay:70ms}
+#pageTransitionFx .curtain-4{left:75%;--curtain-delay:105ms}
+#pageTransitionFx.is-active{visibility:visible;opacity:1}
+#pageTransitionFx.is-active .page-curtain{animation:pageCurtainOpen .68s cubic-bezier(.52,.02,.25,1) var(--curtain-delay,0ms) both}
+@keyframes pageCurtainOpen{0%{opacity:0;transform:translateY(-110%)}14%{opacity:1}38%{opacity:1;transform:translateY(0)}58%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(110%)}}
+/* Page reveal: unfolds from one side like a physical page; no attack flashes or combat shake. */
+.screen.active.screen-entry-animate{animation:pageLeafUnfold .58s cubic-bezier(.2,.8,.22,1) both!important;will-change:clip-path,opacity,transform}
+@keyframes pageLeafUnfold{0%{opacity:.25;clip-path:inset(0 0 0 100%);transform:perspective(1400px) rotateY(-7deg) scale(.99);filter:blur(2px)}62%{opacity:1;clip-path:inset(0 0 0 0);transform:perspective(1400px) rotateY(1deg) scale(1.003);filter:blur(0)}100%{opacity:1;clip-path:inset(0 0 0 0);transform:perspective(1400px) rotateY(0) scale(1);filter:none}}
+#titleScreen.active.screen-entry-animate .title-mark{animation:titlePageLift .64s cubic-bezier(.2,.85,.25,1) both!important}
+@keyframes titlePageLift{0%{opacity:0;transform:translateY(22px) rotateX(-8deg) scale(.96);filter:blur(5px)}72%{opacity:1;transform:translateY(-2px) rotateX(1deg) scale(1.005);filter:none}100%{opacity:1;transform:none;filter:none}}
+#titleScreen.active.screen-entry-animate .title-actions button{animation:menuControlFlip .42s cubic-bezier(.2,.85,.2,1) both!important}
+#titleScreen.active.screen-entry-animate .title-actions button:nth-child(1){animation-delay:40ms!important}#titleScreen.active.screen-entry-animate .title-actions button:nth-child(2){animation-delay:75ms!important}#titleScreen.active.screen-entry-animate .title-actions button:nth-child(3){animation-delay:110ms!important}#titleScreen.active.screen-entry-animate .title-actions button:nth-child(4){animation-delay:145ms!important}#titleScreen.active.screen-entry-animate .title-actions button:nth-child(5){animation-delay:180ms!important}#titleScreen.active.screen-entry-animate .title-actions button:nth-child(6){animation-delay:215ms!important}#titleScreen.active.screen-entry-animate .title-actions button:nth-child(7){animation-delay:250ms!important}
+@keyframes menuControlFlip{0%{opacity:0;transform:translateY(11px) rotateX(-16deg) scale(.97)}72%{opacity:1;transform:translateY(-1px) rotateX(2deg) scale(1.01)}100%{opacity:1;transform:none}}
+#cpuChallengeScreen.active.screen-entry-animate .cpu-challenge-panel,#charScreen.active.screen-entry-animate .panel,#stageScreen.active.screen-entry-animate .panel,#aiRoomScreen.active.screen-entry-animate .panel,#onlineCharacterScreen.active.screen-entry-animate .panel{animation:panelSheetDrop .54s cubic-bezier(.16,.83,.22,1) both!important;transform-origin:50% 0}
+@keyframes panelSheetDrop{0%{opacity:0;transform:translateY(-18px) scaleY(.94);clip-path:inset(0 0 100% 0);filter:blur(2px)}70%{opacity:1;transform:translateY(2px) scaleY(1.005);clip-path:inset(0 0 0 0);filter:none}100%{opacity:1;transform:none;clip-path:inset(0 0 0 0);filter:none}}
+#charScreen.active.screen-entry-animate .char-grid>.char-card,#onlineCharacterScreen.active.screen-entry-animate .online-char-grid>.char-card,#stageScreen.active.screen-entry-animate .stage-grid>*,#cpuChallengeScreen.active.screen-entry-animate .cpu-challenge-level,#aiRoomScreen.active.screen-entry-animate .ai-room-card{animation:tileTurnIn .4s cubic-bezier(.2,.8,.25,1) both!important;animation-delay:var(--entry-delay,var(--challenge-delay,0ms))!important}
+@keyframes tileTurnIn{0%{opacity:0;transform:perspective(700px) rotateY(18deg) translateY(8px) scale(.94);filter:blur(2px)}75%{opacity:1;transform:perspective(700px) rotateY(-1deg) translateY(-1px) scale(1.005);filter:none}100%{opacity:1;transform:none;filter:none}}
+#resultScreen.active.screen-entry-animate>*{animation:resultFoldIn .42s cubic-bezier(.2,.8,.2,1) both!important;animation-delay:var(--result-delay,0ms)!important}
+@keyframes resultFoldIn{0%{opacity:0;transform:scale(.92) rotateX(-8deg)}72%{opacity:1;transform:scale(1.01) rotateX(1deg)}100%{opacity:1;transform:none}}
+/* A completely separate full-page manual with its own navigation and scroll container. */
+#howScreen{align-items:flex-start;justify-content:center;padding:clamp(10px,2.4vw,26px);overflow:hidden}
+#howScreen.active~#versionBadge{display:none!important}
+#howScreen .how-guide{width:min(1100px,100%);max-height:100%;overflow:auto;overscroll-behavior:contain;border:1px solid #52718b9c;border-radius:18px;background:linear-gradient(155deg,#0d2138f7,#071323fa 56%,#0a192cfa);box-shadow:0 24px 80px #0009;padding:clamp(16px,3vw,34px);scroll-behavior:smooth;scrollbar-color:#416987 #071323;position:relative}
+#howScreen .how-guide-header{padding:clamp(10px,2vw,20px) 0 22px;border-bottom:1px solid #83dfff25;position:relative}
+#howScreen .how-guide-header:before{content:"";position:absolute;right:0;top:0;width:min(26vw,220px);height:160px;pointer-events:none;background:radial-gradient(ellipse at 50% 25%,#60f0ff26,transparent 70%);filter:blur(10px)}
+#howScreen .how-back-btn{min-width:0;padding:9px 14px;margin-bottom:20px}
+.how-guide-kicker{font:900 11px 'Barlow Condensed',sans-serif;letter-spacing:.22em;color:#71eeff;text-transform:uppercase}
+#howPageTitle{font-size:clamp(30px,5vw,57px);line-height:1.05;letter-spacing:-.04em;margin:10px 0 12px;font-weight:1000}
+#howPageTitle span{display:inline-block;color:#7ceeff;text-shadow:0 0 24px #54dfff38}
+#howScreen .how-guide-header>p{color:#a9bfd3;line-height:1.8;margin:0;max-width:780px;font-size:14px}
+.how-guide-badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:17px}.how-guide-badges span{border:1px solid #4a758f;background:#0a1a2e;padding:6px 9px;border-radius:4px;font-size:9px;font-weight:900;letter-spacing:.1em;color:#bcefff}
+.how-guide-toc{position:sticky;top:0;z-index:6;display:flex;gap:7px;align-items:center;flex-wrap:wrap;padding:12px 0;background:#09182bec;backdrop-filter:blur(12px);border-bottom:1px solid #6ecfe91a}
+.how-guide-toc strong{font-size:11px;color:#6feeff;letter-spacing:.1em;margin-right:3px}
+.how-guide-toc button{min-width:0;padding:7px 10px;border:1px solid #2e4c68;border-radius:6px;background:#10233a;color:#d6e7f4;font-size:11px;font-weight:800;transition:background .2s,border-color .2s,transform .2s}
+.how-guide-toc button:hover{background:#163b54;border-color:#65e9ff;transform:translateY(-2px)}
+.manual-section{padding:clamp(22px,3vw,36px) 0;border-bottom:1px solid #83dfff1f;scroll-margin-top:75px}
+.manual-section-heading{display:flex;gap:13px;align-items:center;margin-bottom:20px}
+.manual-section-heading>span{display:grid;place-items:center;flex:0 0 43px;width:43px;height:43px;border:1px solid #68eaff66;border-radius:12px;background:linear-gradient(145deg,#17435a,#0b1b2d);color:#8cf2ff;font:900 17px 'Barlow Condensed',sans-serif;box-shadow:inset 0 0 20px #6beeff0c}
+.manual-section-heading h2{margin:0;color:#f1fbff;font-size:clamp(19px,2.6vw,26px);font-weight:900}
+.manual-section-heading p{margin:4px 0 0;color:#8faac2;font-size:12px}
+.manual-step-grid,.manual-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.manual-step-card,.manual-feature-card{min-width:0;border:1px solid #385570;border-radius:10px;padding:16px;background:linear-gradient(140deg,#102740,#09182a);transition:transform .23s,border-color .23s,box-shadow .23s}
+.manual-step-card:hover,.manual-feature-card:hover{transform:translateY(-3px);border-color:#59dced;box-shadow:0 12px 25px #0003}
+.manual-step-card>b{font:900 10px 'Barlow Condensed',sans-serif;letter-spacing:.17em;color:#7cefff}
+.manual-step-card h3,.manual-feature-card h3{margin:8px 0;color:#f1fbff;font-size:15px;font-weight:900}
+.manual-step-card p,.manual-feature-card p{margin:0;color:#a4b9ce;font-size:12px;line-height:1.85}
+.manual-tip,.manual-warning{margin-top:14px;padding:14px 16px;border:1px solid #397786;background:linear-gradient(100deg,#0e2b3c,#0a1c2e);border-radius:8px}
+.manual-tip>strong,.manual-warning>strong{font-size:12px;color:#86f0ff}.manual-tip p,.manual-warning p{margin:5px 0 0;color:#b4c8d9;font-size:12px;line-height:1.85}
+.manual-subheading{margin:24px 0 10px;color:#8defff;font-weight:900;font-size:13px;letter-spacing:.04em}
+.manual-table-wrap{width:100%;overflow-x:auto;border:1px solid #314e68;border-radius:8px}
+.manual-table{border-collapse:collapse;width:100%;min-width:470px;background:#08172a}
+.manual-table th,.manual-table td{text-align:left;padding:11px 13px;border-bottom:1px solid #ffffff12;font-size:12px;line-height:1.65}
+.manual-table th{background:#112a42;color:#9ceeff;font-weight:900}.manual-table td{color:#c0d1df}.manual-table tr:last-child td{border-bottom:0}.manual-table tbody tr:hover{background:#10263c}
+.manual-table kbd{display:inline-block;min-width:22px;padding:3px 7px;text-align:center;border:1px solid #607b93;border-bottom-width:3px;border-radius:5px;background:#152b42;color:#f5fbff;font:900 11px ui-monospace,monospace}
+.manual-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.manual-feature-icon{display:inline-grid;place-items:center;width:38px;height:38px;border:1px solid #40627c;border-radius:9px;background:#0c1d31;font-size:20px}.manual-feature-card h3{margin-top:11px}
+.manual-mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.manual-mode-card{padding:17px;border:1px solid #3a526f;border-radius:10px;background:linear-gradient(145deg,#10253b,#081625);position:relative;overflow:hidden;transition:transform .22s,border-color .22s}
+.manual-mode-card:after{content:"";position:absolute;right:-28px;top:-30px;width:100px;height:100px;border-radius:50%;background:var(--mode-glow,#60f0ff20);filter:blur(5px);pointer-events:none}
+.manual-mode-card:hover{transform:translateY(-3px);border-color:#77eaff}
+.manual-mode-card.mode-cyan{--mode-glow:#60f0ff23}.manual-mode-card.mode-pink{--mode-glow:#ff608e26}.manual-mode-card.mode-gold{--mode-glow:#ffe29a24}.manual-mode-card.mode-violet{--mode-glow:#ae8bff25}.manual-mode-card.mode-green{--mode-glow:#7dffbd24}
+.manual-mode-tag{color:#7beeff;font:900 10px 'Barlow Condensed',sans-serif;letter-spacing:.16em}.manual-mode-card h3{margin:7px 0;font-size:17px}.manual-mode-card p{color:#afc2d2;font-size:12px;line-height:1.9;margin:0}.manual-mode-foot{margin-top:12px;padding-top:10px;border-top:1px solid #ffffff18;color:#83dce9;font-size:11px;font-weight:800}
+.manual-ordered-list{list-style:none;counter-reset:guide-step;padding:0;margin:0;display:grid;gap:10px}
+.manual-ordered-list li{counter-increment:guide-step;display:grid;grid-template-columns:42px minmax(0,1fr);column-gap:12px;row-gap:3px;padding:14px;border:1px solid #304d67;border-radius:8px;background:#0b1b2e}
+.manual-ordered-list li:before{content:counter(guide-step,decimal-leading-zero);grid-row:span 2;display:grid;place-items:center;height:38px;width:38px;border-radius:9px;background:#12344a;color:#8bf0ff;font:900 15px 'Barlow Condensed',sans-serif}
+.manual-ordered-list li b{font-size:13px;color:#eefaff}.manual-ordered-list li span{font-size:12px;line-height:1.85;color:#a8bfd2}
+.manual-settings-list{display:grid;gap:9px}.manual-settings-list article{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;align-items:start;padding:13px;border:1px solid #2f4a64;border-radius:8px;background:#0a1a2b;transition:border-color .2s,transform .2s}.manual-settings-list article:hover{border-color:#59ddec;transform:translateX(3px)}
+.manual-setting-mark{display:grid;place-items:center;width:40px;height:40px;border:1px solid #3e617d;border-radius:10px;background:#10243a;font-size:19px}
+.manual-settings-list h3{font-size:13px;margin:2px 0 5px}.manual-settings-list p{margin:0;color:#a8bdd0;font-size:12px;line-height:1.85}
+.manual-small-note{color:#91a8bd;font-size:11px;line-height:1.8;margin:13px 0 0}
+.manual-faq-list{display:grid;gap:8px}.manual-faq-list details{border:1px solid #344f69;border-radius:8px;background:#0b1a2d;overflow:hidden}.manual-faq-list summary{cursor:pointer;list-style:none;font-size:13px;font-weight:900;padding:14px 16px;color:#e4f7ff;transition:background .2s}.manual-faq-list summary::-webkit-details-marker{display:none}.manual-faq-list summary:after{content:"＋";float:right;color:#7deeff}.manual-faq-list details[open] summary{background:#112a42}.manual-faq-list details[open] summary:after{content:"−"}.manual-faq-list details p{margin:0;padding:0 16px 15px;color:#b1c5d6;font-size:12px;line-height:1.9}
+.how-guide-footer{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:20px 0 2px}.how-guide-footer span{margin-right:auto;color:#85a5be;font:900 10px 'Barlow Condensed',sans-serif;letter-spacing:.1em}.how-guide-footer button{min-width:0;padding:11px 15px}
+/* Give every menu/control surface subtle feedback; no fighting or combat FX are triggered by navigation. */
+.screen:not(#battleScreen) button,.settings-box button,.online-box button,.custom-overlay button,.touch-layout-dialog button{transition:transform .2s cubic-bezier(.2,.7,.2,1),filter .2s,box-shadow .2s,border-color .2s,background-color .2s}
+.screen:not(#battleScreen) button:hover,.settings-box button:hover,.online-box button:hover,.custom-overlay button:hover,.touch-layout-dialog button:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.screen:not(#battleScreen) button:active,.settings-box button:active,.online-box button:active,.custom-overlay button:active,.touch-layout-dialog button:active{transform:translateY(1px) scale(.985);filter:brightness(.98)}
+#settingsOverlay.show .settings-box{animation:settingsDrawerOpen .48s cubic-bezier(.18,.8,.22,1) both}
+@keyframes settingsDrawerOpen{0%{opacity:0;transform:translateY(22px) scale(.97);clip-path:inset(0 0 100% 0);filter:blur(3px)}68%{opacity:1;transform:translateY(-2px) scale(1.004);clip-path:inset(0 0 0 0);filter:none}100%{opacity:1;transform:none;clip-path:inset(0 0 0 0);filter:none}}
+#settingsOverlay.show .settings-tabs{animation:settingsTabReveal .36s .08s ease-out both}
+@keyframes settingsTabReveal{0%{opacity:0;transform:translateX(-12px)}100%{opacity:1;transform:none}}
+#settingsOverlay.show .settings-section-title{animation:settingHeadingReveal .35s ease-out both}
+@keyframes settingHeadingReveal{0%{opacity:0;transform:translateX(7px)}100%{opacity:1;transform:none}}
+#settingsOverlay .setting-row.setting-row-animate{animation:settingRowLift .34s cubic-bezier(.2,.8,.2,1) var(--setting-delay,0ms) both}
+@keyframes settingRowLift{0%{opacity:.25;transform:translateY(7px);border-color:#70eaff00}100%{opacity:1;transform:translateY(0);border-color:#ffffff1c}}
+.settings-tab{transition:transform .2s,background .2s,color .2s,box-shadow .2s!important}
+.settings-tab:hover{transform:translateY(-2px) scale(1.01)}
+.settings-tab.active{animation:tabActiveBreathe .42s ease-out both}
+@keyframes tabActiveBreathe{0%{transform:scale(.96);box-shadow:0 0 0 #60f0ff00}65%{transform:scale(1.025);box-shadow:0 0 20px #60f0ff32}100%{transform:scale(1);box-shadow:0 0 15px #60f0ff24}}
+.settings-box input:not([type=checkbox]):focus,.settings-box select:focus,.online-box input:focus,.online-box select:focus,.custom-overlay input:focus,.custom-overlay select:focus{outline:none;border-color:#72edff!important;box-shadow:0 0 0 3px #60f0ff24,0 0 16px #60f0ff12;transform:translateY(-1px)}
+.settings-box input,.settings-box select,.online-box input,.online-box select,.custom-overlay input,.custom-overlay select{transition:border-color .18s,box-shadow .18s,transform .18s}
+#onlineOverlay.show .online-box{animation:onlinePanelUnfold .5s cubic-bezier(.15,.84,.22,1) both}
+@keyframes onlinePanelUnfold{0%{opacity:0;transform:scale(.94) rotateX(5deg);clip-path:inset(0 0 100% 0)}70%{opacity:1;transform:scale(1.003) rotateX(0);clip-path:inset(0 0 0 0)}100%{opacity:1;transform:none;clip-path:inset(0 0 0 0)}}
+.custom-overlay.show .custom-overlay-box{animation:customPanelFlip .46s cubic-bezier(.17,.86,.22,1) both}
+@keyframes customPanelFlip{0%{opacity:0;transform:translateY(14px) rotateX(-7deg) scale(.97);transform-origin:top center}72%{opacity:1;transform:translateY(-1px) rotateX(1deg) scale(1.003)}100%{opacity:1;transform:none}}
+#shopOverlay.show .shop-items-grid>*{animation:shopItemCardIn .36s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--shop-entry-index,0)*32ms)}
+@keyframes shopItemCardIn{0%{opacity:0;transform:translateY(8px) scale(.96)}100%{opacity:1;transform:none}}
+#pauseOverlay.show .pause-box{animation:settingsDrawerOpen .38s cubic-bezier(.18,.8,.22,1) both}
+#touchLayoutModal:not([hidden]) .touch-layout-dialog{animation:customPanelFlip .42s cubic-bezier(.17,.86,.22,1) both}
+/* The manual's own sections/cards also reveal softly while scrolling; the document stays ordinary HTML. */
+#howScreen.active.screen-entry-animate .how-guide-header{animation:manualHeaderFold .58s .05s cubic-bezier(.2,.8,.2,1) both!important}
+#howScreen.active.screen-entry-animate .how-guide-toc{animation:manualTocSlide .42s .12s ease-out both!important}
+#howScreen.active.screen-entry-animate .manual-section{animation:manualSectionAppear .45s ease-out both!important}
+@keyframes manualHeaderFold{0%{opacity:0;transform:translateY(-12px) scaleY(.94);transform-origin:top;filter:blur(3px)}100%{opacity:1;transform:none;filter:none}}
+@keyframes manualTocSlide{0%{opacity:0;transform:translateX(-12px)}100%{opacity:1;transform:none}}
+@keyframes manualSectionAppear{0%{opacity:.2;transform:translateY(9px)}100%{opacity:1;transform:none}}
+@media(max-width:760px){#howScreen{padding:7px}#howScreen .how-guide{padding:13px;border-radius:12px}#howPageTitle{font-size:clamp(28px,7.5vw,42px)}.how-guide-toc{gap:5px}.how-guide-toc strong{width:100%}.how-guide-toc button{font-size:10px;padding:7px 8px}.manual-step-grid,.manual-feature-grid,.manual-mode-grid{grid-template-columns:1fr}.manual-section-heading>span{flex-basis:36px;width:36px;height:36px}.manual-section-heading h2{font-size:19px}.manual-table th,.manual-table td{padding:9px 10px}.how-guide-footer{align-items:stretch}.how-guide-footer span{width:100%;margin:0 0 4px}.how-guide-footer button{flex:1}.manual-ordered-list li{grid-template-columns:34px minmax(0,1fr);padding:11px}.manual-ordered-list li:before{width:32px;height:32px}}
+@media(prefers-reduced-motion:reduce){#pageTransitionFx{display:none!important}.screen.active.screen-entry-animate,#titleScreen.active.screen-entry-animate .title-mark,#titleScreen.active.screen-entry-animate .title-actions button,#cpuChallengeScreen.active.screen-entry-animate .cpu-challenge-panel,#charScreen.active.screen-entry-animate .panel,#stageScreen.active.screen-entry-animate .panel,#aiRoomScreen.active.screen-entry-animate .panel,#onlineCharacterScreen.active.screen-entry-animate .panel,#charScreen.active.screen-entry-animate .char-grid>.char-card,#onlineCharacterScreen.active.screen-entry-animate .online-char-grid>.char-card,#stageScreen.active.screen-entry-animate .stage-grid>*,#cpuChallengeScreen.active.screen-entry-animate .cpu-challenge-level,#aiRoomScreen.active.screen-entry-animate .ai-room-card,#resultScreen.active.screen-entry-animate>*,#howScreen.active.screen-entry-animate .how-guide-header,#howScreen.active.screen-entry-animate .how-guide-toc,#howScreen.active.screen-entry-animate .manual-section,#settingsOverlay.show .settings-box,#onlineOverlay.show .online-box,.custom-overlay.show .custom-overlay-box,#pauseOverlay.show .pause-box,#touchLayoutModal:not([hidden]) .touch-layout-dialog,#settingsOverlay .setting-row.setting-row-animate{animation:none!important;filter:none!important;clip-path:none!important;transform:none!important;opacity:1!important}*{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+</style>
+
 </head>
 <body>
 <div id="app"><div id="startupIntro" role="button" tabindex="0" aria-label="53sumaburaを起動。タップしてスキップ">
  <div class="intro-frame"><i class="intro-corner tl"></i><i class="intro-corner tr"></i><i class="intro-corner bl"></i><i class="intro-corner br"></i>
-  <div class="intro-kicker">FIGHTER SYSTEMS ONLINE · VER 5.2</div>
+  <div class="intro-kicker">FIGHTER SYSTEMS ONLINE · VER 5.3</div>
   <div class="intro-logo">53<span>sumabura</span></div>
   <div class="intro-tagline">READY · SET · FIGHT</div>
   <div class="intro-bar"><span></span></div>
@@ -702,7 +818,7 @@ body.touch-layout-editor-open{overflow:hidden}
  <div class="intro-skip">TAP / CLICK TO SKIP</div>
 </div>
 <div id="backdrop"></div>
-<div id="pageTransitionFx" aria-hidden="true"></div>
+<div id="pageTransitionFx" aria-hidden="true"><span class="page-curtain curtain-1"></span><span class="page-curtain curtain-2"></span><span class="page-curtain curtain-3"></span><span class="page-curtain curtain-4"></span></div>
 <section id="titleScreen" class="screen active">
  <div class="title-mark"><div class="logo-kicker">14 ARENAS · A NEW GENERATION OF ARENA BRAWL</div><div class="logo">53<span>sumabura</span></div><div class="subtitle">空を舞台に、限界をぶつけろ。</div></div>
  <div class="title-actions"><button class="primary-btn" id="startBtn">▶　BATTLE START</button><button class="secondary-btn" id="onlineBtn">🌐 オンライン対戦</button><button class="secondary-btn" id="aiRoomBtn">🤖 AI観戦ルーム</button><button class="secondary-btn" id="howBtn">HOW TO PLAY</button><button class="secondary-btn" id="settingsBtn">⚙ SETTINGS</button><button class="secondary-btn" id="shopBtn">🛒 ショップ</button><button class="secondary-btn cpu-challenge-entry" id="cpuChallengeBtn">💀 CPUチャレンジ</button></div>
@@ -725,7 +841,129 @@ body.touch-layout-editor-open{overflow:hidden}
   <div class="rank-board-wrap"><table class="rank-board"><thead><tr><th>#</th><th id="rankColPlayer">プレイヤー</th><th id="rankColTier">ランク</th><th id="rankColRP">RP</th></tr></thead><tbody id="rankLeaderboardRows"><tr><td colspan="4">ランキングを読み込み中…</td></tr></tbody></table></div>
  </section>
  <div id="howText" class="footnote" style="display:none;max-width:650px">相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。ダメージが高いほど遠くへ飛びやすい！<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ攻撃　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード<br>2P：<span class="keycap">←</span><span class="keycap">→</span> 移動　<span class="keycap">↑</span> ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ ダッシュ　↓ 地面攻撃　0 ガード</div>
- <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 5.2</div>
+ <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 5.3</div>
+</section>
+<section id="howScreen" class="screen" aria-labelledby="howPageTitle">
+ <div class="how-guide">
+  <header class="how-guide-header">
+   <button class="secondary-btn how-back-btn" id="howBackBtn" type="button">← タイトルへ戻る</button>
+   <div class="how-guide-kicker">PLAYER MANUAL / PERMANENT EDITION / VER 5.3</div>
+   <h1 id="howPageTitle">53sumabura <span>遊び方ガイド</span></h1>
+   <p>初めて遊ぶ人からオンライン対戦まで。操作・ルール・モード・設定をまとめた保存版マニュアル。</p>
+   <div class="how-guide-badges"><span>14 FIGHTERS</span><span>14 ARENAS</span><span>KEYBOARD / TOUCH</span><span>LOCAL / ONLINE</span></div>
+  </header>
+  <nav class="how-guide-toc" aria-label="遊び方ガイドの目次">
+   <strong>目次</strong>
+   <button type="button" data-guide-target="guide-start">まず遊ぶ</button>
+   <button type="button" data-guide-target="guide-controls">操作方法</button>
+   <button type="button" data-guide-target="guide-rules">勝ち方と基本ルール</button>
+   <button type="button" data-guide-target="guide-modes">ゲームモード</button>
+   <button type="button" data-guide-target="guide-online">オンライン対戦</button>
+   <button type="button" data-guide-target="guide-shop">ショップ・コイン</button>
+   <button type="button" data-guide-target="guide-settings">設定・スマホ</button>
+   <button type="button" data-guide-target="guide-help">困ったとき</button>
+  </nav>
+  <section class="manual-section" id="guide-start">
+   <div class="manual-section-heading"><span>01</span><div><h2>まずはここから</h2><p>最短で対戦を始める手順</p></div></div>
+   <div class="manual-step-grid">
+    <article class="manual-step-card"><b>STEP 1</b><h3>対戦開始</h3><p>タイトル画面の「対戦開始」を押し、CPUと戦うか、2人で遊ぶかを選ぶ。CPU戦では難易度も選べるよ。</p></article>
+    <article class="manual-step-card"><b>STEP 2</b><h3>キャラクター選択</h3><p>14人のファイターから選ぼう。キャラクターによってスピード、パワー、ジャンプ、技が違うよ。</p></article>
+    <article class="manual-step-card"><b>STEP 3</b><h3>ステージ選択</h3><p>舞台を選んで「FIGHT」。対戦前にVS登場演出が流れたあと、バトルが始まるよ。</p></article>
+   </div>
+   <div class="manual-tip"><strong>最初のおすすめ</strong><p>まずは「1人でCPUと対戦」＋ CPUレベル1～3で操作に慣れよう。慣れてきたら強いCPU、2人対戦、CPUチャレンジに挑戦！</p></div>
+  </section>
+  <section class="manual-section" id="guide-controls">
+   <div class="manual-section-heading"><span>02</span><div><h2>操作方法</h2><p>キーボード・2人プレイ・スマホ／タブレット</p></div></div>
+   <div class="manual-subheading">プレイヤー1（キーボード）</div>
+   <div class="manual-table-wrap"><table class="manual-table"><thead><tr><th>キー</th><th>操作</th><th>説明</th></tr></thead><tbody>
+    <tr><td><kbd>A</kbd> / <kbd>D</kbd></td><td>左右移動</td><td>ステージ上を移動する</td></tr>
+    <tr><td><kbd>W</kbd></td><td>ジャンプ</td><td>空中に飛び上がる</td></tr>
+    <tr><td><kbd>J</kbd></td><td>通常技</td><td>出が速い基本攻撃</td></tr>
+    <tr><td><kbd>L</kbd></td><td>強攻撃</td><td>強めの攻撃で相手を飛ばす</td></tr>
+    <tr><td><kbd>K</kbd></td><td>特殊技／飛び道具</td><td>キャラクター固有の遠距離系の技</td></tr>
+    <tr><td><kbd>U</kbd></td><td>突進技</td><td>前進しながら攻撃する</td></tr>
+    <tr><td><kbd>S</kbd></td><td>地上技</td><td>地面付近を狙う技</td></tr>
+    <tr><td><kbd>I</kbd></td><td>ガード</td><td>押している間、防御する</td></tr>
+    <tr><td><kbd>O</kbd></td><td>必殺技</td><td>必殺技ゲージが100%のときに発動</td></tr>
+    <tr><td><kbd>V</kbd></td><td>エモート</td><td>装備しているリアクションを再生</td></tr>
+    <tr><td><kbd>Esc</kbd> / <kbd>P</kbd></td><td>一時停止</td><td>対戦中にポーズメニューを開く</td></tr>
+   </tbody></table></div>
+   <div class="manual-subheading">プレイヤー2（同じPCの2人対戦）</div>
+   <div class="manual-table-wrap"><table class="manual-table"><thead><tr><th>キー</th><th>操作</th></tr></thead><tbody>
+    <tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td>左右移動</td></tr><tr><td><kbd>↑</kbd></td><td>ジャンプ</td></tr><tr><td><kbd>Enter</kbd></td><td>通常技</td></tr><tr><td><kbd>.</kbd></td><td>強攻撃</td></tr><tr><td><kbd>Shift</kbd></td><td>特殊技／飛び道具</td></tr><tr><td><kbd>/</kbd></td><td>突進技</td></tr><tr><td><kbd>↓</kbd></td><td>地上技</td></tr><tr><td><kbd>0</kbd>（ゼロ）</td><td>ガード</td></tr><tr><td><kbd>3</kbd></td><td>必殺技（ゲージ100%）</td></tr>
+   </tbody></table></div>
+   <div class="manual-subheading">スマホ／タブレット</div>
+   <div class="manual-feature-grid">
+    <article class="manual-feature-card"><span class="manual-feature-icon">🕹️</span><h3>左の移動パッド</h3><p>スティックを左右に動かして移動。ジャンプは独立したジャンプボタンを使うよ。</p></article>
+    <article class="manual-feature-card"><span class="manual-feature-icon">👆</span><h3>技ボタン</h3><p>通常技・強攻撃・特殊技・突進・地上技・ガード・必殺技をタップ。ガードは押している間、防御する。</p></article>
+    <article class="manual-feature-card"><span class="manual-feature-icon">Ⅱ</span><h3>一時停止・終了</h3><p>画面上部のボタンで一時停止や対戦終了ができる。ボタン配置は設定から編集できるよ。</p></article>
+   </div>
+  </section>
+  <section class="manual-section" id="guide-rules">
+   <div class="manual-section-heading"><span>03</span><div><h2>勝ち方と基本ルール</h2><p>ダメージ・ストック・必殺技を覚えよう</p></div></div>
+   <div class="manual-feature-grid">
+    <article class="manual-feature-card"><span class="manual-feature-icon">💥</span><h3>ダメージをためる</h3><p>攻撃が当たると相手のダメージ％が増え、高いほど吹っ飛びやすくなる。ステージの外へ相手を飛ばそう。</p></article>
+    <article class="manual-feature-card"><span class="manual-feature-icon">🛡️</span><h3>ガードを使う</h3><p>相手の攻撃に合わせてガード。ダメージや吹っ飛びを抑えられるけれど、完全に無効化できるわけではないよ。</p></article>
+    <article class="manual-feature-card"><span class="manual-feature-icon">⚡</span><h3>必殺技ゲージ</h3><p>攻撃などでゲージがたまる。100%になったらO（プレイヤー2は3）または画面の必殺技ボタンで発動。</p></article>
+    <article class="manual-feature-card"><span class="manual-feature-icon">❤️</span><h3>ストックと時間</h3><p>ストックがなくなるとKO。時間切れになった場合は、ゲーム内の判定で勝敗が決まるよ。</p></article>
+   </div>
+   <div class="manual-tip"><strong>攻撃を受けたら</strong><p>VER 5.1以降はダメージを受けた瞬間に画面端が赤く光る。命中時・被弾時の画面揺れで攻撃が当たった感覚も分かりやすくしているよ。</p></div>
+  </section>
+  <section class="manual-section" id="guide-modes">
+   <div class="manual-section-heading"><span>04</span><div><h2>ゲームモード</h2><p>遊び方に合わせて選択</p></div></div>
+   <div class="manual-mode-grid">
+    <article class="manual-mode-card mode-cyan"><div class="manual-mode-tag">STANDARD</div><h3>通常対戦</h3><p><b>1人でCPUと対戦：</b>CPUレベル1～9を選べる。<br><b>2人で対戦：</b>1台のPCで2人が操作して遊ぶ。</p><div class="manual-mode-foot">対戦開始 → キャラ選択 → ステージ選択</div></article>
+    <article class="manual-mode-card mode-pink"><div class="manual-mode-tag">ONLINE</div><h3>オンライン対戦</h3><p>部屋を作成するか、公開ルーム／部屋コードから参加。準備完了後、ホストが対戦を開始する。</p><div class="manual-mode-foot">友達と別々の端末で対戦</div></article>
+    <article class="manual-mode-card mode-gold"><div class="manual-mode-tag">CHALLENGE</div><h3>CPUチャレンジ</h3><p>CPU 10から始まり、CPU 100まで5刻みで強くなる。勝利して次のレベルを解放しよう。CPU 100撃破で特別な💀マークが付く。</p><div class="manual-mode-foot">チャレンジ中はペットが登場しない</div></article>
+    <article class="manual-mode-card mode-violet"><div class="manual-mode-tag">SPECTATOR</div><h3>AI観戦ルーム</h3><p>2体のAIにキャラクター・強さ・ステージ・試合時間を設定して、自動対戦を観戦できる。操作しなくてOK。</p><div class="manual-mode-foot">AI vs AIを何度でも観戦</div></article>
+    <article class="manual-mode-card mode-green"><div class="manual-mode-tag">RANKED</div><h3>AIランク戦</h3><p>ランクに応じてCPUのレベルが自動決定される。結果に応じてランクポイントや報酬が進行する。</p><div class="manual-mode-foot">タイトル画面の「AIランク戦を始める」</div></article>
+   </div>
+  </section>
+  <section class="manual-section" id="guide-online">
+   <div class="manual-section-heading"><span>05</span><div><h2>オンライン対戦の手順</h2><p>部屋を作る側も、参加する側も</p></div></div>
+   <ol class="manual-ordered-list">
+    <li><b>オンライン対戦を開く。</b><span>接続状態が表示されるまで少し待つ。接続できない場合はページを再読み込みしてもう一度確認。</span></li>
+    <li><b>部屋を作成するか、相手の部屋へ参加する。</b><span>ホストは2人・3人・4人の人数を選べる。空欄の参加コードなら公開ルーム、任意で4文字の参加コードを設定すると参加時に必要になる。</span></li>
+    <li><b>部屋コードを共有する。</b><span>部屋コードは6文字。相手にはこのコードを伝えてね。公開ルーム一覧から入れる場合は一覧から選択できる。</span></li>
+    <li><b>キャラクターを選んで準備完了。</b><span>参加者はオンラインキャラ選択でキャラを確定する。全員の準備が整ったらホストが対戦を開始する。</span></li>
+    <li><b>終わったらルームへ戻る。</b><span>オンラインでは再戦や次の対戦を部屋画面から開始する。困ったら部屋から退出し、接続を再確認してね。</span></li>
+   </ol>
+   <div class="manual-warning"><strong>参加コードと部屋コードは別物</strong><p>部屋コードは部屋を見つけるための6文字。参加コードはホストが任意で設定する4文字の合言葉だよ。</p></div>
+  </section>
+  <section class="manual-section" id="guide-shop">
+   <div class="manual-section-heading"><span>06</span><div><h2>ショップ・コイン・見た目アイテム</h2><p>自分のプレイスタイルに合わせてカスタマイズ</p></div></div>
+   <div class="manual-feature-grid">
+    <article class="manual-feature-card"><span class="manual-feature-icon">🪙</span><h3>コイン</h3><p>プレイ報酬などでコインを獲得。ショップで使えるコイン数はタイトル画面やショップで確認できるよ。</p></article>
+    <article class="manual-feature-card"><span class="manual-feature-icon">🐾</span><h3>ペット</h3><p>対応する通常対戦でプレイヤーに付いてくる。AIランク戦・CPUチャレンジなど、利用できないモードもあるよ。</p></article>
+    <article class="manual-feature-card"><span class="manual-feature-icon">✨</span><h3>オーラ</h3><p>キャラクターの周りを飾る見た目の演出。装備を変えて好みの外見にしよう。</p></article>
+    <article class="manual-feature-card"><span class="manual-feature-icon">🎭</span><h3>エモート</h3><p>リアクションを装備して、対戦中にVキーなどで再生。技の強さを上げるアイテムではないよ。</p></article>
+    <article class="manual-feature-card"><span class="manual-feature-icon">🌠</span><h3>登場演出</h3><p>キャラクター選択後のVS登場演出を購入・装備できる。対戦開始時の見た目をカスタマイズしよう。</p></article>
+   </div>
+   <p class="manual-small-note">購入後はショップ内で装備状態を確認してね。端末内保存に加えて、ログイン状態などによってクラウド保存が利用される場合があるよ。</p>
+  </section>
+  <section class="manual-section" id="guide-settings">
+   <div class="manual-section-heading"><span>07</span><div><h2>設定・スマホ向けカスタマイズ</h2><p>自分に合う見やすさと操作感に調整</p></div></div>
+   <div class="manual-settings-list">
+    <article><span class="manual-setting-mark">🎨</span><div><h3>グラフィック</h3><p>画質、FPS表示、パーティクル、影、背景の描き込み、描画解像度、奥行き、光、反射、ブルーム、残像、色調を調整。高画質ほど端末への負荷が増えることがあるよ。</p></div></article>
+    <article><span class="manual-setting-mark">🔊</span><div><h3>サウンド</h3><p>効果音・BGMのオン／オフと音量を別々に調整できる。</p></div></article>
+    <article><span class="manual-setting-mark">🌐</span><div><h3>言語</h3><p>対応しているメニュー・案内表示の言語を切り替え、「適用」で反映する。</p></div></article>
+    <article><span class="manual-setting-mark">👤</span><div><h3>アカウント</h3><p>プレイヤー名の変更やアカウント連携を設定できる。別端末で同じプレイヤーデータを使うには、対応するログイン方法とクラウド保存が必要になる場合があるよ。</p></div></article>
+    <article><span class="manual-setting-mark">📱</span><div><h3>スマホモード</h3><p>タッチに合った表示、全画面、タッチボタン配置編集に対応。設定を適用してから、画面上の操作ボタンで試してね。</p></div></article>
+   </div>
+   <div class="manual-tip"><strong>重いときのおすすめ</strong><p>まず画質を「低」または「中」にし、描画解像度を「自動」か75%に設定。不要なら背景ディテールや粒子を減らすと軽くなることがあるよ。</p></div>
+  </section>
+  <section class="manual-section" id="guide-help">
+   <div class="manual-section-heading"><span>08</span><div><h2>困ったときのチェック</h2><p>よくある問題を確認</p></div></div>
+   <div class="manual-faq-list">
+    <details><summary>ゲームが重い／カクつく</summary><p>設定で画質を下げ、描画解像度を自動または75%に。ほかの重いタブやアプリを閉じて、ブラウザを再読み込みしてみてね。</p></details>
+    <details><summary>オンラインの部屋を作れない／参加できない</summary><p>通信を確認して接続を再確認。部屋コードが6文字か、参加コードが必要な部屋では4文字を入力しているか確認。Firebase側の接続やルール設定が原因の場合もあるよ。</p></details>
+    <details><summary>スマホで操作しづらい</summary><p>設定 → スマホモードを有効にして「適用」。タッチ配置編集があれば、ボタンの位置や大きさを調整してね。</p></details>
+    <details><summary>画面や設定の表示が変になった</summary><p>ページを再読み込みし、設定を開き直す。更新後はブラウザに古いページが残ることがあるので、公開ページなら強制再読み込みも試してね。</p></details>
+    <details><summary>ボタンが反応しない</summary><p>対戦開始前の設定画面を閉じてから別の画面へ移動してみる。スマホではボタンを連打せず、接続や画面切り替えが終わってから押すと安定しやすいよ。</p></details>
+   </div>
+  </section>
+  <footer class="how-guide-footer"><span>53sumabura / PLAYER MANUAL / VER 5.3</span><button class="primary-btn" id="howTopBtn" type="button">↑ 目次の上へ戻る</button><button class="secondary-btn" id="howBackBottomBtn" type="button">タイトルへ戻る</button></footer>
+ </div>
 </section>
 <section id="cpuChallengeScreen" class="screen">
  <div class="panel cpu-challenge-panel">
@@ -795,19 +1033,19 @@ body.touch-layout-editor-open{overflow:hidden}
  <div id="toast">READY?</div>
  <div id="pauseOverlay"><div class="pause-box"><div class="step">BATTLE PAUSED</div><h2>PAUSE</h2><button class="primary-btn" id="resumeBtn">RESUME</button> <button class="secondary-btn" id="restartBtn">RESTART</button> <button class="secondary-btn" id="pauseSettingsBtn">⚙ SETTINGS</button> <button class="secondary-btn" id="pauseExitBtn">QUIT</button><div class="footnote">Esc で再開 / ポーズ</div></div></div>
 </section>
-<section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · VER 5.2 · ORIGINAL BROWSER FIGHTER</div></section>
+<section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · VER 5.3 · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
 <div id="pingCounter" aria-label="オンライン遅延" aria-live="off">PING: -- ms</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 5.2</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 5.3</div>
 <div id="battleSetupOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="battleSetupTitle">
- <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 5.2</div><h2 id="battleSetupTitle">対戦設定</h2>
+ <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 5.3</div><h2 id="battleSetupTitle">対戦設定</h2>
  <p class="shop-lead">通常対戦のモードとCPUの強さを選んでから、キャラクター選択へ進もう。</p>
  <div id="battleSetupControls"></div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="battleSetupCancel">戻る</button><button class="primary-btn" id="battleSetupGo">キャラクター選択へ →</button></div>
  </div>
 </div>
 <div id="shopOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
- <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 5.2</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモート・キャラの登場演出を購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
+ <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 5.3</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモート・キャラの登場演出を購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
  <div class="shop-rules-note">🐕 ペットは通常対戦限定。AIランク戦・CPUチャレンジでは使用できません。オーラとエモートは見た目だけで、ランク戦でも使用できます。エモートは V キー。</div>
  <div id="shopItemsGrid" class="shop-items-grid"></div><div id="shopStatus" class="shop-status" aria-live="polite">アイテムを選んでね。</div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="shopClose">戻る</button></div>
@@ -902,7 +1140,7 @@ body.touch-layout-editor-open{overflow:hidden}
  <section class="settings-update-card" aria-label="バージョン更新">
   <div><div class="settings-update-title" id="versionUpdateTitle">🔄 バージョン更新</div><div class="settings-update-copy" id="versionUpdateCopy">公開サイトに新しいバージョンがあるか確認します。更新が見つかった場合は再読み込みできます。</div></div>
   <button class="secondary-btn" id="versionUpdateBtn" type="button">更新を確認</button>
-  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 5.2</div>
+  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 5.3</div>
  </section>
  <div class="setting-actions"><button class="secondary-btn" id="settingsCloseBtn">戻る</button><button class="primary-btn" id="settingsApplyBtn">適用</button></div>
  </div></div>
@@ -952,7 +1190,7 @@ const viewportMeta = $('meta[name="viewport"]');
 const defaultViewportContent = viewportMeta ? viewportMeta.getAttribute('content') : 'width=device-width, initial-scale=1.0';
 let mobileModeEnabled = false;
 try { mobileModeEnabled = localStorage.getItem('skyboundMobileMode') === '1'; } catch (_) {}
-const screens = ['titleScreen','cpuChallengeScreen','aiRoomScreen','charScreen','onlineCharacterScreen','stageScreen','battleScreen','resultScreen'].map(id=>$('#'+id));
+const screens = ['titleScreen','howScreen','cpuChallengeScreen','aiRoomScreen','charScreen','onlineCharacterScreen','stageScreen','battleScreen','resultScreen'].map(id=>$('#'+id));
 let lastShownScreenId = screens.find(s=>s&&s.classList.contains('active'))?.id || 'titleScreen';
 let pageTransitionTimer = 0;
 let screenEntryToken = 0;
@@ -969,7 +1207,7 @@ function showScreen(id){
  if(fx&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   fx.classList.remove('is-active');void fx.offsetWidth;fx.classList.add('is-active');
   if(pageTransitionTimer)clearTimeout(pageTransitionTimer);
-  pageTransitionTimer=setTimeout(()=>fx.classList.remove('is-active'),520);
+  pageTransitionTimer=setTimeout(()=>fx.classList.remove('is-active'),850);
  }
  setTimeout(()=>{if(screenEntryToken===entryToken)next.classList.remove('screen-entry-animate');},1200);
  if(id==='charScreen'||id==='onlineCharacterScreen'){
@@ -1578,7 +1816,7 @@ function renderShop(){
   }
  }
 }
-function openShop(){renderShop();$('#shopOverlay').classList.add('show');setShopStatus('購入したアイテムは端末に保存されます。ログイン中はクラウド保存も試みます。');}
+function openShop(){renderShop();$('#shopOverlay').classList.add('show');document.querySelectorAll('#shopItemsGrid>*').forEach((item,i)=>item.style.setProperty('--shop-entry-index',Math.min(i,18)));setShopStatus('購入したアイテムは端末に保存されます。ログイン中はクラウド保存も試みます。');}
 function closeShop(){$('#shopOverlay').classList.remove('show')}
 $('#shopBtn').addEventListener('click',openShop);$('#shopClose').addEventListener('click',closeShop);$('#shopOverlay').addEventListener('click',e=>{if(e.target===$('#shopOverlay'))closeShop()});
 $('#shopItemsGrid').addEventListener('click',async e=>{
@@ -1641,7 +1879,8 @@ const battleSetupOverlay=$('#battleSetupOverlay');const setupControls=$('#battle
 if(setupControls){const modePanel=document.querySelector('.mode-select');const difficultyPanel=$('#difficultyPicker');if(modePanel)setupControls.appendChild(modePanel);if(difficultyPanel)setupControls.appendChild(difficultyPanel);}
 $('#battleSetupGo').addEventListener('click',()=>{cpuChallengeActive=false;aiRankedMatchActive=false;mode=document.querySelector('.mode-select .mode-btn.active')?.dataset.mode||'cpu';$('#difficultyPicker').style.display=mode==='cpu'?'block':'none';battleSetupOverlay.classList.remove('show');initAudio();playSfx('ui');const note=$('#charRankNote');if(note)note.textContent='';renderChars();showScreen('charScreen')});
 $('#battleSetupCancel').addEventListener('click',()=>battleSetupOverlay.classList.remove('show'));
-$('#startBtn').onclick=()=>{cpuChallengeActive=false;initAudio();playSfx('ui');$('#difficultyPicker').style.display=(document.querySelector('.mode-select .mode-btn.active')?.dataset.mode||'cpu')==='cpu'?'block':'none';battleSetupOverlay.classList.add('show')};$('#howBtn').onclick=()=>{let x=$('#howText');x.style.display=x.style.display==='none'?'block':'none'};$('#backToTitle').onclick=()=>{if(cpuChallengeActive){cpuChallengeActive=false;renderCpuChallenge();showScreen('cpuChallengeScreen')}else showScreen('titleScreen')};$('#toStageBtn').onclick=()=>{renderStages();showScreen('stageScreen')};$('#backToChar').onclick=()=>showScreen('charScreen');
+$('#startBtn').onclick=()=>{cpuChallengeActive=false;initAudio();playSfx('ui');$('#difficultyPicker').style.display=(document.querySelector('.mode-select .mode-btn.active')?.dataset.mode||'cpu')==='cpu'?'block':'none';battleSetupOverlay.classList.add('show')};$('#howBtn').onclick=()=>{showScreen('howScreen');const guide=$('#howScreen .how-guide');if(guide)guide.scrollTop=0;playSfx('ui')};
+$('#howBackBtn').onclick=()=>showScreen('titleScreen');$('#howBackBottomBtn').onclick=()=>showScreen('titleScreen');$('#howTopBtn').onclick=()=>{const guide=$('#howScreen .how-guide');if(guide)guide.scrollTo({top:0,behavior:'smooth'})};document.querySelectorAll('[data-guide-target]').forEach(b=>b.addEventListener('click',()=>{const target=$('#'+b.dataset.guideTarget);if(target)target.scrollIntoView({behavior:'smooth',block:'start'})}));$('#backToTitle').onclick=()=>{if(cpuChallengeActive){cpuChallengeActive=false;renderCpuChallenge();showScreen('cpuChallengeScreen')}else showScreen('titleScreen')};$('#toStageBtn').onclick=()=>{renderStages();showScreen('stageScreen')};$('#backToChar').onclick=()=>showScreen('charScreen');
 $('#fightBtn').onclick=async()=>{const f1=fighters[p1Pick]||fighters[0],f2=fighters[p2Pick]||fighters[1];const localName=(typeof window.SKYBOUND_CURRENT_DISPLAY_NAME==='function'&&window.SKYBOUND_CURRENT_DISPLAY_NAME())||'PLAYER 1';const localRoster=[{role:'host',playerNo:1,characterId:f1.id,displayName:String(localName).slice(0,24),auraId:'none',emoteId:'cheer',introId:playerProfile.equippedIntroId||'intro-default'},{role:mode==='cpu'?'cpu':'guest',playerNo:2,characterId:f2.id,displayName:mode==='cpu'?(aiRankedMatchActive?'AI RANK CPU':cpuChallengeActive?'CPU '+cpuChallengeLevel:'CPU RIVAL'):'PLAYER 2',auraId:'none',emoteId:'cheer',introId:'intro-default'}];if(window.SKYBOUND_SHOW_VS_INTRO)await window.SKYBOUND_SHOW_VS_INTRO(localRoster,{mode:'local'});startBattle();};
 const canvas=$('#gameCanvas'),ctx=canvas.getContext('2d');let cw=1280,ch=720;let paused=false,finished=false;
 function resizeCanvas(){const dpr=Math.min(window.devicePixelRatio||1,2);const presetScale=graphicsQuality==='low'?.75:graphicsQuality==='medium'?Math.min(dpr,1.2):graphicsQuality==='high'?Math.min(dpr,1.6):Math.min(dpr,2);const scale=resolutionScaleSetting==='auto'?presetScale:Math.max(.65,Math.min(2,Number(resolutionScaleSetting)||presetScale));const r=canvas.getBoundingClientRect();canvas.width=Math.max(1,Math.round(r.width*scale));canvas.height=Math.max(1,Math.round(r.height*scale));cw=canvas.width;ch=canvas.height;ctx.setTransform(1,0,0,1,0,0)}window.addEventListener('resize',()=>{if($('#battleScreen').classList.contains('active'))resizeCanvas()});
@@ -1655,7 +1894,7 @@ function applyLanguage(lang){
  uiLanguage=lang==='en'?'en':'ja';const ja=uiLanguage==='ja',t=settingsLocales[uiLanguage];document.documentElement.lang=uiLanguage;
  $('#settingsTitle').textContent=t.settingsTitle;$('#bgmLabel').textContent=ja?'BGM（背景音楽）':'Background music (BGM)';$('#bgmHelp').textContent=ja?'メニュー・対戦中に流れる音楽':'Original music in menus and battles';$('#bgmVolumeLabel').textContent=ja?'BGM音量':'BGM volume';$('#bgmVolumeHelp').textContent=ja?'背景音楽の音量を調整':'Adjust background music volume';$('.settings-box .step').textContent=ja?'システム設定':'SYSTEM / OPTIONS';document.querySelector('[data-settings-tab="graphics"]').textContent=t.graphicsTab;document.querySelector('[data-settings-tab="language"]').textContent=t.languageTab;document.querySelector('[data-settings-tab="account"]').textContent=t.accountTab;const mobileTabButton=document.querySelector('[data-settings-tab="mobile"]');if(mobileTabButton)mobileTabButton.textContent=ja?'📱 スマホ':'📱 Mobile';if($('#mobileModeSectionTitle'))$('#mobileModeSectionTitle').textContent=ja?'スマホモード':'MOBILE MODE';if($('#mobileModeLabel'))$('#mobileModeLabel').textContent=ja?'スマホモードを有効にする':'Enable mobile mode';if($('#mobileModeHelp'))$('#mobileModeHelp').textContent=ja?'ダブルタップでの拡大を抑え、タッチ向け表示を有効にします。ピンチ拡大は利用できます。':'Reduces double-tap zoom and enables touch-friendly layout. Pinch zoom remains available.';if($('#mobileModeNote'))$('#mobileModeNote').textContent=ja?'「適用」でスマホモードを保存します。全画面表示は上のボタンを押したときに開始します。ブラウザによっては全画面表示に対応していません。':'Press Apply to save mobile mode. Fullscreen starts only after pressing the button. Some browsers do not support fullscreen.';$('#settingsPlayerNameHeading').textContent=ja?'プレイヤー名':'PLAYER NAME';$('#playerNameLabel').textContent=ja?'自分のプレイヤー名':'Your player name';$('#playerNameInput').placeholder=ja?'プレイヤー名（最大24文字）':'Player name (max 24 characters)';$('#playerNameInput').setAttribute('aria-label',ja?'自分のプレイヤー名':'Your player name');$('#savePlayerNameBtn').textContent=ja?'名前を保存':'Save name';$('#settingsAccountHeading').textContent=ja?'アカウント / ログイン':'ACCOUNT / SIGN-IN';$('#settingsEmailHeading').textContent=ja?'メールリンクでログイン':'SIGN IN WITH EMAIL LINK';$('#settingsEmailLabel').textContent=ja?'登録済みアカウントのメールアドレス':'Registered account email';$('#settingsEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link';$('#settingsEmailInput').placeholder=ja?'登録済みメールアドレス':'Registered email address';$('#settingsEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#settingsEmailHelp').textContent=ja?'同じメールアドレスに届いたリンクをこの端末で開くとログインできます。メールリンク認証はFirebase Consoleで有効にする必要があります。':'Open the sign-in link sent to this same email on this device. Email-link sign-in must be enabled in Firebase Console.';$('#settingsAccountNote').textContent=ja?'アカウントを切り替える前にオンラインの部屋から退出してください。登録済みと同じメールアドレスを使ってね。':'Leave your online room before switching accounts. Use the same email address that was previously registered.';['basicGraphicsTitle','audioSettingsTitle','graphicsDetailTitle','fpsLabel','fpsHelp','onlineStatusLabel','onlineStatusHelp','qualityLabel','qualityHelp','effectsLabel','effectsHelp','soundLabel','soundHelp','volumeLabel','volumeHelp','shadowLabel','shadowHelp','detailLabel','detailHelp','renderScaleLabel','renderScaleHelp','depthLabel','depthHelp','lightingLabel','lightingHelp','sunlightLabel','sunlightHelp','atmosphereLabel','atmosphereHelp','bloomLabel','bloomHelp','reflectionLabel','reflectionHelp','motionLabel','motionHelp','gradingLabel','gradingHelp','graphicsHint','languageLabel','languageHelp','languageNote'].forEach(id=>{if($('#'+id))$('#'+id).textContent=t[id]});$('#settingsCloseBtn').textContent=t.close;$('#settingsApplyBtn').textContent=t.apply;$('#settingsBtn').textContent=t.settingsButton;$('#pauseSettingsBtn').textContent=t.settingsButton;const q=$('#qualitySelect');q.options[0].textContent=t.qualityLow;q.options[1].textContent=t.qualityMedium;q.options[2].textContent=t.qualityHigh;q.options[3].textContent=t.qualityUltra;const sh=$('#shadowSelect');sh.options[0].textContent=t.shadowOff;sh.options[1].textContent=t.shadowSoft;sh.options[2].textContent=t.shadowHigh;sh.options[3].textContent=t.shadowUltra;const de=$('#detailSelect');de.options[0].textContent=t.detailLow;de.options[1].textContent=t.detailMedium;de.options[2].textContent=t.detailHigh;de.options[3].textContent=t.detailUltra;const rs=$('#renderScaleSelect');[t.scaleAuto,t.scale75,t.scale100,t.scale125,t.scale150,t.scale175,t.scale200].forEach((label,i)=>rs.options[i].textContent=label);
  // ホーム画面
- $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、公開ルーム一覧から参加しよう。参加コードは任意で4文字。':'Connects automatically at startup. Create a room or join a listed public room. A host can optionally require a 4-character code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 公開ルーム一覧から参加するか、6文字の部屋コードを入力する。4文字の参加コードは必要な部屋だけ入力。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Join from the public room list or enter a 6-character room ID. Enter a 4-character PIN only when a room requires it.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストは対戦人数を選んで部屋を作成。公開ルーム一覧から参加でき、必要なら4文字コードを入力します。全員が準備完了になるとホストが開始できます。':'Host chooses 2, 3, or 4 players. Join listed rooms without a room ID; enter a 4-character PIN only if requested.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';if($('#onlineCreateAccessCodeLabel'))$('#onlineCreateAccessCodeLabel').textContent=ja?'参加コード（任意・4文字）':'Room access code (optional, 4 chars)';if($('#onlineCreateAccessCode'))$('#onlineCreateAccessCode').placeholder=ja?'空欄なら誰でも参加':'Blank = open room';if($('#onlineCreateAccessCodeHelp'))$('#onlineCreateAccessCodeHelp').textContent=ja?'空欄なら公開ルーム。4文字を設定すると参加時に入力が必要になります。':'Blank makes the room open. Set a 4-character code to require it for joining.';if($('#onlinePublicRoomsTitle'))$('#onlinePublicRoomsTitle').textContent=ja?'公開ルーム一覧':'PUBLIC ROOMS';if($('#onlineRefreshPublicRoomsBtn'))$('#onlineRefreshPublicRoomsBtn').textContent=ja?'一覧を更新':'REFRESH LIST';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';if($('#cpuChallengeBtn'))$('#cpuChallengeBtn').textContent=ja?'💀 CPUチャレンジ':'💀 CPU CHALLENGE';$('#howBtn').textContent=ja?'遊び方':'HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 5.2':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 5.2';
+ $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、公開ルーム一覧から参加しよう。参加コードは任意で4文字。':'Connects automatically at startup. Create a room or join a listed public room. A host can optionally require a 4-character code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 公開ルーム一覧から参加するか、6文字の部屋コードを入力する。4文字の参加コードは必要な部屋だけ入力。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Join from the public room list or enter a 6-character room ID. Enter a 4-character PIN only when a room requires it.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストは対戦人数を選んで部屋を作成。公開ルーム一覧から参加でき、必要なら4文字コードを入力します。全員が準備完了になるとホストが開始できます。':'Host chooses 2, 3, or 4 players. Join listed rooms without a room ID; enter a 4-character PIN only if requested.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';if($('#onlineCreateAccessCodeLabel'))$('#onlineCreateAccessCodeLabel').textContent=ja?'参加コード（任意・4文字）':'Room access code (optional, 4 chars)';if($('#onlineCreateAccessCode'))$('#onlineCreateAccessCode').placeholder=ja?'空欄なら誰でも参加':'Blank = open room';if($('#onlineCreateAccessCodeHelp'))$('#onlineCreateAccessCodeHelp').textContent=ja?'空欄なら公開ルーム。4文字を設定すると参加時に入力が必要になります。':'Blank makes the room open. Set a 4-character code to require it for joining.';if($('#onlinePublicRoomsTitle'))$('#onlinePublicRoomsTitle').textContent=ja?'公開ルーム一覧':'PUBLIC ROOMS';if($('#onlineRefreshPublicRoomsBtn'))$('#onlineRefreshPublicRoomsBtn').textContent=ja?'一覧を更新':'REFRESH LIST';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';if($('#cpuChallengeBtn'))$('#cpuChallengeBtn').textContent=ja?'💀 CPUチャレンジ':'💀 CPU CHALLENGE';$('#howBtn').textContent=ja?'📘 遊び方ガイド':'📘 HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 5.3':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 5.3';
  // AI観戦ルーム
  const roomHead=$('#aiRoomScreen .panel-head');roomHead.querySelector('.step').textContent=ja?'観戦モード / AI対AI':'SPECTATOR MODE / AI VS AI';roomHead.querySelector('h2').textContent=ja?'AI対戦ルーム':'AI BATTLE ROOM';$('#aiRoomScreen .ai-room-kicker').textContent=ja?'観戦専用ルーム · 2体のAIが自動で対戦':'Spectator room · Two AIs fight automatically';$('#aiRoomScreen .ai-room-live').textContent=ja?'ローカルAIアリーナ':'LOCAL AI ARENA';const roomCards=document.querySelectorAll('.ai-room-card h3');if(roomCards[0])roomCards[0].textContent=ja?'01 / シアンチーム':'01 / CYAN TEAM';if(roomCards[1])roomCards[1].textContent=ja?'02 / ピンクチーム':'02 / PINK TEAM';[['#aiRoomScreen label[for="watchP1Select"]','キャラクター1','FIGHTER 1'],['#aiRoomScreen label[for="watchLevel1"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchP2Select"]','キャラクター2','FIGHTER 2'],['#aiRoomScreen label[for="watchLevel2"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchStageSelect"]','ステージ','BATTLE ARENA'],['#aiRoomScreen label[for="watchMatchLength"]','対戦時間','MATCH LENGTH']].forEach(([sel,j,e])=>setText(sel,j,e));$('#aiRoomScreen .ai-room-hint').textContent=ja?'AIが自分で移動・ジャンプ・攻撃・ガード・必殺技を使って戦うよ。観戦中は操作不要。キャラや強さを変えて、何度でも対戦を見られる！':'AIs move, jump, attack, guard and use special moves automatically. No controls are needed while watching. Change fighters or levels and watch again!';$('#watchBackBtn').textContent=ja?'← ホームへ戻る':'← BACK TO HOME';$('#watchStartBtn').textContent=ja?'▶ 観戦開始':'▶ START WATCHING';
  // キャラクター・ステージ選択
@@ -1663,7 +1902,7 @@ function applyLanguage(lang){
  // 対戦画面・一時停止
  document.querySelectorAll('.fighter-hud .hud-sub').forEach((el,i)=>{el.textContent=i===0?(ja?'プレイヤー1':'PLAYER 1'):(ja?'CPUの相手':'CPU RIVAL')});document.querySelectorAll('.ult-label').forEach(el=>{const meter=el.querySelector('span');el.textContent=ja?'必殺技ゲージ':'ULTIMATE';if(meter)el.appendChild(meter)});$('.round-label').textContent=ja?'53sumabura / ラウンド 01':'53sumabura / ROUND 01';$('#pauseBtn').textContent=ja?'Ⅱ 一時停止':'Ⅱ PAUSE';$('#quitBtn').textContent=ja?'終了':'EXIT';$('#pauseOverlay .step').textContent=ja?'対戦を一時停止中':'BATTLE PAUSED';$('#pauseOverlay h2').textContent=ja?'一時停止':'PAUSE';$('#resumeBtn').textContent=ja?'再開':'RESUME';$('#restartBtn').textContent=ja?'最初からやり直す':'RESTART';$('#pauseExitBtn').textContent=ja?'タイトルへ戻る':'QUIT';$('#pauseOverlay .footnote').textContent=ja?'Escキー：再開／一時停止':'Press Esc to resume or pause';$('#gameCanvas').setAttribute('aria-label',ja?'対戦画面':'Battle screen');$('#touchControls').setAttribute('aria-label',ja?'タッチ操作':'Touch controls');
  // 結果画面
- $('.result-kicker').textContent=ja?'対戦結果 / ラウンド 01':'BATTLE RESULTS / ROUND 01';$('.result-title').textContent=ja?'勝利！':'VICTORY!';$('.result-winner').textContent=ja?'勝者':'WINNER';$('#rematchBtn').textContent=ja?'もう一度対戦　↻':'REMATCH　↻';$('#selectAgainBtn').textContent=ja?'キャラクターを変更':'CHANGE FIGHTERS';$('#homeBtn').textContent=ja?'メインメニュー':'MAIN MENU';$('#resultScreen .footnote').textContent=ja?'53sumabura · オリジナルのブラウザ格闘ゲーム':'53sumabura · VER 5.2 · ORIGINAL BROWSER FIGHTER';
+ $('.result-kicker').textContent=ja?'対戦結果 / ラウンド 01':'BATTLE RESULTS / ROUND 01';$('.result-title').textContent=ja?'勝利！':'VICTORY!';$('.result-winner').textContent=ja?'勝者':'WINNER';$('#rematchBtn').textContent=ja?'もう一度対戦　↻':'REMATCH　↻';$('#selectAgainBtn').textContent=ja?'キャラクターを変更':'CHANGE FIGHTERS';$('#homeBtn').textContent=ja?'メインメニュー':'MAIN MENU';$('#resultScreen .footnote').textContent=ja?'53sumabura · オリジナルのブラウザ格闘ゲーム':'53sumabura · VER 5.3 · ORIGINAL BROWSER FIGHTER';
  renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();if(game&&$('#battleScreen').classList.contains('active')){updateBattleLocalizedText();updateControllerGuide();}if($('#resultScreen').classList.contains('active')&&game)refreshResultLocalization();try{localStorage.setItem('skyboundLanguage',uiLanguage)}catch(_){/* Current selection still applies when storage is blocked. */}window.dispatchEvent(new Event('skybound-language-updated'));
 }
 function updateBattleLocalizedText(){if(!game)return;const ja=uiLanguage==='ja';$('#p1HudName').textContent=fighterDisplayName(game.p1.f);$('#p2HudName').textContent=fighterDisplayName(game.p2.f);const leftSub=document.querySelector('.fighter-hud.left .hud-sub');if(leftSub)leftSub.textContent=mode==='watch'?(ja?`AI 1 · レベル ${watchLevel1}`:`AI 1 · LEVEL ${watchLevel1}`):(ja?'プレイヤー1':'PLAYER 1');$('#p2Sub').textContent=mode==='cpu'?(ja?`CPU · レベル ${cpuLevel}`:`CPU · LEVEL ${cpuLevel}`):mode==='watch'?(ja?`AI 2 · レベル ${watchLevel2}`:`AI 2 · LEVEL ${watchLevel2}`):(ja?'プレイヤー2':'PLAYER 2');if(mode==='online')$('#controlsNote').innerHTML=ja?'<strong>🌐 オンライン対戦</strong>　A/D 移動　W ジャンプ　J 速攻　L 強攻撃　K 飛び道具　U 突進　S 地上技　I ガード　O 必殺技':'<strong>🌐 ONLINE MATCH</strong>　A/D move　W jump　J quick　L heavy　K projectile　U dash　S ground　I guard　O ultimate';else if(mode==='watch')$('#controlsNote').innerHTML=ja?'<strong class="watching-label">🤖 AI観戦ルーム — 2体のAIが自動で対戦中</strong>':'<strong class="watching-label">🤖 AI BATTLE ROOM — TWO AIs ARE FIGHTING</strong>';else if(ja){$('#controlsNote').innerHTML=mode==='cpu'?'<b>1P</b> A/D 移動　W ジャンプ　J 速攻　L 強攻撃<br>K 飛び道具　U 突進攻撃　S 地上技　I ガード　O 必殺技（ゲージ100%）':'<b>1P</b> A/D 移動　W ジャンプ　J 速攻　L 強攻撃<br>K 飛び道具　U 突進攻撃　S 地上技　I ガード　O 必殺技（ゲージ100%）<br><b>2P</b> ←/→ 移動　↑ ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ 突進　↓ 地上技　0 ガード　3 必殺技'}else{$('#controlsNote').innerHTML=mode==='cpu'?'<b>P1</b> A/D Move　W Jump　J Quick　L Heavy<br>K Projectile　U Dash　S Ground attack　I Guard　O Ultimate (100%)':'<b>P1</b> A/D Move　W Jump　J Quick　L Heavy<br>K Projectile　U Dash　S Ground attack　I Guard　O Ultimate (100%)<br><b>P2</b> ←/→ Move　↑ Jump　Enter Quick　. Heavy　Shift Projectile　/ Dash　↓ Ground attack　0 Guard　3 Ultimate'}}
@@ -1714,7 +1953,8 @@ async function toggleMobileFullscreen(){
   if(status){status.dataset.state='error';status.textContent=uiLanguage==='en'?'This browser may not support fullscreen. On iPhone/iPad Safari, use Share → Add to Home Screen for an app-like full-screen experience.':'このブラウザでは全画面表示に対応していない可能性があります。iPhone/iPadのSafariでは「共有」→「ホーム画面に追加」でアプリのように表示できる場合があります。';}
  }
 }
-function openSettingsTab(tab){const valid=['graphics','language','account','mobile'].includes(tab)?tab:'graphics';document.querySelectorAll('[data-settings-tab]').forEach(b=>{const active=b.dataset.settingsTab===valid;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))});[['graphics','#settingsGraphicsPanel'],['language','#settingsLanguagePanel'],['account','#settingsAccountPanel'],['mobile','#settingsMobilePanel']].forEach(([name,selector])=>{const el=$(selector),active=name===valid;el.classList.toggle('active',active);el.hidden=!active});if(valid==='account')window.dispatchEvent(new Event('53sumabura-account-settings-open'))}
+function animateSettingsRows(){document.querySelectorAll('#settingsOverlay .settings-page.active .setting-row').forEach((row,i)=>{row.style.setProperty('--setting-delay',`${Math.min(i,16)*32}ms`);row.classList.remove('setting-row-animate');void row.offsetWidth;row.classList.add('setting-row-animate')})}
+function openSettingsTab(tab){const valid=['graphics','language','account','mobile'].includes(tab)?tab:'graphics';document.querySelectorAll('[data-settings-tab]').forEach(b=>{const active=b.dataset.settingsTab===valid;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))});[['graphics','#settingsGraphicsPanel'],['language','#settingsLanguagePanel'],['account','#settingsAccountPanel'],['mobile','#settingsMobilePanel']].forEach(([name,selector])=>{const el=$(selector),active=name===valid;el.classList.toggle('active',active);el.hidden=!active});animateSettingsRows();if(valid==='account')window.dispatchEvent(new Event('53sumabura-account-settings-open'))}
 function openSettings(){initAudio();$('#settingsOverlay').classList.add('show');$('#fpsToggle').checked=showFPS;$('#onlineStatusToggle').checked=showOnlineStatus;$('#qualitySelect').value=graphicsQuality;$('#effectsToggle').checked=particlesEnabled;$('#soundToggle').checked=soundEnabled;$('#soundVolume').value=Math.round(soundVolume*100);$('#bgmToggle').checked=bgmEnabled;$('#bgmVolume').value=Math.round(bgmVolume*100);$('#languageSelect').value=uiLanguage;$('#shadowSelect').value=shadowQuality;$('#detailSelect').value=environmentDetail;$('#renderScaleSelect').value=resolutionScaleSetting;$('#depthToggle').checked=depthEffects;$('#lightingToggle').checked=cinematicLighting;$('#sunlightToggle').checked=sunlightEnabled;$('#atmosphereToggle').checked=atmosphereEnabled;$('#bloomToggle').checked=bloomEnabled;$('#reflectionToggle').checked=reflectionEnabled;$('#motionToggle').checked=motionTrailsEnabled;$('#gradingToggle').checked=colorGradingEnabled;$('#mobileModeToggle').checked=mobileModeEnabled;updateMobileModeStatus();openSettingsTab('graphics')}
 function saveGraphicsSettings(){try{localStorage.setItem('skyboundGraphicsSettings',JSON.stringify({graphicsQuality,showFPS,showOnlineStatus,particlesEnabled,shadowQuality,environmentDetail,depthEffects,cinematicLighting,sunlightEnabled,atmosphereEnabled,bloomEnabled,reflectionEnabled,motionTrailsEnabled,colorGradingEnabled,resolutionScaleSetting}))}catch(_){/* current session settings still work */}}
 function closeSettings(){ $('#settingsOverlay').classList.remove('show') }
@@ -1785,7 +2025,7 @@ $('#adminCopyUidBtn').addEventListener('click',async()=>{const uid=$('#adminCurr
 $('#adminLockBtn').addEventListener('click',()=>{adminModeUnlocked=false;adminModeIdentity=null;adminModeProfiles=[];$('#adminModePanel').hidden=true;$('#adminPasswordInput').value='';setAdminModeStatus('管理者モードを閉じました。');});
 document.querySelectorAll('[data-settings-tab]').forEach(b=>b.addEventListener('click',()=>openSettingsTab(b.dataset.settingsTab)));$('#mobileFullscreenBtn').addEventListener('click',toggleMobileFullscreen);$('#mobileModeToggle').addEventListener('change',()=>{const status=$('#mobileModeStatus');if(status){status.dataset.state='neutral';status.textContent=$('#mobileModeToggle').checked?(uiLanguage==='en'?'Press Apply to enable mobile mode.':'「適用」を押すとスマホモードが有効になります。'):(uiLanguage==='en'?'Press Apply to disable mobile mode.':'「適用」を押すとスマホモードがオフになります。')}});document.addEventListener('fullscreenchange',updateMobileModeStatus);document.addEventListener('webkitfullscreenchange',updateMobileModeStatus);document.addEventListener('dblclick',e=>{if(mobileModeEnabled&&e.cancelable)e.preventDefault()},{passive:false});setMobileMode(mobileModeEnabled,false);
 $('#settingsBtn').onclick=()=>{initAudio();playSfx('ui');openSettings()};$('#pauseSettingsBtn').onclick=()=>{initAudio();playSfx('ui');openSettings()};$('#settingsCloseBtn').onclick=()=>{playSfx('ui');closeSettings()};$('#settingsApplyBtn').onclick=applySettings;$('#onlineBtn').onclick=()=>{$('#onlineOverlay').classList.add('show');playSfx('ui')};$('#onlineCloseBtn').onclick=()=>$('#onlineOverlay').classList.remove('show');$('#onlineOverlay').addEventListener('click',e=>{if(e.target===$('#onlineOverlay'))$('#onlineOverlay').classList.remove('show')});
-const APP_VERSION_NUMBER = '5.2';
+const APP_VERSION_NUMBER = '5.3';
 function parseAppVersionFromHtml(html){
  const title = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)||[])[1] || '';
  const m = (title+' '+html.slice(0,12000)).match(/VER\s*(\d+)\.(\d+)/i);
@@ -2693,7 +2933,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     if (error && error.message === 'ACCESS_CODE_FORMAT') return ja() ? '参加コードは英数字4文字、または空欄にしてね。' : 'Use four letters/numbers for the access code, or leave it blank.';
     if (error && error.message === 'ROOM_CODE_FORMAT') return ja() ? '6文字の部屋コードを入力するか、公開ルーム一覧から参加してね。' : 'Enter a 6-character room code or join from the public room list.';
     if (error && error.message === 'ROOM_CODE_REQUIRED') return ja() ? '4文字の参加コードが必要です。キャンセルした場合は参加していません。' : 'A 4-character access code is required.';
-    if (error && error.message === 'ROOM_ACCESS_CODE_INVALID') return ja() ? '参加コードが違うか、Firebase RulesがVER 5.2に未対応です。Rulesを更新してから再試行してね。' : 'Access code incorrect or Firebase rules are not updated for VER 5.2.';
+    if (error && error.message === 'ROOM_ACCESS_CODE_INVALID') return ja() ? '参加コードが違うか、Firebase Rulesのアクセス許可が不足しています。参加コードとデータベースのRulesを確認してね。' : 'Access code incorrect or Firebase Rules permissions are missing. Check the access code and database rules.';
     if (error && error.message === 'ROOM_IN_PROGRESS') return ja() ? 'この部屋は対戦中です。終了してから参加してね。' : 'This room is already playing.';
 
     if (error && error.message === 'ROOM_NOT_FOUND') return ja() ? '部屋が見つかりません。コードを確認してね。' : 'Room not found. Check the code.';
@@ -3014,7 +3254,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   async function syncPublicRoomListing(room) {
     if (!onlineDb || !onlineUser || !activeRoomCode || !room || !room.hostUid) return;
     try { await onlineDb.ref('publicRooms/' + activeRoomCode).set(publicRoomEntry(room, activeRoomCode)); }
-    catch (error) { console.warn('Public room index update failed. Add the VER 5.2 publicRooms Firebase rules.', error); }
+    catch (error) { console.warn('Public room index update failed. Check the publicRooms permissions in Firebase Rules.', error); }
   }
   function renderPublicRoomList(index) {
     const container = $('onlinePublicRoomsList');
@@ -3057,7 +3297,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     try { const snap = await onlineDb.ref('publicRooms').once('value'); renderPublicRoomList(snap.val() || {}); }
     catch (error) {
       const msg = document.createElement('div'); msg.className='public-room-empty';
-      msg.textContent = ja() ? '公開ルーム一覧を読み込めませんでした。VER 5.2のFirebase Rulesに publicRooms の読み取り許可を追加してね。' : 'Could not load public rooms. Add publicRooms read permission to the VER 5.2 Firebase rules.';
+      msg.textContent = ja() ? '公開ルーム一覧を読み込めませんでした。Firebase Rulesで publicRooms の読み取り許可を確認してね。' : 'Could not load public rooms. Check publicRooms read permission in Firebase Rules.';
       container.replaceChildren(msg); console.warn('Could not read public room list:', error);
     } finally { if (button) button.disabled = false; }
   }
@@ -3935,7 +4175,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 <div id="versusIntro" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="対戦開始キャラクター紹介">
  <div class="versus-bg"></div><div class="versus-stripes"></div><div class="versus-flash"></div>
  <div class="versus-frame">
-  <div class="versus-topline"><div class="versus-brand">53<span>SUMABURA</span></div><div id="versusModeLabel">FIGHTER SHOWDOWN</div><div>VER 5.2</div></div>
+  <div class="versus-topline"><div class="versus-brand">53<span>SUMABURA</span></div><div id="versusModeLabel">FIGHTER SHOWDOWN</div><div>VER 5.3</div></div>
   <div class="versus-roster" id="versusRoster" data-count="2" aria-live="off"></div>
   <div class="versus-title" id="versusTitleText" aria-hidden="true">VS</div>
   <div class="versus-footer"><span id="versusFooterText">CHARACTERS LOCKED IN</span><span class="versus-start-tag">GET READY　⚡</span></div>
