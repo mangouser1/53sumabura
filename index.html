@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>53sumabura | VER 3.9</title>
+<title>53sumabura | VER 4.0</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -109,7 +109,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
 @media (pointer:coarse),(max-width:760px){#touchControls{display:block}.battle-bottom{pointer-events:none;padding:0;background:none}.controls-note{display:none}.battle-actions{position:absolute;top:106px;left:50%;transform:translateX(-50%);gap:5px}.small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52,.78)}}
 @media(max-width:390px){.touch-dpad{width:min(42vw,150px);left:8px;bottom:max(12px,env(safe-area-inset-bottom))}.touch-skills{width:min(49vw,176px);right:8px;bottom:max(12px,env(safe-area-inset-bottom));gap:4px}.touch-skill b{font-size:17px}.touch-skill small{font-size:8px}.battle-bottom.touch-layout .battle-actions,html.has-touch .battle-actions{top:92px}}
 @media(max-height:450px){.touch-dpad{width:min(36vh,145px);left:12px;bottom:8px}.touch-skills{width:min(55vh,236px);right:12px;bottom:8px;gap:5px}.touch-skill b{font-size:18px}.touch-skill small{font-size:8px}.battle-bottom.touch-layout .battle-actions,html.has-touch .battle-actions{top:77px}}
-/* VER 3.9 mobile mode: suppress double-tap zoom but retain pinch zoom. */
+/* VER 4.0 mobile mode: suppress double-tap zoom but retain pinch zoom. */
 html.mobile-mode,html.mobile-mode body{touch-action:manipulation;overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 html.mobile-mode #app{height:100dvh;min-height:0}
 html.mobile-mode #touchControls{display:block!important}
@@ -177,7 +177,7 @@ html.mobile-mode .touch-key{touch-action:none}
 .online-char-status{flex:1;min-width:min(100%,260px);font-size:12px;line-height:1.7;color:#b9cadc;white-space:pre-line}
 .online-char-actions{display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap}
 .online-char-actions button{min-width:140px}.online-char-actions button[hidden]{display:none!important}.online-net-status{position:absolute;top:112px;left:50%;transform:translateX(-50%);z-index:30;max-width:90vw;padding:7px 12px;border:1px solid #65efff66;border-radius:999px;background:#061322e8;color:#a8ffc1;font:800 11px/1.4 system-ui,sans-serif;text-align:center;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:auto;user-select:text;-webkit-user-select:text;max-height:32vh;overflow:auto;box-shadow:0 6px 24px #0005}.online-net-status[data-state="error"]{color:#ffd2d2;border-color:#ff718a99}.online-net-status[hidden]{display:none!important}
-/* VER 3.9: keep RTC diagnostics visible separately so fallback status messages cannot overwrite them. */
+/* VER 4.0: keep RTC diagnostics visible separately so fallback status messages cannot overwrite them. */
 .online-rtc-diagnostic{position:absolute;top:calc(112px + 42px);left:50%;transform:translateX(-50%);z-index:31;width:min(94vw,880px);max-height:22vh;overflow:auto;padding:7px 10px;border:1px solid #60f0ff55;border-radius:8px;background:rgba(3,12,24,.88);color:#bfefff;font:600 10px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:auto;user-select:text;-webkit-user-select:text;box-shadow:0 4px 16px #0005}
 .online-rtc-diagnostic[hidden]{display:none!important}
 @media(max-width:560px){.online-rtc-diagnostic{top:calc(112px + 39px);width:96vw;max-height:19vh;font-size:9px;padding:5px 7px}}
@@ -187,13 +187,15 @@ html.mobile-mode .touch-key{touch-action:none}
 
 
 .custom-overlay{display:none;position:fixed;inset:0;z-index:45;align-items:center;justify-content:center;padding:16px;background:rgba(2,8,18,.90);backdrop-filter:blur(9px);overflow:auto}
-.custom-overlay.show{display:flex}.custom-overlay-box{width:min(920px,100%);max-height:calc(100vh - 32px);overflow:auto;padding:24px;background:linear-gradient(145deg,#102843,#071323);border:1px solid #4d718f;box-shadow:0 20px 70px #000b;color:#eff8ff}.custom-overlay-box h2{font-size:clamp(28px,4vw,40px);margin:5px 0 10px}.custom-overlay-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}.shop-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.shop-wallet{white-space:nowrap;border:1px solid #ffd87565;background:#4d3a144d;border-radius:10px;padding:10px 14px;font-size:20px;color:#ffe9a1}.shop-lead{color:#afc5d8;margin:0 0 14px;line-height:1.6}.shop-rules-note{border:1px solid #65efff30;background:#0b2438;border-radius:8px;padding:11px 13px;color:#b8d7e7;font-size:13px;line-height:1.65;margin:12px 0 16px}.shop-items-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.shop-item{border:1px solid #ffffff22;border-radius:10px;padding:14px;background:linear-gradient(150deg,#122b46,#081827);display:flex;flex-direction:column;gap:9px;min-width:0}.shop-item .shop-icon{font-size:36px;line-height:1.1}.shop-item h3{font-size:17px;margin:0;color:#f2fbff}.shop-item p{font-size:12px;line-height:1.5;color:#a9c2d5;margin:0;min-height:38px}.shop-item .shop-price{color:#ffe59d;font-weight:900;font-size:13px}.shop-item button{margin-top:auto;width:100%;min-height:38px}.shop-category{grid-column:1/-1;margin:12px 0 0;color:#8feaff;font-weight:900;font-size:12px;letter-spacing:.12em;border-bottom:1px solid #ffffff22;padding-bottom:6px}.shop-status{color:#b4c8d9;font-size:13px;min-height:22px;margin-top:14px}.online-room-capacity{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0;padding:10px 12px;background:#071727;border:1px solid #ffffff20;border-radius:8px}.online-room-capacity label{font-weight:900;font-size:12px;color:#a9cde0}.online-room-capacity select{background:#122d47;color:#f3fbff;border:1px solid #55758f;border-radius:6px;padding:8px}.online-room-capacity small{color:#7998b0;font-size:11px}.extra-player-hud{position:absolute;left:50%;top:86px;transform:translateX(-50%);z-index:7;display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:72%;pointer-events:none}.extra-player-hud-item{background:#071727db;border:1px solid #65efff4a;border-radius:6px;padding:5px 8px;color:#f0f9ff;font-size:11px;font-weight:900;box-shadow:0 4px 14px #0004}.extra-player-hud-item.dead{opacity:.45}.fighter-aura{pointer-events:none}.rank-cpu-note{font-size:12px;color:#ffe4a1;margin:5px 0 10px;text-align:center}
+.custom-overlay.show{display:flex}.custom-overlay-box{width:min(920px,100%);max-height:calc(100vh - 32px);overflow:auto;padding:24px;background:linear-gradient(145deg,#102843,#071323);border:1px solid #4d718f;box-shadow:0 20px 70px #000b;color:#eff8ff}.custom-overlay-box h2{font-size:clamp(28px,4vw,40px);margin:5px 0 10px}.custom-overlay-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}.shop-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.shop-wallet{white-space:nowrap;border:1px solid #ffd87565;background:#4d3a144d;border-radius:10px;padding:10px 14px;font-size:20px;color:#ffe9a1}.shop-lead{color:#afc5d8;margin:0 0 14px;line-height:1.6}.shop-rules-note{border:1px solid #65efff30;background:#0b2438;border-radius:8px;padding:11px 13px;color:#b8d7e7;font-size:13px;line-height:1.65;margin:12px 0 16px}.shop-items-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.shop-item{border:1px solid #ffffff22;border-radius:10px;padding:14px;background:linear-gradient(150deg,#122b46,#081827);display:flex;flex-direction:column;gap:9px;min-width:0}.shop-item .shop-icon{font-size:36px;line-height:1.1}.shop-item h3{font-size:17px;margin:0;color:#f2fbff}.shop-item p{font-size:12px;line-height:1.5;color:#a9c2d5;margin:0;min-height:38px}.shop-item .shop-price{color:#ffe59d;font-weight:900;font-size:13px}.shop-item button{margin-top:auto;width:100%;min-height:38px}.shop-category{grid-column:1/-1;margin:12px 0 0;color:#8feaff;font-weight:900;font-size:12px;letter-spacing:.12em;border-bottom:1px solid #ffffff22;padding-bottom:6px}.shop-status{color:#b4c8d9;font-size:13px;min-height:22px;margin-top:14px}.online-room-capacity{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0;padding:10px 12px;background:#071727;border:1px solid #ffffff20;border-radius:8px}.online-room-capacity label{font-weight:900;font-size:12px;color:#a9cde0}.online-room-capacity select{background:#122d47;color:#f3fbff;border:1px solid #55758f;border-radius:6px;padding:8px}.online-room-capacity small{color:#7998b0;font-size:11px}
+.online-room-access{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;margin:10px 0;padding:10px 12px;background:#071727;border:1px solid #ffffff20;border-radius:8px}.online-room-access label{font-weight:900;font-size:12px;color:#a9cde0}.online-room-access input{width:min(100%,240px);box-sizing:border-box;padding:10px 12px;border:1px solid #52718e;border-radius:6px;background:#061323;color:#fff;font:800 16px ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase}.online-room-access small{color:#7998b0;font-size:11px;line-height:1.5}.public-rooms-panel{margin-top:13px;padding:12px;border:1px solid #60f0ff2e;border-radius:8px;background:#061323}.public-rooms-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.public-rooms-head strong{font-size:12px;letter-spacing:.1em;color:#a7f3ff}.public-rooms-head button{min-width:0;padding:8px 12px;font-size:11px}.public-rooms-list{display:grid;gap:8px}.public-room-empty{padding:13px;border:1px dashed #47627b;border-radius:7px;color:#92abc2;font-size:12px;line-height:1.7}.public-room-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px 12px;border:1px solid #ffffff1c;border-radius:7px;background:#0b2035;min-width:0}.public-room-card-main{min-width:0;display:grid;gap:4px}.public-room-name{font-size:13px;font-weight:900;color:#eefbff;overflow-wrap:anywhere}.public-room-meta{font-size:11px;color:#93aec5;line-height:1.5}.public-room-lock{display:inline-block;margin-left:7px;padding:2px 5px;border:1px solid #ffcf7b66;border-radius:4px;color:#ffdf9c;font-size:9px;font-weight:900}.public-room-card button{min-width:84px;padding:9px 12px;font-size:11px}.public-room-card button:disabled{opacity:.45;cursor:not-allowed}@media(max-width:560px){.public-room-card{grid-template-columns:minmax(0,1fr)}.public-room-card button{width:100%}.public-rooms-head{align-items:flex-start;flex-wrap:wrap}}
+.extra-player-hud{position:absolute;left:50%;top:86px;transform:translateX(-50%);z-index:7;display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:72%;pointer-events:none}.extra-player-hud-item{background:#071727db;border:1px solid #65efff4a;border-radius:6px;padding:5px 8px;color:#f0f9ff;font-size:11px;font-weight:900;box-shadow:0 4px 14px #0004}.extra-player-hud-item.dead{opacity:.45}.fighter-aura{pointer-events:none}.rank-cpu-note{font-size:12px;color:#ffe4a1;margin:5px 0 10px;text-align:center}
 @media(max-width:760px){.shop-items-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.custom-overlay-box{padding:16px}.shop-head{align-items:center}.shop-item p{min-height:0}.extra-player-hud{max-width:96%;top:115px}.extra-player-hud-item{font-size:10px;padding:4px 6px}}
 @media(max-width:430px){.shop-items-grid{grid-template-columns:1fr}}
 
 
 
-/* VER 3.9: responsive layout pass for small phones, tablets, desktop and landscape. */
+/* VER 4.0: responsive layout pass for small phones, tablets, desktop and landscape. */
 :root { color-scheme: dark; }
 html, body {
   min-width: 0;
@@ -405,7 +407,7 @@ img, canvas, video, svg { max-width: 100%; }
 }
 
 
-/* VER 3.9: cinematic startup animation */
+/* VER 4.0: cinematic startup animation */
 #startupIntro{position:absolute;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;isolation:isolate;cursor:pointer;background:radial-gradient(ellipse at 50% 44%,#153856 0%,#09182b 42%,#02050d 100%);opacity:1;visibility:visible;transition:opacity .65s ease,visibility .65s ease}
 #startupIntro:before{content:"";position:absolute;inset:-45%;z-index:-2;background:repeating-linear-gradient(122deg,transparent 0 8%,rgba(96,240,255,.075) 8.1%,transparent 8.35% 15%),repeating-linear-gradient(28deg,transparent 0 18%,rgba(255,96,142,.045) 18.1%,transparent 18.3% 27%);animation:introSweep 8s linear infinite}
 #startupIntro:after{content:"";position:absolute;z-index:-1;left:-10%;right:-10%;top:50%;height:1px;background:linear-gradient(90deg,transparent,#60f0ff,#ffe29a,#ff608e,transparent);box-shadow:0 0 22px 5px #60f0ff55;transform:scaleX(0);animation:introSlash 1.05s .22s cubic-bezier(.2,.75,.2,1) forwards}
@@ -431,7 +433,7 @@ img, canvas, video, svg { max-width: 100%; }
 </style>
 
 <style>
-/* VER 3.9: dedicated right-thumb jump button and touch-accessible pause/exit. */
+/* VER 4.0: dedicated right-thumb jump button and touch-accessible pause/exit. */
 .touch-jump-button {
   display: none; position: absolute; z-index: 8; pointer-events: auto; touch-action: none;
   right: max(10px, env(safe-area-inset-right));
@@ -472,7 +474,7 @@ img, canvas, video, svg { max-width: 100%; }
 }
 </style>
 <style>
-/* VER 3.9: per-device touch control layout customization. */
+/* VER 4.0: per-device touch control layout customization. */
 #touchControls { opacity: var(--touch-layout-opacity, 1); }
 #touchControls .touch-dpad {
   left: var(--touch-layout-stick-left, max(10px, env(safe-area-inset-left))) !important;
@@ -510,7 +512,7 @@ img, canvas, video, svg { max-width: 100%; }
 }
 
 
-/* VER 3.9: fix menu CSS leak and add visual touch layout editor. */
+/* VER 4.0: fix menu CSS leak and add visual touch layout editor. */
 #touchLayoutOpenBtn{width:100%;min-height:50px;margin:8px 0 2px}
 .touch-layout-launch-card{padding:12px;border:1px solid #ffffff20;border-radius:10px;background:#061425a8;margin-top:10px}
 .touch-layout-modal{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:rgba(1,6,14,.9);backdrop-filter:blur(8px)}
@@ -552,7 +554,7 @@ body.touch-layout-editor-open{overflow:hidden}
 <body>
 <div id="app"><div id="startupIntro" role="button" tabindex="0" aria-label="53sumaburaを起動。タップしてスキップ">
  <div class="intro-frame"><i class="intro-corner tl"></i><i class="intro-corner tr"></i><i class="intro-corner bl"></i><i class="intro-corner br"></i>
-  <div class="intro-kicker">FIGHTER SYSTEMS ONLINE · VER 3.9</div>
+  <div class="intro-kicker">FIGHTER SYSTEMS ONLINE · VER 4.0</div>
   <div class="intro-logo">53<span>sumabura</span></div>
   <div class="intro-tagline">READY · SET · FIGHT</div>
   <div class="intro-bar"><span></span></div>
@@ -582,7 +584,7 @@ body.touch-layout-editor-open{overflow:hidden}
   <div class="rank-board-wrap"><table class="rank-board"><thead><tr><th>#</th><th id="rankColPlayer">プレイヤー</th><th id="rankColTier">ランク</th><th id="rankColRP">RP</th></tr></thead><tbody id="rankLeaderboardRows"><tr><td colspan="4">ランキングを読み込み中…</td></tr></tbody></table></div>
  </section>
  <div id="howText" class="footnote" style="display:none;max-width:650px">相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。ダメージが高いほど遠くへ飛びやすい！<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ攻撃　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード<br>2P：<span class="keycap">←</span><span class="keycap">→</span> 移動　<span class="keycap">↑</span> ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ ダッシュ　↓ 地面攻撃　0 ガード</div>
- <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 3.9</div>
+ <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 4.0</div>
 </section>
 <section id="aiRoomScreen" class="screen"><div class="panel ai-room-panel">
  <div class="panel-head"><div><div class="step">SPECTATOR MODE / AI VS AI</div><h2>AI BATTLE ROOM</h2><div class="ai-room-kicker">観戦専用ルーム · 2体のAIが自動で対戦</div></div><div class="ai-room-live">LOCAL AI ARENA</div></div>
@@ -647,16 +649,16 @@ body.touch-layout-editor-open{overflow:hidden}
 <section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
 <div id="pingCounter" aria-label="オンライン遅延" aria-live="off">PING: -- ms</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 3.9</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 4.0</div>
 <div id="battleSetupOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="battleSetupTitle">
- <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 3.9</div><h2 id="battleSetupTitle">対戦設定</h2>
+ <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 4.0</div><h2 id="battleSetupTitle">対戦設定</h2>
  <p class="shop-lead">通常対戦のモードとCPUの強さを選んでから、キャラクター選択へ進もう。</p>
  <div id="battleSetupControls"></div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="battleSetupCancel">戻る</button><button class="primary-btn" id="battleSetupGo">キャラクター選択へ →</button></div>
  </div>
 </div>
 <div id="shopOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
- <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 3.9</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモートを購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
+ <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 4.0</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモートを購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
  <div class="shop-rules-note">🐕 ペットは通常対戦限定。AIランク戦では使用できません。オーラとエモートは見た目だけで、ランク戦でも使用できます。エモートは V キー。</div>
  <div id="shopItemsGrid" class="shop-items-grid"></div><div id="shopStatus" class="shop-status" aria-live="polite">アイテムを選んでね。</div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="shopClose">戻る</button></div>
@@ -750,7 +752,7 @@ body.touch-layout-editor-open{overflow:hidden}
  <section class="settings-update-card" aria-label="バージョン更新">
   <div><div class="settings-update-title" id="versionUpdateTitle">🔄 バージョン更新</div><div class="settings-update-copy" id="versionUpdateCopy">公開サイトに新しいバージョンがあるか確認します。更新が見つかった場合は再読み込みできます。</div></div>
   <button class="secondary-btn" id="versionUpdateBtn" type="button">更新を確認</button>
-  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 3.9</div>
+  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 4.0</div>
  </section>
  <div class="setting-actions"><button class="secondary-btn" id="settingsCloseBtn">戻る</button><button class="primary-btn" id="settingsApplyBtn">適用</button></div>
  </div></div>
@@ -777,6 +779,8 @@ body.touch-layout-editor-open{overflow:hidden}
   <div class="online-room-controls" id="onlineRoomControls">
 <div class="online-room-title" id="onlineRoomTitle">ONLINE ROOM / 部屋作成・参加</div>
 <div class="online-room-capacity"><label for="onlinePlayerCountSelect">対戦人数</label><select id="onlinePlayerCountSelect"><option value="2">2人対戦</option><option value="3">3人対戦</option><option value="4">4人対戦</option></select><small>部屋を作成するホストが人数を選びます。</small></div>
+<div class="online-room-access"><label id="onlineCreateAccessCodeLabel" for="onlineCreateAccessCode">参加コード（任意・4文字）</label><input id="onlineCreateAccessCode" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="空欄なら誰でも参加" aria-label="参加コード（任意・4文字）"><small id="onlineCreateAccessCodeHelp">空欄なら公開ルーム。4文字を設定すると参加時に入力が必要になります。</small></div>
+<div class="public-rooms-panel"><div class="public-rooms-head"><strong id="onlinePublicRoomsTitle">公開ルーム一覧</strong><button type="button" class="secondary-btn" id="onlineRefreshPublicRoomsBtn">一覧を更新</button></div><div id="onlinePublicRoomsList" class="public-rooms-list" role="list" aria-live="polite"><div class="public-room-empty">Firebaseに接続すると、参加できるルームが表示されます。</div></div></div>
 <div class="online-room-buttons"><button class="primary-btn" id="onlineCreateRoomBtn" disabled>＋ 部屋を作成</button><button class="secondary-btn" id="onlineCopyRoomBtn" disabled>部屋コードをコピー</button></div>
    <div class="online-room-join"><div><label for="onlineRoomCode" id="onlineCodeLabel">参加する部屋コード（6文字）</label><input id="onlineRoomCode" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABC234" aria-label="部屋コード"></div><button class="secondary-btn" id="onlineJoinRoomBtn" disabled>部屋に参加</button></div>
    <div class="online-room-state" id="onlineRoomStatus" data-state="neutral" role="status" aria-live="polite">接続後、部屋を作成するかコードを入力して参加してください。</div>
@@ -840,7 +844,7 @@ const bonusFighterSpecs = [
  {id:'sonata',name:'SONATA',jp:'ソナタ',role:'THE SOUND BREAKER',desc:'音波を刃に変え、リズムよく攻め続ける。',color:'#ff91d5',dark:'#814670',accent:'#ffe8fb',speed:4.9,power:.98,jump:13.6,weight:.94,skill:'RESONANCE PULSE',ultimateName:'FINAL CRESCENDO',type:8,style:'sound',stats:[82,72,84],moveNames:['音撃','共鳴クラッシュ','音波弾','ビートステップ','衝撃波'],damage:[7.9,14.5,10.2,10.9,12.8],range:[98,119,108],cooldown:[21,45,82,55,72],speedShot:9.7,projVy:0,projGravity:0,projLife:72,projRadius:13,dashSpeed:12.7,knockback:1.03},
  {id:'zephyr',name:'ZEPHYR',jp:'ゼファー',role:'THE GALE DANCER',desc:'風をまとって空中を舞う高速ファイター。',color:'#b8f3b2',dark:'#347c73',accent:'#ecfff0',speed:5.7,power:.84,jump:14.7,weight:.82,skill:'GALE BLADE',ultimateName:'SKY CYCLONE',type:9,style:'wind',stats:[99,59,99],moveNames:['風切り','真空刃','風刃弾','疾風ステップ','竜巻落とし'],damage:[6.8,12.6,8.9,9.8,11.5],range:[96,115,106],cooldown:[17,40,73,47,65],speedShot:11.8,projVy:-.25,projGravity:0,projLife:65,projRadius:10,dashSpeed:16.1,knockback:.88},
  {id:'nebula',name:'NEBULA',jp:'ネビュラ',role:'THE COSMIC MAGE',desc:'星雲の魔力を集め、広範囲の光弾を放つ。',color:'#a58bff',dark:'#43318f',accent:'#f2eaff',speed:4.45,power:1.08,jump:13.4,weight:1.0,skill:'STARDUST ORB',ultimateName:'GALAXY COLLAPSE',type:10,style:'cosmic',stats:[70,82,83],moveNames:['星屑打ち','彗星衝撃','星雲弾','軌道ダッシュ','流星落とし'],damage:[8,15.4,12,10.4,14.1],range:[100,126,112],cooldown:[23,49,92,59,77],speedShot:8.0,projVy:-.65,projGravity:.01,projLife:88,projRadius:15,dashSpeed:11.6,knockback:1.12},
- {id:'gear',name:'GEAR',jp:'ギア',role:'THE IRON AUTOMATON',desc:'精密な機械仕掛けで、隙のない連携を決める。',color:'#ffcc73',dark:'#66545c',accent:'#fff1c7',speed:3.95,power:1.21,jump:11.6,weight:1.23,skill:'GEAR CANNON',ultimateName:'OVERDRIVE ENGINE',type:11,style:'metal',stats:[55,91,59],moveNames:['ギアパンチ','タービンブレイク','鋼弾','ブーストチャージ','パイルドライバー'],damage:[9.2,17.1,12.7,12.1,15.8],range:[92,121,106],cooldown:[26,53,96,66,81],speedShot:8.4,projVy:-.1,projGravity:0,projLife:77,projRadius:16,dashSpeed:12.3,knockback:1.28},
+ {id:'gear',name:'GEAR',jp:'ギア',role:'THE IRON AUTOMATON',desc:'精密な機械仕掛けで、隙のない連携を決める。',color:'#ffcc73',dark:'#66545c',accent:'#fff1c7',speed:4.05,power:1.21,jump:11.6,weight:1.23,skill:'GEAR CANNON',ultimateName:'OVERDRIVE ENGINE',type:11,style:'metal',stats:[55,91,59],moveNames:['ギアパンチ','タービンブレイク','鋼弾','ブーストチャージ','パイルドライバー'],damage:[9.2,17.1,12.7,12.1,15.8],range:[92,121,106],cooldown:[26,53,96,66,81],speedShot:8.4,projVy:-.1,projGravity:0,projLife:77,projRadius:16,dashSpeed:12.3,knockback:1.28},
  {id:'psion',name:'PSION',jp:'サイオン',role:'THE MIND WEAVER',desc:'念動力で敵を翻弄するトリッキーな超能力者。',color:'#f09aff',dark:'#70429a',accent:'#ffeaff',speed:4.95,power:.94,jump:13.8,weight:.9,skill:'MIND SHARD',ultimateName:'PSYCHIC OVERLOAD',type:12,style:'psychic',stats:[85,69,88],moveNames:['念動掌','精神破砕','念力弾','思念加速','サイコスラム'],damage:[7.6,14.2,10.8,10.5,12.7],range:[98,120,110],cooldown:[21,46,84,54,73],speedShot:8.9,projVy:-.4,projGravity:0,projLife:80,projRadius:14,dashSpeed:12.8,knockback:1.0},
  {id:'wyvern',name:'WYVERN',jp:'ワイバーン',role:'THE DRAGON KNIGHT',desc:'竜の力を宿した爪と炎で豪快に攻める。',color:'#ff786e',dark:'#763047',accent:'#ffe0b6',speed:4.65,power:1.17,jump:13.0,weight:1.08,skill:'WYVERN FIRE',ultimateName:'DRAGON EMPEROR',type:13,style:'dragon',stats:[71,91,77],moveNames:['竜爪','龍尾砕き','竜炎弾','飛竜突進','天竜落とし'],damage:[9,16.8,12.8,12.4,15.8],range:[100,126,110],cooldown:[24,50,91,62,79],speedShot:8.0,projVy:-.25,projGravity:0,projLife:73,projRadius:16,dashSpeed:12.9,knockback:1.23}
 ];
@@ -872,7 +876,7 @@ const stages = [
  {id:'scrapyard',name:'TITAN SCRAPYARD',jp:'巨人のスクラップ場',desc:'廃ロボットと鉄骨が積み重なる工業地帯。',tag:'INDUSTRIAL WASTELAND',sky:['#202838','#77634d'],ground:'#4d5961',glow:'#ffb15e',type:13,platforms:[{x:100,y:510,w:1080,h:66},{x:180,y:415,w:220,h:18},{x:880,y:415,w:220,h:18},{x:465,y:325,w:350,h:20}]}
 ];
 let mode='cpu', p1Pick=0,p2Pick=1,stagePick=0,game=null,frame=0,lastTime=0,raf=0,held={},justPressed={},muted=false,cpuLevel=5,watchLevel1=5,watchLevel2=5;
-// VER 3.9: estimate the display's requestAnimationFrame cadence while the menu is lightweight.
+// VER 4.0: estimate the display's requestAnimationFrame cadence while the menu is lightweight.
 let estimatedDisplayRefreshHz=60,currentSimulationFrameScale=1,currentRenderFrameScale=1;
 (function measureDisplayRefreshRate(){
  const intervals=[];let previous=0,count=0;
@@ -945,7 +949,7 @@ function scheduleBgmNoise(start,peak=.025,duration=.045){if(!audioCtx||!bgmGain)
 function scheduleBgmPiano(midi,start,duration=.42,peak=.045){
  if(!audioCtx||!bgmGain)return;const f=bgmMidiHz(midi);
  // Soft piano-like hammer transient plus warm fundamental and a short overtone.
- [[1,1,.72],[2.01,.24,.19],[3.97,.07,.11]].forEach(([ratio,level,decay],i)=>{
+ [[1,1,.72],[2.01,.24,.19],[4.07,.07,.11]].forEach(([ratio,level,decay],i)=>{
   const o=audioCtx.createOscillator(),g=audioCtx.createGain(),filter=audioCtx.createBiquadFilter();
   o.type=i===1?'sine':'triangle';o.frequency.setValueAtTime(f*ratio,start);filter.type='lowpass';filter.frequency.setValueAtTime(i===2?2600:5200,start);
   const top=Math.max(.0002,peak*level),tail=Math.max(.0001,top*decay);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(top,start+.006+i*.002);g.gain.exponentialRampToValueAtTime(tail,start+Math.min(.085,duration*.35));g.gain.exponentialRampToValueAtTime(.0001,start+duration);
@@ -1397,7 +1401,7 @@ function applyLanguage(lang){
  uiLanguage=lang==='en'?'en':'ja';const ja=uiLanguage==='ja',t=settingsLocales[uiLanguage];document.documentElement.lang=uiLanguage;
  $('#settingsTitle').textContent=t.settingsTitle;$('#bgmLabel').textContent=ja?'BGM（背景音楽）':'Background music (BGM)';$('#bgmHelp').textContent=ja?'メニュー・対戦中に流れる音楽':'Original music in menus and battles';$('#bgmVolumeLabel').textContent=ja?'BGM音量':'BGM volume';$('#bgmVolumeHelp').textContent=ja?'背景音楽の音量を調整':'Adjust background music volume';$('.settings-box .step').textContent=ja?'システム設定':'SYSTEM / OPTIONS';document.querySelector('[data-settings-tab="graphics"]').textContent=t.graphicsTab;document.querySelector('[data-settings-tab="language"]').textContent=t.languageTab;document.querySelector('[data-settings-tab="account"]').textContent=t.accountTab;const mobileTabButton=document.querySelector('[data-settings-tab="mobile"]');if(mobileTabButton)mobileTabButton.textContent=ja?'📱 スマホ':'📱 Mobile';if($('#mobileModeSectionTitle'))$('#mobileModeSectionTitle').textContent=ja?'スマホモード':'MOBILE MODE';if($('#mobileModeLabel'))$('#mobileModeLabel').textContent=ja?'スマホモードを有効にする':'Enable mobile mode';if($('#mobileModeHelp'))$('#mobileModeHelp').textContent=ja?'ダブルタップでの拡大を抑え、タッチ向け表示を有効にします。ピンチ拡大は利用できます。':'Reduces double-tap zoom and enables touch-friendly layout. Pinch zoom remains available.';if($('#mobileModeNote'))$('#mobileModeNote').textContent=ja?'「適用」でスマホモードを保存します。全画面表示は上のボタンを押したときに開始します。ブラウザによっては全画面表示に対応していません。':'Press Apply to save mobile mode. Fullscreen starts only after pressing the button. Some browsers do not support fullscreen.';$('#settingsPlayerNameHeading').textContent=ja?'プレイヤー名':'PLAYER NAME';$('#playerNameLabel').textContent=ja?'自分のプレイヤー名':'Your player name';$('#playerNameInput').placeholder=ja?'プレイヤー名（最大24文字）':'Player name (max 24 characters)';$('#playerNameInput').setAttribute('aria-label',ja?'自分のプレイヤー名':'Your player name');$('#savePlayerNameBtn').textContent=ja?'名前を保存':'Save name';$('#settingsAccountHeading').textContent=ja?'アカウント / ログイン':'ACCOUNT / SIGN-IN';$('#settingsEmailHeading').textContent=ja?'メールリンクでログイン':'SIGN IN WITH EMAIL LINK';$('#settingsEmailLabel').textContent=ja?'登録済みアカウントのメールアドレス':'Registered account email';$('#settingsEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link';$('#settingsEmailInput').placeholder=ja?'登録済みメールアドレス':'Registered email address';$('#settingsEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#settingsEmailHelp').textContent=ja?'同じメールアドレスに届いたリンクをこの端末で開くとログインできます。メールリンク認証はFirebase Consoleで有効にする必要があります。':'Open the sign-in link sent to this same email on this device. Email-link sign-in must be enabled in Firebase Console.';$('#settingsAccountNote').textContent=ja?'アカウントを切り替える前にオンラインの部屋から退出してください。登録済みと同じメールアドレスを使ってね。':'Leave your online room before switching accounts. Use the same email address that was previously registered.';['basicGraphicsTitle','audioSettingsTitle','graphicsDetailTitle','fpsLabel','fpsHelp','onlineStatusLabel','onlineStatusHelp','qualityLabel','qualityHelp','effectsLabel','effectsHelp','soundLabel','soundHelp','volumeLabel','volumeHelp','shadowLabel','shadowHelp','detailLabel','detailHelp','renderScaleLabel','renderScaleHelp','depthLabel','depthHelp','lightingLabel','lightingHelp','atmosphereLabel','atmosphereHelp','bloomLabel','bloomHelp','reflectionLabel','reflectionHelp','motionLabel','motionHelp','gradingLabel','gradingHelp','graphicsHint','languageLabel','languageHelp','languageNote'].forEach(id=>{if($('#'+id))$('#'+id).textContent=t[id]});$('#settingsCloseBtn').textContent=t.close;$('#settingsApplyBtn').textContent=t.apply;$('#settingsBtn').textContent=t.settingsButton;$('#pauseSettingsBtn').textContent=t.settingsButton;const q=$('#qualitySelect');q.options[0].textContent=t.qualityLow;q.options[1].textContent=t.qualityMedium;q.options[2].textContent=t.qualityHigh;q.options[3].textContent=t.qualityUltra;const sh=$('#shadowSelect');sh.options[0].textContent=t.shadowOff;sh.options[1].textContent=t.shadowSoft;sh.options[2].textContent=t.shadowHigh;const de=$('#detailSelect');de.options[0].textContent=t.detailLow;de.options[1].textContent=t.detailMedium;de.options[2].textContent=t.detailHigh;de.options[3].textContent=t.detailUltra;const rs=$('#renderScaleSelect');[t.scaleAuto,t.scale75,t.scale100,t.scale125,t.scale150,t.scale175,t.scale200].forEach((label,i)=>rs.options[i].textContent=label);
  // ホーム画面
- $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、友達の部屋コードで参加しよう。':'Connects automatically at startup. Create a room or join with a friend’s room code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 部屋を作成するか、6文字の部屋コードで参加する。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Create a room or join with a 6-character code.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストが2・3・4人の対戦人数を選んで部屋を作成。友達は部屋コードで参加し、全員がキャラクターを選んで準備完了にしたら開始できます。':'Host chooses a 2-, 3-, or 4-player room. Friends join with the room code, select fighters, and ready up before the host starts.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';$('#howBtn').textContent=ja?'遊び方':'HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 3.9':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 3.9';
+ $('.logo-kicker').textContent=ja?'14ステージ · 新世代のアリーナ格闘':'14 ARENAS · A NEW GENERATION OF ARENA BRAWL';$('#startBtn').textContent=ja?'▶　対戦開始':'▶　BATTLE START';$('#onlineBtn').textContent=ja?'🌐 オンライン対戦':'🌐 ONLINE MATCH';$('#onlineTitle').textContent=ja?'オンライン対戦':'ONLINE MATCH';$('#onlineLead').textContent=ja?'起動時に自動接続します。部屋を作成するか、公開ルーム一覧から参加しよう。参加コードは任意で4文字。':'Connects automatically at startup. Create a room or join a listed public room. A host can optionally require a 4-character code.';$('#onlineSteps').innerHTML=ja?'<b>使い方</b><br>1. Firebaseへ自動接続。<br>2. 公開ルーム一覧から参加するか、6文字の部屋コードを入力する。4文字の参加コードは必要な部屋だけ入力。<br>3. キャラクターを選んで準備完了！':'<b>How to play online</b><br>1. Connects to Firebase automatically.<br>2. Join from the public room list or enter a 6-character room ID. Enter a 4-character PIN only when a room requires it.<br>3. Select a fighter and get ready!';$('#onlineHelp').textContent=ja?'ホストは対戦人数を選んで部屋を作成。公開ルーム一覧から参加でき、必要なら4文字コードを入力します。全員が準備完了になるとホストが開始できます。':'Host chooses 2, 3, or 4 players. Join listed rooms without a room ID; enter a 4-character PIN only if requested.';$('#onlineRoomTitle').textContent=ja?'オンラインルーム / 部屋作成・参加':'ONLINE ROOM / CREATE OR JOIN';if($('#onlineCreateAccessCodeLabel'))$('#onlineCreateAccessCodeLabel').textContent=ja?'参加コード（任意・4文字）':'Room access code (optional, 4 chars)';if($('#onlineCreateAccessCode'))$('#onlineCreateAccessCode').placeholder=ja?'空欄なら誰でも参加':'Blank = open room';if($('#onlineCreateAccessCodeHelp'))$('#onlineCreateAccessCodeHelp').textContent=ja?'空欄なら公開ルーム。4文字を設定すると参加時に入力が必要になります。':'Blank makes the room open. Set a 4-character code to require it for joining.';if($('#onlinePublicRoomsTitle'))$('#onlinePublicRoomsTitle').textContent=ja?'公開ルーム一覧':'PUBLIC ROOMS';if($('#onlineRefreshPublicRoomsBtn'))$('#onlineRefreshPublicRoomsBtn').textContent=ja?'一覧を更新':'REFRESH LIST';$('#onlineCreateRoomBtn').textContent=ja?'＋ 部屋を作成':'+ CREATE ROOM';$('#onlineCopyRoomBtn').textContent=ja?'部屋コードをコピー':'COPY ROOM CODE';$('#onlineCodeLabel').textContent=ja?'参加する部屋コード（6文字）':'ROOM CODE (6 CHARACTERS)';$('#onlineJoinRoomBtn').textContent=ja?'部屋に参加':'JOIN ROOM';$('#onlineLeaveRoomBtn').textContent=ja?'部屋を退出':'LEAVE ROOM';$('#onlineRoomFoot').textContent=ja?'部屋の人数を2・3・4人から選んで部屋を作成し、6文字コードを友達に共有してね。全員が準備完了になるとホストが対戦開始できます。':'Choose a 2-, 3-, or 4-player room, share the 6-character code, and have everyone ready before the host starts.';$('#onlineConnectBtn').textContent=ja?'接続を再確認':'RECHECK CONNECTION';$('#onlineCloseBtn').textContent=ja?'戻る':'BACK';$('#onlineAccountTitle').textContent=ja?'プレイヤーアカウント':'PLAYER ACCOUNT';$('#onlineAccountInfo').textContent=ja?'このブラウザのプレイヤーIDで自動接続します。手動ログインは不要です。':'Connects automatically using the player ID saved in this browser. Manual sign-in is not needed.';$('#onlineEmailLabel').textContent=ja?'登録済みアカウントのメールアドレスで再ログイン':'Sign in again using your registered email';$('#onlineEmailSendBtn').textContent=ja?'確認リンクをメール送信':'Send sign-in link by email';$('#onlineEmailInput').setAttribute('placeholder',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailInput').setAttribute('aria-label',ja?'登録済みメールアドレス':'Registered email address');$('#onlineEmailHelp').textContent=ja?'登録済みのメールアドレスにログインリンクを送ります。メールをこの端末で開いてリンクを押すとログインできます。':'A sign-in link will be emailed to your registered address. Open the email on this device and click the link to sign in.';$('#aiRoomBtn').textContent=ja?'🤖 AI観戦ルーム':'🤖 AI BATTLE ROOM';$('#howBtn').textContent=ja?'遊び方':'HOW TO PLAY';$('.mode-select').setAttribute('aria-label',ja?'対戦モード':'Battle mode');const modeButtons=document.querySelectorAll('.mode-select [data-mode]');if(modeButtons[0])modeButtons[0].textContent=ja?'1人でCPUと対戦':'1 PLAYER VS CPU';if(modeButtons[1])modeButtons[1].textContent=ja?'2人で対戦':'2 PLAYERS';document.querySelector('.difficulty-head span').textContent=ja?'CPUの強さ':'CPU DIFFICULTY';$('#difficultyPicker').setAttribute('aria-label',ja?'CPUの強さ':'CPU difficulty');$('#titleFoot').innerHTML=ja?'14人のキャラクター · 14ステージ · キャラ固有の技<br>ブラウザですぐに遊べる · VER 4.0':'14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 4.0';
  // AI観戦ルーム
  const roomHead=$('#aiRoomScreen .panel-head');roomHead.querySelector('.step').textContent=ja?'観戦モード / AI対AI':'SPECTATOR MODE / AI VS AI';roomHead.querySelector('h2').textContent=ja?'AI対戦ルーム':'AI BATTLE ROOM';$('#aiRoomScreen .ai-room-kicker').textContent=ja?'観戦専用ルーム · 2体のAIが自動で対戦':'Spectator room · Two AIs fight automatically';$('#aiRoomScreen .ai-room-live').textContent=ja?'ローカルAIアリーナ':'LOCAL AI ARENA';const roomCards=document.querySelectorAll('.ai-room-card h3');if(roomCards[0])roomCards[0].textContent=ja?'01 / シアンチーム':'01 / CYAN TEAM';if(roomCards[1])roomCards[1].textContent=ja?'02 / ピンクチーム':'02 / PINK TEAM';[['#aiRoomScreen label[for="watchP1Select"]','キャラクター1','FIGHTER 1'],['#aiRoomScreen label[for="watchLevel1"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchP2Select"]','キャラクター2','FIGHTER 2'],['#aiRoomScreen label[for="watchLevel2"]','AIの強さ','AI LEVEL'],['#aiRoomScreen label[for="watchStageSelect"]','ステージ','BATTLE ARENA'],['#aiRoomScreen label[for="watchMatchLength"]','対戦時間','MATCH LENGTH']].forEach(([sel,j,e])=>setText(sel,j,e));$('#aiRoomScreen .ai-room-hint').textContent=ja?'AIが自分で移動・ジャンプ・攻撃・ガード・必殺技を使って戦うよ。観戦中は操作不要。キャラや強さを変えて、何度でも対戦を見られる！':'AIs move, jump, attack, guard and use special moves automatically. No controls are needed while watching. Change fighters or levels and watch again!';$('#watchBackBtn').textContent=ja?'← ホームへ戻る':'← BACK TO HOME';$('#watchStartBtn').textContent=ja?'▶ 観戦開始':'▶ START WATCHING';
  // キャラクター・ステージ選択
@@ -1450,7 +1454,7 @@ function saveGraphicsSettings(){try{localStorage.setItem('skyboundGraphicsSettin
 function closeSettings(){ $('#settingsOverlay').classList.remove('show') }
 function applySettings(){showFPS=$('#fpsToggle').checked;showOnlineStatus=$('#onlineStatusToggle').checked;window.SKYBOUND_SHOW_ONLINE_STATUS=showOnlineStatus;applyOnlineStatusVisibility();graphicsQuality=$('#qualitySelect').value;particlesEnabled=$('#effectsToggle').checked;shadowQuality=$('#shadowSelect').value;environmentDetail=$('#detailSelect').value;resolutionScaleSetting=$('#renderScaleSelect').value;depthEffects=$('#depthToggle').checked;cinematicLighting=$('#lightingToggle').checked;atmosphereEnabled=$('#atmosphereToggle').checked;bloomEnabled=$('#bloomToggle').checked;reflectionEnabled=$('#reflectionToggle').checked;motionTrailsEnabled=$('#motionToggle').checked;colorGradingEnabled=$('#gradingToggle').checked;soundEnabled=$('#soundToggle').checked;soundVolume=Number($('#soundVolume').value)/100;bgmEnabled=$('#bgmToggle').checked;bgmVolume=Number($('#bgmVolume').value)/100;applyLanguage($('#languageSelect').value);setMobileMode($('#mobileModeToggle').checked,true);saveGraphicsSettings();saveAudioSettings();initAudio();if(masterGain)masterGain.gain.setTargetAtTime(soundEnabled?soundVolume:0,audioCtx.currentTime,.025);if(bgmEnabled)startBGM();else stopBGM();if(bgmGain)bgmGain.gain.setTargetAtTime(bgmEnabled?bgmVolume:0,audioCtx.currentTime,.08);$('#fpsCounter').style.display=showFPS&&$('#battleScreen').classList.contains('active')?'block':'none';resizeCanvas();closeSettings();if($('#battleScreen').classList.contains('active'))render();playSfx('ui')}
 
-// VER 3.9 admin panel. This client-side password is only a UI gate;
+// VER 4.0 admin panel. This client-side password is only a UI gate;
 // Firebase Rules must separately authorize one trusted admin UID.
 const ADMIN_MODE_PASSWORD = 'kansuke1102';
 let adminModeUnlocked = false;
@@ -1515,7 +1519,7 @@ $('#adminCopyUidBtn').addEventListener('click',async()=>{const uid=$('#adminCurr
 $('#adminLockBtn').addEventListener('click',()=>{adminModeUnlocked=false;adminModeIdentity=null;adminModeProfiles=[];$('#adminModePanel').hidden=true;$('#adminPasswordInput').value='';setAdminModeStatus('管理者モードを閉じました。');});
 document.querySelectorAll('[data-settings-tab]').forEach(b=>b.addEventListener('click',()=>openSettingsTab(b.dataset.settingsTab)));$('#mobileFullscreenBtn').addEventListener('click',toggleMobileFullscreen);$('#mobileModeToggle').addEventListener('change',()=>{const status=$('#mobileModeStatus');if(status){status.dataset.state='neutral';status.textContent=$('#mobileModeToggle').checked?(uiLanguage==='en'?'Press Apply to enable mobile mode.':'「適用」を押すとスマホモードが有効になります。'):(uiLanguage==='en'?'Press Apply to disable mobile mode.':'「適用」を押すとスマホモードがオフになります。')}});document.addEventListener('fullscreenchange',updateMobileModeStatus);document.addEventListener('webkitfullscreenchange',updateMobileModeStatus);document.addEventListener('dblclick',e=>{if(mobileModeEnabled&&e.cancelable)e.preventDefault()},{passive:false});setMobileMode(mobileModeEnabled,false);
 $('#settingsBtn').onclick=()=>{initAudio();playSfx('ui');openSettings()};$('#pauseSettingsBtn').onclick=()=>{initAudio();playSfx('ui');openSettings()};$('#settingsCloseBtn').onclick=()=>{playSfx('ui');closeSettings()};$('#settingsApplyBtn').onclick=applySettings;$('#onlineBtn').onclick=()=>{$('#onlineOverlay').classList.add('show');playSfx('ui')};$('#onlineCloseBtn').onclick=()=>$('#onlineOverlay').classList.remove('show');$('#onlineOverlay').addEventListener('click',e=>{if(e.target===$('#onlineOverlay'))$('#onlineOverlay').classList.remove('show')});
-const APP_VERSION_NUMBER = '3.9';
+const APP_VERSION_NUMBER = '4.0';
 function parseAppVersionFromHtml(html){
  const title = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)||[])[1] || '';
  const m = (title+' '+html.slice(0,12000)).match(/VER\s*(\d+)\.(\d+)/i);
@@ -1678,7 +1682,7 @@ function updateTouchStick(e){
  const wantLeft=nx < -dead,wantRight=nx > dead;
  held.a=wantLeft;held.d=wantRight;
  if(touchStickHint)touchStickHint.textContent=wantLeft?'◀':wantRight?'▶':'MOVE';
-  // VER 3.9: the left stick controls horizontal movement only. Jump uses the separate right-hand button.
+  // VER 4.0: the left stick controls horizontal movement only. Jump uses the separate right-hand button.
   stickJumpActive=false;
   stickSlamActive=false;
 }
@@ -1696,11 +1700,15 @@ if(touchStickArea){
 }
 
 function togglePause(){if(finished)return;paused=!paused;$('#pauseOverlay').classList.toggle('show',paused);if(!paused){lastTime=performance.now();raf=requestAnimationFrame(loop)}}
-function exitBattleToTitle(){paused=false;$('#pauseOverlay').classList.remove('show');cancelAnimationFrame(raf);showScreen('titleScreen')}
-$('#pauseBtn').onclick=togglePause;$('#touchPauseBtn').onclick=togglePause;$('#resumeBtn').onclick=()=>{if(paused)togglePause()};$('#restartBtn').onclick=()=>startBattle(mode==='watch'?(Number($('#watchMatchLength')?.value)||120):120);$('#quitBtn').onclick=exitBattleToTitle;$('#touchExitBtn').onclick=exitBattleToTitle;$('#pauseExitBtn').onclick=exitBattleToTitle;
+function exitBattleToTitle(){if(mode==='online'&&window.SKYBOUND_HANDLE_ONLINE_EXIT&&window.SKYBOUND_HANDLE_ONLINE_EXIT())return;paused=false;$('#pauseOverlay').classList.remove('show');cancelAnimationFrame(raf);showScreen('titleScreen')}
+$('#pauseBtn').onclick=togglePause;$('#touchPauseBtn').onclick=togglePause;$('#resumeBtn').onclick=()=>{if(paused)togglePause()};$('#restartBtn').onclick=()=>{if(mode==='online'){showAIToast(uiLanguage==='ja'?'オンライン戦は個別に再スタートできません。ホストがロビーに戻って再戦します。':'Online matches cannot be restarted locally. The host can return to the room lobby.',2200);return}startBattle(mode==='watch'?(Number($('#watchMatchLength')?.value)||120):120)};$('#quitBtn').onclick=exitBattleToTitle;$('#touchExitBtn').onclick=exitBattleToTitle;$('#pauseExitBtn').onclick=exitBattleToTitle;
 function aiLevelFor(p){return mode==='watch'?(p.playerNo===1?watchLevel1:watchLevel2):(mode==='cpu'&&p.playerNo===2?cpuLevel:0)}
 function isAIControlled(p){return mode==='watch'||(mode==='cpu'&&p.playerNo===2)}
 function showAIToast(message,duration=640){const toast=$('#toast');if(!toast)return;toast.textContent=message;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),duration)}
+window.SKYBOUND_SHOW_ONLINE_NOTICE=showAIToast;
+window.SKYBOUND_RETURN_TO_ONLINE_LOBBY=(message='')=>{cancelAnimationFrame(raf);paused=false;finished=true;$('#pauseOverlay').classList.remove('show');$('#touchControls').style.display='none';showScreen('onlineCharacterScreen');if(message)showAIToast(message,2500);};
+window.SKYBOUND_RETURN_TO_ONLINE_ROOM_BROWSER=(message='')=>{cancelAnimationFrame(raf);paused=false;finished=true;$('#pauseOverlay').classList.remove('show');$('#touchControls').style.display='none';showScreen('titleScreen');$('#onlineOverlay').classList.add('show');if(message&&$('#onlineRoomStatus')){ $('#onlineRoomStatus').dataset.state='neutral'; $('#onlineRoomStatus').textContent=message; }};
+
 function scheduleAICombo(p,foe,move){
  const level=aiLevelFor(p);if(level<7||!isAIControlled(p)||p.dead||foe.dead||foe.guarding)return;
  if(frame>p.aiComboUntil)p.aiComboHits=0;
@@ -1965,7 +1973,7 @@ function render(){if(!game)return;
  ctx.restore();
  if(onlineSmoothRestore){(game.players||[game.p1,game.p2]).forEach((p,i)=>{const saved=onlineSmoothRestore.players[i];if(saved)Object.assign(p,saved);});game.projectiles=onlineSmoothRestore.projectiles;}
 }
-$('#rematchBtn').onclick=()=>{if(mode==='online'){showAIToast(uiLanguage==='ja'?'オンライン再戦はまだ準備中だよ。部屋から新しく対戦を開始してね。':'Online rematch is not available yet. Start a new match from a room.',2200);return}startBattle(mode==='watch'?(Number($('#watchMatchLength')?.value)||120):120)};$('#selectAgainBtn').onclick=()=>{if(mode==='online'){showScreen('onlineCharacterScreen');setOnlineNetStatus('オンライン対戦は終了しました。部屋を退出して新しい対戦を始めてね。',false);return}if(mode==='watch'){fillAIRoomSelectors();$('#watchP1Select').value=String(p1Pick);$('#watchP2Select').value=String(p2Pick);$('#watchStageSelect').value=String(stagePick);$('#watchLevel1').value=String(watchLevel1);$('#watchLevel2').value=String(watchLevel2);showScreen('aiRoomScreen')}else{renderChars();showScreen('charScreen')}};$('#homeBtn').onclick=()=>{aiRankedMatchActive=false;mode='cpu';document.querySelectorAll('.mode-select .mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode==='cpu'));$('#difficultyPicker').style.display='block';cancelAnimationFrame(raf);paused=false;finished=true;$('#pauseOverlay').classList.remove('show');$('#touchControls').style.display='none';showScreen('titleScreen')};
+$('#rematchBtn').onclick=()=>{if(mode==='online'){if(window.SKYBOUND_HANDLE_ONLINE_EXIT&&window.SKYBOUND_HANDLE_ONLINE_EXIT())return;showAIToast(uiLanguage==='ja'?'オンラインの再戦はルームから開始してね。':'Start online rematches from the room.',2200);return}startBattle(mode==='watch'?(Number($('#watchMatchLength')?.value)||120):120)};$('#selectAgainBtn').onclick=()=>{if(mode==='online'){if(window.SKYBOUND_HANDLE_ONLINE_EXIT&&window.SKYBOUND_HANDLE_ONLINE_EXIT())return;showScreen('onlineCharacterScreen');setOnlineNetStatus('オンライン対戦は終了しました。',false);return}if(mode==='watch'){fillAIRoomSelectors();$('#watchP1Select').value=String(p1Pick);$('#watchP2Select').value=String(p2Pick);$('#watchStageSelect').value=String(stagePick);$('#watchLevel1').value=String(watchLevel1);$('#watchLevel2').value=String(watchLevel2);showScreen('aiRoomScreen')}else{renderChars();showScreen('charScreen')}};$('#homeBtn').onclick=()=>{if(mode==='online'&&window.SKYBOUND_HANDLE_ONLINE_EXIT&&window.SKYBOUND_HANDLE_ONLINE_EXIT())return;aiRankedMatchActive=false;mode='cpu';document.querySelectorAll('.mode-select .mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode==='cpu'));$('#difficultyPicker').style.display='block';cancelAnimationFrame(raf);paused=false;finished=true;$('#pauseOverlay').classList.remove('show');$('#touchControls').style.display='none';showScreen('titleScreen')};
 // keyboard selection shortcut: Enter from title; Escape from menus returns one step
 window.addEventListener('keydown',e=>{let k=keyName(e);if(k==='enter'&&$('#titleScreen').classList.contains('active')){battleSetupOverlay.classList.add('show')}if(k==='escape'&&$('#stageScreen').classList.contains('active'))showScreen('charScreen');else if(k==='escape'&&$('#charScreen').classList.contains('active'))showScreen('titleScreen')});
 // Expose read-only fighter data and drawing helpers for the lightweight online lobby UI.
@@ -2005,7 +2013,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   let onlineStateRef = null;
   let onlineInputsListener = null;
   let onlineStateListener = null;
-  // VER 3.9: use WebRTC DataChannels for live match traffic; Firebase remains room/auth/signaling and fallback.
+  // VER 4.0: use WebRTC DataChannels for live match traffic; Firebase remains room/auth/signaling and fallback.
   const rtcPeers = new Map();
   const rtcSignalSubscriptions = [];
   let rtcMatchKey = '';
@@ -2013,9 +2021,9 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   let rtcSignalReadError = '';
   let rtcSignalWriteError = '';
   let rtcSignalPaths = []; 
-  // VER 3.9: count signaling messages so a missing answer or mismatched session is visible.
+  // VER 4.0: count signaling messages so a missing answer or mismatched session is visible.
   let rtcSignalCounts = {offerSent:0, offerReceived:0, answerSent:0, answerReceived:0, candidatesReceived:0, sessionMismatch:0};
-  // VER 3.9: lightweight RTT measurement over the already-open WebRTC control channel.
+  // VER 4.0: lightweight RTT measurement over the already-open WebRTC control channel.
   let rtcPingTimer = null;
   let rtcPingSequence = 0;
   const rtcPingPending = new Map();
@@ -2171,7 +2179,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     if(typeof RTCPeerConnection==='undefined')throw new Error('WEBRTC_UNAVAILABLE');
     const pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'},{urls:'stun:stun2.l.google.com:19302'},{urls:'stun:stun.cloudflare.com:3478'}]});
     const rec={role:peerRole,pc,control:null,state:null,pendingCandidates:[],localCandidateBuffer:[],allowTrickle:false,remoteDescriptionSet:false};rtcPeers.set(peerRole,rec);
-    // VER 3.9: prefer a complete SDP; if gathering takes too long, fall back to safely queued trickle candidates.
+    // VER 4.0: prefer a complete SDP; if gathering takes too long, fall back to safely queued trickle candidates.
     pc.onicecandidate=event=>{
       if(event.candidate){const candidate=event.candidate.toJSON?event.candidate.toJSON():event.candidate;rec.localCandidateBuffer.push(candidate);if(rec.allowTrickle)sendRtcSignal(peerRole,{type:'candidate',candidate});}
       if(pc.iceGatheringState==='complete')refreshRtcStatus();
@@ -2262,7 +2270,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
       remoteSignalRef.on('child_added',listener,error=>{rtcSignalReadError=error&&(error.code||error.message)||'permission denied';console.warn('RTC signal listener failed:',error);refreshRtcStatus();});
       refreshRtcStatus();
       // Display the exact shared session and signaling path for easier Firebase-rule diagnosis.
-      console.info('[53sumabura VER 3.9 RTC]',{role:activeRoomRole,peerRole,roomCode:activeRoomCode,session:rtcMatchKey,path:remoteSignalRef.toString()});
+      console.info('[53sumabura VER 4.0 RTC]',{role:activeRoomRole,peerRole,roomCode:activeRoomCode,session:rtcMatchKey,path:remoteSignalRef.toString()});
       if(activeRoomRole==='host'){
         offerJobs.push((async()=>{
           try{const offer=await rec.pc.createOffer();await rec.pc.setLocalDescription(offer);await publishRtcDescription(peerRole,rec,'offer');refreshRtcStatus();}
@@ -2337,7 +2345,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     try{const snapshot=await activeRoomRef.once('value'),room=snapshot.val()||{},maxPlayers=Math.max(2,Math.min(4,Number(room.maxPlayers)||2)),keys=['host','guest','guest3','guest4'].slice(0,maxPlayers),players=keys.map(k=>room.players&&room.players[k]);
       if(players.length!==maxPlayers||players.some(p=>!p||!p.uid||!p.ready))throw new Error('ALL_PLAYERS_NOT_READY');
       for(const role of onlineRoleKeys())await activeRoomRef.child('inputs/'+role).remove();await activeRoomRef.child('state').remove();
-      // VER 3.9: create one shared session key before peers initialize WebRTC.
+      // VER 4.0: create one shared session key before peers initialize WebRTC.
       // The host writes this key once into the shared match record; all players then
       // subscribe to the exact same /rtc/{sessionId}/{fromRole}/{toRole} paths.
       const rtcSessionId = activeRoomRef.child('rtc').push().key || ('s'+Date.now().toString(36)+Math.random().toString(36).slice(2,8));
@@ -2367,6 +2375,13 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
         : 'Database access was denied. Set the secure rules described in the setup instructions under Firebase Console → Realtime Database → Rules.';
     }
     if (error && error.message === 'ROOM_FULL') return ja() ? 'この部屋は満員です。別の部屋コードを使ってね。' : 'This room is full. Use another room code.';
+    if (error && error.message === 'ALREADY_IN_ROOM') return ja() ? 'すでに別の部屋に参加しています。先に退出してね。' : 'You are already in a room. Leave it first.';
+    if (error && error.message === 'ACCESS_CODE_FORMAT') return ja() ? '参加コードは英数字4文字、または空欄にしてね。' : 'Use four letters/numbers for the access code, or leave it blank.';
+    if (error && error.message === 'ROOM_CODE_FORMAT') return ja() ? '6文字の部屋コードを入力するか、公開ルーム一覧から参加してね。' : 'Enter a 6-character room code or join from the public room list.';
+    if (error && error.message === 'ROOM_CODE_REQUIRED') return ja() ? '4文字の参加コードが必要です。キャンセルした場合は参加していません。' : 'A 4-character access code is required.';
+    if (error && error.message === 'ROOM_ACCESS_CODE_INVALID') return ja() ? '参加コードが違うか、Firebase RulesがVER 4.0に未対応です。Rulesを更新してから再試行してね。' : 'Access code incorrect or Firebase rules are not updated for VER 4.0.';
+    if (error && error.message === 'ROOM_IN_PROGRESS') return ja() ? 'この部屋は対戦中です。終了してから参加してね。' : 'This room is already playing.';
+
     if (error && error.message === 'ROOM_NOT_FOUND') return ja() ? '部屋が見つかりません。コードを確認してね。' : 'Room not found. Check the code.';
     if (error && error.message === 'CANNOT_JOIN_OWN_ROOM') return ja() ? '自分が作成した部屋には参加できません。別の端末で参加してね。' : 'You cannot join your own room. Join from another device.';
     if (error && error.message === 'ROOM_CREATE_FAILED') return ja() ? '部屋コードを作成できませんでした。もう一度試してね。' : 'Could not create a room code. Please try again.';
@@ -2400,11 +2415,29 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   }
   function bindRoom(ref,code,role){
     resetTransportState();detachRoomListener();activeRoomRef=ref;activeRoomCode=code;activeRoomRole=role;$('onlineRoomCode').value=code;$('onlineCopyRoomBtn').disabled=false;$('onlineLeaveRoomBtn').disabled=false;$('onlineChooseFighterBtn').disabled=false;$('onlineCreateRoomBtn').disabled=true;$('onlineJoinRoomBtn').disabled=true;
-    activeRoomListener=snapshot=>{if(!snapshot.exists()){resetTransportState();resetRoomState(ja()?'部屋が終了しました。新しい部屋を作成してください。':'This room has ended. Create a new room.');return;}
+    try {
+      if(role==='host') { ref.onDisconnect().remove(); onlineDb.ref('publicRooms/'+code).onDisconnect().remove(); onlineDb.ref('roomSecrets/'+code).onDisconnect().remove(); }
+      else { const field=onlineUidField(role); if(field)ref.child(field).onDisconnect().remove(); ref.child('players/'+role).onDisconnect().remove(); }
+    } catch(disconnectError) { console.warn('onDisconnect cleanup registration failed:', disconnectError); }
+    activeRoomListener=snapshot=>{
+      if(!snapshot.exists()){
+        const wasInMatch=onlineMatchStarted||!!(document.getElementById('battleScreen')&&document.getElementById('battleScreen').classList.contains('active'))||!!(document.getElementById('resultScreen')&&document.getElementById('resultScreen').classList.contains('active'))||!!(document.getElementById('onlineCharacterScreen')&&document.getElementById('onlineCharacterScreen').classList.contains('active'));
+        const oldCode=activeRoomCode;
+        resetTransportState();resetRoomState(ja()?'部屋が終了しました。公開ルーム一覧から新しい部屋を選んでね。':'The room ended. Join another room from the public list.');
+        if(oldCode)onlineDb.ref('publicRooms/'+oldCode).remove().catch(()=>{});
+        if(wasInMatch&&window.SKYBOUND_RETURN_TO_ONLINE_ROOM_BROWSER)window.SKYBOUND_RETURN_TO_ONLINE_ROOM_BROWSER(ja()?'ホストが部屋を退出しました。オンラインロビーから新しい部屋に参加できます。':'The host left the room. Join a new room from the online lobby.');
+        refreshPublicRooms();return;
+      }
       const room=snapshot.val()||{},uidField=onlineUidField(activeRoomRole),expected=activeRoomRole==='host'?room.hostUid:room[uidField];
-      if(activeRoomRole!=='host'&&expected!==onlineUser.uid){resetTransportState();resetRoomState(ja()?'部屋から退出しました。':'You have left the room.');return;}
-      const maxPlayers=Math.max(2,Math.min(4,Number(room.maxPlayers)||2)),keys=['host','guest','guest3','guest4'].slice(0,maxPlayers),present=keys.filter(k=>room.players&&room.players[k]&&room.players[k].uid);const fingerprint=JSON.stringify({maxPlayers,players:room.players||null,status:room.status||null,match:room.match||null});
-      if(fingerprint!==lastRoomUiFingerprint){lastRoomUiFingerprint=fingerprint;updateOnlineCharacterRoomView(room);setRoomStatus(present.length>=maxPlayers?'success':'neutral',present.length>=maxPlayers?(ja()?`✅ ${maxPlayers}人参加！`:`✅ ${maxPlayers} players joined`):(ja()?`参加者を待っています：${present.length}/${maxPlayers}人`:`Waiting for players: ${present.length}/${maxPlayers}`),(ja()?'部屋コード：':'Room code: ')+activeRoomCode+'\n'+(ja()?`あなた：P${onlineRoleNumber(activeRoomRole)}。コードを友達に共有してね。`:`You are P${onlineRoleNumber(activeRoomRole)}. Share the code with friends.`));}
+      if(activeRoomRole!=='host'&&expected!==onlineUser.uid){
+        const wasInMatch=onlineMatchStarted||!!(document.getElementById('battleScreen')&&document.getElementById('battleScreen').classList.contains('active'));
+        resetTransportState();resetRoomState(ja()?'部屋から退出しました。':'You have left the room.');
+        if(wasInMatch&&window.SKYBOUND_RETURN_TO_ONLINE_ROOM_BROWSER)window.SKYBOUND_RETURN_TO_ONLINE_ROOM_BROWSER(ja()?'部屋から退出しました。':'You left the room.');
+        refreshPublicRooms();return;
+      }
+      const maxPlayers=Math.max(2,Math.min(4,Number(room.maxPlayers)||2)),keys=['host','guest','guest3','guest4'].slice(0,maxPlayers),present=keys.filter(k=>room.players&&room.players[k]&&room.players[k].uid);const fingerprint=JSON.stringify({maxPlayers,players:room.players||null,status:room.status||null,match:room.match||null,accessCodeRequired:!!room.accessCodeRequired});
+      if(fingerprint!==lastRoomUiFingerprint){lastRoomUiFingerprint=fingerprint;updateOnlineCharacterRoomView(room);setRoomStatus(present.length>=maxPlayers?'success':'neutral',present.length>=maxPlayers?(ja()?`✅ ${maxPlayers}人参加！`:`✅ ${maxPlayers} players joined`):(ja()?`参加者を待っています：${present.length}/${maxPlayers}人`:`Waiting for players: ${present.length}/${maxPlayers}`),(ja()?'部屋コード：':'Room code: ')+activeRoomCode+'\n'+(ja()?`あなた：P${onlineRoleNumber(activeRoomRole)}。コードを友達に共有してね。`:`You are P${onlineRoleNumber(activeRoomRole)}. Share the code with friends.`));syncPublicRoomListing(room).then(()=>refreshPublicRooms()).catch(()=>{});}
+      if(room.match&&room.match.status==='host-left')handleHostLeftMatch(room);
       launchOnlineMatch(room);
     };
     activeRoomRef.on('value',activeRoomListener,error=>setRoomStatus('error',roomErrorMessage(error)));
@@ -2560,27 +2593,212 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     }
   }
 
+  function publicRoomEntry(room, code) {
+    const roster = room && room.players || {};
+    const roles = ['host','guest','guest3','guest4'];
+    const maxPlayers = Math.max(2, Math.min(4, Number(room.maxPlayers) || 2));
+    const currentPlayers = roles.slice(0, maxPlayers).filter(role => roster[role] && roster[role].uid).length;
+    const host = roster.host || {};
+    const matchStatus = room && room.match && room.match.status;
+    return {
+      roomCode: code,
+      hostUid: room.hostUid || '',
+      hostName: String(host.displayName || 'Fighter').slice(0, 24),
+      currentPlayers,
+      maxPlayers,
+      status: matchStatus === 'playing' ? 'playing' : 'waiting',
+      accessCodeRequired: room.accessCodeRequired === true,
+      createdAt: typeof room.createdAt === 'number' ? room.createdAt : Date.now(),
+      updatedAt: firebase.database.ServerValue.TIMESTAMP
+    };
+  }
+  async function syncPublicRoomListing(room) {
+    if (!onlineDb || !onlineUser || !activeRoomCode || !room || !room.hostUid) return;
+    try { await onlineDb.ref('publicRooms/' + activeRoomCode).set(publicRoomEntry(room, activeRoomCode)); }
+    catch (error) { console.warn('Public room index update failed. Add the VER 4.0 publicRooms Firebase rules.', error); }
+  }
+  function renderPublicRoomList(index) {
+    const container = $('onlinePublicRoomsList');
+    if (!container) return;
+    container.replaceChildren();
+    const rooms = Object.entries(index || {}).map(([key, value]) => ({ ...(value || {}), roomCode: (value && value.roomCode) || key }))
+      .filter(room => room.roomCode && room.status !== 'playing' && Number(room.currentPlayers || 0) < Number(room.maxPlayers || 2) && room.hostUid !== (onlineUser && onlineUser.uid))
+      .sort((a,b) => (Number(b.createdAt)||0) - (Number(a.createdAt)||0));
+    if (!rooms.length) {
+      const empty = document.createElement('div'); empty.className = 'public-room-empty';
+      empty.textContent = ja() ? '参加できる公開ルームはありません。ホストが「部屋を作成」したあと「一覧を更新」を押してね。' : 'No joinable rooms. Ask a host to create a room, then refresh.';
+      container.appendChild(empty); return;
+    }
+    rooms.forEach(room => {
+      const card = document.createElement('div'); card.className = 'public-room-card'; card.setAttribute('role','listitem');
+      const main = document.createElement('div'); main.className = 'public-room-card-main';
+      const name = document.createElement('div'); name.className = 'public-room-name';
+      name.textContent = String(room.hostName || 'Fighter');
+      if (room.accessCodeRequired) { const lock = document.createElement('span'); lock.className='public-room-lock'; lock.textContent=ja()?'🔒 4文字コード':'🔒 PIN'; name.appendChild(lock); }
+      const meta = document.createElement('div'); meta.className='public-room-meta';
+      meta.textContent = (ja() ? `部屋 ${room.roomCode} · ${Number(room.currentPlayers)||0}/${Number(room.maxPlayers)||2}人` : `Room ${room.roomCode} · ${Number(room.currentPlayers)||0}/${Number(room.maxPlayers)||2} players`);
+      main.append(name,meta);
+      const join = document.createElement('button'); join.type='button'; join.className='primary-btn'; join.textContent=ja()?'参加':'JOIN';
+      join.addEventListener('click', async () => {
+        if (activeRoomRef) { setRoomStatus('error', ja()?'先に今の部屋を退出してね。':'Leave your current room first.'); return; }
+        join.disabled = true;
+        try { await joinRoom(room.roomCode); await refreshPublicRooms(); }
+        catch (error) { setRoomStatus('error', roomErrorMessage(error)); console.warn('Public room join failed:', error); }
+        finally { join.disabled = false; }
+      });
+      card.append(main,join); container.appendChild(card);
+    });
+  }
+  async function refreshPublicRooms() {
+    const container = $('onlinePublicRoomsList'), button = $('onlineRefreshPublicRoomsBtn');
+    if (!container) return;
+    if (!onlineUser || !onlineDb) { container.textContent = ja() ? 'Firebase接続を待っています。接続後に「一覧を更新」してね。' : 'Waiting for Firebase. Refresh after connecting.'; return; }
+    if (button) button.disabled = true;
+    container.textContent = ja() ? '公開ルームを読み込み中…' : 'Loading public rooms…';
+    try { const snap = await onlineDb.ref('publicRooms').once('value'); renderPublicRoomList(snap.val() || {}); }
+    catch (error) {
+      const msg = document.createElement('div'); msg.className='public-room-empty';
+      msg.textContent = ja() ? '公開ルーム一覧を読み込めませんでした。VER 4.0のFirebase Rulesに publicRooms の読み取り許可を追加してね。' : 'Could not load public rooms. Add publicRooms read permission to the VER 4.0 Firebase rules.';
+      container.replaceChildren(msg); console.warn('Could not read public room list:', error);
+    } finally { if (button) button.disabled = false; }
+  }
+  window.SKYBOUND_REFRESH_PUBLIC_ROOMS = refreshPublicRooms;
+  async function hostEndMatchAndReturnToLobby() {
+    if (!activeRoomRef || activeRoomRole !== 'host' || !onlineUser) return;
+    const ref = activeRoomRef;
+    try {
+      await ref.child('match').update({ status: 'host-left', endedBy: onlineUser.uid, endedAt: firebase.database.ServerValue.TIMESTAMP });
+      // The shared room listener sees match.status='host-left' and returns all peers to lobby.
+      // Keep this room alive so everyone can ready up and rematch with a fresh RTC session.
+    } catch (error) {
+      if (window.SKYBOUND_SHOW_ONLINE_NOTICE) window.SKYBOUND_SHOW_ONLINE_NOTICE(ja() ? 'ロビーに戻れませんでした：' + roomErrorMessage(error) : 'Could not return to lobby: ' + roomErrorMessage(error), 2600);
+    }
+  }
+  let lastHostLeftHandledSession = '';
+  function handleHostLeftMatch(room) {
+    if (!room || !room.match || room.match.status !== 'host-left') return false;
+    const session = String(room.match.sessionId || room.match.endedAt || 'host-left');
+    const battleVisible = !!(document.getElementById('battleScreen') && document.getElementById('battleScreen').classList.contains('active'));
+    const resultVisible = !!(document.getElementById('resultScreen') && document.getElementById('resultScreen').classList.contains('active'));
+    if (session !== lastHostLeftHandledSession) {
+      lastHostLeftHandledSession = session;
+      const wasInMatch = onlineMatchStarted || battleVisible || resultVisible;
+      if (onlineMatchStarted) resetTransportState();
+      if (wasInMatch && window.SKYBOUND_RETURN_TO_ONLINE_LOBBY) {
+        window.SKYBOUND_RETURN_TO_ONLINE_LOBBY(ja() ? 'ホストがマッチを終了しました。ロビーに戻りました。再戦できます。' : 'The host ended the match. You are back in the room lobby.');
+      }
+    }
+    const mine = room.players && room.players[activeRoomRole];
+    if (mine && mine.ready && activeRoomRef && activeRoomRole) {
+      activeRoomRef.child('players/' + activeRoomRole + '/ready').set(false).catch(error => console.warn('Could not clear ready state after host exit:', error));
+    }
+    return true;
+  }
+  window.SKYBOUND_HANDLE_ONLINE_EXIT = function() {
+    const battleVisible = !!(document.getElementById('battleScreen') && document.getElementById('battleScreen').classList.contains('active'));
+    const resultVisible = !!(document.getElementById('resultScreen') && document.getElementById('resultScreen').classList.contains('active'));
+    if (!activeRoomRef || !activeRoomRole || (!onlineMatchStarted && !battleVisible && !resultVisible)) return false;
+    if (activeRoomRole !== 'host') {
+      if (window.SKYBOUND_SHOW_ONLINE_NOTICE) window.SKYBOUND_SHOW_ONLINE_NOTICE(ja() ? 'オンライン対戦中はホストだけが退出できます。ホストがロビーに戻るまで待ってね。' : 'Only the host can end the online match. Wait for the host to return to the lobby.', 2500);
+      return true;
+    }
+    hostEndMatchAndReturnToLobby();
+    return true;
+  };
+
   async function createRoom() {
-    if(!onlineUser||!onlineDb)throw new Error('NOT_CONNECTED');$('onlineCreateRoomBtn').disabled=true;setRoomStatus('neutral',ja()?'部屋を作成しています…':'Creating room…');
+    if(!onlineUser||!onlineDb)throw new Error('NOT_CONNECTED');
+    if(activeRoomRef)throw new Error('ALREADY_IN_ROOM');
+    $('onlineCreateRoomBtn').disabled=true;setRoomStatus('neutral',ja()?'部屋を作成しています…':'Creating room…');
     const maxPlayers=Math.max(2,Math.min(4,Number($('onlinePlayerCountSelect')&&$('onlinePlayerCountSelect').value)||2));
-    try{for(let i=0;i<8;i++){const code=makeRoomCode(),ref=onlineDb.ref('rooms/'+code);const roomData={hostUid:onlineUser.uid,guestUid:null,guest3Uid:null,guest4Uid:null,maxPlayers,createdAt:firebase.database.ServerValue.TIMESTAMP,status:'waiting',players:{host:{uid:onlineUser.uid,displayName:(window.SKYBOUND_CURRENT_DISPLAY_NAME&&window.SKYBOUND_CURRENT_DISPLAY_NAME())||(onlineUser.displayName||'Fighter'),joinedAt:firebase.database.ServerValue.TIMESTAMP}}};const result=await ref.transaction(current=>current===null?roomData:undefined,undefined,false);if(result.committed){bindRoom(ref,code,'host');return;}}throw new Error('ROOM_CREATE_FAILED');}
-    finally{if(!activeRoomRef)$('onlineCreateRoomBtn').disabled=false;}
+    const pinInput=$('onlineCreateAccessCode');
+    const accessCode=String(pinInput&&pinInput.value||'').trim().toUpperCase();
+    if(accessCode && !/^[A-Z0-9]{4}$/.test(accessCode)){ $('onlineCreateRoomBtn').disabled=false; throw new Error('ACCESS_CODE_FORMAT'); }
+    try {
+      for(let i=0;i<8;i++){
+        const code=makeRoomCode(),ref=onlineDb.ref('rooms/'+code);
+        const displayName=(window.SKYBOUND_CURRENT_DISPLAY_NAME&&window.SKYBOUND_CURRENT_DISPLAY_NAME())||(onlineUser.displayName||'Fighter');
+        const roomData={hostUid:onlineUser.uid,guestUid:null,guest3Uid:null,guest4Uid:null,maxPlayers,createdAt:firebase.database.ServerValue.TIMESTAMP,status:'waiting',accessCodeRequired:!!accessCode,players:{host:{uid:onlineUser.uid,displayName,joinedAt:firebase.database.ServerValue.TIMESTAMP}}};
+        const result=await ref.transaction(current=>current===null?roomData:undefined,undefined,false);
+        if(!result.committed)continue;
+        try {
+          if(accessCode) await onlineDb.ref('roomSecrets/'+code).set({pin:accessCode,hostUid:onlineUser.uid});
+          const snap=await ref.once('value');
+          const room=snap.val()||roomData;
+          await onlineDb.ref('publicRooms/'+code).set(publicRoomEntry(room,code));
+          if(pinInput)pinInput.value='';
+          bindRoom(ref,code,'host');
+          try { await ref.onDisconnect().remove(); await onlineDb.ref('publicRooms/'+code).onDisconnect().remove(); if(accessCode) await onlineDb.ref('roomSecrets/'+code).onDisconnect().remove(); } catch(disconnectError) { console.warn('Could not register room onDisconnect cleanup:',disconnectError); }
+          await refreshPublicRooms();
+          return;
+        } catch(setupError) {
+          await onlineDb.ref('publicRooms/'+code).remove().catch(()=>{});
+          await onlineDb.ref('roomSecrets/'+code).remove().catch(()=>{});
+          await ref.remove().catch(()=>{});
+          throw setupError;
+        }
+      }
+      throw new Error('ROOM_CREATE_FAILED');
+    } finally { if(!activeRoomRef)$('onlineCreateRoomBtn').disabled=false; }
   }
-  async function joinRoom(){
-    if(!onlineUser||!onlineDb)throw new Error('NOT_CONNECTED');const code=$('onlineRoomCode').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');$('onlineRoomCode').value=code;
-    if(code.length!==6){setRoomStatus('error',ja()?'6文字の部屋コードを入力してね。':'Enter a 6-character room code.');return;}
-    $('onlineJoinRoomBtn').disabled=true;setRoomStatus('neutral',ja()?'部屋を確認しています…':'Checking room…');const ref=onlineDb.ref('rooms/'+code);
-    try{const snapshot=await ref.once('value');if(!snapshot.exists())throw new Error('ROOM_NOT_FOUND');const room=snapshot.val()||{};if(room.hostUid===onlineUser.uid||Object.values(room.players||{}).some(p=>p&&p.uid===onlineUser.uid))throw new Error('CANNOT_JOIN_OWN_ROOM');
-      const maxPlayers=Math.max(2,Math.min(4,Number(room.maxPlayers)||2));const candidates=[{role:'guest',field:'guestUid',key:'guest'},{role:'guest3',field:'guest3Uid',key:'guest3'},{role:'guest4',field:'guest4Uid',key:'guest4'}].slice(0,maxPlayers-1);let joinedRole='';
-      for(const c of candidates){const result=await ref.child(c.field).transaction(current=>current==null||current===onlineUser.uid?onlineUser.uid:undefined,undefined,false);if(result.committed){joinedRole=c.role;await ref.child('players/'+c.key).set({uid:onlineUser.uid,displayName:(window.SKYBOUND_CURRENT_DISPLAY_NAME&&window.SKYBOUND_CURRENT_DISPLAY_NAME())||(onlineUser.displayName||'Fighter'),joinedAt:firebase.database.ServerValue.TIMESTAMP});break;}}
-      if(!joinedRole)throw new Error('ROOM_FULL');bindRoom(ref,code,joinedRole);
-    }finally{if(!activeRoomRef)$('onlineJoinRoomBtn').disabled=false;}
+  async function joinRoom(targetCode = null) {
+    if(!onlineUser||!onlineDb)throw new Error('NOT_CONNECTED');
+    if(activeRoomRef)throw new Error('ALREADY_IN_ROOM');
+    const rawCode=targetCode==null?$('onlineRoomCode').value:targetCode;
+    const code=String(rawCode||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+    if(targetCode==null)$('onlineRoomCode').value=code;
+    if(code.length!==6)throw new Error('ROOM_CODE_FORMAT');
+    $('onlineJoinRoomBtn').disabled=true;setRoomStatus('neutral',ja()?'部屋を確認しています…':'Checking room…');
+    const ref=onlineDb.ref('rooms/'+code);let proofRef=null;let reservedField='';let reservedRole='';
+    try {
+      const snapshot=await ref.once('value');
+      if(!snapshot.exists())throw new Error('ROOM_NOT_FOUND');
+      const room=snapshot.val()||{};
+      if(room.hostUid===onlineUser.uid||Object.values(room.players||{}).some(p=>p&&p.uid===onlineUser.uid))throw new Error('CANNOT_JOIN_OWN_ROOM');
+      if(room.match&&room.match.status==='playing')throw new Error('ROOM_IN_PROGRESS');
+      if(room.accessCodeRequired===true){
+        const entered=window.prompt(ja()?'この部屋は4文字の参加コードが必要です。ホストから聞いたコードを入力してね。':'This room requires a 4-character access code.');
+        const pin=String(entered||'').trim().toUpperCase();
+        if(!/^[A-Z0-9]{4}$/.test(pin))throw new Error('ROOM_CODE_REQUIRED');
+        proofRef=onlineDb.ref('roomJoinChecks/'+code+'/'+onlineUser.uid);
+        try { await proofRef.set({uid:onlineUser.uid,code:pin,verified:true,at:firebase.database.ServerValue.TIMESTAMP}); }
+        catch(proofError) { throw new Error('ROOM_ACCESS_CODE_INVALID'); }
+      }
+      const maxPlayers=Math.max(2,Math.min(4,Number(room.maxPlayers)||2));
+      const candidates=[{role:'guest',field:'guestUid',key:'guest'},{role:'guest3',field:'guest3Uid',key:'guest3'},{role:'guest4',field:'guest4Uid',key:'guest4'}].slice(0,maxPlayers-1);let joinedRole='';
+      for(const c of candidates){const result=await ref.child(c.field).transaction(current=>current==null||current===onlineUser.uid?onlineUser.uid:undefined,undefined,false);if(result.committed){joinedRole=c.role;reservedField=c.field;reservedRole=c.role;await ref.child('players/'+c.key).set({uid:onlineUser.uid,displayName:(window.SKYBOUND_CURRENT_DISPLAY_NAME&&window.SKYBOUND_CURRENT_DISPLAY_NAME())||(onlineUser.displayName||'Fighter'),joinedAt:firebase.database.ServerValue.TIMESTAMP,ready:false});break;}}
+      if(!joinedRole)throw new Error('ROOM_FULL');
+      if(proofRef)await proofRef.remove().catch(()=>{});
+      bindRoom(ref,code,joinedRole);
+      try { await ref.child(reservedField).onDisconnect().remove(); await ref.child('players/'+reservedRole).onDisconnect().remove(); } catch(disconnectError) { console.warn('Could not register player onDisconnect cleanup:',disconnectError); }
+      await refreshPublicRooms();
+    } catch(error) {
+      if(reservedField){await ref.child(reservedField).transaction(current=>current===onlineUser.uid?null:current,undefined,false).catch(()=>{});if(reservedRole)await ref.child('players/'+reservedRole).remove().catch(()=>{});}
+      if(proofRef)await proofRef.remove().catch(()=>{});
+      throw error;
+    } finally { if(!activeRoomRef)$('onlineJoinRoomBtn').disabled=false; }
   }
-  async function leaveRoom(){
-    if(!activeRoomRef||!onlineUser)return;resetTransportState();const ref=activeRoomRef,role=activeRoomRole,code=activeRoomCode;detachRoomListener();$('onlineLeaveRoomBtn').disabled=true;setRoomStatus('neutral',ja()?'部屋を退出しています…':'Leaving room…');
-    try{if(role==='host'){await ref.remove();}else{const field=onlineUidField(role);await ref.child('players/'+role).remove();if(field)await ref.child(field).remove();}resetRoomState(ja()?'部屋を退出しました。':'You left the room.');}
-    catch(error){setRoomStatus('error',roomErrorMessage(error));if(activeRoomRef)bindRoom(ref,code,role);}
+  async function leaveRoom() {
+    if(!activeRoomRef||!onlineUser)return;
+    if(onlineMatchStarted){
+      if(activeRoomRole==='host'){await hostEndMatchAndReturnToLobby();return;}
+      if(window.SKYBOUND_SHOW_ONLINE_NOTICE)window.SKYBOUND_SHOW_ONLINE_NOTICE(ja()?'オンライン対戦中はホストだけが退出できます。':'Only the host can end the online match.',2500);
+      return;
+    }
+    const ref=activeRoomRef,role=activeRoomRole,code=activeRoomCode;
+    resetTransportState();detachRoomListener();$('onlineLeaveRoomBtn').disabled=true;setRoomStatus('neutral',ja()?'部屋を退出しています…':'Leaving room…');
+    try {
+      if(role==='host'){
+        await onlineDb.ref('publicRooms/'+code).remove().catch(()=>{});
+        await onlineDb.ref('roomSecrets/'+code).remove().catch(()=>{});
+        await ref.remove();
+      } else {
+        const field=onlineUidField(role);if(field)await ref.child(field).remove();await ref.child('players/'+role).remove();
+      }
+      resetRoomState(ja()?'部屋を退出しました。':'You left the room.');await refreshPublicRooms();
+    } catch(error){setRoomStatus('error',roomErrorMessage(error));if(activeRoomRef)bindRoom(ref,code,role);}
   }
+
 
   const firebaseConfig = {
     apiKey: 'AIzaSyBuO_x9ysAXCGD4vmtOOuCgZhIkaD-OTeQ',
@@ -3011,6 +3229,10 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
     try { await createRoom(); }
     catch (error) { setRoomStatus('error', roomErrorMessage(error)); console.error('Room creation failed:', error); }
   });
+  if ($('onlineCreateAccessCode')) $('onlineCreateAccessCode').addEventListener('input', () => { $('onlineCreateAccessCode').value=String($('onlineCreateAccessCode').value||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,4); });
+  if ($('onlineRefreshPublicRoomsBtn')) $('onlineRefreshPublicRoomsBtn').addEventListener('click', refreshPublicRooms);
+  $('onlineBtn').addEventListener('click', () => { window.setTimeout(refreshPublicRooms, 100); });
+
   $('onlineJoinRoomBtn').addEventListener('click', async () => {
     try { await joinRoom(); }
     catch (error) { setRoomStatus('error', roomErrorMessage(error)); console.error('Room join failed:', error); }
@@ -3057,7 +3279,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 </script>
 
 <script>
-// VER 3.9: refresh the fight canvas on orientation and visual-viewport changes.
+// VER 4.0: refresh the fight canvas on orientation and visual-viewport changes.
 (() => {
   const refreshResponsiveCanvas = () => {
     window.requestAnimationFrame(() => {
@@ -3075,7 +3297,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 </script>
 
 
-<!-- VER 3.9: touch-layout visual editor. -->
+<!-- VER 4.0: touch-layout visual editor. -->
 <div id="touchLayoutModal" class="touch-layout-modal" hidden>
  <section class="touch-layout-dialog" role="dialog" aria-modal="true" aria-labelledby="touchLayoutModalTitle">
   <header class="touch-layout-dialog-head">
@@ -3123,7 +3345,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
  </section>
 </div>
 <script>
-// VER 3.9: viewport-matched drag-and-drop touch layout editor.
+// VER 4.0: viewport-matched drag-and-drop touch layout editor.
 (function(){
  const root=document.getElementById('touchControls');
  const modal=document.getElementById('touchLayoutModal');
@@ -3268,7 +3490,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 
 
 <script>
-// VER 3.9 cinematic startup: short intro, tap/click/key to skip.
+// VER 4.0 cinematic startup: short intro, tap/click/key to skip.
 (function(){
  const intro=document.getElementById('startupIntro');if(!intro)return;let ended=false;let timer=null;
  function finishIntro(){if(ended)return;ended=true;if(timer!==null)clearTimeout(timer);intro.classList.add('is-exiting');intro.setAttribute('aria-hidden','true');setTimeout(()=>{if(intro.isConnected)intro.remove();},720);}
