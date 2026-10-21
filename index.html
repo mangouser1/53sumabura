@@ -208,7 +208,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
   <div class="settings-section-title" id="audioSettingsTitle">サウンド</div>
   <div class="setting-row"><div><label for="soundToggle" id="soundLabel">効果音</label><small id="soundHelp">打撃・ガード・風切り音・飛び道具・KO</small></div><input id="soundToggle" type="checkbox" checked></div>
   <div class="setting-row"><div><label for="soundVolume" id="volumeLabel">音量</label><small id="volumeHelp">効果音の音量を調整</small></div><input id="soundVolume" type="range" min="0" max="100" value="65" style="width:145px;accent-color:#65efff"></div>
-  <div class="setting-row"><div><label for="bgmToggle" id="bgmLabel">BGM（背景音楽）</label><small id="bgmHelp">メニュー・対戦中に流れる音楽</small></div><input id="bgmToggle" type="checkbox" checked></div>
+  <div class="setting-row"><div><label for="bgmToggle" id="bgmLabel">BGM（背景音楽）</label><small id="bgmHelp">メニュー曲と戦闘曲を自動で切り替え</small></div><input id="bgmToggle" type="checkbox" checked></div>
   <div class="setting-row"><div><label for="bgmVolume" id="bgmVolumeLabel">BGM音量</label><small id="bgmVolumeHelp">背景音楽の音量を調整</small></div><input id="bgmVolume" type="range" min="0" max="100" value="42" style="width:145px;accent-color:#65efff"></div>
   <p class="language-note" id="graphicsHint">下の「詳細グラフィック設定」から、影・奥行き・光・反射などを個別に調整できます。</p>
   <div class="settings-section-title" id="graphicsDetailTitle">詳細グラフィック設定</div>
@@ -258,7 +258,7 @@ html.has-touch .small-btn{padding:6px 8px;font-size:9px;background:rgba(13,31,52
 'use strict';
 const $ = s => document.querySelector(s);
 const screens = ['titleScreen','aiRoomScreen','charScreen','onlineCharacterScreen','stageScreen','battleScreen','resultScreen'].map(id=>$('#'+id));
-function showScreen(id){screens.forEach(s=>s.classList.toggle('active',s.id===id));}
+function showScreen(id){screens.forEach(s=>s.classList.toggle('active',s.id===id));setBgmMode(id==='battleScreen'?'battle':'menu');}
 window.SKYBOUND_SHOW_SCREEN = showScreen;
 const fighters = [
  {id:'astra',name:'ASTRA',jp:'アストラ',role:'THE STARBLADE',desc:'光の剣で素早く攻めるバランス型。',color:'#65efff',dark:'#1674aa',accent:'#e8fcff',speed:5.1,power:1.0,jump:13.3,weight:1.0,skill:'NOVA SLASH',stats:[78,70,85],type:0,moves:{
@@ -349,28 +349,46 @@ function setText(selector,ja,en){const el=$(selector);if(el)el.textContent=uiLan
 
 // Procedural Web Audio SFX + original synthesized BGM. No external audio files/network needed.
 let audioCtx=null,masterGain=null,soundEnabled=true,soundVolume=.65;
-let bgmEnabled=true,bgmVolume=.42,bgmGain=null,bgmScheduler=null,bgmNextTime=0,bgmStep=0;
+let bgmEnabled=true,bgmVolume=.42,bgmGain=null,bgmScheduler=null,bgmNextTime=0,bgmStep=0,bgmMode='menu',bgmSwitchTimer=null;
 try{const savedAudio=JSON.parse(localStorage.getItem('skyboundAudioSettings')||'null');if(savedAudio){if(typeof savedAudio.bgmEnabled==='boolean')bgmEnabled=savedAudio.bgmEnabled;if(Number.isFinite(savedAudio.bgmVolume))bgmVolume=Math.min(1,Math.max(0,savedAudio.bgmVolume))}}catch(_){/* audio settings are optional */}
 function saveAudioSettings(){try{localStorage.setItem('skyboundAudioSettings',JSON.stringify({bgmEnabled,bgmVolume}))}catch(_){/* settings still work for this session */}}
 function initAudio(){try{if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audioCtx=new AC();masterGain=audioCtx.createGain();masterGain.gain.value=soundEnabled?soundVolume:0;masterGain.connect(audioCtx.destination);bgmGain=audioCtx.createGain();bgmGain.gain.value=0;bgmGain.connect(audioCtx.destination)}if(audioCtx.state==='suspended')audioCtx.resume();if(bgmEnabled)startBGM()}catch(e){}}
-const BGM_STEP_SECONDS=(60/116)/4;
+function bgmStepSeconds(){return (60/(bgmMode==='battle'?142:116))/4;}
 function bgmMidiHz(midi){return 440*Math.pow(2,(midi-69)/12)}
 function scheduleBgmTone(freq,start,duration,wave='triangle',peak=.10){if(!audioCtx||!bgmGain||!Number.isFinite(freq))return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=wave;o.frequency.setValueAtTime(Math.max(25,freq),start);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(Math.max(.0002,peak),start+.012);g.gain.setTargetAtTime(Math.max(.0002,peak*.58),start+.012,Math.max(.025,duration*.22));g.gain.setValueAtTime(Math.max(.0001,peak*.42),Math.max(start+.02,start+duration*.58));g.gain.exponentialRampToValueAtTime(.0001,start+duration);o.connect(g);g.connect(bgmGain);o.start(start);o.stop(start+duration+.025)}
 function scheduleBgmKick(start,peak=.10){if(!audioCtx||!bgmGain)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(105,start);o.frequency.exponentialRampToValueAtTime(44,start+.12);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(peak,start+.008);g.gain.exponentialRampToValueAtTime(.0001,start+.15);o.connect(g);g.connect(bgmGain);o.start(start);o.stop(start+.17)}
 function scheduleBgmNoise(start,peak=.025,duration=.045){if(!audioCtx||!bgmGain)return;const n=Math.max(1,Math.ceil(audioCtx.sampleRate*duration)),buffer=audioCtx.createBuffer(1,n,audioCtx.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<n;i++)data[i]=(Math.random()*2-1)*(1-i/n);const src=audioCtx.createBufferSource(),filter=audioCtx.createBiquadFilter(),gain=audioCtx.createGain();src.buffer=buffer;filter.type='highpass';filter.frequency.setValueAtTime(3000,start);gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime(peak,start+.004);gain.gain.exponentialRampToValueAtTime(.0001,start+duration);src.connect(filter);filter.connect(gain);gain.connect(bgmGain);src.start(start);src.stop(start+duration+.01)}
 function scheduleBgmStep(start,step){
- const section=Math.floor(step/32),roots=[45,41,43,40],root=roots[section],local=step%32;
- // Low bass/kick on each beat; a restrained backbeat keeps the loop energetic without being loud.
+ const section=Math.floor(step/32),root=(bgmMode==='battle'?[38,36,41,33]:[45,41,43,40])[section],local=step%32;
+ if(bgmMode==='battle'){
+   // Combat track: faster tempo, heavier bass/drums, sharper minor-key lead.
+   if(step%4===0){scheduleBgmTone(bgmMidiHz(root),start,.27,'sawtooth',.105);scheduleBgmKick(start,step%16===0?.19:.14)}
+   if(step%8===4){scheduleBgmNoise(start,.038,.055);scheduleBgmTone(bgmMidiHz(root+12),start,.09,'triangle',.04)}
+   if(step%2===0){const fightMotif=[0,null,7,10,12,null,10,7,3,null,7,10,15,12,10,null];const idx=(Math.floor(step/2)+(section%2?3:0))%16;const off=fightMotif[idx];if(off!==null)scheduleBgmTone(bgmMidiHz(root+24+off),start,bgmStepSeconds()*1.45,'square',.075)}
+   if(step%16===0){const chordBase=root+12;for(const interval of [0,3,7])scheduleBgmTone(bgmMidiHz(chordBase+interval),start,.46,'triangle',.025)}
+   if(step%2===1)scheduleBgmNoise(start,.006,.022);
+   return;
+ }
+ // Menu track: calmer arcade pulse and a lighter melody.
  if(step%4===0){scheduleBgmTone(bgmMidiHz(root),start,.31,'triangle',.16);scheduleBgmKick(start,step%16===0?.12:.075)}
  if(step%16===4||step%16===12)scheduleBgmNoise(start,.018,.04);
- // Bright arcade lead: an original minor-key motif, transposed with the chord progression.
- if(step%2===0){const motif=[0,null,3,7,10,null,7,5,3,null,5,7,10,7,5,null];const idx=(Math.floor(step/2)+(section%2?4:0))%16;const off=motif[idx];if(off!==null)scheduleBgmTone(bgmMidiHz(root+24+off),start,BGM_STEP_SECONDS*1.8,'square',.10)}
- // Soft chord accents every two beats.
+ if(step%2===0){const motif=[0,null,3,7,10,null,7,5,3,null,5,7,10,7,5,null];const idx=(Math.floor(step/2)+(section%2?4:0))%16;const off=motif[idx];if(off!==null)scheduleBgmTone(bgmMidiHz(root+24+off),start,bgmStepSeconds()*1.8,'square',.10)}
  if(step%8===0){const chordBase=root+12,intervals=section===1||section===2?[0,4,7]:[0,3,7];for(const interval of intervals)scheduleBgmTone(bgmMidiHz(chordBase+interval),start,.72,'triangle',.032)}
 }
-function scheduleBgm(){if(!audioCtx||!bgmGain||!bgmEnabled||audioCtx.state!=='running')return;const now=audioCtx.currentTime;if(bgmNextTime<now-.25)bgmNextTime=now+.035;const horizon=now+.14;let guard=0;while(bgmNextTime<horizon&&guard++<8){scheduleBgmStep(bgmNextTime,bgmStep);bgmNextTime+=BGM_STEP_SECONDS;bgmStep=(bgmStep+1)%128}}
-function startBGM(){if(!bgmEnabled||!audioCtx||!bgmGain)return;if(audioCtx.state==='suspended')audioCtx.resume();bgmGain.gain.cancelScheduledValues(audioCtx.currentTime);bgmGain.gain.setTargetAtTime(bgmVolume,audioCtx.currentTime,.12);if(bgmScheduler!==null)return;bgmNextTime=audioCtx.currentTime+.08;bgmScheduler=setInterval(scheduleBgm,25)}
-function stopBGM(){if(bgmScheduler!==null){clearInterval(bgmScheduler);bgmScheduler=null}if(audioCtx&&bgmGain){const now=audioCtx.currentTime;bgmGain.gain.cancelScheduledValues(now);bgmGain.gain.setTargetAtTime(0,now,.05)}}
+function scheduleBgm(){if(!audioCtx||!bgmGain||!bgmEnabled||audioCtx.state!=='running')return;const now=audioCtx.currentTime;if(bgmNextTime<now-.25)bgmNextTime=now+.035;const horizon=now+.14;let guard=0;while(bgmNextTime<horizon&&guard++<8){scheduleBgmStep(bgmNextTime,bgmStep);bgmNextTime+=bgmStepSeconds();bgmStep=(bgmStep+1)%128}}
+function startBGM(){if(!bgmEnabled||!audioCtx||!bgmGain)return;if(bgmSwitchTimer!==null){clearTimeout(bgmSwitchTimer);bgmSwitchTimer=null}if(audioCtx.state==='suspended')audioCtx.resume();bgmGain.gain.cancelScheduledValues(audioCtx.currentTime);bgmGain.gain.setTargetAtTime(bgmVolume,audioCtx.currentTime,.12);if(bgmScheduler!==null)return;bgmNextTime=audioCtx.currentTime+.08;bgmScheduler=setInterval(scheduleBgm,25)}
+function stopBGM(){if(bgmScheduler!==null){clearInterval(bgmScheduler);bgmScheduler=null}if(bgmSwitchTimer!==null){clearTimeout(bgmSwitchTimer);bgmSwitchTimer=null}if(audioCtx&&bgmGain){const now=audioCtx.currentTime;bgmGain.gain.cancelScheduledValues(now);bgmGain.gain.setTargetAtTime(0,now,.05)}}
+function setBgmMode(nextMode){
+ const normalized=nextMode==='battle'?'battle':'menu';
+ if(normalized===bgmMode)return;
+ bgmMode=normalized;bgmStep=0;
+ if(bgmScheduler!==null){clearInterval(bgmScheduler);bgmScheduler=null;}
+ if(bgmSwitchTimer!==null){clearTimeout(bgmSwitchTimer);bgmSwitchTimer=null;}
+ if(!audioCtx||!bgmGain||!bgmEnabled)return;
+ const now=audioCtx.currentTime;bgmGain.gain.cancelScheduledValues(now);bgmGain.gain.setTargetAtTime(0,now,.045);
+ // Leave a short quiet gap so already-scheduled notes from the previous track fade out.
+ bgmSwitchTimer=setTimeout(()=>{bgmSwitchTimer=null;if(bgmEnabled&&audioCtx&&bgmGain)startBGM();},120);
+}
 function soundBus(){if(!audioCtx||!masterGain||!soundEnabled||soundVolume<=0)return null;return audioCtx.currentTime}
 function tone(freq,endFreq,duration,wave='sine',gain=.15,when=0,pan=0){const t=soundBus();if(t===null)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain(),p=audioCtx.createStereoPanner?audioCtx.createStereoPanner():null;const start=t+when;o.type=wave;o.frequency.setValueAtTime(Math.max(20,freq),start);o.frequency.exponentialRampToValueAtTime(Math.max(20,endFreq),start+duration);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(Math.max(.0002,gain),start+.008);g.gain.exponentialRampToValueAtTime(.0001,start+duration);if(p){p.pan.value=Math.max(-1,Math.min(1,pan));o.connect(g);g.connect(p);p.connect(masterGain)}else{o.connect(g);g.connect(masterGain)}o.start(start);o.stop(start+duration+.02)}
 function noise(duration,gain=.12,filterFreq=1400,when=0,pan=0){const t=soundBus();if(t===null)return;const n=Math.max(1,Math.ceil(audioCtx.sampleRate*duration)),buf=audioCtx.createBuffer(1,n,audioCtx.sampleRate),data=buf.getChannelData(0);for(let i=0;i<n;i++)data[i]=(Math.random()*2-1)*(1-i/n);const src=audioCtx.createBufferSource(),f=audioCtx.createBiquadFilter(),g=audioCtx.createGain(),p=audioCtx.createStereoPanner?audioCtx.createStereoPanner():null;const start=t+when;src.buffer=buf;f.type='lowpass';f.frequency.setValueAtTime(filterFreq,start);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(Math.max(.0002,gain),start+.006);g.gain.exponentialRampToValueAtTime(.0001,start+duration);src.connect(f);f.connect(g);if(p){p.pan.value=Math.max(-1,Math.min(1,pan));g.connect(p);p.connect(masterGain)}else g.connect(masterGain);src.start(start);src.stop(start+duration+.02)}
