@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>53sumabura | VER 5.25</title>
+<title>53sumabura | VER 5.26</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 :root{--ink:#071323;--cyan:#60f0ff;--pink:#ff608e;--gold:#ffe29a;--panel:rgba(8,20,39,.84)}
@@ -598,6 +598,13 @@ img, canvas, video, svg { max-width: 100%; }
 .layout-preview-skill{aspect-ratio:1;min-width:0;border-radius:50%;border:1px solid #9eeeffa0;background:rgba(14,34,56,.85);display:flex;align-items:center;justify-content:center;flex-direction:column;line-height:1.05;gap:1px}
 .layout-preview-skill b{font-size:clamp(10px,2vw,20px);font-weight:900}.layout-preview-skill small{font-size:clamp(6px,1vw,9px);font-weight:800}.layout-preview-ultimate{border-color:#ffe29a;background:rgba(75,56,22,.88)}
 .layout-preview-jump{right:3%;bottom:27%;aspect-ratio:1;border-radius:50%;flex-direction:column;gap:0}.layout-preview-jump b{font-size:clamp(16px,3vw,28px);line-height:1}.layout-preview-jump small{font-size:clamp(7px,1.2vw,10px);font-weight:900}
+.layout-preview-story-interact,.layout-preview-story-inventory{box-sizing:border-box;flex-direction:column;gap:2px;padding:2px 3px;border-radius:10px;text-align:center;line-height:1.05;white-space:normal;overflow:hidden}
+.layout-preview-story-interact{left:78%;bottom:24%;border-color:#f0d48b;background:linear-gradient(145deg,rgba(59,53,36,.96),rgba(23,26,22,.96));color:#fff3c3}
+.layout-preview-story-inventory{left:3%;bottom:24%;border-color:#c7d8c7;background:linear-gradient(145deg,rgba(36,54,47,.96),rgba(17,27,25,.96));color:#f2f5e9}
+.layout-preview-story-interact .layout-story-key{display:grid;place-items:center;width:32%;height:33%;min-height:8px;border:1px solid #e7d5a1;border-radius:4px;background:#b6a16a;color:#161a16;font:1000 14px ui-monospace,monospace;line-height:1}
+.layout-preview-story-inventory .layout-story-bag{display:grid;place-items:center;width:33%;height:35%;min-height:8px;border:1px solid #becdbd;border-radius:4px;background:#9eae99;color:#101a16;font:1000 18px/1 ui-sans-serif,sans-serif}
+.layout-preview-story-interact small,.layout-preview-story-inventory small{font-weight:900;max-width:100%;overflow-wrap:anywhere}
+.touch-layout-tool-row button:disabled{opacity:.38;cursor:not-allowed;filter:saturate(.35)}
 .touch-layout-editor-tools{margin-top:12px}.touch-layout-selected-label{font-size:13px;font-weight:900;color:#9defff;margin-bottom:8px}.touch-layout-tool-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:7px 0}.touch-layout-tool-row>span{min-width:64px;color:#b9cede;font-weight:900;font-size:12px}.touch-layout-tool-row button{min-height:36px;padding:7px 12px;border:1px solid #486883;border-radius:7px;background:#102640;color:#e9f8ff;font-size:12px;font-weight:800}.touch-layout-tool-row button.selected{border-color:#8df6ff;color:#061526;background:linear-gradient(100deg,#60f0ff,#a4fff1)}.touch-layout-editor-help{font-size:11px;line-height:1.65;color:#9db5ca;margin:10px 0}.touch-layout-dialog-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.touch-layout-dialog-actions button{flex:1;min-width:130px;min-height:44px}.touch-layout-dialog #touchLayoutModalStatus{font-size:12px;margin-top:8px;padding:9px 10px;line-height:1.6}
 body.touch-layout-editor-open{overflow:hidden}
 @media(max-width:560px){.touch-layout-dialog{padding:10px;border-radius:10px}.touch-layout-dialog-head{gap:6px}.touch-layout-dialog-head h2{font-size:18px}.touch-layout-dialog-head p{font-size:11px}.touch-layout-close{font-size:11px;padding:7px}.touch-layout-preview{min-height:190px;max-height:41dvh}.touch-layout-preview-label{top:24%}.touch-layout-tool-row>span{width:100%}.touch-layout-dialog-actions button{min-width:0}}
@@ -695,7 +702,7 @@ body.touch-layout-editor-open{overflow:hidden}
 /* VER 5.12: cover-before-swap page transitions. The old page is covered first; the new page is revealed afterwards. */
 #pageTransitionFx{position:fixed;inset:0;z-index:99980;overflow:hidden;pointer-events:none;visibility:hidden;opacity:1;contain:strict;display:block}
 #pageTransitionFx:before,#pageTransitionFx:after{content:none!important;display:none!important;animation:none!important}
-#pageTransitionFx .page-curtain{position:absolute;top:-3%;height:106%;width:25.25%;left:calc(var(--curtain-index,0)*25%);opacity:0;transform:translateY(-112%);background:linear-gradient(160deg,#1a3550 0%,#0c1b30 48%,#07101e 100%);border-right:1px solid #8defff20;box-shadow:inset 0 0 30px #5deaff0a;will-change:transform,opacity}
+#pageTransitionFx .page-curtain{position:absolute;top:-3%;height:106%;width:25.26%;left:calc(var(--curtain-index,0)*25%);opacity:0;transform:translateY(-112%);background:linear-gradient(160deg,#1a3550 0%,#0c1b30 48%,#07101e 100%);border-right:1px solid #8defff20;box-shadow:inset 0 0 30px #5deaff0a;will-change:transform,opacity}
 #pageTransitionFx .curtain-1{left:0%;--curtain-delay:0ms}
 #pageTransitionFx .curtain-2{left:25%;--curtain-delay:22ms}
 #pageTransitionFx .curtain-3{left:50%;--curtain-delay:44ms}
@@ -835,7 +842,7 @@ body.touch-layout-editor-open{overflow:hidden}
 <body>
 <div id="app"><div id="startupIntro" role="button" tabindex="0" aria-label="53sumaburaを起動。タップしてスキップ">
  <div class="intro-frame"><i class="intro-corner tl"></i><i class="intro-corner tr"></i><i class="intro-corner bl"></i><i class="intro-corner br"></i>
-  <div class="intro-kicker">FIGHTER SYSTEMS ONLINE · VER 5.25</div>
+  <div class="intro-kicker">FIGHTER SYSTEMS ONLINE · VER 5.26</div>
   <div class="intro-logo">53<span>sumabura</span></div>
   <div class="intro-tagline">READY · SET · FIGHT</div>
   <div class="intro-bar"><span></span></div>
@@ -866,13 +873,13 @@ body.touch-layout-editor-open{overflow:hidden}
   <div class="rank-board-wrap"><table class="rank-board"><thead><tr><th>#</th><th id="rankColPlayer">プレイヤー</th><th id="rankColTier">ランク</th><th id="rankColRP">RP</th></tr></thead><tbody id="rankLeaderboardRows"><tr><td colspan="4">ランキングを読み込み中…</td></tr></tbody></table></div>
  </section>
  <div id="howText" class="footnote" style="display:none;max-width:650px">相手に攻撃を当ててダメージをため、ステージの外へ吹っ飛ばそう。ダメージが高いほど遠くへ飛びやすい！<br><span class="keycap">A</span><span class="keycap">D</span> 移動　<span class="keycap">W</span> ジャンプ　<span class="keycap">J</span> 速攻　<span class="keycap">L</span> 強攻撃　<span class="keycap">K</span> 飛び道具　<span class="keycap">U</span> ダッシュ攻撃　<span class="keycap">S</span> 地面攻撃　<span class="keycap">I</span> ガード<br>2P：<span class="keycap">←</span><span class="keycap">→</span> 移動　<span class="keycap">↑</span> ジャンプ　Enter 速攻　. 強攻撃　Shift 飛び道具　/ ダッシュ　↓ 地面攻撃　0 ガード</div>
- <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 5.25</div>
+ <div class="footnote" id="titleFoot">14 UNIQUE FIGHTERS · 14 ARENAS · CHARACTER-SPECIFIC MOVES<br>MADE TO PLAY IN YOUR BROWSER · VER 5.26</div>
 </section>
 <section id="howScreen" class="screen" aria-labelledby="howPageTitle">
  <div class="how-guide">
   <header class="how-guide-header">
    <button class="secondary-btn how-back-btn" id="howBackBtn" type="button">← タイトルへ戻る</button>
-   <div class="how-guide-kicker">PLAYER MANUAL / PERMANENT EDITION / VER 5.25</div>
+   <div class="how-guide-kicker">PLAYER MANUAL / PERMANENT EDITION / VER 5.26</div>
    <h1 id="howPageTitle">53sumabura <span>遊び方ガイド</span></h1>
    <p>初めて遊ぶ人からオンライン対戦まで。操作・ルール・モード・設定をまとめた保存版マニュアル。</p>
    <div class="how-guide-badges"><span>14 FIGHTERS</span><span>14 ARENAS</span><span>KEYBOARD / TOUCH</span><span>LOCAL / ONLINE</span></div>
@@ -1061,16 +1068,16 @@ body.touch-layout-editor-open{overflow:hidden}
 <section id="resultScreen" class="screen"><div class="result-kicker">BATTLE RESULTS / ROUND 01</div><div class="result-title" id="resultTitle">VICTORY!</div><div class="result-winner" id="resultWinner">ASTRA WINS</div><div class="result-summary" id="resultSummary">最後まで戦い抜いた！</div><div class="result-actions"><button class="primary-btn" id="rematchBtn">REMATCH　↻</button><button class="secondary-btn" id="selectAgainBtn">CHANGE FIGHTERS</button><button class="secondary-btn" id="homeBtn">MAIN MENU</button></div><div class="footnote">53sumabura · VER 5.12 · ORIGINAL BROWSER FIGHTER</div></section>
 <div id="fpsCounter">FPS: 0.0</div>
 <div id="pingCounter" aria-label="オンライン遅延" aria-live="off">PING: -- ms</div>
-<div id="versionBadge" aria-label="ゲームバージョン">VER 5.25</div>
+<div id="versionBadge" aria-label="ゲームバージョン">VER 5.26</div>
 <div id="battleSetupOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="battleSetupTitle">
- <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 5.25</div><h2 id="battleSetupTitle">対戦設定</h2>
+ <div class="custom-overlay-box battle-setup-box"><div class="step">MATCH SETUP / VER 5.26</div><h2 id="battleSetupTitle">対戦設定</h2>
  <p class="shop-lead">通常対戦のモードとCPUの強さを選んでから、キャラクター選択へ進もう。</p>
  <div id="battleSetupControls"></div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="battleSetupCancel">戻る</button><button class="primary-btn" id="battleSetupGo">キャラクター選択へ →</button></div>
  </div>
 </div>
 <div id="shopOverlay" class="custom-overlay" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
- <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 5.25</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモート・キャラの登場演出を購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
+ <div class="custom-overlay-box shop-box"><div class="step">COINS / ITEMS / VER 5.26</div><div class="shop-head"><div><h2 id="shopTitle">ショップ</h2><p class="shop-lead">コインでペット・オーラ・エモート・キャラの登場演出を購入して装備しよう。</p></div><div class="shop-wallet">🪙 <strong id="shopCoinCount">0</strong></div></div>
  <div class="shop-rules-note">🐕 ペットは通常対戦限定。AIランク戦・CPUチャレンジでは使用できません。オーラとエモートは見た目だけで、ランク戦でも使用できます。エモートは V キー。</div>
  <div id="shopItemsGrid" class="shop-items-grid"></div><div id="shopStatus" class="shop-status" aria-live="polite">アイテムを選んでね。</div>
  <div class="custom-overlay-actions"><button class="secondary-btn" id="shopClose">戻る</button></div>
@@ -1117,24 +1124,8 @@ body.touch-layout-editor-open{overflow:hidden}
    <button type="button" class="primary-btn" id="touchLayoutOpenBtn">🎮 戦闘画面でボタン配置を編集</button>
    <div class="settings-auth-status" id="touchLayoutStatus" data-state="neutral" role="status" aria-live="polite">ボタンを押して編集画面を開いてね。配置はこの端末に保存できます。</div>
   </div>
-  <div class="settings-section-title" id="storyButtonPositionTitle">ストーリーモードのボタン位置</div>
-  <p class="language-note" id="storyButtonPositionHelp">ストーリーモードの「拾う」と「インベントリ」をそれぞれ移動できます。スライダーを動かすとすぐに反映され、この端末に保存されます。</p>
-  <div class="story-position-card">
-   <div class="story-position-control">
-    <div class="story-position-heading"><label for="storyInteractXRange">拾うボタン — 左右</label><output id="storyInteractXValue">78%</output></div>
-    <input id="storyInteractXRange" type="range" min="0" max="95" step="1" value="78" aria-label="拾うボタンの左右位置">
-    <div class="story-position-heading"><label for="storyInteractYRange">拾うボタン — 高さ</label><output id="storyInteractYValue">24vh</output></div>
-    <input id="storyInteractYRange" type="range" min="5" max="70" step="1" value="24" aria-label="拾うボタンの高さ">
-   </div>
-   <div class="story-position-control">
-    <div class="story-position-heading"><label for="storyInventoryXRange">インベントリ — 左右</label><output id="storyInventoryXValue">3%</output></div>
-    <input id="storyInventoryXRange" type="range" min="0" max="95" step="1" value="3" aria-label="インベントリボタンの左右位置">
-    <div class="story-position-heading"><label for="storyInventoryYRange">インベントリ — 高さ</label><output id="storyInventoryYValue">24vh</output></div>
-    <input id="storyInventoryYRange" type="range" min="5" max="70" step="1" value="24" aria-label="インベントリボタンの高さ">
-   </div>
-   <div class="story-position-actions"><button type="button" class="secondary-btn" id="storyButtonsPositionReset">標準位置に戻す</button></div>
-   <div class="settings-auth-status" id="storyButtonPositionStatus" data-state="neutral" role="status" aria-live="polite">左右位置と高さをそれぞれ調整できるよ。</div>
-  </div>
+  <div class="settings-section-title" id="storyButtonPositionTitle">ストーリーモードのボタンも同じ画面で配置</div>
+  <p class="language-note" id="storyButtonPositionHelp">上の「戦闘画面でボタン配置を編集」を開くと、プレビューに「拾う／操作」と「インベントリ」も表示されます。ほかの操作ボタンと同じように、指やマウスで直接ドラッグして配置し、「保存して適用」を押してね。</p>
  </div>
  <div class="settings-page" id="settingsAccountPanel" role="tabpanel" hidden>
   <div class="settings-section-title" id="settingsPlayerNameHeading">プレイヤー名</div>
@@ -1184,7 +1175,7 @@ body.touch-layout-editor-open{overflow:hidden}
  <section class="settings-update-card" aria-label="バージョン更新">
   <div><div class="settings-update-title" id="versionUpdateTitle">🔄 バージョン更新</div><div class="settings-update-copy" id="versionUpdateCopy">公開サイトに新しいバージョンがあるか確認します。更新が見つかった場合は再読み込みできます。</div></div>
   <button class="secondary-btn" id="versionUpdateBtn" type="button">更新を確認</button>
-  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 5.25</div>
+  <div class="settings-update-status" id="versionUpdateStatus" data-state="neutral" role="status" aria-live="polite">現在のバージョン：VER 5.26</div>
  </section>
  <div class="setting-actions"><button class="secondary-btn" id="settingsCloseBtn">戻る</button><button class="primary-btn" id="settingsApplyBtn">適用</button></div>
  </div></div>
@@ -1470,7 +1461,7 @@ function scheduleNextGameFrame(){
  };requestAnimationFrame(probe);
 })();
 let cameraXCurrent=0; // Shared camera for all stages; follows the arena center left and right.
-// VER 5.25: Story mode is driven by the same fighter objects, move definitions, collision and renderer as regular battles.
+// VER 5.26: Story mode is driven by the same fighter objects, move definitions, collision and renderer as regular battles.
 let storyModeActive=false, storyWorldWidth=3400, storyCheckpointX=180, storyMissionClearHandler=null, storyMissionClearSent=false;
 let aiRankedMatchActive=false;
 
@@ -4708,7 +4699,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
    <div>
     <div class="touch-layout-dialog-kicker">53SUMABURA · TOUCH SETUP</div>
     <h2 id="touchLayoutModalTitle">戦闘画面でボタン配置</h2>
-    <p>スティック・攻撃ボタン群・ジャンプを指でつかんで好きな場所へ動かしてね。</p>
+    <p>スティック・攻撃・ジャンプに加えて、ストーリーの「拾う／操作」と「インベントリ」も直接ドラッグして配置できるよ。</p>
    </div>
    <button type="button" id="touchLayoutCloseBtn" class="secondary-btn touch-layout-close">閉じる ✕</button>
   </header>
@@ -4736,20 +4727,22 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
      <div class="layout-preview-skill"><b>U</b><small>突進</small></div><div class="layout-preview-skill"><b>S</b><small>地上技</small></div><div class="layout-preview-skill"><b>I</b><small>ガード</small></div><div class="layout-preview-skill layout-preview-ultimate"><b>O</b><small>必殺技</small></div>
     </div>
     <div class="layout-drag-item layout-preview-jump" data-layout-item="jump" tabindex="0" role="button" aria-label="ジャンプボタンをドラッグして配置"><b>⬆</b><small>ジャンプ</small></div>
+    <div class="layout-drag-item layout-preview-story-interact" data-layout-item="storyInteract" tabindex="0" role="button" aria-label="ストーリーの拾う・操作ボタンをドラッグして配置"><b class="layout-story-key">E</b><small>拾う／操作</small></div>
+    <div class="layout-drag-item layout-preview-story-inventory" data-layout-item="storyInventory" tabindex="0" role="button" aria-label="ストーリーのインベントリボタンをドラッグして配置"><b class="layout-story-bag">▤</b><small>インベントリ</small></div>
    </div>
   </div>
   <div class="touch-layout-editor-tools">
    <div class="touch-layout-selected-label" id="touchLayoutSelectedLabel">選択中：移動スティック</div>
    <div class="touch-layout-tool-row"><span>サイズ</span><button type="button" data-layout-size="small">小さめ</button><button type="button" data-layout-size="normal" class="selected">標準</button><button type="button" data-layout-size="large">大きめ</button></div>
    <div class="touch-layout-tool-row"><span>透明度</span><button type="button" data-layout-opacity="low">薄め</button><button type="button" data-layout-opacity="normal" class="selected">標準</button><button type="button" data-layout-opacity="high">はっきり</button></div>
-   <p class="touch-layout-editor-help">配置したい丸い操作パネルを直接ドラッグ。サイズは先にパネルを選んでから変更してね。画面の端に置く場合も、パネル全体が枠内に入るように調整するよ。</p>
+   <p class="touch-layout-editor-help">配置したい操作パネルを直接ドラッグしてね。ストーリーの「拾う／操作」と「インベントリ」もこの画面で移動できます。サイズ変更は移動・攻撃・ジャンプ用のパネルで使えます。</p>
    <div class="touch-layout-dialog-actions"><button type="button" class="primary-btn" id="touchLayoutModalSaveBtn">保存して適用</button><button type="button" class="secondary-btn" id="touchLayoutModalResetBtn">標準配置に戻す</button></div>
-   <div id="touchLayoutModalStatus" class="settings-auth-status" role="status" aria-live="polite">プレビュー上の操作パネルをドラッグしてね。</div>
+   <div id="touchLayoutModalStatus" class="settings-auth-status" role="status" aria-live="polite">プレビュー上の操作パネルをドラッグしてね。ストーリーの「拾う／操作」「インベントリ」もここで配置できます。</div>
   </div>
  </section>
 </div>
 <script>
-// VER 5.2: viewport-matched drag-and-drop touch layout editor.
+// VER 5.26: unified visual touch layout editor, including story pickup and inventory buttons.
 (function(){
  const root=document.getElementById('touchControls');
  const modal=document.getElementById('touchLayoutModal');
@@ -4764,11 +4757,19 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
  const pageStatus=document.getElementById('touchLayoutStatus');
  const storageKey='53sumaburaTouchLayout_v3';
  const priorKeys=['53sumaburaTouchLayout_v2','53sumaburaTouchLayout_v1'];
- const defaults={stickSize:100,stickX:3,stickY:2,skillsSize:100,skillsX:3,skillsY:2,jumpSize:100,jumpX:3,jumpY:27,opacity:90};
+ const storyStorageKey='skybound_story_mobile_button_positions_v525';
+ const legacyStoryStorageKeys=[];
+ const defaults={stickSize:100,stickX:3,stickY:2,skillsSize:100,skillsX:3,skillsY:2,jumpSize:100,jumpX:3,jumpY:27,opacity:90,storyInteractX:78,storyInteractY:24,storyInventoryX:3,storyInventoryY:24};
  let values={...defaults}, saved=false, selected='stick', drag=null, previewScaleX=1, previewScaleY=1, screenW=390, screenH=800;
- const itemEls={stick:preview.querySelector('[data-layout-item="stick"]'),skills:preview.querySelector('[data-layout-item="skills"]'),jump:preview.querySelector('[data-layout-item="jump"]')};
+ const itemEls={
+  stick:preview.querySelector('[data-layout-item="stick"]'),
+  skills:preview.querySelector('[data-layout-item="skills"]'),
+  jump:preview.querySelector('[data-layout-item="jump"]'),
+  storyInteract:preview.querySelector('[data-layout-item="storyInteract"]'),
+  storyInventory:preview.querySelector('[data-layout-item="storyInventory"]')
+ };
  const selectedText=document.getElementById('touchLayoutSelectedLabel');
- const names={stick:'移動スティック',skills:'攻撃ボタン群',jump:'ジャンプボタン'};
+ const names={stick:'移動スティック',skills:'攻撃ボタン群',jump:'ジャンプボタン',storyInteract:'ストーリーの拾う／操作ボタン',storyInventory:'ストーリーのインベントリボタン'};
  const clamp=(v,min,max)=>Math.max(min,Math.min(max,Number(v)||0));
  function getScreenSize(){
   const app=document.getElementById('app');
@@ -4777,27 +4778,55 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   const h=(r&&r.height>0?r.height:window.innerHeight)||800;
   return {w,h};
  }
+ function storyPositionDefaults(w,h){
+  const bottom=h<=450?118:clamp(h*.24,145,220);
+  return {
+   storyInteractX:Math.round(clamp((w-88)/Math.max(1,w)*100,0,95)),
+   storyInteractY:Math.round(bottom/Math.max(1,h)*100),
+   storyInventoryX:Math.round(clamp(12/Math.max(1,w)*100,0,95)),
+   storyInventoryY:Math.round(bottom/Math.max(1,h)*100)
+  };
+ }
+ function maxStoryInteractX(w=screenW){return clamp((w-84)/Math.max(1,w)*100,0,95)}
+ function maxStoryInventoryX(w=screenW){return clamp((w-Math.min(100,w*.26)-8)/Math.max(1,w)*100,0,95)}
+ function readLegacyStoryPositions(){
+  for(const key of [storyStorageKey,...legacyStoryStorageKeys]){
+   try{
+    const p=JSON.parse(localStorage.getItem(key)||'null');
+    if(p&&typeof p==='object')return {storyInteractX:p.ix,storyInteractY:p.iy,storyInventoryX:p.vx,storyInventoryY:p.vy};
+   }catch(_){}
+  }
+  return null;
+ }
  function readStorage(){
+  const {w,h}=getScreenSize();Object.assign(values,storyPositionDefaults(w,h));
+  let raw=null,parsed=null;
   try{
-   let raw=localStorage.getItem(storageKey);
+   raw=localStorage.getItem(storageKey);
    if(!raw){for(const key of priorKeys){raw=localStorage.getItem(key);if(raw)break;}}
-   if(raw){const parsed=JSON.parse(raw);Object.keys(defaults).forEach(k=>{const n=Number(parsed[k]);if(Number.isFinite(n))values[k]=n;});saved=true;}
-  }catch(_){saved=false;values={...defaults};}
+   if(raw){parsed=JSON.parse(raw);if(parsed&&typeof parsed==='object'){Object.keys(defaults).forEach(k=>{const n=Number(parsed[k]);if(Number.isFinite(n)&&parsed[k]!==null)values[k]=n;});saved=true;}}
+  }catch(_){saved=false;values={...defaults,...storyPositionDefaults(w,h)};parsed=null;}
+  const hasIntegratedStory=!!(parsed&&['storyInteractX','storyInteractY','storyInventoryX','storyInventoryY'].some(k=>Number.isFinite(Number(parsed[k]))&&parsed[k]!==null));
+  if(!hasIntegratedStory){const old=readLegacyStoryPositions();if(old){for(const [k,v] of Object.entries(old))if(Number.isFinite(Number(v))&&v!==null)values[k]=Number(v);}}
   sanitize();
  }
  function sizeBase(type,w=screenW,h=screenH){
-  // Keep this identical to the live control pixel sizes; the editor scales these exact sizes.
   if(type==='stick')return w<=390?Math.min(w*.42,150):(h<=450?Math.min(h*.36,145):Math.min(w*.43,184));
   if(type==='skills')return w<=390?Math.min(w*.49,176):(h<=450?Math.min(h*.55,236):Math.min(w*.49,232));
-  return w<=390?60:(h<=450?Math.min(h*.18,62):Math.max(56,Math.min(w*.14,76)));
+  if(type==='jump')return w<=390?60:(h<=450?Math.min(h*.18,62):Math.max(56,Math.min(w*.14,76)));
+  if(type==='storyInteract')return 76;
+  if(type==='storyInventory')return Math.min(100,w*.26);
+  return 60;
  }
  function sanitize(){
   values.stickSize=clamp(values.stickSize,70,150);values.skillsSize=clamp(values.skillsSize,70,135);values.jumpSize=clamp(values.jumpSize,70,140);values.opacity=clamp(values.opacity,35,100);
   values.stickX=clamp(values.stickX,0,78);values.stickY=clamp(values.stickY,0,72);
   values.skillsX=clamp(values.skillsX,0,57);values.skillsY=clamp(values.skillsY,0,55);
   values.jumpX=clamp(values.jumpX,0,88);values.jumpY=clamp(values.jumpY,0,86);
+  values.storyInteractX=clamp(values.storyInteractX,0,maxStoryInteractX());values.storyInteractY=clamp(values.storyInteractY,5,70);
+  values.storyInventoryX=clamp(values.storyInventoryX,0,maxStoryInventoryX());values.storyInventoryY=clamp(values.storyInventoryY,5,70);
  }
- function setVar(n,v){root.style.setProperty(n,v);}
+ function setVar(n,v){root.style.setProperty(n,v)}
  function applyActual(){
   const {w,h}=getScreenSize();
   setVar('--touch-layout-stick-left',values.stickX+'%');setVar('--touch-layout-stick-bottom',values.stickY+'%');setVar('--touch-layout-stick-width',Math.round(sizeBase('stick',w,h)*values.stickSize/100)+'px');
@@ -4809,10 +4838,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   const {w,h}=getScreenSize();screenW=w;screenH=h;
   const wrap=preview.parentElement,wrapRect=wrap.getBoundingClientRect();
   const availableW=Math.max(1,wrapRect.width);
-  let maxH=h*.54;
-  if(w<=560)maxH=h*.41;
-  if(h<=500&&w>h)maxH=h*.56;
-  // Render a scaled replica of the actual app viewport, not a fixed 16:9 mockup.
+  let maxH=h*.54;if(w<=560)maxH=h*.41;if(h<=500&&w>h)maxH=h*.56;
   const scale=Math.min(availableW/w,maxH/h);
   const pw=Math.max(1,w*scale),ph=Math.max(1,h*scale);
   previewScaleX=pw/w;previewScaleY=ph/h;
@@ -4828,69 +4854,67 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
   const liveSkillContainer=root.querySelector('.touch-skills');
   const liveGap=liveSkillContainer?(parseFloat(getComputedStyle(liveSkillContainer).gap)||4):4;
   itemEls.skills.style.gap=(liveGap*previewScaleX)+'px';itemEls.skills.style.padding='0';
-  previewSkills.forEach((el,i)=>{
-   const live=liveSkills[i];if(!live)return;
-   const liveB=live.querySelector('b'),liveSmall=live.querySelector('small'),previewB=el.querySelector('b'),previewSmall=el.querySelector('small');
-   if(liveB&&previewB)previewB.style.fontSize=(parseFloat(getComputedStyle(liveB).fontSize)||18)*previewScaleX+'px';
-   if(liveSmall&&previewSmall)previewSmall.style.fontSize=(parseFloat(getComputedStyle(liveSmall).fontSize)||9)*previewScaleX+'px';
-  });
+  previewSkills.forEach((el,i)=>{const live=liveSkills[i];if(!live)return;const liveB=live.querySelector('b'),liveSmall=live.querySelector('small'),previewB=el.querySelector('b'),previewSmall=el.querySelector('small');if(liveB&&previewB)previewB.style.fontSize=(parseFloat(getComputedStyle(liveB).fontSize)||18)*previewScaleX+'px';if(liveSmall&&previewSmall)previewSmall.style.fontSize=(parseFloat(getComputedStyle(liveSmall).fontSize)||9)*previewScaleX+'px';});
   const pJumpB=itemEls.jump.querySelector('b'),pJumpSmall=itemEls.jump.querySelector('small');
   if(liveJump){const b=liveJump.querySelector('b'),sm=liveJump.querySelector('small');if(b&&pJumpB)pJumpB.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)||27)*previewScaleX+'px';if(sm&&pJumpSmall)pJumpSmall.style.fontSize=(parseFloat(getComputedStyle(sm).fontSize)||10)*previewScaleX+'px';}
+  const interactKey=itemEls.storyInteract.querySelector('.layout-story-key'),interactSmall=itemEls.storyInteract.querySelector('small');
+  const inventoryIcon=itemEls.storyInventory.querySelector('.layout-story-bag'),inventorySmall=itemEls.storyInventory.querySelector('small');
+  if(interactKey)interactKey.style.fontSize=Math.max(7,14*previewScaleX)+'px';if(interactSmall)interactSmall.style.fontSize=Math.max(6,11*previewScaleX)+'px';
+  if(inventoryIcon)inventoryIcon.style.fontSize=Math.max(8,18*previewScaleX)+'px';if(inventorySmall)inventorySmall.style.fontSize=Math.max(6,10*previewScaleX)+'px';
+ }
+ function refreshToolSelection(){
+  const sizeKey=selected+'Size',sizeMap={small:80,normal:100,large:125};
+  const storySelected=selected==='storyInteract'||selected==='storyInventory';
+  document.querySelectorAll('[data-layout-size]').forEach(b=>{b.disabled=storySelected;b.classList.toggle('selected',!storySelected&&sizeMap[b.dataset.layoutSize]===values[sizeKey]);});
+  const opacityMap={low:50,normal:90,high:100},o=Object.keys(opacityMap).find(k=>opacityMap[k]===values.opacity);
+  document.querySelectorAll('[data-layout-opacity]').forEach(b=>b.classList.toggle('selected',opacityMap[b.dataset.layoutOpacity]===values.opacity));
  }
  function applyPreview(){
   sanitize();if(!modal.hidden)updatePreviewGeometry();
   itemEls.stick.style.left=values.stickX+'%';itemEls.stick.style.bottom=values.stickY+'%';itemEls.stick.style.width=(sizeBase('stick',screenW,screenH)*previewScaleX*values.stickSize/100)+'px';
   itemEls.skills.style.right=values.skillsX+'%';itemEls.skills.style.bottom=values.skillsY+'%';itemEls.skills.style.width=(sizeBase('skills',screenW,screenH)*previewScaleX*values.skillsSize/100)+'px';
   itemEls.jump.style.right=values.jumpX+'%';itemEls.jump.style.bottom=values.jumpY+'%';itemEls.jump.style.width=(sizeBase('jump',screenW,screenH)*previewScaleX*values.jumpSize/100)+'px';
+  itemEls.storyInteract.style.left=values.storyInteractX+'%';itemEls.storyInteract.style.bottom=values.storyInteractY+'%';itemEls.storyInteract.style.right='auto';itemEls.storyInteract.style.width=(sizeBase('storyInteract',screenW,screenH)*previewScaleX)+'px';itemEls.storyInteract.style.height=((screenH<=450?54:62)*previewScaleY)+'px';
+  itemEls.storyInventory.style.left=values.storyInventoryX+'%';itemEls.storyInventory.style.bottom=values.storyInventoryY+'%';itemEls.storyInventory.style.right='auto';itemEls.storyInventory.style.width=(sizeBase('storyInventory',screenW,screenH)*previewScaleX)+'px';itemEls.storyInventory.style.height=((screenH<=450?52:60)*previewScaleY)+'px';
   preview.style.setProperty('--layout-preview-opacity',String(clamp(values.opacity/100,.35,1)));
   Object.entries(itemEls).forEach(([key,el])=>el.classList.toggle('is-selected',key===selected));
   if(selectedText)selectedText.textContent='選択中：'+names[selected];
   refreshToolSelection();setScaledPreviewText();
  }
- function refreshToolSelection(){
-  const sizeKey=selected+'Size',sizeMap={small:80,normal:100,large:125};
-  document.querySelectorAll('[data-layout-size]').forEach(b=>b.classList.toggle('selected',sizeMap[b.dataset.layoutSize]===values[sizeKey]));
-  const opacityMap={low:50,normal:90,high:100},o=Object.keys(opacityMap).find(k=>opacityMap[k]===values.opacity);
-  document.querySelectorAll('[data-layout-opacity]').forEach(b=>b.classList.toggle('selected',b.dataset.layoutOpacity===o));
- }
  function setStatus(t,state='neutral'){if(statusEl){statusEl.textContent=t;statusEl.dataset.state=state;}if(pageStatus){pageStatus.textContent=t;pageStatus.dataset.state=state;}}
- function captureBattleImage(){
-  const canvas=document.getElementById('gameCanvas');image.hidden=true;image.removeAttribute('src');preview.classList.remove('has-battle-image');
-  if(canvas&&canvas.width>0&&canvas.height>0){try{const data=canvas.toDataURL('image/png');if(data&&data.length>6000){image.onload=()=>{image.hidden=false;preview.classList.add('has-battle-image');};image.src=data;}}catch(_){}}
- }
- function openEditor(){captureBattleImage();if(window.SKYBOUND_OPEN_OVERLAY_ANIMATED)window.SKYBOUND_OPEN_OVERLAY_ANIMATED(modal);else modal.hidden=false;selected='stick';document.body.classList.add('touch-layout-editor-open');requestAnimationFrame(()=>{updatePreviewGeometry();applyPreview();setStatus('プレビューは実際の画面と同じ縦横比・操作ボタンサイズです。ドラッグして位置を調整してね。');});}
+ function captureBattleImage(){image.hidden=true;image.removeAttribute('src');preview.classList.remove('has-battle-image');const canvas=document.getElementById('gameCanvas');if(canvas&&canvas.width>0&&canvas.height>0){try{const data=canvas.toDataURL('image/png');if(data&&data.length>6000){image.onload=()=>{image.hidden=false;preview.classList.add('has-battle-image');};image.src=data;}}catch(_){}}}
+ function openEditor(){captureBattleImage();if(window.SKYBOUND_OPEN_OVERLAY_ANIMATED)window.SKYBOUND_OPEN_OVERLAY_ANIMATED(modal);else modal.hidden=false;selected='stick';document.body.classList.add('touch-layout-editor-open');requestAnimationFrame(()=>{updatePreviewGeometry();applyPreview();setStatus('5種類のボタンをプレビュー上でドラッグして配置できます。ストーリーの2ボタンも同じ画面で調整できるよ。');});}
  function closeEditor(){if(window.SKYBOUND_CLOSE_OVERLAY_ANIMATED)window.SKYBOUND_CLOSE_OVERLAY_ANIMATED(modal);else modal.hidden=true;document.body.classList.remove('touch-layout-editor-open');drag=null;}
- if(openBtn)openBtn.addEventListener('click',openEditor);
- if(closeBtn)closeBtn.addEventListener('click',closeEditor);
- modal.addEventListener('click',e=>{if(e.target===modal)closeEditor();});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)closeEditor();});
+ if(openBtn)openBtn.addEventListener('click',openEditor);if(closeBtn)closeBtn.addEventListener('click',closeEditor);
+ modal.addEventListener('click',e=>{if(e.target===modal)closeEditor()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)closeEditor()});
  function pickItem(target){const el=target.closest('[data-layout-item]');return el&&preview.contains(el)?el:null;}
- preview.addEventListener('pointerdown',e=>{
-  const el=pickItem(e.target);if(!el)return;e.preventDefault();selected=el.dataset.layoutItem;const rect=preview.getBoundingClientRect();
-  drag={key:selected,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,startValues:{...values},w:rect.width,h:rect.height};
-  try{el.setPointerCapture(e.pointerId);}catch(_){}applyPreview();setStatus('移動中：指を離すと位置が決まります。');
- });
+ preview.addEventListener('pointerdown',e=>{const el=pickItem(e.target);if(!el)return;e.preventDefault();selected=el.dataset.layoutItem;const rect=preview.getBoundingClientRect();drag={key:selected,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,startValues:{...values},w:rect.width,h:rect.height};try{el.setPointerCapture(e.pointerId)}catch(_){}applyPreview();setStatus('移動中：指を離すと位置が決まります。');});
  window.addEventListener('pointermove',e=>{
   if(!drag||e.pointerId!==drag.pointerId)return;
   const dx=(e.clientX-drag.startX)/Math.max(1,drag.w)*100,dy=(e.clientY-drag.startY)/Math.max(1,drag.h)*100;
   const k=drag.key,v=drag.startValues;
-  if(k==='stick'){values.stickX=clamp(v.stickX+dx,0,77);values.stickY=clamp(v.stickY-dy,0,72);}
-  else if(k==='skills'){values.skillsX=clamp(v.skillsX-dx,0,56);values.skillsY=clamp(v.skillsY-dy,0,54);}
-  else{values.jumpX=clamp(v.jumpX-dx,0,87);values.jumpY=clamp(v.jumpY-dy,0,85);}
+  if(k==='stick'){values.stickX=clamp(v.stickX+dx,0,77);values.stickY=clamp(v.stickY-dy,0,72)}
+  else if(k==='skills'){values.skillsX=clamp(v.skillsX-dx,0,56);values.skillsY=clamp(v.skillsY-dy,0,54)}
+  else if(k==='jump'){values.jumpX=clamp(v.jumpX-dx,0,87);values.jumpY=clamp(v.jumpY-dy,0,85)}
+  else if(k==='storyInteract'){values.storyInteractX=clamp(v.storyInteractX+dx,0,maxStoryInteractX());values.storyInteractY=clamp(v.storyInteractY-dy,5,70)}
+  else if(k==='storyInventory'){values.storyInventoryX=clamp(v.storyInventoryX+dx,0,maxStoryInventoryX());values.storyInventoryY=clamp(v.storyInventoryY-dy,5,70)}
   applyPreview();
  },{passive:false});
- function endDrag(e){if(drag&&(!e||e.pointerId===drag.pointerId)){drag=null;setStatus('位置を調整したよ。保存すると実際の対戦画面にも同じ比率・サイズで反映されます。');}}
+ function endDrag(e){if(drag&&(!e||e.pointerId===drag.pointerId)){drag=null;setStatus('位置を調整したよ。保存して適用すると、ストーリーの2ボタンも同じ配置で使えます。')}}
  window.addEventListener('pointerup',endDrag);window.addEventListener('pointercancel',endDrag);
- Object.values(itemEls).forEach(el=>el.addEventListener('click',()=>{selected=el.dataset.layoutItem;applyPreview();}));
- document.querySelectorAll('[data-layout-size]').forEach(b=>b.addEventListener('click',()=>{selected=selected||'stick';const map={small:80,normal:100,large:125};values[selected+'Size']=map[b.dataset.layoutSize]||100;applyPreview();setStatus(names[selected]+'のサイズを変更したよ。');}));
- document.querySelectorAll('[data-layout-opacity]').forEach(b=>b.addEventListener('click',()=>{const map={low:50,normal:90,high:100};values.opacity=map[b.dataset.layoutOpacity]||90;applyPreview();setStatus('操作ボタンの透明度を変更したよ。');}));
- if(saveBtn)saveBtn.addEventListener('click',()=>{sanitize();applyActual();try{localStorage.setItem(storageKey,JSON.stringify(values));priorKeys.forEach(k=>localStorage.removeItem(k));saved=true;setStatus('タッチ操作レイアウトを保存したよ！','success');closeEditor();}catch(_){setStatus('保存できませんでした。ブラウザの保存設定を確認してね。','error');}});
- if(resetBtn)resetBtn.addEventListener('click',()=>{values={...defaults};selected='stick';applyPreview();applyActual();try{localStorage.removeItem(storageKey);priorKeys.forEach(k=>localStorage.removeItem(k));}catch(_){}saved=false;setStatus('標準配置に戻したよ。','success');});
- window.addEventListener('resize',()=>{const {w,h}=getScreenSize();screenW=w;screenH=h;if(saved)applyActual();if(!modal.hidden){updatePreviewGeometry();applyPreview();}},{passive:true});
- window.addEventListener('orientationchange',()=>setTimeout(()=>{const {w,h}=getScreenSize();screenW=w;screenH=h;if(saved)applyActual();if(!modal.hidden){updatePreviewGeometry();applyPreview();}},150),{passive:true});
+ Object.values(itemEls).forEach(el=>el.addEventListener('click',()=>{selected=el.dataset.layoutItem;applyPreview()}));
+ document.querySelectorAll('[data-layout-size]').forEach(b=>b.addEventListener('click',()=>{if(selected==='storyInteract'||selected==='storyInventory')return;const map={small:80,normal:100,large:125};values[selected+'Size']=map[b.dataset.layoutSize]||100;applyPreview();setStatus(names[selected]+'のサイズを変更したよ。')}));
+ document.querySelectorAll('[data-layout-opacity]').forEach(b=>b.addEventListener('click',()=>{const map={low:50,normal:90,high:100};values.opacity=map[b.dataset.layout-opacity]||90;applyPreview();setStatus('操作ボタンの透明度を変更したよ。')}));
+ function applyStoryPositionsAndPersist(){
+  const p={ix:values.storyInteractX,iy:values.storyInteractY,vx:values.storyInventoryX,vy:values.storyInventoryY};
+  try{const api=window.SKYBOUND_STORY_MOBILE_BUTTON_POSITIONS;if(api&&typeof api.set==='function')api.set(p);else localStorage.setItem(storyStorageKey,JSON.stringify(p));}catch(_){try{localStorage.setItem(storyStorageKey,JSON.stringify(p))}catch(__){}}
+ }
+ if(saveBtn)saveBtn.addEventListener('click',()=>{sanitize();applyActual();try{localStorage.setItem(storageKey,JSON.stringify(values));priorKeys.forEach(k=>localStorage.removeItem(k));saved=true;applyStoryPositionsAndPersist();setStatus('タッチ操作とストーリーボタンの配置を保存したよ！','success');closeEditor();}catch(_){setStatus('保存できませんでした。ブラウザの保存設定を確認してね。','error')}});
+ if(resetBtn)resetBtn.addEventListener('click',()=>{const {w,h}=getScreenSize();values={...defaults,...storyPositionDefaults(w,h)};selected='stick';sanitize();applyPreview();applyActual();try{localStorage.removeItem(storageKey);priorKeys.forEach(k=>localStorage.removeItem(k));}catch(_){}saved=false;applyStoryPositionsAndPersist();setStatus('5つのボタンを標準位置に戻したよ。','success')});
+ window.addEventListener('resize',()=>{const {w,h}=getScreenSize();screenW=w;screenH=h;sanitize();if(saved)applyActual();if(!modal.hidden){updatePreviewGeometry();applyPreview()}},{passive:true});
+ window.addEventListener('orientationchange',()=>setTimeout(()=>{const {w,h}=getScreenSize();screenW=w;screenH=h;sanitize();if(saved)applyActual();if(!modal.hidden){updatePreviewGeometry();applyPreview()}},150),{passive:true});
  readStorage();const {w,h}=getScreenSize();screenW=w;screenH=h;applyPreview();if(saved)applyActual();
-})();
-</script>
+})();</script>
 
 
 <script>
@@ -4909,7 +4933,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 <div id="versusIntro" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="対戦開始キャラクター紹介">
  <div class="versus-bg"></div><div class="versus-stripes"></div><div class="versus-flash"></div>
  <div class="versus-frame">
-  <div class="versus-topline"><div class="versus-brand">53<span>SUMABURA</span></div><div id="versusModeLabel">FIGHTER SHOWDOWN</div><div>VER 5.25</div></div>
+  <div class="versus-topline"><div class="versus-brand">53<span>SUMABURA</span></div><div id="versusModeLabel">FIGHTER SHOWDOWN</div><div>VER 5.26</div></div>
   <div class="versus-roster" id="versusRoster" data-count="2" aria-live="off"></div>
   <div class="versus-title" id="versusTitleText" aria-hidden="true">VS</div>
   <div class="versus-footer"><span id="versusFooterText">CHARACTERS LOCKED IN</span><span class="versus-start-tag">GET READY　⚡</span></div>
@@ -5025,7 +5049,7 @@ body.story-engine-active #versionBadge{display:none!important}
 <div id="storyModeRoot" aria-label="53sumabura ストーリーモード">
  <div class="story-wrap">
   <div class="story-top">
-   <div><div class="story-kicker">53SUMABURA · STORY CAMPAIGN · VER 5.25</div><div class="story-heading">最後の約束</div><div class="story-sub">誘拐された親戚ユウを捜し、雨の現代都市を横断する約1時間の探索アクション。冒頭・中盤・ラストにシネマティックムービー。従来の日本語合成音声で台詞を読み上げ、追加のカセットテープは拾うと自動再生。インベントリから選べば何度でも聞き直せる。雨・風・設備音と静かな環境音楽が場所ごとに変化。主人公は対戦キャラ選択の上から3人。</div></div>
+   <div><div class="story-kicker">53SUMABURA · STORY CAMPAIGN · VER 5.26</div><div class="story-heading">最後の約束</div><div class="story-sub">誘拐された親戚ユウを捜し、雨の現代都市を横断する約1時間の探索アクション。冒頭・中盤・ラストにシネマティックムービー。従来の日本語合成音声で台詞を読み上げ、追加のカセットテープは拾うと自動再生。インベントリから選べば何度でも聞き直せる。雨・風・設備音と静かな環境音楽が場所ごとに変化。主人公は対戦キャラ選択の上から3人。</div></div>
    <button class="story-btn" id="storyBackHome">← メインメニュー</button>
   </div>
   <h2 style="font-size:21px;margin:0 0 6px">主人公を選択</h2>
@@ -5049,7 +5073,7 @@ body.story-engine-active #versionBadge{display:none!important}
 .story-player-health-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;font:800 11px system-ui,sans-serif;letter-spacing:.05em}.story-player-health-head strong{font:900 11px ui-monospace,monospace;color:#effff4}.story-player-health-track{height:9px;overflow:hidden;border:1px solid #ffffff5c;border-radius:2px;background:#101416;box-shadow:inset 0 1px 3px #0009}.story-player-health-fill{height:100%;background:linear-gradient(90deg,#36b879,#8bf0b9);box-shadow:0 0 8px #68dda077;transition:width .12s linear,background .12s linear}
 #storyClearFlash{display:none!important}
 #storyInteractionHint{position:fixed;z-index:100050;left:50%;bottom:82px;transform:translateX(-50%);display:none;padding:11px 18px;border:1px solid #d4bd77;border-radius:7px;background:rgba(7,12,15,.9);color:#fff0bd;font:900 15px system-ui;letter-spacing:.06em;box-shadow:0 0 20px #0009;pointer-events:none}
-/* v5.25: movable story-mode mobile action buttons, controlled from Settings > Mobile */
+/* v5.26: movable story-mode mobile action buttons, controlled from Settings > Mobile */
 .story-position-card{padding:14px;border:1px solid #ffffff20;border-radius:10px;background:#061425a8;margin-top:10px;display:grid;gap:14px}
 .story-position-control{display:grid;gap:7px;padding:10px;border:1px solid #ffffff12;border-radius:8px;background:#02091566}
 .story-position-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;font-weight:800;color:#eef5f1}
@@ -5406,6 +5430,17 @@ html.mobile-mode body.story-engine-active #storyMobileInventoryBtn{display:flex!
  function update(k,v){values[k]=clamp(v,k==='iy'||k==='vy'?5:0,k==='iy'||k==='vy'?70:95);apply();persist();setStatus('ボタン位置を保存したよ。ストーリーモードで確認してね。')}
  for(const k of Object.keys(ids)){const input=getButton(ids[k]);if(input){input.addEventListener('input',()=>update(k,input.value));input.addEventListener('change',()=>update(k,input.value));}}
  const reset=getButton('storyButtonsPositionReset');if(reset)reset.addEventListener('click',()=>{values=defaultValues();apply();persist();setStatus('2つのボタンを標準位置に戻したよ。')});
+ // Shared API used by the unified battle-screen drag editor. Values stay synced with the legacy save key.
+ window.SKYBOUND_STORY_MOBILE_BUTTON_POSITIONS={
+  get(){return {...values}},
+  set(next){
+   if(next&&typeof next==='object'){
+    for(const k of Object.keys(values))if(Number.isFinite(Number(next[k])))values[k]=clamp(next[k],k==='iy'||k==='vy'?5:0,k==='iy'||k==='vy'?70:95);
+   }
+   apply();persist();return {...values};
+  },
+  reset(){values=defaultValues();apply();persist();return {...values};}
+ };
  apply();
  // Keep button locations within the viewport after rotating the phone / resizing the browser.
  window.addEventListener('resize',()=>{apply()},{passive:true});
