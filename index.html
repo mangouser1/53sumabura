@@ -1459,7 +1459,7 @@ function scheduleNextGameFrame(){
  };requestAnimationFrame(probe);
 })();
 let cameraXCurrent=0; // Shared camera for all stages; follows the arena center left and right.
-// VER 5.50: Story mode is driven by the same fighter objects, move definitions, collision and renderer as regular battles.
+// VER 5.51: Story mode is driven by the same fighter objects, move definitions, collision and renderer as regular battles.
 let storyModeActive=false, storyWorldWidth=3400, storyCheckpointX=180, storyMissionClearHandler=null, storyMissionClearSent=false;
 let aiRankedMatchActive=false;
 
@@ -5434,7 +5434,7 @@ renderDifficulty();renderChars();renderStages();fillAIRoomSelectors();
 </section>
 </div>
 <script>
-// VER 5.50: unified visual touch layout editor, including story pickup and inventory buttons.
+// VER 5.51: unified visual touch layout editor, including story pickup and inventory buttons.
 (function(){
  const root=document.getElementById('touchControls');
  const modal=document.getElementById('touchLayoutModal');
@@ -6600,14 +6600,29 @@ html.mobile-mode body.story-engine-active #storyMobileInventoryBtn{display:flex!
  }
  function cancelCueVoice(){if(cueSafetyTimer){clearTimeout(cueSafetyTimer);cueSafetyTimer=0;}cueSpeaking=false;try{window.speechSynthesis?.cancel?.()}catch(_){}}
  function setCueSubtitle(index,lineText){lastCue=index;subtitle.textContent=lineText;subtitle.classList.add('show');if(index===0&&kind!=='opening')title.textContent=scenes[kind].title;}
+ function estimateCueMs(line){
+  const text=String(line||'').replace(/^[^：「]+：「/,'').replace(/」$/,'').replace(/[。、！？…「」]/g,'');
+  // Japanese browser voices vary, so leave a small safety margin after each line.
+  return Math.max(1500,Math.ceil(text.length*165+650));
+ }
+ function prepareSynchronizedScene(scene){
+  const original=scene.cues.map(c=>[c[0],c[1]]);let previousEnd=0;
+  scene.cues=original.map((cue,i)=>{
+   const start=Math.max(cue[0],previousEnd);
+   previousEnd=start+estimateCueMs(cue[1]);
+   return [start,cue[1]];
+  });
+  scene._originalDuration=scene.duration;
+  scene.duration=Math.max(scene.duration,previousEnd+500);
+ }
  function updateCue(elapsed){const cueList=scenes[kind].cues;const canSpeak=!(typeof soundEnabled!=='undefined'&&!soundEnabled)&&!(typeof soundVolume!=='undefined'&&soundVolume<=0)&&!!window.speechSynthesis&&typeof window.SpeechSynthesisUtterance==='function';
   if(!canSpeak){let index=-1;for(let i=0;i<cueList.length;i++)if(elapsed>=cueList[i][0])index=i;if(index!==lastCue&&index>=0){cueIndex=index+1;setCueSubtitle(index,cueList[index][1]);}if(elapsed<cueList[0][0])subtitle.classList.remove('show');return;}
   if(cueIndex<cueList.length&&!cueSpeaking&&elapsed>=cueList[cueIndex][0]){const index=cueIndex++,lineText=cueList[index][1],token=sceneToken;setCueSubtitle(index,lineText);if(!speakCue(lineText,kind,index,token))cueSpeaking=false;}
  }
  window.speechSynthesis?.addEventListener?.('voiceschanged',()=>{if(active)japaneseVoiceFor('narrator')});
- function tick(now){if(!active)return;const elapsed=now-startedAt,scene=scenes[kind],phase=Math.max(0,Math.min(1,elapsed/duration));drawCinematic(kind,elapsed/1000,phase);updateCue(elapsed);progress.style.width=(phase*100)+'%';if(elapsed>=duration&&cueIndex>=scene.cues.length&&!cueSpeaking){finish();return}raf=requestAnimationFrame(tick)}
+ function tick(now){if(!active)return;const elapsed=now-startedAt,scene=scenes[kind],phase=Math.max(0,Math.min(1,elapsed/duration));const originalDuration=scene._originalDuration||duration;const visualElapsed=elapsed*(originalDuration/duration);drawCinematic(kind,visualElapsed/1000,phase);updateCue(elapsed);progress.style.width=(phase*100)+'%';if(elapsed>=duration&&cueIndex>=scene.cues.length&&!cueSpeaking){finish();return}raf=requestAnimationFrame(tick)}
  function finish(){if(!active)return;try{const key='53sumabura_story_seen_films_v1',seen=JSON.parse(localStorage.getItem(key)||'{}');seen[kind]=true;localStorage.setItem(key,JSON.stringify(seen));window.dispatchEvent(new CustomEvent('skybound-story-film-seen',{detail:{key:kind}}));}catch(_){}active=false;sceneToken++;cancelAnimationFrame(raf);cancelCueVoice();root.classList.remove('active');subtitle.classList.remove('show');if(done){const cb=done;done=null;cb()}}
- function play(which,onDone){if(!scenes[which]){onDone?.();return}if(active)finish();sceneToken++;cancelCueVoice();kind=which;duration=scenes[which].duration;startedAt=performance.now();mallShootPresses=0;active=true;lastCue=-1;cueIndex=0;cueSpeaking=false;done=onDone||null;endingCalled=false;eyebrow.textContent='53SUMABURA · '+scenes[which].name;title.textContent=scenes[which].title;subtitle.textContent='';subtitle.classList.remove('show');progress.style.width='0%';root.classList.add('active');raf=requestAnimationFrame(tick)}
+ function play(which,onDone){if(!scenes[which]){onDone?.();return}if(active)finish();sceneToken++;cancelCueVoice();kind=which;const scene=scenes[which];if(scene._originalDuration){scene.duration=scene._originalDuration;scene.cues=scene._baseCues.map(c=>[c[0],c[1]])}else scene._baseCues=scene.cues.map(c=>[c[0],c[1]]);scene.duration=scene._originalDuration||scene.duration;prepareSynchronizedScene(scene);duration=scene.duration;startedAt=performance.now();mallShootPresses=0;active=true;lastCue=-1;cueIndex=0;cueSpeaking=false;done=onDone||null;endingCalled=false;eyebrow.textContent='53SUMABURA · '+scene.name;title.textContent=scene.title;subtitle.textContent='';subtitle.classList.remove('show');progress.style.width='0%';root.classList.add('active');raf=requestAnimationFrame(tick)}
  function resize(){const w=Math.max(1,Math.floor(window.innerWidth)),h=Math.max(1,Math.floor(window.innerHeight));canvas.width=1280;canvas.height=720;canvas.style.width=w+'px';canvas.style.height=h+'px'}
  skip.addEventListener('click',finish);window.addEventListener('resize',resize);resize();window.SKYBOUND_STORY_CINEMATICS={play,skip:finish,isActive:()=>active,getSceneList:()=>Object.entries(scenes).map(([key,scene])=>({key,title:scene.title,name:scene.name,duration:scene.duration}))};
  window.addEventListener('keydown',e=>{if(!active)return;const elapsed=(performance.now()-startedAt)/1000;const key=String(e.key||'').toLowerCase();if(kind==='mallMiniBoss'&&elapsed>=8.7&&elapsed<=18.5&&(key==='l'||key==='j'||key===' '||e.code==='Space'||key==='enter')){mallShootPresses++;e.preventDefault();e.stopImmediatePropagation();return;}if(['space','enter','escape'].includes(key===' '? 'space':key)||e.code==='Space'||e.key==='Escape'){e.preventDefault();e.stopPropagation();finish();}},true);
